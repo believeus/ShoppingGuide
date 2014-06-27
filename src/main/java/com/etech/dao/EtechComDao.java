@@ -1,24 +1,15 @@
 package com.etech.dao;
 
-import java.lang.reflect.Method;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
-
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.BooleanClause.Occur;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.util.Version;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -29,15 +20,11 @@ import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.junit.Assert;
-import org.springframework.beans.BeanUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ReflectionUtils;
 import org.wltea.analyzer.lucene.IKAnalyzer;
-
-import com.etech.entity.TdataCenter;
 
 @Repository
 public class EtechComDao extends HibernateDaoSupport {
@@ -310,45 +297,9 @@ public class EtechComDao extends HibernateDaoSupport {
 		}
 		fullTextQuery.setFirstResult(perCount * (currentPage - 1));
 		fullTextQuery.setMaxResults(perCount);
-		
-		List<TdataCenter> list = (List<TdataCenter>) fullTextQuery.list();
-		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<font color='red'>", "</font>");
-		QueryScorer queryScorer = new QueryScorer(booleanQuery);
-		Highlighter highlighter = new Highlighter(formatter, queryScorer);
-		Analyzer analyzer = new IKAnalyzer();
-		List<TdataCenter> highlightResult=new ArrayList<TdataCenter>();
-		for (TdataCenter dataCenter : list) {
-			TdataCenter data=null;
-			try {
-				data = (TdataCenter) dataCenter.clone();
-				highlightResult.add(data);
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
-			for (String fieldName : properties) {
-				// 运用反射得到具体的标题内容
-				Method method = BeanUtils.getPropertyDescriptor(clazz, fieldName).getReadMethod();
-				Object fieldValue = ReflectionUtils.invokeMethod(method, data);
-				String hightLightFieldValue = null;
-				if (fieldValue instanceof String) {
-					try {
-						// 获得高亮关键字
-						hightLightFieldValue = highlighter.getBestFragment(analyzer, fieldName,ObjectUtils.toString(fieldValue));
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-					// 这个判断很关键，否则如果标题或内容中没有关键字的话，就会出现不显示的问题。
-					if (hightLightFieldValue != null) {
-						// 运用反射设置结果集中的关键字高亮
-						method = BeanUtils.getPropertyDescriptor(clazz, fieldName).getWriteMethod();
-						ReflectionUtils.invokeMethod(method, data,hightLightFieldValue); 
-						//setField(ReflectionUtils.findField(searchResultClass,fieldName), e,hightLightFieldValue);
-					}
-				}
-			}
-		}
-		tx.commit();
-		return highlightResult;
+		 List list = fullTextQuery.list();
+		 tx.commit();
+		 return list;
 	}
 	/* End Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成全文搜索 */
 
