@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd"
+	default-lazy-init="true">
+
+	<!-- 使用方法 MemCachedClient mc = (MemCachedClient)context.getBean("memcachedClient"); 
+		mc.set("name", "wuqiwei"); -->
+	<!-- end Name:wuqiwei Data:2013-4-20 11:52:43 配置mencached 单独使用 -->
+
+	<!--Begin Name:wuqiwei Data:2013-10-2 23:11:57 AddReason:encached 内部缓存系统 -->
+	<!--spring对ehcache的缓存工厂支持,指定encache的配置文件所在地和相关设置-->
+	<!-- spring 使用缓存annotation 配置-->
+	<cache:annotation-driven cache-manager="cacheManager" />
+	<!--spring对ehcache的缓存工厂支持,指定encache的配置文件所在地和相关设置-->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:/ehcache.xml" />
+		<property name="shared" value="true" />
+	</bean>
+	<!-- spring对ehcache的缓存管理 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<!--End Name:wuqiwei Data:2013-10-2 23:11:57 AddReason:encached 内部缓存系统 -->
+	<!-- Ehcache基本用法 
+	     CacheManager cacheManager = CacheManager.create(); // 或者 
+	     cacheManager = CacheManager.getInstance(); // 或者 
+	     cacheManager = CacheManager.create("/config/ehcache.xml"); // 或者 
+	     cacheManager = CacheManager.create("http://localhost:8080/test/ehcache.xml"); 
+		 cacheManager = CacheManager.newInstance("/config/ehcache.xml"); // ....... 
+		 // 获取ehcache配置文件中的一个
+		 cache Cache sample = cacheManager.getCache("sample"); 
+		 // 获取页面缓存 
+		 BlockingCache cache = new BlockingCache(cacheManager.getEhcache("SimplePageCachingFilter")); 
+		 // 添加数据到缓存中 
+		 Element element = new Element("key", "val"); sample.put(element); 
+		 // 获取缓存中的对象，注意添加到cache中对象要序列化 实现Serializable接口 
+		 Element result = sample.get("key"); 
+		// 删除缓存 
+		 sample.remove("key"); sample.removeAll(); 
+		 // 获取缓存管理器中的缓存配置名称 
+		 for (String cacheName : cacheManager.getCacheNames()) { System.out.println(cacheName); } 
+		 // 获取所有的缓存对象 
+		 for (Object key : cache.getKeys()) { System.out.println(key); } 
+		 // 得到缓存中的对象数 
+		 cache.getSize(); 
+		 // 得到缓存对象占用内存的大小 
+		 cache.getMemoryStoreSize(); 
+		// 得到缓存读取的命中次数 
+		cache.getStatistics().getCacheHits(); 
+		// 得到缓存读取的错失次数 
+		cache.getStatistics().getCacheMisses();
+		-->
+</beans>

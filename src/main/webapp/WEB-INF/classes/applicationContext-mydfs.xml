@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	 http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!-- Begin Name:wuqiwei Data:2014-6-2 01:46:37 初始化自己的分布式文件管理系统服务端 -->
+	<!-- Spring 容器一启动启动服务 -->
+	<bean id="mydfsStorageServer" class="mydfs.storage.server.MydfsStorageServer" 
+		lazy-init="false" init-method="startServer" 
+		destroy-method="stopServer">
+		<property name="host" value="127.0.0.1"/>
+		<property name="port" value="9999"/>
+		<property name="workers" value="10"/>
+		<property name="basepath" value="/data/mydfs/store"/>
+	</bean>
+	<!-- End Name:wuqiwei Data:2014-6-2 01:46:37 初始化自己的分布式文件管理系统服务端-->
+	
+	<!-- Begin Name:wuqiwei Data:2014-6-2 01:46:37 初始化自己的分布式文件管理系统客户端,每次获取都是一个新对象-->
+	<bean id="mydfsTrackerServer" class="mydfs.storage.server.MydfsTrackerServer" scope="prototype">
+		<property name="host" value="127.0.0.1"/>
+		<property name="port" value="9999"/>
+		<property name="mydfsStorageServer" ref="mydfsStorageServer"/>
+	</bean>
+	<!-- End Name:wuqiwei Data:2014-6-2 01:46:37 初始化自己的分布式文件管理系统客户端,每次获取都是一个新对象-->
+</beans>
