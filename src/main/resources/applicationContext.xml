@@ -28,7 +28,6 @@
 	<import resource="applicationContext-datasource.xml"/>
 	<import resource="applicationContext-common.xml"/>
 	<import resource="applicationContext-cached.xml"/>
-	<import resource="applicationContext-shiro.xml"/>
 	<!-- 内嵌式的小型分布式文件管理系统 -->
 	<import resource="applicationContext-mydfs.xml"/>
 	

@@ -52,7 +52,7 @@
 		在同一个类中一个方法调用另一个有事务的方法，事务是不会起作用的。 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+	 	<property name="sessionFactory" ref="sessionFactory" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<!--Begin:Name:wuqiwei Date:2013-4-21 8:09:27使用注释进行hibernateTemplete事务管理 
