@@ -8,8 +8,7 @@ import java.sql.Timestamp;
 
 public class Tshopsuser implements java.io.Serializable {
 
-	// Fields
-
+	private static final long serialVersionUID = -719584894502951602L;
 	private Integer id;
 	private Tshops tshops;
 	private String userName;
