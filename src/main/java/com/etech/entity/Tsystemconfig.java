@@ -8,7 +8,7 @@ public class Tsystemconfig implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Integer systemConfigId;
 	private String value;
 	private String remark;
 
@@ -31,12 +31,12 @@ public class Tsystemconfig implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getSystemConfigId() {
+		return this.systemConfigId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setSystemConfigId(Integer systemConfigId) {
+		this.systemConfigId = systemConfigId;
 	}
 
 	public String getValue() {

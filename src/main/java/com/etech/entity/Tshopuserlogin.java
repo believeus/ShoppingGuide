@@ -10,9 +10,9 @@ public class Tshopuserlogin implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Integer shopUserLoginId;
 	private Integer shopUserId;
-	private Integer loginType;
+	private Short loginType;
 	private Timestamp loginTime;
 	private String ipaddress;
 
@@ -23,7 +23,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tshopuserlogin(Integer shopUserId, Integer loginType,
+	public Tshopuserlogin(Integer shopUserId, Short loginType,
 			Timestamp loginTime) {
 		this.shopUserId = shopUserId;
 		this.loginType = loginType;
@@ -31,7 +31,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Tshopuserlogin(Integer shopUserId, Integer loginType,
+	public Tshopuserlogin(Integer shopUserId, Short loginType,
 			Timestamp loginTime, String ipaddress) {
 		this.shopUserId = shopUserId;
 		this.loginType = loginType;
@@ -41,12 +41,12 @@ public class Tshopuserlogin implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getShopUserLoginId() {
+		return this.shopUserLoginId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setShopUserLoginId(Integer shopUserLoginId) {
+		this.shopUserLoginId = shopUserLoginId;
 	}
 
 	public Integer getShopUserId() {
@@ -57,11 +57,11 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.shopUserId = shopUserId;
 	}
 
-	public Integer getLoginType() {
+	public Short getLoginType() {
 		return this.loginType;
 	}
 
-	public void setLoginType(Integer loginType) {
+	public void setLoginType(Short loginType) {
 		this.loginType = loginType;
 	}
 

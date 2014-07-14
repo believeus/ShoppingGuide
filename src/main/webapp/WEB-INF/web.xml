@@ -123,5 +123,8 @@
 		<servlet-name>storageClient</servlet-name>
 		<url-pattern>/group/M00/*</url-pattern>
 	</servlet-mapping>
-
+	<error-page>
+		<error-code>500</error-code>
+		<location>/login.jhtml</location>
+	</error-page>
 </web-app>

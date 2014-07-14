@@ -10,17 +10,17 @@ public class Tadminuser implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
-	private String userName;
+	private Integer adminUserId;
+	private String adminUserName;
 	private String password;
 	private String phoneNumber;
 	private String realName;
-	private Integer roleId;
+	private Integer adminRoleId;
 	private Timestamp creatTime;
 	private Timestamp firstLoginTime;
 	private Timestamp lastLoginTime;
 	private String lastLoginIp;
-	private Short state;
+	private Integer state;
 
 	// Constructors
 
@@ -29,26 +29,27 @@ public class Tadminuser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tadminuser(String userName, String password, String phoneNumber,
-			Integer roleId, Timestamp creatTime, Short state) {
-		this.userName = userName;
+	public Tadminuser(String adminUserName, String password,
+			String phoneNumber, Integer adminRoleId, Timestamp creatTime,
+			Integer state) {
+		this.adminUserName = adminUserName;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
-		this.roleId = roleId;
+		this.adminRoleId = adminRoleId;
 		this.creatTime = creatTime;
 		this.state = state;
 	}
 
 	/** full constructor */
-	public Tadminuser(String userName, String password, String phoneNumber,
-			String realName, Integer roleId, Timestamp creatTime,
-			Timestamp firstLoginTime, Timestamp lastLoginTime,
-			String lastLoginIp, Short state) {
-		this.userName = userName;
+	public Tadminuser(String adminUserName, String password,
+			String phoneNumber, String realName, Integer adminRoleId,
+			Timestamp creatTime, Timestamp firstLoginTime,
+			Timestamp lastLoginTime, String lastLoginIp, Integer state) {
+		this.adminUserName = adminUserName;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 		this.realName = realName;
-		this.roleId = roleId;
+		this.adminRoleId = adminRoleId;
 		this.creatTime = creatTime;
 		this.firstLoginTime = firstLoginTime;
 		this.lastLoginTime = lastLoginTime;
@@ -58,20 +59,20 @@ public class Tadminuser implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getAdminUserId() {
+		return this.adminUserId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAdminUserId(Integer adminUserId) {
+		this.adminUserId = adminUserId;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getAdminUserName() {
+		return this.adminUserName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAdminUserName(String adminUserName) {
+		this.adminUserName = adminUserName;
 	}
 
 	public String getPassword() {
@@ -98,12 +99,12 @@ public class Tadminuser implements java.io.Serializable {
 		this.realName = realName;
 	}
 
-	public Integer getRoleId() {
-		return this.roleId;
+	public Integer getAdminRoleId() {
+		return this.adminRoleId;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setAdminRoleId(Integer adminRoleId) {
+		this.adminRoleId = adminRoleId;
 	}
 
 	public Timestamp getCreatTime() {
@@ -138,11 +139,11 @@ public class Tadminuser implements java.io.Serializable {
 		this.lastLoginIp = lastLoginIp;
 	}
 
-	public Short getState() {
+	public Integer getState() {
 		return this.state;
 	}
 
-	public void setState(Short state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 

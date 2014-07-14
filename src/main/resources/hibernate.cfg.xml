@@ -123,41 +123,46 @@
 	</property>
 	<!-- End Name:wuqiwei Date:2013-09-25 AddReason:配置hibernate search -->
 	<property name="myeclipse.connection.profile"></property>
-	<mapping resource="com/etech/entity/Tactivity.hbm.xml" />
+	<mapping resource="com/etech/entity/Tadminpermission.hbm.xml" />
+	<mapping resource="com/etech/entity/Tadminpermissiongroup.hbm.xml" />
+	<mapping resource="com/etech/entity/Tadminrole.hbm.xml" />
+	<mapping
+		resource="com/etech/entity/Tadminrolepermissionsown.hbm.xml" />
 	<mapping resource="com/etech/entity/Tadminuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tadvert.hbm.xml" />
-	<mapping resource="com/etech/entity/Tbusinesscircles.hbm.xml" />
-	<mapping resource="com/etech/entity/TCity.hbm.xml" />
-	<mapping resource="com/etech/entity/Tcommercialbuilding.hbm.xml" />
-	<mapping resource="com/etech/entity/TDistrict.hbm.xml" />
+	<mapping resource="com/etech/entity/Tarea.hbm.xml" />
+	<mapping resource="com/etech/entity/Tbusinessscope.hbm.xml" />
+	<mapping resource="com/etech/entity/Tcity.hbm.xml" />
 	<mapping
 		resource="com/etech/entity/TeventCountdataeveryday.hbm.xml" />
-	<mapping resource="com/etech/entity/Tfloor.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoods.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgradeofshopuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tmaintypeofgoods.hbm.xml" />
+	<mapping resource="com/etech/entity/Tfavoritegroup.hbm.xml" />
+	<mapping resource="com/etech/entity/Tfeature.hbm.xml" />
 	<mapping
-		resource="com/etech/entity/Tpermissionsofshopusers.hbm.xml" />
+		resource="com/etech/entity/Tfindpasswordforshopuser.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoods.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodsfavorite.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodsfeature.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodspraisehistory.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodstype.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodstypefeature.hbm.xml" />
+	<mapping resource="com/etech/entity/Tgoodsviewhistory.hbm.xml" />
+	<mapping resource="com/etech/entity/Tmarket.hbm.xml" />
+	<mapping resource="com/etech/entity/Tnews.hbm.xml" />
+	<mapping resource="com/etech/entity/Tnewsviewhistory.hbm.xml" />
 	<mapping resource="com/etech/entity/Tphoneuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tphoneuserfavorites.hbm.xml" />
-	<mapping resource="com/etech/entity/Tphoneuserviewhistory.hbm.xml" />
-	<mapping resource="com/etech/entity/TProvince.hbm.xml" />
-	<mapping resource="com/etech/entity/Troottypeofgoods.hbm.xml" />
-
-	<mapping resource="com/etech/entity/Tshops.hbm.xml" />
+	<mapping resource="com/etech/entity/Tphoneuserfeature.hbm.xml" />
+	<mapping resource="com/etech/entity/Tphoneuserlogin.hbm.xml" />
+	<mapping resource="com/etech/entity/Tprofession.hbm.xml" />
+	<mapping resource="com/etech/entity/Tprovince.hbm.xml" />
+	<mapping resource="com/etech/entity/Tsearchkeywords.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshop.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshopfavorite.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshopfeature.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshoppraisehistory.hbm.xml" />
 	<mapping resource="com/etech/entity/Tshopsuser.hbm.xml" />
 	<mapping resource="com/etech/entity/Tshopuserlogin.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopvipphoneuser.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshopviewhistory.hbm.xml" />
 	<mapping resource="com/etech/entity/Tsystemconfig.hbm.xml" />
-	<mapping resource="com/etech/entity/Ttabletrace.hbm.xml" />
-	<mapping resource="com/etech/entity/Ttypeofgoods.hbm.xml" />
-	<mapping resource="com/etech/entity/Tuserlogin.hbm.xml" />
-	<mapping resource="com/etech/entity/Tuserpermissions.hbm.xml" />
-	<mapping resource="com/etech/entity/Tuserpermissionvalue.hbm.xml" />
-	<mapping resource="com/etech/entity/Tuserrole.hbm.xml" />
-	<mapping
-		resource="com/etech/entity/Tuserrolepermissionsown.hbm.xml" />
-	<mapping resource="com/etech/entity/Tsearchkeywords.hbm.xml" />
+
 
 </session-factory>
 

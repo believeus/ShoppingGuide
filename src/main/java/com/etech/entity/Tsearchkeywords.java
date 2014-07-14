@@ -1,7 +1,5 @@
 package com.etech.entity;
 
-import java.sql.Timestamp;
-
 /**
  * Tsearchkeywords entity. @author MyEclipse Persistence Tools
  */
@@ -12,11 +10,10 @@ public class Tsearchkeywords implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private Integer count;
-	private Timestamp lastTime;
+	private String count;
+	private String lastTime;
 	private String index;
 	private Short range;
-	private Short type;
 
 	// Constructors
 
@@ -25,24 +22,22 @@ public class Tsearchkeywords implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tsearchkeywords(String name, Integer count, Timestamp lastTime,
-			Short range, Short type) {
+	public Tsearchkeywords(String name, String count, String lastTime,
+			Short range) {
 		this.name = name;
 		this.count = count;
 		this.lastTime = lastTime;
 		this.range = range;
-		this.type = type;
 	}
 
 	/** full constructor */
-	public Tsearchkeywords(String name, Integer count, Timestamp lastTime,
-			String index, Short range, Short type) {
+	public Tsearchkeywords(String name, String count, String lastTime,
+			String index, Short range) {
 		this.name = name;
 		this.count = count;
 		this.lastTime = lastTime;
 		this.index = index;
 		this.range = range;
-		this.type = type;
 	}
 
 	// Property accessors
@@ -63,19 +58,19 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Integer getCount() {
+	public String getCount() {
 		return this.count;
 	}
 
-	public void setCount(Integer count) {
+	public void setCount(String count) {
 		this.count = count;
 	}
 
-	public Timestamp getLastTime() {
+	public String getLastTime() {
 		return this.lastTime;
 	}
 
-	public void setLastTime(Timestamp lastTime) {
+	public void setLastTime(String lastTime) {
 		this.lastTime = lastTime;
 	}
 
@@ -93,14 +88,6 @@ public class Tsearchkeywords implements java.io.Serializable {
 
 	public void setRange(Short range) {
 		this.range = range;
-	}
-
-	public Short getType() {
-		return this.type;
-	}
-
-	public void setType(Short type) {
-		this.type = type;
 	}
 
 }
