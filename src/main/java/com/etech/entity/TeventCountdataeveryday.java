@@ -10,16 +10,14 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Integer eventId;
 	private Integer shopUserCount;
 	private Integer shopUserValidCount;
 	private Integer shopUserActiveCount;
 	private Integer goodsCount;
-	private Integer goodsValidCount;
+	private Integer goodsValidCoun;
 	private Integer phoneUserCount;
 	private Integer phoneUserActiveCount;
-	private Integer activityCount;
-	private Integer activityValidCount;
 	private Timestamp countDate;
 
 	// Constructors
@@ -31,30 +29,26 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 	/** full constructor */
 	public TeventCountdataeveryday(Integer shopUserCount,
 			Integer shopUserValidCount, Integer shopUserActiveCount,
-			Integer goodsCount, Integer goodsValidCount,
-			Integer phoneUserCount, Integer phoneUserActiveCount,
-			Integer activityCount, Integer activityValidCount,
-			Timestamp countDate) {
+			Integer goodsCount, Integer goodsValidCoun, Integer phoneUserCount,
+			Integer phoneUserActiveCount, Timestamp countDate) {
 		this.shopUserCount = shopUserCount;
 		this.shopUserValidCount = shopUserValidCount;
 		this.shopUserActiveCount = shopUserActiveCount;
 		this.goodsCount = goodsCount;
-		this.goodsValidCount = goodsValidCount;
+		this.goodsValidCoun = goodsValidCoun;
 		this.phoneUserCount = phoneUserCount;
 		this.phoneUserActiveCount = phoneUserActiveCount;
-		this.activityCount = activityCount;
-		this.activityValidCount = activityValidCount;
 		this.countDate = countDate;
 	}
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getEventId() {
+		return this.eventId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
 	}
 
 	public Integer getShopUserCount() {
@@ -89,12 +83,12 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.goodsCount = goodsCount;
 	}
 
-	public Integer getGoodsValidCount() {
-		return this.goodsValidCount;
+	public Integer getGoodsValidCoun() {
+		return this.goodsValidCoun;
 	}
 
-	public void setGoodsValidCount(Integer goodsValidCount) {
-		this.goodsValidCount = goodsValidCount;
+	public void setGoodsValidCoun(Integer goodsValidCoun) {
+		this.goodsValidCoun = goodsValidCoun;
 	}
 
 	public Integer getPhoneUserCount() {
@@ -111,22 +105,6 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 
 	public void setPhoneUserActiveCount(Integer phoneUserActiveCount) {
 		this.phoneUserActiveCount = phoneUserActiveCount;
-	}
-
-	public Integer getActivityCount() {
-		return this.activityCount;
-	}
-
-	public void setActivityCount(Integer activityCount) {
-		this.activityCount = activityCount;
-	}
-
-	public Integer getActivityValidCount() {
-		return this.activityValidCount;
-	}
-
-	public void setActivityValidCount(Integer activityValidCount) {
-		this.activityValidCount = activityValidCount;
 	}
 
 	public Timestamp getCountDate() {

@@ -9,52 +9,28 @@ import java.sql.Timestamp;
 public class Ttabletrace implements java.io.Serializable {
 
 	// Fields
-
 	private String tableName;
-	private Integer stampId;
+	private Integer stampID;
 	private Timestamp lastChangeTime;
-
-	// Constructors
-
-	/** default constructor */
-	public Ttabletrace() {
-	}
-
-	/** minimal constructor */
-	public Ttabletrace(Integer stampId) {
-		this.stampId = stampId;
-	}
-
-	/** full constructor */
-	public Ttabletrace(Integer stampId, Timestamp lastChangeTime) {
-		this.stampId = stampId;
-		this.lastChangeTime = lastChangeTime;
-	}
-
-	// Property accessors
-
 	public String getTableName() {
-		return this.tableName;
+		return tableName;
 	}
-
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
-
-	public Integer getStampId() {
-		return this.stampId;
+	public Integer getStampID() {
+		return stampID;
 	}
-
-	public void setStampId(Integer stampId) {
-		this.stampId = stampId;
+	public void setStampID(Integer stampID) {
+		this.stampID = stampID;
 	}
-
 	public Timestamp getLastChangeTime() {
-		return this.lastChangeTime;
+		return lastChangeTime;
 	}
-
 	public void setLastChangeTime(Timestamp lastChangeTime) {
 		this.lastChangeTime = lastChangeTime;
 	}
+	
+	
 
 }

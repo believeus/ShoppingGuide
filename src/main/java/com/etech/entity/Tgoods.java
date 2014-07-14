@@ -10,22 +10,23 @@ public class Tgoods implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
-	private Tshops tshops;
-	private String name;
-	private Integer typeOfGoodsId;
-	private String goodsBrand;
-	private Float price;
-	private Float discount;
-	private Integer isOnSale;
-	private String salesStatus;
+	private Integer goodsId;
+	private Integer shopId;
+	private String goodsName;
+	private Integer goodsTypeId;
+	private Short isOnSale;
+	private String goodsFeature;
 	private String introduction;
-	private String photosUrl;
-	private Timestamp publishTime;
-	private Integer publishUserId;
-	private Integer pageView;
-	private String keywords;
+	private Timestamp addTime;
 	private Timestamp stateChangeTime;
+	private Short isRecommend;
+	private Short examineState;
+	private String goodsPhotoUrl;
+	private String goodsDefaultPhotoUrl;
+	private Integer goodsDefaultPhotoWidth;
+	private Integer goodsDefaultPhotoHeight;
+	private Integer viewCount;
+	private Integer bePraisedCount;
 
 	// Constructors
 
@@ -34,114 +35,94 @@ public class Tgoods implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tgoods(Tshops tshops, String name, Integer typeOfGoodsId,
-			Float discount, Integer isOnSale, Timestamp publishTime,
-			Integer publishUserId, Integer pageView) {
-		this.tshops = tshops;
-		this.name = name;
-		this.typeOfGoodsId = typeOfGoodsId;
-		this.discount = discount;
+	public Tgoods(Integer shopId, String goodsName, Integer goodsTypeId,
+			Short isOnSale, Timestamp addTime, Short isRecommend,
+			Short examineState, Integer viewCount, Integer bePraisedCount) {
+		this.shopId = shopId;
+		this.goodsName = goodsName;
+		this.goodsTypeId = goodsTypeId;
 		this.isOnSale = isOnSale;
-		this.publishTime = publishTime;
-		this.publishUserId = publishUserId;
-		this.pageView = pageView;
+		this.addTime = addTime;
+		this.isRecommend = isRecommend;
+		this.examineState = examineState;
+		this.viewCount = viewCount;
+		this.bePraisedCount = bePraisedCount;
 	}
 
 	/** full constructor */
-	public Tgoods(Tshops tshops, String name, Integer typeOfGoodsId,
-			String goodsBrand, Float price, Float discount, Integer isOnSale,
-			String salesStatus, String introduction, String photosUrl,
-			Timestamp publishTime, Integer publishUserId, Integer pageView,
-			String keywords, Timestamp stateChangeTime) {
-		this.tshops = tshops;
-		this.name = name;
-		this.typeOfGoodsId = typeOfGoodsId;
-		this.goodsBrand = goodsBrand;
-		this.price = price;
-		this.discount = discount;
+	public Tgoods(Integer shopId, String goodsName, Integer goodsTypeId,
+			Short isOnSale, String goodsFeature, String introduction,
+			Timestamp addTime, Timestamp stateChangeTime, Short isRecommend,
+			Short examineState, String goodsPhotoUrl,
+			String goodsDefaultPhotoUrl, Integer goodsDefaultPhotoWidth,
+			Integer goodsDefaultPhotoHeight, Integer viewCount,
+			Integer bePraisedCount) {
+		this.shopId = shopId;
+		this.goodsName = goodsName;
+		this.goodsTypeId = goodsTypeId;
 		this.isOnSale = isOnSale;
-		this.salesStatus = salesStatus;
+		this.goodsFeature = goodsFeature;
 		this.introduction = introduction;
-		this.photosUrl = photosUrl;
-		this.publishTime = publishTime;
-		this.publishUserId = publishUserId;
-		this.pageView = pageView;
-		this.keywords = keywords;
+		this.addTime = addTime;
 		this.stateChangeTime = stateChangeTime;
+		this.isRecommend = isRecommend;
+		this.examineState = examineState;
+		this.goodsPhotoUrl = goodsPhotoUrl;
+		this.goodsDefaultPhotoUrl = goodsDefaultPhotoUrl;
+		this.goodsDefaultPhotoWidth = goodsDefaultPhotoWidth;
+		this.goodsDefaultPhotoHeight = goodsDefaultPhotoHeight;
+		this.viewCount = viewCount;
+		this.bePraisedCount = bePraisedCount;
 	}
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getGoodsId() {
+		return this.goodsId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
 	}
 
-	public Tshops getTshops() {
-		return this.tshops;
+	public Integer getShopId() {
+		return this.shopId;
 	}
 
-	public void setTshops(Tshops tshops) {
-		this.tshops = tshops;
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
 	}
 
-	public String getName() {
-		return this.name;
+	public String getGoodsName() {
+		return this.goodsName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
 
-	public Integer getTypeOfGoodsId() {
-		return this.typeOfGoodsId;
+	public Integer getGoodsTypeId() {
+		return this.goodsTypeId;
 	}
 
-	public void setTypeOfGoodsId(Integer typeOfGoodsId) {
-		this.typeOfGoodsId = typeOfGoodsId;
+	public void setGoodsTypeId(Integer goodsTypeId) {
+		this.goodsTypeId = goodsTypeId;
 	}
 
-	public String getGoodsBrand() {
-		return this.goodsBrand;
-	}
-
-	public void setGoodsBrand(String goodsBrand) {
-		this.goodsBrand = goodsBrand;
-	}
-
-	public Float getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(Float price) {
-		this.price = price;
-	}
-
-	public Float getDiscount() {
-		return this.discount;
-	}
-
-	public void setDiscount(Float discount) {
-		this.discount = discount;
-	}
-
-	public Integer getIsOnSale() {
+	public Short getIsOnSale() {
 		return this.isOnSale;
 	}
 
-	public void setIsOnSale(Integer isOnSale) {
+	public void setIsOnSale(Short isOnSale) {
 		this.isOnSale = isOnSale;
 	}
 
-	public String getSalesStatus() {
-		return this.salesStatus;
+	public String getGoodsFeature() {
+		return this.goodsFeature;
 	}
 
-	public void setSalesStatus(String salesStatus) {
-		this.salesStatus = salesStatus;
+	public void setGoodsFeature(String goodsFeature) {
+		this.goodsFeature = goodsFeature;
 	}
 
 	public String getIntroduction() {
@@ -152,44 +133,12 @@ public class Tgoods implements java.io.Serializable {
 		this.introduction = introduction;
 	}
 
-	public String getPhotosUrl() {
-		return this.photosUrl;
+	public Timestamp getAddTime() {
+		return this.addTime;
 	}
 
-	public void setPhotosUrl(String photosUrl) {
-		this.photosUrl = photosUrl;
-	}
-
-	public Timestamp getPublishTime() {
-		return this.publishTime;
-	}
-
-	public void setPublishTime(Timestamp publishTime) {
-		this.publishTime = publishTime;
-	}
-
-	public Integer getPublishUserId() {
-		return this.publishUserId;
-	}
-
-	public void setPublishUserId(Integer publishUserId) {
-		this.publishUserId = publishUserId;
-	}
-
-	public Integer getPageView() {
-		return this.pageView;
-	}
-
-	public void setPageView(Integer pageView) {
-		this.pageView = pageView;
-	}
-
-	public String getKeywords() {
-		return this.keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setAddTime(Timestamp addTime) {
+		this.addTime = addTime;
 	}
 
 	public Timestamp getStateChangeTime() {
@@ -198,6 +147,70 @@ public class Tgoods implements java.io.Serializable {
 
 	public void setStateChangeTime(Timestamp stateChangeTime) {
 		this.stateChangeTime = stateChangeTime;
+	}
+
+	public Short getIsRecommend() {
+		return this.isRecommend;
+	}
+
+	public void setIsRecommend(Short isRecommend) {
+		this.isRecommend = isRecommend;
+	}
+
+	public Short getExamineState() {
+		return this.examineState;
+	}
+
+	public void setExamineState(Short examineState) {
+		this.examineState = examineState;
+	}
+
+	public String getGoodsPhotoUrl() {
+		return this.goodsPhotoUrl;
+	}
+
+	public void setGoodsPhotoUrl(String goodsPhotoUrl) {
+		this.goodsPhotoUrl = goodsPhotoUrl;
+	}
+
+	public String getGoodsDefaultPhotoUrl() {
+		return this.goodsDefaultPhotoUrl;
+	}
+
+	public void setGoodsDefaultPhotoUrl(String goodsDefaultPhotoUrl) {
+		this.goodsDefaultPhotoUrl = goodsDefaultPhotoUrl;
+	}
+
+	public Integer getGoodsDefaultPhotoWidth() {
+		return this.goodsDefaultPhotoWidth;
+	}
+
+	public void setGoodsDefaultPhotoWidth(Integer goodsDefaultPhotoWidth) {
+		this.goodsDefaultPhotoWidth = goodsDefaultPhotoWidth;
+	}
+
+	public Integer getGoodsDefaultPhotoHeight() {
+		return this.goodsDefaultPhotoHeight;
+	}
+
+	public void setGoodsDefaultPhotoHeight(Integer goodsDefaultPhotoHeight) {
+		this.goodsDefaultPhotoHeight = goodsDefaultPhotoHeight;
+	}
+
+	public Integer getViewCount() {
+		return this.viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public Integer getBePraisedCount() {
+		return this.bePraisedCount;
+	}
+
+	public void setBePraisedCount(Integer bePraisedCount) {
+		this.bePraisedCount = bePraisedCount;
 	}
 
 }

@@ -8,26 +8,25 @@ import java.sql.Timestamp;
 
 public class Tshopsuser implements java.io.Serializable {
 
-	private static final long serialVersionUID = -719584894502951602L;
-	private Integer id;
-	private Tshops tshops;
+	// Fields
+
+	private Integer shopUserId;
 	private String userName;
 	private String password;
+	private Integer shopId;
 	private String phoneNumber;
 	private String nickName;
 	private String realName;
 	private String gender;
 	private String idnumber;
-	private Timestamp userCreatTime;
-	private Timestamp firstLoginTime;
+	private Timestamp addTime;
 	private Timestamp lastLoginTime;
-	private String lastLoginIp;
-	private Integer state;
+	private String profilePicture;
+	private Short state;
 	private Integer score;
-	private Integer gradeId;
-	private Integer pageView;
-	private String picture;
 	private String referee;
+	private Integer grade;
+	private Integer pageView;
 
 	// Constructors
 
@@ -36,62 +35,52 @@ public class Tshopsuser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tshopsuser(Tshops tshops, String userName, String password,
-			String gender, Timestamp userCreatTime, Integer state,
-			Integer score, Integer gradeId) {
-		this.tshops = tshops;
+	public Tshopsuser(String userName, String password, Integer shopId,
+			String gender, Timestamp addTime, Short state, Integer score,
+			Integer grade, Integer pageView) {
 		this.userName = userName;
 		this.password = password;
+		this.shopId = shopId;
 		this.gender = gender;
-		this.userCreatTime = userCreatTime;
+		this.addTime = addTime;
 		this.state = state;
 		this.score = score;
-		this.gradeId = gradeId;
+		this.grade = grade;
+		this.pageView = pageView;
 	}
 
 	/** full constructor */
-	public Tshopsuser(Tshops tshops, String userName, String password,
+	public Tshopsuser(String userName, String password, Integer shopId,
 			String phoneNumber, String nickName, String realName,
-			String gender, String idnumber, Timestamp userCreatTime,
-			Timestamp firstLoginTime, Timestamp lastLoginTime,
-			String lastLoginIp, Integer state, Integer score, Integer gradeId,
-			Integer pageView, String picture, String referee) {
-		this.tshops = tshops;
+			String gender, String idnumber, Timestamp addTime,
+			Timestamp lastLoginTime, String profilePicture, Short state,
+			Integer score, String referee, Integer grade, Integer pageView) {
 		this.userName = userName;
 		this.password = password;
+		this.shopId = shopId;
 		this.phoneNumber = phoneNumber;
 		this.nickName = nickName;
 		this.realName = realName;
 		this.gender = gender;
 		this.idnumber = idnumber;
-		this.userCreatTime = userCreatTime;
-		this.firstLoginTime = firstLoginTime;
+		this.addTime = addTime;
 		this.lastLoginTime = lastLoginTime;
-		this.lastLoginIp = lastLoginIp;
+		this.profilePicture = profilePicture;
 		this.state = state;
 		this.score = score;
-		this.gradeId = gradeId;
-		this.pageView = pageView;
-		this.picture = picture;
 		this.referee = referee;
+		this.grade = grade;
+		this.pageView = pageView;
 	}
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getShopUserId() {
+		return this.shopUserId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Tshops getTshops() {
-		return this.tshops;
-	}
-
-	public void setTshops(Tshops tshops) {
-		this.tshops = tshops;
+	public void setShopUserId(Integer shopUserId) {
+		this.shopUserId = shopUserId;
 	}
 
 	public String getUserName() {
@@ -108,6 +97,14 @@ public class Tshopsuser implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getShopId() {
+		return this.shopId;
+	}
+
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
 	}
 
 	public String getPhoneNumber() {
@@ -150,20 +147,12 @@ public class Tshopsuser implements java.io.Serializable {
 		this.idnumber = idnumber;
 	}
 
-	public Timestamp getUserCreatTime() {
-		return this.userCreatTime;
+	public Timestamp getAddTime() {
+		return this.addTime;
 	}
 
-	public void setUserCreatTime(Timestamp userCreatTime) {
-		this.userCreatTime = userCreatTime;
-	}
-
-	public Timestamp getFirstLoginTime() {
-		return this.firstLoginTime;
-	}
-
-	public void setFirstLoginTime(Timestamp firstLoginTime) {
-		this.firstLoginTime = firstLoginTime;
+	public void setAddTime(Timestamp addTime) {
+		this.addTime = addTime;
 	}
 
 	public Timestamp getLastLoginTime() {
@@ -174,19 +163,19 @@ public class Tshopsuser implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public String getLastLoginIp() {
-		return this.lastLoginIp;
+	public String getProfilePicture() {
+		return this.profilePicture;
 	}
 
-	public void setLastLoginIp(String lastLoginIp) {
-		this.lastLoginIp = lastLoginIp;
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
-	public Integer getState() {
+	public Short getState() {
 		return this.state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(Short state) {
 		this.state = state;
 	}
 
@@ -198,12 +187,20 @@ public class Tshopsuser implements java.io.Serializable {
 		this.score = score;
 	}
 
-	public Integer getGradeId() {
-		return this.gradeId;
+	public String getReferee() {
+		return this.referee;
 	}
 
-	public void setGradeId(Integer gradeId) {
-		this.gradeId = gradeId;
+	public void setReferee(String referee) {
+		this.referee = referee;
+	}
+
+	public Integer getGrade() {
+		return this.grade;
+	}
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
 	}
 
 	public Integer getPageView() {
@@ -212,22 +209,6 @@ public class Tshopsuser implements java.io.Serializable {
 
 	public void setPageView(Integer pageView) {
 		this.pageView = pageView;
-	}
-
-	public String getPicture() {
-		return this.picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getReferee() {
-		return this.referee;
-	}
-
-	public void setReferee(String referee) {
-		this.referee = referee;
 	}
 
 }

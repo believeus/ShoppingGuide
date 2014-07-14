@@ -10,25 +10,30 @@ public class Tphoneuser implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Integer phoneUserId;
+	private Short userType;
 	private String phoneNumber;
-	private String userName;
+	private String imei;
 	private String password;
 	private String nickName;
-	private Integer score;
+	private String realName;
 	private String gender;
+	private String qq;
 	private Timestamp birthday;
-	private Integer areaId;
-	private Timestamp registeTime;
+	private String zodiac;
+	private String constellation;
+	private Integer professionId;
+	private String fancy;
+	private Timestamp addTime;
 	private Timestamp lastLoginTime;
 	private Integer loginCount;
-	private Integer state;
-	private String realName;
-	private String picture;
-	private String imei;
+	private String profilePhoto;
 	private String openId;
 	private Double longitude;
 	private Double latitude;
+	private String sign;
+	private Integer areaId;
+	private Short state;
 
 	// Constructors
 
@@ -37,50 +42,65 @@ public class Tphoneuser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tphoneuser(Integer score, Timestamp registeTime, Integer loginCount,
-			Integer state, Double longitude, Double latitude) {
-		this.score = score;
-		this.registeTime = registeTime;
+	public Tphoneuser(Short userType, Timestamp addTime, Integer loginCount,
+			Double longitude, Double latitude, Short state) {
+		this.userType = userType;
+		this.addTime = addTime;
 		this.loginCount = loginCount;
-		this.state = state;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.state = state;
 	}
 
 	/** full constructor */
-	public Tphoneuser(String phoneNumber, String userName, String password,
-			String nickName, Integer score, String gender, Timestamp birthday,
-			Integer areaId, Timestamp registeTime, Timestamp lastLoginTime,
-			Integer loginCount, Integer state, String realName, String picture,
-			String imei, String openId, Double longitude, Double latitude) {
+	public Tphoneuser(Short userType, String phoneNumber, String imei,
+			String password, String nickName, String realName, String gender,
+			String qq, Timestamp birthday, String zodiac, String constellation,
+			Integer professionId, String fancy, Timestamp addTime,
+			Timestamp lastLoginTime, Integer loginCount, String profilePhoto,
+			String openId, Double longitude, Double latitude, String sign,
+			Integer areaId, Short state) {
+		this.userType = userType;
 		this.phoneNumber = phoneNumber;
-		this.userName = userName;
+		this.imei = imei;
 		this.password = password;
 		this.nickName = nickName;
-		this.score = score;
+		this.realName = realName;
 		this.gender = gender;
+		this.qq = qq;
 		this.birthday = birthday;
-		this.areaId = areaId;
-		this.registeTime = registeTime;
+		this.zodiac = zodiac;
+		this.constellation = constellation;
+		this.professionId = professionId;
+		this.fancy = fancy;
+		this.addTime = addTime;
 		this.lastLoginTime = lastLoginTime;
 		this.loginCount = loginCount;
-		this.state = state;
-		this.realName = realName;
-		this.picture = picture;
-		this.imei = imei;
+		this.profilePhoto = profilePhoto;
 		this.openId = openId;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.sign = sign;
+		this.areaId = areaId;
+		this.state = state;
 	}
 
 	// Property accessors
 
-	public Integer getId() {
-		return this.id;
+	public Integer getPhoneUserId() {
+		return this.phoneUserId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setPhoneUserId(Integer phoneUserId) {
+		this.phoneUserId = phoneUserId;
+	}
+
+	public Short getUserType() {
+		return this.userType;
+	}
+
+	public void setUserType(Short userType) {
+		this.userType = userType;
 	}
 
 	public String getPhoneNumber() {
@@ -91,12 +111,12 @@ public class Tphoneuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getImei() {
+		return this.imei;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 
 	public String getPassword() {
@@ -115,12 +135,12 @@ public class Tphoneuser implements java.io.Serializable {
 		this.nickName = nickName;
 	}
 
-	public Integer getScore() {
-		return this.score;
+	public String getRealName() {
+		return this.realName;
 	}
 
-	public void setScore(Integer score) {
-		this.score = score;
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 
 	public String getGender() {
@@ -131,6 +151,14 @@ public class Tphoneuser implements java.io.Serializable {
 		this.gender = gender;
 	}
 
+	public String getQq() {
+		return this.qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
 	public Timestamp getBirthday() {
 		return this.birthday;
 	}
@@ -139,20 +167,44 @@ public class Tphoneuser implements java.io.Serializable {
 		this.birthday = birthday;
 	}
 
-	public Integer getAreaId() {
-		return this.areaId;
+	public String getZodiac() {
+		return this.zodiac;
 	}
 
-	public void setAreaId(Integer areaId) {
-		this.areaId = areaId;
+	public void setZodiac(String zodiac) {
+		this.zodiac = zodiac;
 	}
 
-	public Timestamp getRegisteTime() {
-		return this.registeTime;
+	public String getConstellation() {
+		return this.constellation;
 	}
 
-	public void setRegisteTime(Timestamp registeTime) {
-		this.registeTime = registeTime;
+	public void setConstellation(String constellation) {
+		this.constellation = constellation;
+	}
+
+	public Integer getProfessionId() {
+		return this.professionId;
+	}
+
+	public void setProfessionId(Integer professionId) {
+		this.professionId = professionId;
+	}
+
+	public String getFancy() {
+		return this.fancy;
+	}
+
+	public void setFancy(String fancy) {
+		this.fancy = fancy;
+	}
+
+	public Timestamp getAddTime() {
+		return this.addTime;
+	}
+
+	public void setAddTime(Timestamp addTime) {
+		this.addTime = addTime;
 	}
 
 	public Timestamp getLastLoginTime() {
@@ -171,36 +223,12 @@ public class Tphoneuser implements java.io.Serializable {
 		this.loginCount = loginCount;
 	}
 
-	public Integer getState() {
-		return this.state;
+	public String getProfilePhoto() {
+		return this.profilePhoto;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	public String getRealName() {
-		return this.realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	public String getPicture() {
-		return this.picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getImei() {
-		return this.imei;
-	}
-
-	public void setImei(String imei) {
-		this.imei = imei;
+	public void setProfilePhoto(String profilePhoto) {
+		this.profilePhoto = profilePhoto;
 	}
 
 	public String getOpenId() {
@@ -225,6 +253,30 @@ public class Tphoneuser implements java.io.Serializable {
 
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getSign() {
+		return this.sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	public Integer getAreaId() {
+		return this.areaId;
+	}
+
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
+	}
+
+	public Short getState() {
+		return this.state;
+	}
+
+	public void setState(Short state) {
+		this.state = state;
 	}
 
 }
