@@ -34,12 +34,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			margin-left:auto;
 			margin-right:auto;
 		}
-		.stable p{
-			line-height:60px;
-			padding-left:40px;
+		.tese{
+			width:500px;
+			height:auto;
+			margin-top:10px;
+			margin-bottom:20px;
+			padding:10px;
 		}
-		.stable p:hover{
-			background:#EAFCFC;
+		.tese a {
+		    border: 1px solid #e4e4e4;
+		    color:#555555;
+		    border-radius: 3px;
+		    margin-right: 5px;
+		    padding: 5px;
+		    line-height:40px;
+		    cursor:pointer;
 		}
 		.btn{
 			width:140px;
@@ -68,7 +77,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			border-radius:4px;
 			cursor:pointer;
 		}
+		.add_tese{
+			background: #ffffff;
+		    border: 1px solid #e4e4e4;
+		    border-radius: 4px;
+		    color: #000000;
+		    cursor: pointer;
+		    height: 30px;
+		    margin-left: 25px;
+		    width: 60px;
+		}
+		.current{
+			background: #69cdcd;
+		    border: 1px solid #69cdcd  !important;
+		    color: #ffffff !important;
+		}
 	</style>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript">
+		$().ready(function(){
+			
+			//选择
+			$("#tese a").click(function(){
+				if($(this).hasClass("current")){
+					$(this).removeClass("current");		
+				}else{
+					if($("#tese .current").length > 4){
+						alert("最多选择5个");
+					}else{
+						$(this).addClass("current");		
+					}
+				}
+			});	
+			
+			//添加
+			$("#addSpecial").click(function(){
+				
+				var text=$("#textSpecial").val();
+				
+				if(text == ""){
+					alert("请输入关键字！");
+				}else{
+					var arr=new Array();
+					arr=text.split(" ");
+					for(var i=0;i<arr.length;i++){
+						var v=arr[i];
+						$("#tese").append("&nbsp;").append($("#ta").clone(true).removeClass("current").text(v));
+					}
+				}
+			});
+		});
+	</script>
   </head>
   
   <body bgcolor="#E7E8EB">
@@ -81,41 +140,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<font color="#AEAEAE">USER REGEDIT</font>
    		</p>
     	<p style="margin:10px 0;">
-    		<img src="images/r1.jpg" width="1000">
+    		<img src="images/r3.jpg" width="1000">
     	</p>
     	<div style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
     		<span><font color="red">*</font>为必填选项</span>
     		<span style="float:right;">已有帐号!<a href="/login.jhtml" style="color:red;">直接登录</a></span>
     	</div>
     	<div class="stable">
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户名称：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
+    		<div class="tese" id="tese">
+    			<a id="ta">潮流</a><a id="ta">潮流潮流</a><a id="ta">潮流潮流潮流</a><a id="ta">欧美简约</a><a id="ta">青春活力</a><a id="ta">美式休闲</a><a id="ta">中国风</a>
+    		</div>
+   			<p>
+   				<input id="textSpecial" type="text" name="" style="width:300px;height:30px;"/>
+   				<input id="addSpecial" class="add_tese" type="button" name="" value="添加" />
    			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户密码：</span>
-    			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
-   			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">确定密码：</span>
-    			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
-   			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户昵称：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
-   			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
-    			<input class="btn" type="button" value="免费获取验证码">
-   			</p>
+    		
    			<div class="btn_div">
-   				<input type="button" value="下一步" onClick="javascript:window.location.href='/register2.jhtml'">
+   				<input type="button" value="完成注册" style="background:#69CDCD;border:1px solid #69CDCD;">
 			</div>
     	</div>
     </div>

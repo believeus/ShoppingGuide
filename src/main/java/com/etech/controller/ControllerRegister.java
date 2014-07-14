@@ -26,12 +26,12 @@ public class ControllerRegister {
 	private EtechService etechService;
 
 	/**
-	 * 注册
-	 * @return
+	 * Begin Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
+	 * AddReason:普通用户注册页面
 	 */
-	@RequestMapping(value="/register")
-	public String registerView(){
-		return "/WEB-INF/register.jsp";
+	@RequestMapping(value = "/personalReg")
+	public String personalRegister() {
+		return "register/personalRegister";
 	}
 
 	/**
@@ -220,4 +220,20 @@ public class ControllerRegister {
 	 * AddReason:ajax判断一般用户的ajax验证
 	 */
 
+	/**
+	 * 注册
+	 * @return
+	 */
+	@RequestMapping(value="/register")
+	public String registerView(){
+		return "/WEB-INF/register.jsp";
+	}
+	@RequestMapping(value="/register2")
+	public String registerView2(){
+		return "/WEB-INF/register2.jsp";
+	}
+	@RequestMapping(value="/register3")
+	public String registerView3(){
+		return "/WEB-INF/register3.jsp";
+	}
 }

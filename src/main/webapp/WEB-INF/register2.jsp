@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<font color="#AEAEAE">USER REGEDIT</font>
    		</p>
     	<p style="margin:10px 0;">
-    		<img src="images/r1.jpg" width="1000">
+    		<img src="images/r2.jpg" width="1000">
     	</p>
     	<div style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
     		<span><font color="red">*</font>为必填选项</span>
@@ -90,32 +90,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="stable">
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户名称：</span>
+    			<span style="font-weight:bold;">店铺名称：</span>
     			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户密码：</span>
+    			<span style="font-weight:bold;">所在地区：</span>
     			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">确定密码：</span>
+    			<span style="font-weight:bold;">详细位置：</span>
     			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户昵称：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
+    			<span style="font-weight:bold;">经营范围：</span>
+    			<select name="">
+    				<option value="">请选择经营范围</option>
+    			</select>
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
-    			<input class="btn" type="button" value="免费获取验证码">
+    			<span style="font-weight:bold;">价格区间：</span>
+    			<input type="text" name="" style="width:65px;height:35px;line-height:35px;">
+    			--
+    			<input type="text" name="" style="width:65px;height:35px;line-height:35px;">元
+   			</p>
+   			<p>
+   				<span style="font-weight:bold;">营业执照：</span><br>
+   				<img src="" width="185" height="140">
+   			</p>
+   			<p>
+   				<span style="font-weight:bold;">店铺展示：</span><br>
+   				<img src="" width="185" height="140">
    			</p>
    			<div class="btn_div">
-   				<input type="button" value="下一步" onClick="javascript:window.location.href='/register2.jhtml'">
+   				<input type="button" value="上一步" onClick="javascript:window.location.href='/register.jhtml'" style="background:#69CDCD;border:1px solid #69CDCD;">
+   				<input type="button" value="下一步" onClick="javascript:window.location.href='/register3.jhtml'">
 			</div>
     	</div>
     </div>
