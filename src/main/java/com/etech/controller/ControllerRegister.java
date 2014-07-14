@@ -1,6 +1,5 @@
 package com.etech.controller;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +18,7 @@ import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
 import com.etech.util.EtechGobal;
 import com.etech.util.JsonOutToBrower;
-
+@Controller
 public class ControllerRegister {
 
 	private static final Log log = LogFactory.getLog(ControllerRegister.class);
@@ -26,12 +26,12 @@ public class ControllerRegister {
 	private EtechService etechService;
 
 	/**
-	 * Begin Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
-	 * AddReason:普通用户注册页面
+	 * 注册
+	 * @return
 	 */
-	@RequestMapping(value = "/personalReg")
-	public String personalRegister() {
-		return "register/personalRegister";
+	@RequestMapping(value="/register")
+	public String registerView(){
+		return "/WEB-INF/register.jsp";
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class ControllerRegister {
 			JsonOutToBrower.out(message, response);
 		}
 	}
-	/**
+	/** 
 	 * End Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
 	 * AddReason:ajax判断一般用户的ajax验证
 	 */

@@ -69,13 +69,6 @@ a:link {
 	text-align:center;
 	cursor:pointer;
 }
-#botto {
-	float:left; 
-	width:750px; 
-	font-size:12px;
-	color:#666; 
-	margin:40px 0px;
-}
 </style>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -110,7 +103,7 @@ a:link {
 
 <body>
 <div>
-	<div style="height:125px;">
+	<div style="height:135px;width:100%">
     	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
         	<div style="float:left;">
         		<img src="images/Logo_.png"/>
@@ -137,7 +130,7 @@ a:link {
                     <span><a style="float:right;">找回密码</a></span>
                 </p>
                 <p id="check">
-                    <span>没有商户账号？<a style="text-decoration:underline;color:red;">立即注册</a></span>
+                    <span>没有商户账号？<a style="text-decoration:underline;color:red;" href="/register.jhtml">立即注册</a></span>
                 </p>
                 <div id="login">
                 	<p>登录</p>
@@ -146,15 +139,8 @@ a:link {
         </div>
     </div>
     
-    <div style="width:1000px; margin-left:auto; margin-right:auto;">
-    	<div id="botto">
-        	<p><a>下载APP</a><span>  丨  我的微信：爱乐逛、爱乐逛助手  丨  我们的微博：武汉爱乐逛  丨</span><a>关于爱乐逛</a></p>
-            <p><span>客服邮箱：kefu@aileguang.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：武汉谦通科技有限公司</span></p>
-        </div>
-        <div style="float:left; margin:40px 0px;">
-        	<img src="images/telephone.png" />
-        </div>
-    </div>
+    <!-- 引用尾部页面 -->
+    <jsp:include page="include/footer.jsp" flush="true" />
     
 </div>
 </body>
