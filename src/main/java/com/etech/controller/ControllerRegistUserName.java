@@ -11,10 +11,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
-import com.etech.util.JsonOutToBrower;
+import com.etech.webutil.Brower;
 @Controller
 public class ControllerRegistUserName {
 	private static final Log log = LogFactory
@@ -30,14 +29,13 @@ public class ControllerRegistUserName {
 			throws Exception {
 		log.debug("current regUser reginName:" + regUser.getUserName());
 		String userName = regUser.getUserName();
-		Tshopsuser sessionUser = (Tshopsuser) etechService
-				.findObjectByProperty(Tshopsuser.class, "userName", userName);
+		Tshopsuser sessionUser = (Tshopsuser) etechService.findObject(Tshopsuser.class, "userName", userName);
 		Map<String, Object> message = new HashMap<String, Object>();
 		if (!StringUtils.isEmpty(sessionUser)) {
 			if (regUser.getUserName().equals(sessionUser.getUserName())) {
 				message.put("property", "userName");
 				message.put("message", "userNameError");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 		} 

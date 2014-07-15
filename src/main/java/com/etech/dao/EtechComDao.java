@@ -23,127 +23,44 @@ import org.junit.Assert;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.stereotype.Repository;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
-@Repository
 public class EtechComDao extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(EtechComDao.class);
 	@Resource
 	private SessionFactory sessionFactory;
 
-	// 当对象和他的级联对象都没有id的时候,可以一起级联保存
+	/**merge方法保存或更新数据库之后,对象变为持久对象*/ 
 	public void merge(Object object) {
 		HibernateTemplate ht = super.getHibernateTemplate();
 		ht.merge(object);
 		ht.flush();
 	}
 
-	// 当对象有id，他的级联对象都没有id的时候,可以一起级联保存
+	/**saveOrUpdata方法保存或更新到数据库之后,对象变为托管对象*/ 
 	public void saveOrUpdata(Object object) {
 		HibernateTemplate ht = getHibernateTemplate();
 		ht.saveOrUpdate(object);
 		ht.flush();
 	}
 
-	// 以HQL的方式保存对象
-	public Integer saveOrUpdate(final String hql) {
-		this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				int result = query.executeUpdate();
-				return result;
-			}
-		});
-		return 0;
-	}
-	public void update(Class<?> clazz,String property,final Object value,String updateProperty,final Object updateValue){
-		final String hql="update from "+clazz.getName()+" as entity set entity."+updateProperty+" =:updateValue where entity."+property+" =:value";
-		getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setParameter("updateValue",updateValue);
-				query.setParameter("value", value);
-				log.debug(query.getQueryString());
-				query.executeUpdate();
-				return null;
-			}
-			
-		});
-	}
-	// 以对象的方式删除对象
-	public void delete(Object object) {
-		this.getHibernateTemplate().delete(object);
-	}
-
-	// 以HQL的方式删除对象
-	public void delete(final String hql) {
-		this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.executeUpdate();
-				return null;
-			}
-		});
-
-	}
-
 	/** Begin Author:wuqiwei Data:2014-05-22 AddReason:根据id的方式删除对象 */
 	public void delete(Class<?> clazz, final Integer id) {
-		final String clazzName = clazz.getName();
-		final String hql = "delete from " + clazzName + " where id=:id";
-		this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setParameter("id", id);
-				query.executeUpdate();
-				return null;
-			}
-		});
+		Object object = this.getHibernateTemplate().get(clazz, id);
+		getHibernateTemplate().delete(object);
 	}
-
 	/** End Author:wuqiwei Data:2014-05-22 AddReason:根据id的方式删除对象 */
+
+	/** Begin Author:wuqiwei Data:2014-05-22 AddReason:根据属性的方式删除对象 */
 	public void delete(Class<?> clazz, String property, final Object value) {
-		final String hql = "delete from " + clazz.getName()
-				+ " as entity where entity." + property + " =:value";
-		this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setParameter("value", value);
-				query.executeUpdate();
-				return null;
-			}
-		});
+		Object object = this.findObject(clazz, property, value);
+		getHibernateTemplate().delete(object);
 	}
-	public void deleteBySQL(final String sql){
-		this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createSQLQuery(sql);
-				query.executeUpdate();
-				return null;
-			}
-		});
-	}
+	/** End Author:wuqiwei Data:2014-05-22 AddReason:根据属性的方式删除对象 */
+
 	// 获取单一对象
-	public Object getObjectByHQL(final String hql) {
+	public Object findObject(final String hql) {
 		return this.getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 
@@ -157,8 +74,9 @@ public class EtechComDao extends HibernateDaoSupport {
 	}
 
 	/** Begin Author:wuqiwei Data:2014-05-12 AddReason:根据属性获取对象 */
-	public Object getObjectByProperty(Class<?> clazz,final Object property, final Object value) {
-		final String hql = "from " + clazz.getName() + " as entity where entity."+ property + " =:value";
+	public Object findObject(Class<?> clazz, final Object property,
+			final Object value) {
+		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value";
 		log.debug("current hql:" + hql);
 		return this.getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
@@ -172,11 +90,17 @@ public class EtechComDao extends HibernateDaoSupport {
 					}
 				});
 	}
-
 	/** End Author:wuqiwei Data:2014-05-12 AddReason:根据属性获取对象 */
-	public List<?> getListByProperty(Class<?> clazz,final Object property, final Object value) {
-		final String hql = "from " + clazz.getName() + " as entity where entity."+ property + " =:value";
-		log.debug("current hql:" + hql);
+
+	/** Begin Author:wuqiwei Data:2014-05-12 AddReason:根据id获取对象 */
+	public Object findObject(Class<?> clazz, Integer id) {
+		return getHibernateTemplate().get(clazz, id);
+	}
+	/** End Author:wuqiwei Data:2014-05-12 AddReason:根据id获取对象 */
+
+	public List<?> findObjectList(Class<?> clazz, final Object property,
+			final Object value) {
+		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value";
 		return (List<?>) this.getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 
@@ -189,32 +113,69 @@ public class EtechComDao extends HibernateDaoSupport {
 					}
 				});
 	}
-	// 获取多个对象
-	public List<?> getObjecListByHQL(final String hql) {
-		return (List<?>) this.getHibernateTemplate().execute(
+
+ 
+	public List<?> findObjectList(final Class<?> clazz, final Integer num) {
+		return (List<?>) getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hql = "from " + clazz.getName();
+						Query query = session.createQuery(hql);
+						query.setFirstResult(0);
+						query.setMaxResults(num);
+						List<?> list = query.list();
+						return list;
+					}
+				});
+	}
+
+	public List<?> findObjectList(final Class<?> clazz, final String property,
+			final Object value, final int num) {
+		return (List<?>) getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
+						String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value";
 						Query query = session.createQuery(hql);
-						return query.list();
+						query.setParameter("value", value);
+						query.setFirstResult(0);
+						query.setMaxResults(num);
+						List<?> list = query.list();
+						return list;
 					}
 				});
 	}
 
-	// 以对象的方式获取对象。
-	public Object getObjecById(Class<?> clazz, Integer id) {
-		return getHibernateTemplate().get(clazz, id);
+	public Page<?> getPageDateList(final String hql, final Pageable pageable) {
+		return (Page<?>)getHibernateTemplate().execute(new HibernateCallback<Object>() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery(hql);
+				double total = (Double) query.uniqueResult();
+				query = session.createQuery(hql);
+				int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
+				if (totalPages < pageable.getPageNumber()) {
+					pageable.setPageNumber(totalPages);
+				}
+				query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
+				query.setMaxResults(pageable.getPageSize());
+			    @SuppressWarnings("rawtypes")
+				Page page = new Page(query.list(), (int)total, pageable);
+			    return page;
+			}
+		});
 	}
 
-	public List<?> getPageDateList(final String hql, final Integer currentPage,
-			final Integer perPageCount, Class<?> clazz) {
-		String hqlCount = "select count (*) from " + clazz.getName();
-		final Long totalCount = (Long) getObjectByHQL(hqlCount);
-		if (totalCount == null) {
-			return null;
-		}
+	/** Begin Name:wuqiwei Date:2013-11-5 07:24:40 AddReason:返回一定数量的行数 */
+	public List<?> findObjectList(final String hql, final Integer num) {
+		Assert.assertNotNull(num);
 		return (List<?>) getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 
@@ -222,117 +183,42 @@ public class EtechComDao extends HibernateDaoSupport {
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						Query query = session.createQuery(hql);
-						// 该方法是设置从哪一行开始
-						Integer pageIndex = currentPage;
-						Integer perCount = perPageCount;
-						if ((pageIndex != null && currentPage != 0)|| (perCount != null && perPageCount != 0)) {
-							// 如果当前页大于最大页,则当前页等于最大页
-							// 使用ceil的时候注意：一定要把参数转换为float类型。
-							if (currentPage > ((int) Math.ceil((float) totalCount / perCount))) {
-								pageIndex = (int) Math.ceil((float) totalCount/ perCount);
-							}
-							// 如果当前页小于第一页则等于第一页
-							if (pageIndex < 1) {
-								pageIndex = 1;
-							}
-							query.setFirstResult(perCount * (pageIndex - 1)); // 此处是
-																				// 页和开始行的关系
-																				// y=perPageCount(x-1)
-							// 设置到哪里结束
-							// query.setMaxResults(perPageCount*nowPage-1); //
-							// 之前理解错误不是"此处是开始行和结束行之间的关系 z=perPageCount*x-1;"
-							// 二是每次获取多少条记录
-							query.setMaxResults(perCount);// 获取多少条数据。
-						}
-						return query.list();
+						query.setFirstResult(0);
+						query.setMaxResults(num);
+						List<?> list = query.list();
+						return list;
 					}
 				});
 	}
-
-	/* Begin Name:wuqiwei Date:2013-11-5 07:24:40 AddReason:返回一定数量的行数 */
-	public List<?> getPageDateList(final String hql, final Integer num) {
-		Assert.assertNotNull(num);
-		return (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setFirstResult(0);
-				query.setMaxResults(num);
-				List<?> list = query.list();
-				return list;
-			}
-			
-		});
-	}
-	
 	/* End Name:wuqiwei Date:2013-11-5 07:24:40 AddReason:返回一定数量的行数 */
 
-	/* Begin Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成全文搜索 */
-	@SuppressWarnings("unchecked")
-	public  List<?> getListByHSearch(Class<?> clazz, String key,String[] properties,int currentPage,int perCount) {
-		Assert.assertTrue(currentPage>=0);
-		Assert.assertTrue(perCount>=0);
+	/** Begin Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成关键字全文搜索 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Page<?> findObjectListByKeyWord(Class<?> clazz, String key,String[] fileds, final Pageable pageable) {
 		Session session = sessionFactory.getCurrentSession();
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
 		Transaction tx = fullTextSession.beginTransaction();
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_36, properties, new IKAnalyzer());
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(Version.LUCENE_36, fileds, new IKAnalyzer());
 		parser.setDefaultOperator(QueryParser.OR_OPERATOR);
-		BooleanQuery booleanQuery = new BooleanQuery();// 用BooleanQuery来做搜索条件的组合，即多条件查询
+		// 用BooleanQuery来做搜索条件的组合，即多条件查询
+		BooleanQuery booleanQuery = new BooleanQuery();
 		try {
 			booleanQuery.add(parser.parse(key), Occur.SHOULD);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(booleanQuery, clazz);
-		int total=fullTextQuery.getResultSize();
-		// 分页
-		if (currentPage > ((int) Math.ceil((float) total / perCount))) {
-			currentPage = (int) Math.ceil((float) total/ perCount);
+		int total = fullTextQuery.getResultSize();
+		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
+		if (totalPages < pageable.getPageNumber()) {
+			pageable.setPageNumber(totalPages);
 		}
-		// 如果当前页小于第一页则等于第一页
-		if (currentPage < 1) {
-			currentPage = 1;
-		}
-		fullTextQuery.setFirstResult(perCount * (currentPage - 1));
-		fullTextQuery.setMaxResults(perCount);
-		 List list = fullTextQuery.list();
-		 tx.commit();
-		 return list;
+		fullTextQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
+		fullTextQuery.setMaxResults(pageable.getPageSize());
+		List<?> list = fullTextQuery.list();
+		tx.commit();
+		return new Page(list, total, pageable);
 	}
-	/* End Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成全文搜索 */
+	/* End Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成关键字全文搜索 */
 
-	public List<?> getListByProperty(Class<?> clazz, String property,final Object value, final int num) {
-		final String hql = "from " + clazz.getName() + " as entity where entity."+ property + " =:value";
-		log.debug("current hql:" + hql);
-		return (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setParameter("value", value);
-				query.setFirstResult(0);
-				query.setMaxResults(num);
-				List<?> list = query.list();
-				return list;
-			}
-		});
-	}
-
-	public List<?> getListByClass(final Class<?> clazz, final Integer num) {
-		return (List<?>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				String hql = "from " + clazz.getName();
-				Query query = session.createQuery(hql);
-				query.setFirstResult(0);
-				query.setMaxResults(num);
-				List<?> list = query.list();
-				return list;
-			}
-		});
-	}
 }

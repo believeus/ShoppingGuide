@@ -12,10 +12,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
-import com.etech.util.JsonOutToBrower;
+import com.etech.webutil.Brower;
 
 @Controller
 public class ControllerValIdnumAndRealName {
@@ -45,19 +44,19 @@ public class ControllerValIdnumAndRealName {
 			if(matcheIdCard1==false&&matcheIdCard2==false){
 				message.put("property", "idnumber");
 				message.put("message", "error");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}else{
 				message.put("property", "idnumber");
 				message.put("message", "success");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 			
 		}else {
 			message.put("property", "idnumber");
 			message.put("message", "nullInfo");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		/**

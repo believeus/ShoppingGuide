@@ -1,5 +1,5 @@
 
-package com.etech.util;
+package com.etech.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;

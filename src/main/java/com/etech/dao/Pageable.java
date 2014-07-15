@@ -1,9 +1,8 @@
-package com.etech.util;
+package com.etech.dao;
 
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 
 /**
  * 分页

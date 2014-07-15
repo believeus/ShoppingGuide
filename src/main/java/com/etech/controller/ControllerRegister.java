@@ -2,22 +2,19 @@ package com.etech.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
-import com.etech.util.EtechGobal;
-import com.etech.util.JsonOutToBrower;
+import com.etech.webutil.Variables;
+import com.etech.webutil.Brower;
 @Controller
 public class ControllerRegister {
 
@@ -47,13 +44,13 @@ public class ControllerRegister {
 		if (StringUtils.isEmpty(regUser.getUserName())) {
 			message.put("property", "userName");
 			message.put("message", "用户名必填!");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		if(regUser.getUserName().equals(sessionUser.getUserName())){
 			message.put("property", "userName");
 			message.put("message", "用户名已存在！");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		boolean matches = regUser.getUserName().matches(
@@ -66,18 +63,18 @@ public class ControllerRegister {
 		if (matches == false && matches1 == false && matches2 == false) {
 			message.put("property", "loginName");
 			message.put("message", "用户名必须为手机号，或者邮箱，或者必须大于6位的字母数字组合");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		if (matches == true) {
 			message.put("message", "手机号输入框隐藏");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		if (regUser.getPhoneNumber().isEmpty()) {
 			message.put("property", "phoneNumber");
 			message.put("message", "手机号必须输入！");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 			return;
 		}
 		// 用户注册
@@ -85,19 +82,19 @@ public class ControllerRegister {
 			if (StringUtils.isEmpty(regUser.getPassword())) {
 				message.put("property", "password");
 				message.put("message", "密码必填!");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 			if (StringUtils.isEmpty(rpasswprd)) {
 				message.put("property", "comfirmPwd");
 				message.put("message", "确定密码必填!");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 			if (!regUser.getPassword().equals(rpasswprd)) {
 				message.put("property", "comfirmPwd");
 				message.put("message", "密码和确定密码不一致!");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 		}
@@ -116,20 +113,20 @@ public class ControllerRegister {
 			if (matcheIdCard1 == false && matcheIdCard2 == false) {
 				message.put("property", "idcard");
 				message.put("message", "身份证格式不对");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 			if (StringUtils.isEmpty(sessionUser)) {
 				// 验证身份证号是否存在过
 				Tshopsuser user = (Tshopsuser) etechService
-						.findObjectByProperty(Tshopsuser.class,
-								EtechGobal.idcard, regUser.getIdnumber());
+						.findObject(Tshopsuser.class,
+								Variables.idcard, regUser.getIdnumber());
 				log.debug("idcard:" + regUser.getIdnumber());
 				log.debug("current user:" + user);
 				if (!StringUtils.isEmpty(user)) {
 					message.put("property", "idcard");
 					message.put("message", "身份证号已存在,请重新填写");
-					JsonOutToBrower.out(message, response);
+					Brower.outJson(message, response);
 					return;
 				}
 				// 如果提交的表单中的性别和身份证计算的不一致,则返回身份证计算的性别
@@ -139,7 +136,7 @@ public class ControllerRegister {
 				log.debug("sex:" + regUser.getGender());
 				if (!regUser.getGender().equals(sex)) {
 					message.put("sex", sex);
-					JsonOutToBrower.out(message, response);
+					Brower.outJson(message, response);
 					return;
 				} else {
 					// 前台无论如何都要接受这个sex值，不可省略。
@@ -151,28 +148,28 @@ public class ControllerRegister {
 		}
 		// 用户注册
 		if (StringUtils.isEmpty(sessionUser)) {
-			Tshopsuser user = (Tshopsuser) etechService.findObjectByProperty(
-					Tshopsuser.class, EtechGobal.loginName,
+			Tshopsuser user = (Tshopsuser) etechService.findObject(
+					Tshopsuser.class, Variables.loginName,
 					regUser.getUserName());
 			if (!StringUtils.isEmpty(user)) {
 				message.put("property", "loginName");
 				message.put("message", "用户名已存在");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 				return;
 			}
 			// 用户编辑
 		} else {
-			Tshopsuser user = (Tshopsuser) etechService.findObjectByProperty(
+			Tshopsuser user = (Tshopsuser) etechService.findObject(
 					Tshopsuser.class, "id", regUser.getShopId());
 			// 编辑用户名和原用户名不等
 			if (!user.getUserName().equals(regUser.getUserName())) {
-				user = (Tshopsuser) etechService.findObjectByProperty(
-						Tshopsuser.class, EtechGobal.loginName,
+				user = (Tshopsuser) etechService.findObject(
+						Tshopsuser.class, Variables.loginName,
 						regUser.getUserName());
 				if (!StringUtils.isEmpty(user)) {
 					message.put("property", "loginName");
 					message.put("message", "用户名已存在");
-					JsonOutToBrower.out(message, response);
+					Brower.outJson(message, response);
 					return;
 				}
 			}
@@ -201,18 +198,18 @@ public class ControllerRegister {
 			// 用户注册
 			if (StringUtils.isEmpty(sessionUser)) {
 				// 只有从sessionFactory中获取的对象才能updata
-				Tshopsuser comUser = (Tshopsuser) etechService.findObjectById(
+				Tshopsuser comUser = (Tshopsuser) etechService.findObject(
 						Tshopsuser.class, regUser.getShopId());
 				log.debug("regUser.id:" + regUser.getShopId());
 				session.setAttribute("sessionUser", comUser);
 				etechService.merge(regUser);
 			}
 			message.put("message", "success");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 		} else {
 			// 完成所有验证
 			message.put("message", "finish");
-			JsonOutToBrower.out(message, response);
+			Brower.outJson(message, response);
 		}
 	}
 	/** 

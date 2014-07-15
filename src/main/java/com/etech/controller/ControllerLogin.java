@@ -3,11 +3,9 @@ package com.etech.controller;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,10 +13,9 @@ import org.junit.Assert;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
-import com.etech.util.JsonOutToBrower;
+import com.etech.webutil.Brower;
 
 /**Begin Author:wuqiwei Data:2014-05-26 Email:1058633117@qq.com AddReason:用户登录业务逻辑 */
 @Controller
@@ -33,7 +30,7 @@ public class ControllerLogin {
 		Assert.assertNotNull(formUser);
 		log.debug("current user name:"+formUser.getUserName());
 		log.debug("current user passowrd:"+formUser.getPassword());
-		Tshopsuser sessionUser = (Tshopsuser) userService.findObjectByProperty(Tshopsuser.class, "userName", formUser.getUserName());
+		Tshopsuser sessionUser = (Tshopsuser) userService.findObject(Tshopsuser.class, "userName", formUser.getUserName());
 		Map<String, Object> message=new HashMap<String, Object>();
 			if(!StringUtils.isEmpty(sessionUser)){
 				String oldPassword = DigestUtils.md5Hex(formUser.getPassword());
@@ -55,11 +52,11 @@ public class ControllerLogin {
 					}
 				}else {
 					message.put("message","error");
-					JsonOutToBrower.out(message, response);
+					Brower.outJson(message, response);
 				}
 			}else{
 				message.put("message","error");
-				JsonOutToBrower.out(message, response);
+				Brower.outJson(message, response);
 			}
 		
 	}

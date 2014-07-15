@@ -17,7 +17,6 @@ public class ControllerAddShops {
 	
 	@RequestMapping(value="/addShops")
 	public String loginView(){
-		log.debug("INFO");
 		return "/main/addShops.jsp";
 	}
 }
