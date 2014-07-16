@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script language="JavaScript" src="js/jquery.js"></script>
 	<style type="text/css">
 		body {
 			font-family: Microsoft YaHei !important;	
@@ -84,7 +85,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<jsp:include page="../include/header.jsp"/>
-    <div style="width:100%; background-color:#CCC;">
 	    <div style="width:1000px; margin:0px auto; background-color:#fff;">
 	    	<div style="padding-top:30px;">
 	        	<div id="titl">
@@ -142,9 +142,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <td></td>
 	              </tr>
 	            </table>
+	            <img src="/images/line.png">
 	        </div>
-	   </div>
-	</div>
+		</div>
 	<jsp:include page="../include/footer.jsp"/>
   </body>
 </html>

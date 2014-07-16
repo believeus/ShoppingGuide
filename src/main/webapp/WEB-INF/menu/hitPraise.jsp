@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -58,7 +59,8 @@
 			width:300px;
 			height:200px;
 			float:left;
-			margin-right:30px;
+			margin-right:47px;
+			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;
 		}
@@ -119,7 +121,7 @@
 		.p_speci{
 			height:135px;
 			width:300px;
-			
+			padding:10px;
 		}
 		.p_speci_p{
 		    cursor: pointer;
@@ -127,7 +129,7 @@
 		    float: left;
 		    font-size: 13px;
 		    height: 20px;
-		    margin-right: 15px;
+		    margin: 5px 15px 5px 0;
 		    padding: 3px 15px;
 		    width: auto;
 		    background:#EFEFEF;
@@ -155,9 +157,37 @@
 					<td style="width:56%;"></td>
 				</tr>
 			</table>			
-			<hr style="width:85%;border:1px solid #E8E8E8;" />
 			
 			<div class="p_main">
+				<img src="/images/line.png" style="margin-bottom:20px;">
+				
+				<div class="p_list">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
+						</div>
+						<div class="p_top_word">
+							<div class="p_top_word_name">
+								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
+								<span class="nSex">女</span>
+							</div>
+							<div class="p_top_word_time">
+								<span class="nTime">2014年7月16日 12：59</span>
+								<span class="nRecord">已关注</span>
+							</div>
+						</div>
+					</div>
+					<div class="p_speci">
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">商务休闲</p>
+						<p class="p_speci_p">青春活力</p>
+						<p class="p_speci_p">精致韩风</p>
+						<p class="p_speci_p">小清新</p>
+					</div>
+				</div>
+				
 				<div class="p_list">
 					<div class="p_top">
 						<div class="p_top_img">
@@ -182,11 +212,85 @@
 						<p class="p_speci_p">小清新</p>
 					</div>
 				</div>
+				
+				<div class="p_list" style="margin-right:0;">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
+						</div>
+						<div class="p_top_word">
+							<div class="p_top_word_name">
+								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
+								<span class="nSex">女</span>
+							</div>
+							<div class="p_top_word_time">
+								<span class="nTime">2014年7月16日 12：59</span>
+								<span class="nRecord">已关注</span>
+							</div>
+						</div>
+					</div>
+					<div class="p_speci">
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">精致韩风</p>
+						<p class="p_speci_p">商务休闲</p>
+						<p class="p_speci_p">青春活力</p>
+						<p class="p_speci_p">小清新</p>
+					</div>
+				</div>
+				
+				<div class="p_list">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
+						</div>
+						<div class="p_top_word">
+							<div class="p_top_word_name">
+								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
+								<span class="nSex">女</span>
+							</div>
+							<div class="p_top_word_time">
+								<span class="nTime">2014年7月16日 12：59</span>
+								<span class="nRecord">已关注</span>
+							</div>
+						</div>
+					</div>
+					<div class="p_speci">
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">精致韩风</p>
+						<p class="p_speci_p">商务休闲</p>
+						<p class="p_speci_p">青春活力</p>
+						<p class="p_speci_p">小清新</p>
+					</div>
+				</div>
+				
+				<div class="p_list">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
+						</div>
+						<div class="p_top_word">
+							<div class="p_top_word_name">
+								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
+								<span class="nSex">女</span>
+							</div>
+							<div class="p_top_word_time">
+								<span class="nTime">2014年7月16日 12：59</span>
+								<span class="nRecord">已关注</span>
+							</div>
+						</div>
+					</div>
+					<div class="p_speci">
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">精致韩风</p>
+						<p class="p_speci_p">商务休闲</p>
+						<p class="p_speci_p">青春活力</p>
+						<p class="p_speci_p">小清新</p>
+					</div>
+				</div>
+				
 			</div>
-			
 		</div>
 
-		<hr style="width:85%;border:1px solid #E8E8E8;" />
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />

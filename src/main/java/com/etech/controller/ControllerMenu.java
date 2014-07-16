@@ -84,4 +84,20 @@ public class ControllerMenu {
 	public String hitPraise(){
 		return "/WEB-INF/menu/hitPraise.jsp";
 	}
+	/**
+	 * 我的粉丝
+	 * @return
+	 */
+	@RequestMapping(value="/myFans")
+	public String myFans(){
+		return "/WEB-INF/menu/myFans.jsp";
+	}
+	/**
+	 * 资讯详情
+	 * @return
+	 */
+	@RequestMapping(value="/information")
+	public String information(){
+		return "/WEB-INF/menu/Information.jsp";
+	}
 }

@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
     <div style="width:100%;height:auto; margin:0;overflow:hidden;text-align:center;background:#FFFFFF;">
+	    <img src="/images/line.png">
     	<div id="botto">
         	<p><a>下载APP</a><span>  丨  我的微信：爱乐逛、爱乐逛助手  丨  我们的微博：武汉爱乐逛  丨</span><a>关于爱乐逛</a></p>
             <p><span>客服邮箱：kefu@aileguang.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：武汉谦通科技有限公司</span></p>
