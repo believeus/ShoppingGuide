@@ -134,47 +134,45 @@
 	<property name="dialect">
 		org.hibernate.dialect.MySQLInnoDBDialect
 	</property>
-	<mapping resource="com/etech/entity/Tadminpermission.hbm.xml" />
-	<mapping resource="com/etech/entity/Tadminpermissiongroup.hbm.xml" />
-	<mapping resource="com/etech/entity/Tadminrole.hbm.xml" />
-	<mapping
-		resource="com/etech/entity/Tadminrolepermissionsown.hbm.xml" />
-	<mapping resource="com/etech/entity/Tadminuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tarea.hbm.xml" />
-	<mapping resource="com/etech/entity/Tbusinessscope.hbm.xml" />
-	<mapping resource="com/etech/entity/Tcity.hbm.xml" />
-	<mapping
-		resource="com/etech/entity/TeventCountdataeveryday.hbm.xml" />
-	<mapping resource="com/etech/entity/Tfavoritegroup.hbm.xml" />
-	<mapping resource="com/etech/entity/Tfeature.hbm.xml" />
-	<mapping
-		resource="com/etech/entity/Tfindpasswordforshopuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoods.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodsfavorite.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodsfeature.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodspraisehistory.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodstype.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodstypefeature.hbm.xml" />
-	<mapping resource="com/etech/entity/Tgoodsviewhistory.hbm.xml" />
-	<mapping resource="com/etech/entity/Tmarket.hbm.xml" />
-	<mapping resource="com/etech/entity/Tnews.hbm.xml" />
-	<mapping resource="com/etech/entity/Tnewsviewhistory.hbm.xml" />
-	<mapping resource="com/etech/entity/Tphoneuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tphoneuserfeature.hbm.xml" />
-	<mapping resource="com/etech/entity/Tphoneuserlogin.hbm.xml" />
-	<mapping resource="com/etech/entity/Tprofession.hbm.xml" />
-	<mapping resource="com/etech/entity/Tprovince.hbm.xml" />
-	<mapping resource="com/etech/entity/Tsearchkeywords.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshop.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopfavorite.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopfeature.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshoppraisehistory.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopsuser.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopuserlogin.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopusershoprelation.hbm.xml" />
-	<mapping resource="com/etech/entity/Tshopviewhistory.hbm.xml" />
-	<mapping resource="com/etech/entity/Tsystemconfig.hbm.xml" />
-	<mapping resource="com/etech/entity/Ttabletrace.hbm.xml" />
+	<mapping class="com.etech.entity.Tadminpermission" />
+	<mapping class="com.etech.entity.Tadminpermissiongroup" />
+	<mapping class="com.etech.entity.Tadminrole" />
+	<mapping class="com.etech.entity.Tadminrolepermissionsown" />
+	<mapping class="com.etech.entity.Tadminuser" />
+	<mapping class="com.etech.entity.Tarea" />
+	<mapping class="com.etech.entity.Tbusinessscope" />
+	<mapping class="com.etech.entity.Tcity" />
+	<mapping class="com.etech.entity.TeventCountdataeveryday" />
+	<mapping class="com.etech.entity.Tfavoritegroup" />
+	<mapping class="com.etech.entity.Tfeature" />
+	<mapping class="com.etech.entity.Tfindpasswordforshopuser" />
+	<mapping class="com.etech.entity.Tgoods" />
+	<mapping class="com.etech.entity.Tgoodsfavorite" />
+	<mapping class="com.etech.entity.Tgoodsfeature" />
+	<mapping class="com.etech.entity.Tgoodspraisehistory" />
+	<mapping class="com.etech.entity.Tgoodstype" />
+	<mapping class="com.etech.entity.Tgoodstypefeature" />
+	<mapping class="com.etech.entity.Tgoodsviewhistory" />
+	<mapping class="com.etech.entity.Tmarket" />
+	<mapping class="com.etech.entity.Tnews" />
+	<mapping class="com.etech.entity.Tnewsviewhistory" />
+	<mapping class="com.etech.entity.Tphoneuser" />
+	<mapping class="com.etech.entity.Tphoneuserfeature" />
+	<mapping class="com.etech.entity.Tphoneuserlogin" />
+	<mapping class="com.etech.entity.Tprofession" />
+	<mapping class="com.etech.entity.Tprovince" />
+	<mapping class="com.etech.entity.Tsearchkeywords" />
+	<mapping class="com.etech.entity.Tshop" />
+	<mapping class="com.etech.entity.Tshopfavorite" />
+	<mapping class="com.etech.entity.Tshopfeature" />
+	<mapping class="com.etech.entity.Tshoppraisehistory" />
+	<mapping class="com.etech.entity.Tshopsuser" />
+	<mapping class="com.etech.entity.Tshopuserlogin" />
+	<mapping class="com.etech.entity.Tshopusershoprelation" />
+	<mapping class="com.etech.entity.Tshopviewhistory" />
+	<mapping class="com.etech.entity.Tsystemconfig" />
+	<mapping class="com.etech.entity.Ttabletrace" />
+	<mapping class="com.etech.entity.TtabletraceId" />
 
 
 </session-factory>
