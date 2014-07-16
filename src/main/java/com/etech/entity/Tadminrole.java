@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tadminrole entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tadminrole", catalog = "dbshop")
 public class Tadminrole implements java.io.Serializable {
 
 	// Fields
@@ -30,7 +37,9 @@ public class Tadminrole implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "AdminUserID", nullable = false)
 	public Integer getAdminUserId() {
 		return this.adminUserId;
 	}
@@ -39,6 +48,7 @@ public class Tadminrole implements java.io.Serializable {
 		this.adminUserId = adminUserId;
 	}
 
+	@Column(name = "AdminUserName", nullable = false, length = 50)
 	public String getAdminUserName() {
 		return this.adminUserName;
 	}
@@ -47,6 +57,7 @@ public class Tadminrole implements java.io.Serializable {
 		this.adminUserName = adminUserName;
 	}
 
+	@Column(name = "Remark", length = 65535)
 	public String getRemark() {
 		return this.remark;
 	}

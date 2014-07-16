@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tshop entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tshop", catalog = "dbshop")
 public class Tshop implements java.io.Serializable {
 
 	// Fields
@@ -93,7 +99,9 @@ public class Tshop implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ShopID", nullable = false)
 	public Integer getShopId() {
 		return this.shopId;
 	}
@@ -102,6 +110,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
+	@Column(name = "MarketID", nullable = false)
 	public Integer getMarketId() {
 		return this.marketId;
 	}
@@ -110,6 +119,7 @@ public class Tshop implements java.io.Serializable {
 		this.marketId = marketId;
 	}
 
+	@Column(name = "ShopName", nullable = false, length = 50)
 	public String getShopName() {
 		return this.shopName;
 	}
@@ -118,6 +128,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopName = shopName;
 	}
 
+	@Column(name = "ShopOwnerName", nullable = false, length = 50)
 	public String getShopOwnerName() {
 		return this.shopOwnerName;
 	}
@@ -126,6 +137,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopOwnerName = shopOwnerName;
 	}
 
+	@Column(name = "PhoneNumber", length = 50)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -134,6 +146,7 @@ public class Tshop implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Column(name = "Address", nullable = false, length = 100)
 	public String getAddress() {
 		return this.address;
 	}
@@ -142,6 +155,7 @@ public class Tshop implements java.io.Serializable {
 		this.address = address;
 	}
 
+	@Column(name = "QQ", length = 50)
 	public String getQq() {
 		return this.qq;
 	}
@@ -150,6 +164,7 @@ public class Tshop implements java.io.Serializable {
 		this.qq = qq;
 	}
 
+	@Column(name = "PriceRange", length = 50)
 	public String getPriceRange() {
 		return this.priceRange;
 	}
@@ -158,6 +173,7 @@ public class Tshop implements java.io.Serializable {
 		this.priceRange = priceRange;
 	}
 
+	@Column(name = "BusinessLicensePhoto", length = 50)
 	public String getBusinessLicensePhoto() {
 		return this.businessLicensePhoto;
 	}
@@ -166,6 +182,7 @@ public class Tshop implements java.io.Serializable {
 		this.businessLicensePhoto = businessLicensePhoto;
 	}
 
+	@Column(name = "Logo", length = 50)
 	public String getLogo() {
 		return this.logo;
 	}
@@ -174,6 +191,7 @@ public class Tshop implements java.io.Serializable {
 		this.logo = logo;
 	}
 
+	@Column(name = "QRCode", length = 50)
 	public String getQrcode() {
 		return this.qrcode;
 	}
@@ -182,6 +200,7 @@ public class Tshop implements java.io.Serializable {
 		this.qrcode = qrcode;
 	}
 
+	@Column(name = "IsRecommend", nullable = false)
 	public Short getIsRecommend() {
 		return this.isRecommend;
 	}
@@ -190,6 +209,7 @@ public class Tshop implements java.io.Serializable {
 		this.isRecommend = isRecommend;
 	}
 
+	@Column(name = "State", nullable = false)
 	public Short getState() {
 		return this.state;
 	}
@@ -198,6 +218,7 @@ public class Tshop implements java.io.Serializable {
 		this.state = state;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
@@ -206,6 +227,7 @@ public class Tshop implements java.io.Serializable {
 		this.addTime = addTime;
 	}
 
+	@Column(name = "ViewCount", nullable = false)
 	public Integer getViewCount() {
 		return this.viewCount;
 	}
@@ -214,6 +236,7 @@ public class Tshop implements java.io.Serializable {
 		this.viewCount = viewCount;
 	}
 
+	@Column(name = "BePraisedCount", nullable = false)
 	public Integer getBePraisedCount() {
 		return this.bePraisedCount;
 	}
@@ -222,6 +245,7 @@ public class Tshop implements java.io.Serializable {
 		this.bePraisedCount = bePraisedCount;
 	}
 
+	@Column(name = "ShopFeature", length = 65535)
 	public String getShopFeature() {
 		return this.shopFeature;
 	}
@@ -230,6 +254,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopFeature = shopFeature;
 	}
 
+	@Column(name = "FansCount", nullable = false)
 	public Integer getFansCount() {
 		return this.fansCount;
 	}
@@ -238,6 +263,7 @@ public class Tshop implements java.io.Serializable {
 		this.fansCount = fansCount;
 	}
 
+	@Column(name = "Latitude", nullable = false, precision = 22, scale = 0)
 	public Double getLatitude() {
 		return this.latitude;
 	}
@@ -246,6 +272,7 @@ public class Tshop implements java.io.Serializable {
 		this.latitude = latitude;
 	}
 
+	@Column(name = "Longitude", nullable = false, precision = 22, scale = 0)
 	public Double getLongitude() {
 		return this.longitude;
 	}
@@ -254,6 +281,7 @@ public class Tshop implements java.io.Serializable {
 		this.longitude = longitude;
 	}
 
+	@Column(name = "ShopPhotoURL", length = 65535)
 	public String getShopPhotoUrl() {
 		return this.shopPhotoUrl;
 	}
@@ -262,6 +290,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopPhotoUrl = shopPhotoUrl;
 	}
 
+	@Column(name = "ShopPhotoDefaultURL", length = 65535)
 	public String getShopPhotoDefaultUrl() {
 		return this.shopPhotoDefaultUrl;
 	}
@@ -270,6 +299,7 @@ public class Tshop implements java.io.Serializable {
 		this.shopPhotoDefaultUrl = shopPhotoDefaultUrl;
 	}
 
+	@Column(name = "BusinessLicenseNo", length = 50)
 	public String getBusinessLicenseNo() {
 		return this.businessLicenseNo;
 	}

@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tphoneuser entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tphoneuser", catalog = "dbshop")
 public class Tphoneuser implements java.io.Serializable {
 
 	// Fields
@@ -86,7 +92,9 @@ public class Tphoneuser implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "PhoneUserID", nullable = false)
 	public Integer getPhoneUserId() {
 		return this.phoneUserId;
 	}
@@ -95,6 +103,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.phoneUserId = phoneUserId;
 	}
 
+	@Column(name = "UserType", nullable = false)
 	public Short getUserType() {
 		return this.userType;
 	}
@@ -103,6 +112,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.userType = userType;
 	}
 
+	@Column(name = "PhoneNumber", length = 15)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -111,6 +121,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Column(name = "IMEI", length = 50)
 	public String getImei() {
 		return this.imei;
 	}
@@ -119,6 +130,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.imei = imei;
 	}
 
+	@Column(name = "Password", length = 200)
 	public String getPassword() {
 		return this.password;
 	}
@@ -127,6 +139,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "NickName", length = 30)
 	public String getNickName() {
 		return this.nickName;
 	}
@@ -135,6 +148,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.nickName = nickName;
 	}
 
+	@Column(name = "RealName", length = 20)
 	public String getRealName() {
 		return this.realName;
 	}
@@ -143,6 +157,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.realName = realName;
 	}
 
+	@Column(name = "Gender", length = 4)
 	public String getGender() {
 		return this.gender;
 	}
@@ -151,6 +166,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.gender = gender;
 	}
 
+	@Column(name = "QQ", length = 12)
 	public String getQq() {
 		return this.qq;
 	}
@@ -159,6 +175,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.qq = qq;
 	}
 
+	@Column(name = "Birthday", length = 19)
 	public Timestamp getBirthday() {
 		return this.birthday;
 	}
@@ -167,6 +184,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.birthday = birthday;
 	}
 
+	@Column(name = "Zodiac", length = 2)
 	public String getZodiac() {
 		return this.zodiac;
 	}
@@ -175,6 +193,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.zodiac = zodiac;
 	}
 
+	@Column(name = "Constellation", length = 6)
 	public String getConstellation() {
 		return this.constellation;
 	}
@@ -183,6 +202,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.constellation = constellation;
 	}
 
+	@Column(name = "ProfessionID")
 	public Integer getProfessionId() {
 		return this.professionId;
 	}
@@ -191,6 +211,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.professionId = professionId;
 	}
 
+	@Column(name = "Fancy", length = 65535)
 	public String getFancy() {
 		return this.fancy;
 	}
@@ -199,6 +220,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.fancy = fancy;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
@@ -207,6 +229,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.addTime = addTime;
 	}
 
+	@Column(name = "LastLoginTime", length = 19)
 	public Timestamp getLastLoginTime() {
 		return this.lastLoginTime;
 	}
@@ -215,6 +238,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
+	@Column(name = "LoginCount", nullable = false)
 	public Integer getLoginCount() {
 		return this.loginCount;
 	}
@@ -223,6 +247,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.loginCount = loginCount;
 	}
 
+	@Column(name = "ProfilePhoto", length = 50)
 	public String getProfilePhoto() {
 		return this.profilePhoto;
 	}
@@ -231,6 +256,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.profilePhoto = profilePhoto;
 	}
 
+	@Column(name = "OpenID", length = 32)
 	public String getOpenId() {
 		return this.openId;
 	}
@@ -239,6 +265,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.openId = openId;
 	}
 
+	@Column(name = "Longitude", nullable = false, precision = 22, scale = 0)
 	public Double getLongitude() {
 		return this.longitude;
 	}
@@ -247,6 +274,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.longitude = longitude;
 	}
 
+	@Column(name = "Latitude", nullable = false, precision = 22, scale = 0)
 	public Double getLatitude() {
 		return this.latitude;
 	}
@@ -255,6 +283,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.latitude = latitude;
 	}
 
+	@Column(name = "Sign", length = 65535)
 	public String getSign() {
 		return this.sign;
 	}
@@ -263,6 +292,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.sign = sign;
 	}
 
+	@Column(name = "AreaId")
 	public Integer getAreaId() {
 		return this.areaId;
 	}
@@ -271,6 +301,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.areaId = areaId;
 	}
 
+	@Column(name = "State", nullable = false)
 	public Short getState() {
 		return this.state;
 	}

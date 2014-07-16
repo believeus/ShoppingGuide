@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tgoods entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tgoods", catalog = "dbshop")
 public class Tgoods implements java.io.Serializable {
 
 	// Fields
@@ -76,7 +82,9 @@ public class Tgoods implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "GoodsID", nullable = false)
 	public Integer getGoodsId() {
 		return this.goodsId;
 	}
@@ -85,6 +93,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsId = goodsId;
 	}
 
+	@Column(name = "ShopID", nullable = false)
 	public Integer getShopId() {
 		return this.shopId;
 	}
@@ -93,6 +102,7 @@ public class Tgoods implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
+	@Column(name = "GoodsName", nullable = false, length = 100)
 	public String getGoodsName() {
 		return this.goodsName;
 	}
@@ -101,6 +111,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsName = goodsName;
 	}
 
+	@Column(name = "GoodsTypeID", nullable = false)
 	public Integer getGoodsTypeId() {
 		return this.goodsTypeId;
 	}
@@ -109,6 +120,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsTypeId = goodsTypeId;
 	}
 
+	@Column(name = "IsOnSale", nullable = false)
 	public Short getIsOnSale() {
 		return this.isOnSale;
 	}
@@ -117,6 +129,7 @@ public class Tgoods implements java.io.Serializable {
 		this.isOnSale = isOnSale;
 	}
 
+	@Column(name = "GoodsFeature", length = 65535)
 	public String getGoodsFeature() {
 		return this.goodsFeature;
 	}
@@ -125,6 +138,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsFeature = goodsFeature;
 	}
 
+	@Column(name = "Introduction", length = 65535)
 	public String getIntroduction() {
 		return this.introduction;
 	}
@@ -133,6 +147,7 @@ public class Tgoods implements java.io.Serializable {
 		this.introduction = introduction;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
@@ -141,6 +156,7 @@ public class Tgoods implements java.io.Serializable {
 		this.addTime = addTime;
 	}
 
+	@Column(name = "StateChangeTime", length = 19)
 	public Timestamp getStateChangeTime() {
 		return this.stateChangeTime;
 	}
@@ -149,6 +165,7 @@ public class Tgoods implements java.io.Serializable {
 		this.stateChangeTime = stateChangeTime;
 	}
 
+	@Column(name = "IsRecommend", nullable = false)
 	public Short getIsRecommend() {
 		return this.isRecommend;
 	}
@@ -157,6 +174,7 @@ public class Tgoods implements java.io.Serializable {
 		this.isRecommend = isRecommend;
 	}
 
+	@Column(name = "ExamineState", nullable = false)
 	public Short getExamineState() {
 		return this.examineState;
 	}
@@ -165,6 +183,7 @@ public class Tgoods implements java.io.Serializable {
 		this.examineState = examineState;
 	}
 
+	@Column(name = "GoodsPhotoURL", length = 65535)
 	public String getGoodsPhotoUrl() {
 		return this.goodsPhotoUrl;
 	}
@@ -173,6 +192,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsPhotoUrl = goodsPhotoUrl;
 	}
 
+	@Column(name = "GoodsDefaultPhotoURL", length = 65535)
 	public String getGoodsDefaultPhotoUrl() {
 		return this.goodsDefaultPhotoUrl;
 	}
@@ -181,6 +201,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsDefaultPhotoUrl = goodsDefaultPhotoUrl;
 	}
 
+	@Column(name = "GoodsDefaultPhotoWidth")
 	public Integer getGoodsDefaultPhotoWidth() {
 		return this.goodsDefaultPhotoWidth;
 	}
@@ -189,6 +210,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsDefaultPhotoWidth = goodsDefaultPhotoWidth;
 	}
 
+	@Column(name = "GoodsDefaultPhotoHeight")
 	public Integer getGoodsDefaultPhotoHeight() {
 		return this.goodsDefaultPhotoHeight;
 	}
@@ -197,6 +219,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsDefaultPhotoHeight = goodsDefaultPhotoHeight;
 	}
 
+	@Column(name = "ViewCount", nullable = false)
 	public Integer getViewCount() {
 		return this.viewCount;
 	}
@@ -205,6 +228,7 @@ public class Tgoods implements java.io.Serializable {
 		this.viewCount = viewCount;
 	}
 
+	@Column(name = "BePraisedCount", nullable = false)
 	public Integer getBePraisedCount() {
 		return this.bePraisedCount;
 	}

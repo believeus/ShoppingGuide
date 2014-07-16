@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tarea entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tarea", catalog = "dbshop")
 public class Tarea implements java.io.Serializable {
 
 	// Fields
@@ -37,7 +44,9 @@ public class Tarea implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "AreaID", nullable = false)
 	public Integer getAreaId() {
 		return this.areaId;
 	}
@@ -46,6 +55,7 @@ public class Tarea implements java.io.Serializable {
 		this.areaId = areaId;
 	}
 
+	@Column(name = "AreaName", nullable = false, length = 50)
 	public String getAreaName() {
 		return this.areaName;
 	}
@@ -54,6 +64,7 @@ public class Tarea implements java.io.Serializable {
 		this.areaName = areaName;
 	}
 
+	@Column(name = "CityID", nullable = false)
 	public Integer getCityId() {
 		return this.cityId;
 	}
@@ -62,6 +73,7 @@ public class Tarea implements java.io.Serializable {
 		this.cityId = cityId;
 	}
 
+	@Column(name = "AreaSortIndex", nullable = false)
 	public Integer getAreaSortIndex() {
 		return this.areaSortIndex;
 	}
@@ -70,6 +82,7 @@ public class Tarea implements java.io.Serializable {
 		this.areaSortIndex = areaSortIndex;
 	}
 
+	@Column(name = "Remark", length = 50)
 	public String getRemark() {
 		return this.remark;
 	}

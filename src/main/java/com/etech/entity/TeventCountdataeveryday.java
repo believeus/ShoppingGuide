@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * TeventCountdataeveryday entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tevent_countdataeveryday", catalog = "dbshop")
 public class TeventCountdataeveryday implements java.io.Serializable {
 
 	// Fields
@@ -42,7 +48,9 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "EventID", nullable = false)
 	public Integer getEventId() {
 		return this.eventId;
 	}
@@ -51,6 +59,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.eventId = eventId;
 	}
 
+	@Column(name = "ShopUserCount", nullable = false)
 	public Integer getShopUserCount() {
 		return this.shopUserCount;
 	}
@@ -59,6 +68,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.shopUserCount = shopUserCount;
 	}
 
+	@Column(name = "ShopUserValidCount", nullable = false)
 	public Integer getShopUserValidCount() {
 		return this.shopUserValidCount;
 	}
@@ -67,6 +77,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.shopUserValidCount = shopUserValidCount;
 	}
 
+	@Column(name = "ShopUserActiveCount", nullable = false)
 	public Integer getShopUserActiveCount() {
 		return this.shopUserActiveCount;
 	}
@@ -75,6 +86,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.shopUserActiveCount = shopUserActiveCount;
 	}
 
+	@Column(name = "GoodsCount", nullable = false)
 	public Integer getGoodsCount() {
 		return this.goodsCount;
 	}
@@ -83,6 +95,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.goodsCount = goodsCount;
 	}
 
+	@Column(name = "GoodsValidCoun", nullable = false)
 	public Integer getGoodsValidCoun() {
 		return this.goodsValidCoun;
 	}
@@ -91,6 +104,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.goodsValidCoun = goodsValidCoun;
 	}
 
+	@Column(name = "PhoneUserCount", nullable = false)
 	public Integer getPhoneUserCount() {
 		return this.phoneUserCount;
 	}
@@ -99,6 +113,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.phoneUserCount = phoneUserCount;
 	}
 
+	@Column(name = "PhoneUserActiveCount", nullable = false)
 	public Integer getPhoneUserActiveCount() {
 		return this.phoneUserActiveCount;
 	}
@@ -107,6 +122,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 		this.phoneUserActiveCount = phoneUserActiveCount;
 	}
 
+	@Column(name = "CountDate", nullable = false, length = 19)
 	public Timestamp getCountDate() {
 		return this.countDate;
 	}

@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tgoodstype entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tgoodstype", catalog = "dbshop")
 public class Tgoodstype implements java.io.Serializable {
 
 	// Fields
@@ -37,7 +44,9 @@ public class Tgoodstype implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "GoodsTypeID", nullable = false)
 	public Integer getGoodsTypeId() {
 		return this.goodsTypeId;
 	}
@@ -46,6 +55,7 @@ public class Tgoodstype implements java.io.Serializable {
 		this.goodsTypeId = goodsTypeId;
 	}
 
+	@Column(name = "ParentID", nullable = false)
 	public Integer getParentId() {
 		return this.parentId;
 	}
@@ -54,6 +64,7 @@ public class Tgoodstype implements java.io.Serializable {
 		this.parentId = parentId;
 	}
 
+	@Column(name = "GoodsTypeName", nullable = false, length = 50)
 	public String getGoodsTypeName() {
 		return this.goodsTypeName;
 	}
@@ -62,6 +73,7 @@ public class Tgoodstype implements java.io.Serializable {
 		this.goodsTypeName = goodsTypeName;
 	}
 
+	@Column(name = "HasChild", nullable = false)
 	public Short getHasChild() {
 		return this.hasChild;
 	}
@@ -70,6 +82,7 @@ public class Tgoodstype implements java.io.Serializable {
 		this.hasChild = hasChild;
 	}
 
+	@Column(name = "Remark", length = 65535)
 	public String getRemark() {
 		return this.remark;
 	}

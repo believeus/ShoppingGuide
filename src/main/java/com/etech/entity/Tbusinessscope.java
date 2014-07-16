@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tbusinessscope entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tbusinessscope", catalog = "dbshop")
 public class Tbusinessscope implements java.io.Serializable {
 
 	// Fields
@@ -25,7 +32,9 @@ public class Tbusinessscope implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "BusinessScopeID", nullable = false)
 	public Integer getBusinessScopeId() {
 		return this.businessScopeId;
 	}
@@ -34,6 +43,7 @@ public class Tbusinessscope implements java.io.Serializable {
 		this.businessScopeId = businessScopeId;
 	}
 
+	@Column(name = "ShopID", nullable = false)
 	public Integer getShopId() {
 		return this.shopId;
 	}
@@ -42,6 +52,7 @@ public class Tbusinessscope implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
+	@Column(name = "GoodsTypeID", nullable = false)
 	public Integer getGoodsTypeId() {
 		return this.goodsTypeId;
 	}

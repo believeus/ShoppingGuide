@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tprofession entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tprofession", catalog = "dbshop")
 public class Tprofession implements java.io.Serializable {
 
 	// Fields
@@ -23,7 +30,9 @@ public class Tprofession implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ProfessionID", nullable = false)
 	public Integer getProfessionId() {
 		return this.professionId;
 	}
@@ -32,6 +41,7 @@ public class Tprofession implements java.io.Serializable {
 		this.professionId = professionId;
 	}
 
+	@Column(name = "ProfessionName", nullable = false, length = 30)
 	public String getProfessionName() {
 		return this.professionName;
 	}

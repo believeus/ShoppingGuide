@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tcity entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tcity", catalog = "dbshop")
 public class Tcity implements java.io.Serializable {
 
 	// Fields
@@ -37,7 +44,9 @@ public class Tcity implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "CityID", nullable = false)
 	public Integer getCityId() {
 		return this.cityId;
 	}
@@ -46,6 +55,7 @@ public class Tcity implements java.io.Serializable {
 		this.cityId = cityId;
 	}
 
+	@Column(name = "CityName", nullable = false, length = 50)
 	public String getCityName() {
 		return this.cityName;
 	}
@@ -54,6 +64,7 @@ public class Tcity implements java.io.Serializable {
 		this.cityName = cityName;
 	}
 
+	@Column(name = "ProvinceID", nullable = false)
 	public Integer getProvinceId() {
 		return this.provinceId;
 	}
@@ -62,6 +73,7 @@ public class Tcity implements java.io.Serializable {
 		this.provinceId = provinceId;
 	}
 
+	@Column(name = "CitySortIndex", nullable = false)
 	public Integer getCitySortIndex() {
 		return this.citySortIndex;
 	}
@@ -70,6 +82,7 @@ public class Tcity implements java.io.Serializable {
 		this.citySortIndex = citySortIndex;
 	}
 
+	@Column(name = "Remark", length = 50)
 	public String getRemark() {
 		return this.remark;
 	}

@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tgoodspraisehistory entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tgoodspraisehistory", catalog = "dbshop")
 public class Tgoodspraisehistory implements java.io.Serializable {
 
 	// Fields
@@ -30,7 +36,9 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "GoodsViewHistoryID", nullable = false)
 	public Integer getGoodsViewHistoryId() {
 		return this.goodsViewHistoryId;
 	}
@@ -39,6 +47,7 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 		this.goodsViewHistoryId = goodsViewHistoryId;
 	}
 
+	@Column(name = "PhoneUserID", nullable = false)
 	public Integer getPhoneUserId() {
 		return this.phoneUserId;
 	}
@@ -47,6 +56,7 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 		this.phoneUserId = phoneUserId;
 	}
 
+	@Column(name = "GoodsID", nullable = false)
 	public Integer getGoodsId() {
 		return this.goodsId;
 	}
@@ -55,6 +65,7 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 		this.goodsId = goodsId;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}

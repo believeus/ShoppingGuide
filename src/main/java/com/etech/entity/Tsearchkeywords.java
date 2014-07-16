@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tsearchkeywords entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tsearchkeywords", catalog = "dbshop")
 public class Tsearchkeywords implements java.io.Serializable {
 
 	// Fields
@@ -41,7 +48,9 @@ public class Tsearchkeywords implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "Id", nullable = false)
 	public Integer getId() {
 		return this.id;
 	}
@@ -50,6 +59,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "Name", nullable = false, length = 40)
 	public String getName() {
 		return this.name;
 	}
@@ -58,6 +68,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@Column(name = "Count", nullable = false, length = 65535)
 	public String getCount() {
 		return this.count;
 	}
@@ -66,6 +77,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.count = count;
 	}
 
+	@Column(name = "LastTime", nullable = false, length = 65535)
 	public String getLastTime() {
 		return this.lastTime;
 	}
@@ -74,6 +86,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.lastTime = lastTime;
 	}
 
+	@Column(name = "Index", length = 4)
 	public String getIndex() {
 		return this.index;
 	}
@@ -82,6 +95,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.index = index;
 	}
 
+	@Column(name = "Range", nullable = false)
 	public Short getRange() {
 		return this.range;
 	}

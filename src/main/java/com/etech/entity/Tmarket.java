@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tmarket entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tmarket", catalog = "dbshop")
 public class Tmarket implements java.io.Serializable {
 
 	// Fields
@@ -56,7 +62,9 @@ public class Tmarket implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "MarketID", nullable = false)
 	public Integer getMarketId() {
 		return this.marketId;
 	}
@@ -65,6 +73,7 @@ public class Tmarket implements java.io.Serializable {
 		this.marketId = marketId;
 	}
 
+	@Column(name = "AreaID", nullable = false)
 	public Integer getAreaId() {
 		return this.areaId;
 	}
@@ -73,6 +82,7 @@ public class Tmarket implements java.io.Serializable {
 		this.areaId = areaId;
 	}
 
+	@Column(name = "MarketName", nullable = false, length = 50)
 	public String getMarketName() {
 		return this.marketName;
 	}
@@ -81,6 +91,7 @@ public class Tmarket implements java.io.Serializable {
 		this.marketName = marketName;
 	}
 
+	@Column(name = "Address", length = 200)
 	public String getAddress() {
 		return this.address;
 	}
@@ -89,6 +100,7 @@ public class Tmarket implements java.io.Serializable {
 		this.address = address;
 	}
 
+	@Column(name = "Latitude", nullable = false, precision = 22, scale = 0)
 	public Double getLatitude() {
 		return this.latitude;
 	}
@@ -97,6 +109,7 @@ public class Tmarket implements java.io.Serializable {
 		this.latitude = latitude;
 	}
 
+	@Column(name = "Longitude", nullable = false, precision = 22, scale = 0)
 	public Double getLongitude() {
 		return this.longitude;
 	}
@@ -105,6 +118,7 @@ public class Tmarket implements java.io.Serializable {
 		this.longitude = longitude;
 	}
 
+	@Column(name = "FloorCount", nullable = false)
 	public Short getFloorCount() {
 		return this.floorCount;
 	}
@@ -113,6 +127,7 @@ public class Tmarket implements java.io.Serializable {
 		this.floorCount = floorCount;
 	}
 
+	@Column(name = "OpeningTimeStart", length = 19)
 	public Timestamp getOpeningTimeStart() {
 		return this.openingTimeStart;
 	}
@@ -121,6 +136,7 @@ public class Tmarket implements java.io.Serializable {
 		this.openingTimeStart = openingTimeStart;
 	}
 
+	@Column(name = "OpeningTimeEnding", length = 19)
 	public Timestamp getOpeningTimeEnding() {
 		return this.openingTimeEnding;
 	}
@@ -129,6 +145,7 @@ public class Tmarket implements java.io.Serializable {
 		this.openingTimeEnding = openingTimeEnding;
 	}
 
+	@Column(name = "Introduction", length = 65535)
 	public String getIntroduction() {
 		return this.introduction;
 	}
@@ -137,6 +154,7 @@ public class Tmarket implements java.io.Serializable {
 		this.introduction = introduction;
 	}
 
+	@Column(name = "PhotoURL", length = 65535)
 	public String getPhotoUrl() {
 		return this.photoUrl;
 	}

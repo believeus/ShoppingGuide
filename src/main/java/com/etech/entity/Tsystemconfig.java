@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tsystemconfig entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tsystemconfig", catalog = "dbshop")
 public class Tsystemconfig implements java.io.Serializable {
 
 	// Fields
@@ -30,7 +37,9 @@ public class Tsystemconfig implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "SystemConfigID", nullable = false)
 	public Integer getSystemConfigId() {
 		return this.systemConfigId;
 	}
@@ -39,6 +48,7 @@ public class Tsystemconfig implements java.io.Serializable {
 		this.systemConfigId = systemConfigId;
 	}
 
+	@Column(name = "Value", nullable = false, length = 200)
 	public String getValue() {
 		return this.value;
 	}
@@ -47,6 +57,7 @@ public class Tsystemconfig implements java.io.Serializable {
 		this.value = value;
 	}
 
+	@Column(name = "Remark", length = 65535)
 	public String getRemark() {
 		return this.remark;
 	}

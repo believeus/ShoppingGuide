@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tshopuserlogin entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tshopuserlogin", catalog = "dbshop")
 public class Tshopuserlogin implements java.io.Serializable {
 
 	// Fields
@@ -40,7 +46,9 @@ public class Tshopuserlogin implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ShopUserLoginID", nullable = false)
 	public Integer getShopUserLoginId() {
 		return this.shopUserLoginId;
 	}
@@ -49,6 +57,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.shopUserLoginId = shopUserLoginId;
 	}
 
+	@Column(name = "ShopUserID", nullable = false)
 	public Integer getShopUserId() {
 		return this.shopUserId;
 	}
@@ -57,6 +66,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.shopUserId = shopUserId;
 	}
 
+	@Column(name = "LoginType", nullable = false)
 	public Short getLoginType() {
 		return this.loginType;
 	}
@@ -65,6 +75,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.loginType = loginType;
 	}
 
+	@Column(name = "LoginTime", nullable = false, length = 19)
 	public Timestamp getLoginTime() {
 		return this.loginTime;
 	}
@@ -73,6 +84,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.loginTime = loginTime;
 	}
 
+	@Column(name = "IPAddress", length = 16)
 	public String getIpaddress() {
 		return this.ipaddress;
 	}

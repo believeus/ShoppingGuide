@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tfindpasswordforshopuser entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tfindpasswordforshopuser", catalog = "dbshop")
 public class Tfindpasswordforshopuser implements java.io.Serializable {
 
 	// Fields
@@ -54,7 +60,9 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "FindPasswordForShopUserID", nullable = false)
 	public Integer getFindPasswordForShopUserId() {
 		return this.findPasswordForShopUserId;
 	}
@@ -63,6 +71,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.findPasswordForShopUserId = findPasswordForShopUserId;
 	}
 
+	@Column(name = "UserName", nullable = false, length = 50)
 	public String getUserName() {
 		return this.userName;
 	}
@@ -71,6 +80,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.userName = userName;
 	}
 
+	@Column(name = "PhoneNumber", nullable = false, length = 15)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -79,6 +89,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Column(name = "LicensePhoto", length = 50)
 	public String getLicensePhoto() {
 		return this.licensePhoto;
 	}
@@ -87,6 +98,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.licensePhoto = licensePhoto;
 	}
 
+	@Column(name = "Remark", length = 65535)
 	public String getRemark() {
 		return this.remark;
 	}
@@ -95,6 +107,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.remark = remark;
 	}
 
+	@Column(name = "State", nullable = false)
 	public Short getState() {
 		return this.state;
 	}
@@ -103,6 +116,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.state = state;
 	}
 
+	@Column(name = "ApplyTime", nullable = false, length = 19)
 	public Timestamp getApplyTime() {
 		return this.applyTime;
 	}
@@ -111,6 +125,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.applyTime = applyTime;
 	}
 
+	@Column(name = "PhoneUserActiveCount", nullable = false)
 	public Integer getPhoneUserActiveCount() {
 		return this.phoneUserActiveCount;
 	}
@@ -119,6 +134,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.phoneUserActiveCount = phoneUserActiveCount;
 	}
 
+	@Column(name = "StateChangeTime", nullable = false, length = 19)
 	public Timestamp getStateChangeTime() {
 		return this.stateChangeTime;
 	}

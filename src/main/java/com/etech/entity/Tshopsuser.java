@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tshopsuser entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tshopsuser", catalog = "dbshop")
 public class Tshopsuser implements java.io.Serializable {
 
 	// Fields
@@ -71,7 +77,9 @@ public class Tshopsuser implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ShopUserID", nullable = false)
 	public Integer getShopUserId() {
 		return this.shopUserId;
 	}
@@ -80,6 +88,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.shopUserId = shopUserId;
 	}
 
+	@Column(name = "UserName", nullable = false, length = 30)
 	public String getUserName() {
 		return this.userName;
 	}
@@ -88,6 +97,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.userName = userName;
 	}
 
+	@Column(name = "Password", nullable = false, length = 200)
 	public String getPassword() {
 		return this.password;
 	}
@@ -96,6 +106,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "PhoneNumber", length = 15)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -104,6 +115,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Column(name = "NickName", length = 30)
 	public String getNickName() {
 		return this.nickName;
 	}
@@ -112,6 +124,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.nickName = nickName;
 	}
 
+	@Column(name = "RealName", length = 30)
 	public String getRealName() {
 		return this.realName;
 	}
@@ -120,6 +133,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.realName = realName;
 	}
 
+	@Column(name = "Gender", nullable = false, length = 4)
 	public String getGender() {
 		return this.gender;
 	}
@@ -128,6 +142,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.gender = gender;
 	}
 
+	@Column(name = "IDNumber", length = 20)
 	public String getIdnumber() {
 		return this.idnumber;
 	}
@@ -136,6 +151,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.idnumber = idnumber;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
@@ -144,6 +160,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.addTime = addTime;
 	}
 
+	@Column(name = "LastLoginTime", length = 19)
 	public Timestamp getLastLoginTime() {
 		return this.lastLoginTime;
 	}
@@ -152,6 +169,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
+	@Column(name = "ProfilePhoto", length = 50)
 	public String getProfilePhoto() {
 		return this.profilePhoto;
 	}
@@ -160,6 +178,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.profilePhoto = profilePhoto;
 	}
 
+	@Column(name = "State", nullable = false)
 	public Short getState() {
 		return this.state;
 	}
@@ -168,6 +187,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.state = state;
 	}
 
+	@Column(name = "Score", nullable = false)
 	public Integer getScore() {
 		return this.score;
 	}
@@ -176,6 +196,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.score = score;
 	}
 
+	@Column(name = "Referee", length = 20)
 	public String getReferee() {
 		return this.referee;
 	}
@@ -184,6 +205,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.referee = referee;
 	}
 
+	@Column(name = "Grade", nullable = false)
 	public Short getGrade() {
 		return this.grade;
 	}
@@ -192,6 +214,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.grade = grade;
 	}
 
+	@Column(name = "PageView", nullable = false)
 	public Integer getPageView() {
 		return this.pageView;
 	}

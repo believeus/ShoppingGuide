@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tnewsviewhistory entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tnewsviewhistory", catalog = "dbshop")
 public class Tnewsviewhistory implements java.io.Serializable {
 
 	// Fields
@@ -39,7 +45,9 @@ public class Tnewsviewhistory implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "NewsViewHistoryID", nullable = false)
 	public Integer getNewsViewHistoryId() {
 		return this.newsViewHistoryId;
 	}
@@ -48,6 +56,7 @@ public class Tnewsviewhistory implements java.io.Serializable {
 		this.newsViewHistoryId = newsViewHistoryId;
 	}
 
+	@Column(name = "NewsID")
 	public Integer getNewsId() {
 		return this.newsId;
 	}
@@ -56,6 +65,7 @@ public class Tnewsviewhistory implements java.io.Serializable {
 		this.newsId = newsId;
 	}
 
+	@Column(name = "UserType", nullable = false)
 	public Short getUserType() {
 		return this.userType;
 	}
@@ -64,6 +74,7 @@ public class Tnewsviewhistory implements java.io.Serializable {
 		this.userType = userType;
 	}
 
+	@Column(name = "UserID", nullable = false)
 	public Integer getUserId() {
 		return this.userId;
 	}
@@ -72,6 +83,7 @@ public class Tnewsviewhistory implements java.io.Serializable {
 		this.userId = userId;
 	}
 
+	@Column(name = "InsertTime", nullable = false, length = 19)
 	public Timestamp getInsertTime() {
 		return this.insertTime;
 	}

@@ -1,11 +1,13 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * TtabletraceId entity. @author MyEclipse Persistence Tools
  */
-
+@Embeddable
 public class TtabletraceId implements java.io.Serializable {
 
 	// Fields
@@ -30,6 +32,7 @@ public class TtabletraceId implements java.io.Serializable {
 
 	// Property accessors
 
+	@Column(name = "TableName", nullable = false, length = 50)
 	public String getTableName() {
 		return this.tableName;
 	}
@@ -38,6 +41,7 @@ public class TtabletraceId implements java.io.Serializable {
 		this.tableName = tableName;
 	}
 
+	@Column(name = "StampID", nullable = false)
 	public Integer getStampId() {
 		return this.stampId;
 	}
@@ -46,6 +50,7 @@ public class TtabletraceId implements java.io.Serializable {
 		this.stampId = stampId;
 	}
 
+	@Column(name = "LastChangeTime", nullable = false, length = 19)
 	public Timestamp getLastChangeTime() {
 		return this.lastChangeTime;
 	}

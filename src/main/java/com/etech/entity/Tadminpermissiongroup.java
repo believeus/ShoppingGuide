@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tadminpermissiongroup entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tadminpermissiongroup", catalog = "dbshop")
 public class Tadminpermissiongroup implements java.io.Serializable {
 
 	// Fields
@@ -31,7 +38,9 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "AdminRolePermissionsOwnID", nullable = false)
 	public Integer getAdminRolePermissionsOwnId() {
 		return this.adminRolePermissionsOwnId;
 	}
@@ -40,6 +49,7 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 		this.adminRolePermissionsOwnId = adminRolePermissionsOwnId;
 	}
 
+	@Column(name = "AdminPermissionGroupName", nullable = false, length = 50)
 	public String getAdminPermissionGroupName() {
 		return this.adminPermissionGroupName;
 	}
@@ -48,6 +58,7 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 		this.adminPermissionGroupName = adminPermissionGroupName;
 	}
 
+	@Column(name = "Description", length = 65535)
 	public String getDescription() {
 		return this.description;
 	}

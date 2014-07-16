@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tshopusershoprelation entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tshopusershoprelation", catalog = "dbshop")
 public class Tshopusershoprelation implements java.io.Serializable {
 
 	// Fields
@@ -28,7 +35,9 @@ public class Tshopusershoprelation implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ShopUserShopRelationID", nullable = false)
 	public Integer getShopUserShopRelationId() {
 		return this.shopUserShopRelationId;
 	}
@@ -37,6 +46,7 @@ public class Tshopusershoprelation implements java.io.Serializable {
 		this.shopUserShopRelationId = shopUserShopRelationId;
 	}
 
+	@Column(name = "ShopUserID", nullable = false)
 	public Integer getShopUserId() {
 		return this.shopUserId;
 	}
@@ -45,6 +55,7 @@ public class Tshopusershoprelation implements java.io.Serializable {
 		this.shopUserId = shopUserId;
 	}
 
+	@Column(name = "ShopID", nullable = false)
 	public Integer getShopId() {
 		return this.shopId;
 	}
@@ -53,6 +64,7 @@ public class Tshopusershoprelation implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
+	@Column(name = "IsDefaultShop", nullable = false)
 	public Short getIsDefaultShop() {
 		return this.isDefaultShop;
 	}

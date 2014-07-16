@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tadminuser entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tadminuser", catalog = "dbshop")
 public class Tadminuser implements java.io.Serializable {
 
 	// Fields
@@ -58,7 +64,9 @@ public class Tadminuser implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "AdminUserID", nullable = false)
 	public Integer getAdminUserId() {
 		return this.adminUserId;
 	}
@@ -67,6 +75,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.adminUserId = adminUserId;
 	}
 
+	@Column(name = "AdminUserName", nullable = false, length = 50)
 	public String getAdminUserName() {
 		return this.adminUserName;
 	}
@@ -75,6 +84,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.adminUserName = adminUserName;
 	}
 
+	@Column(name = "Password", nullable = false, length = 200)
 	public String getPassword() {
 		return this.password;
 	}
@@ -83,6 +93,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "PhoneNumber", nullable = false, length = 15)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -91,6 +102,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Column(name = "RealName", length = 30)
 	public String getRealName() {
 		return this.realName;
 	}
@@ -99,6 +111,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.realName = realName;
 	}
 
+	@Column(name = "AdminRoleID", nullable = false)
 	public Integer getAdminRoleId() {
 		return this.adminRoleId;
 	}
@@ -107,6 +120,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.adminRoleId = adminRoleId;
 	}
 
+	@Column(name = "CreatTime", nullable = false, length = 19)
 	public Timestamp getCreatTime() {
 		return this.creatTime;
 	}
@@ -115,6 +129,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.creatTime = creatTime;
 	}
 
+	@Column(name = "FirstLoginTime", length = 19)
 	public Timestamp getFirstLoginTime() {
 		return this.firstLoginTime;
 	}
@@ -123,6 +138,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.firstLoginTime = firstLoginTime;
 	}
 
+	@Column(name = "LastLoginTime", length = 19)
 	public Timestamp getLastLoginTime() {
 		return this.lastLoginTime;
 	}
@@ -131,6 +147,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
+	@Column(name = "LastLoginIP", length = 16)
 	public String getLastLoginIp() {
 		return this.lastLoginIp;
 	}
@@ -139,6 +156,7 @@ public class Tadminuser implements java.io.Serializable {
 		this.lastLoginIp = lastLoginIp;
 	}
 
+	@Column(name = "State", nullable = false)
 	public Short getState() {
 		return this.state;
 	}

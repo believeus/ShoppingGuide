@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tshopfavorite entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tshopfavorite", catalog = "dbshop")
 public class Tshopfavorite implements java.io.Serializable {
 
 	// Fields
@@ -32,7 +38,9 @@ public class Tshopfavorite implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ShopFavoriteID", nullable = false)
 	public Integer getShopFavoriteId() {
 		return this.shopFavoriteId;
 	}
@@ -41,6 +49,7 @@ public class Tshopfavorite implements java.io.Serializable {
 		this.shopFavoriteId = shopFavoriteId;
 	}
 
+	@Column(name = "FavoriteGroupID", nullable = false)
 	public Integer getFavoriteGroupId() {
 		return this.favoriteGroupId;
 	}
@@ -49,6 +58,7 @@ public class Tshopfavorite implements java.io.Serializable {
 		this.favoriteGroupId = favoriteGroupId;
 	}
 
+	@Column(name = "ShopID", nullable = false)
 	public Integer getShopId() {
 		return this.shopId;
 	}
@@ -57,6 +67,7 @@ public class Tshopfavorite implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
+	@Column(name = "FansNickName", nullable = false, length = 50)
 	public String getFansNickName() {
 		return this.fansNickName;
 	}
@@ -65,6 +76,7 @@ public class Tshopfavorite implements java.io.Serializable {
 		this.fansNickName = fansNickName;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}

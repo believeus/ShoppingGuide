@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tfeature entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tfeature", catalog = "dbshop")
 public class Tfeature implements java.io.Serializable {
 
 	// Fields
@@ -27,7 +34,9 @@ public class Tfeature implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "FeatureID", nullable = false)
 	public Integer getFeatureId() {
 		return this.featureId;
 	}
@@ -36,6 +45,7 @@ public class Tfeature implements java.io.Serializable {
 		this.featureId = featureId;
 	}
 
+	@Column(name = "FeatureName", nullable = false, length = 20)
 	public String getFeatureName() {
 		return this.featureName;
 	}
@@ -44,6 +54,7 @@ public class Tfeature implements java.io.Serializable {
 		this.featureName = featureName;
 	}
 
+	@Column(name = "FeatureType", nullable = false)
 	public Short getFeatureType() {
 		return this.featureType;
 	}
@@ -52,6 +63,7 @@ public class Tfeature implements java.io.Serializable {
 		this.featureType = featureType;
 	}
 
+	@Column(name = "Count", nullable = false)
 	public Integer getCount() {
 		return this.count;
 	}

@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tnews entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tnews", catalog = "dbshop")
 public class Tnews implements java.io.Serializable {
 
 	// Fields
@@ -46,7 +52,9 @@ public class Tnews implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "NewsID", nullable = false)
 	public Integer getNewsId() {
 		return this.newsId;
 	}
@@ -55,6 +63,7 @@ public class Tnews implements java.io.Serializable {
 		this.newsId = newsId;
 	}
 
+	@Column(name = "Title", nullable = false, length = 100)
 	public String getTitle() {
 		return this.title;
 	}
@@ -63,6 +72,7 @@ public class Tnews implements java.io.Serializable {
 		this.title = title;
 	}
 
+	@Column(name = "Content", nullable = false, length = 65535)
 	public String getContent() {
 		return this.content;
 	}
@@ -71,6 +81,7 @@ public class Tnews implements java.io.Serializable {
 		this.content = content;
 	}
 
+	@Column(name = "From", length = 100)
 	public String getFrom() {
 		return this.from;
 	}
@@ -79,6 +90,7 @@ public class Tnews implements java.io.Serializable {
 		this.from = from;
 	}
 
+	@Column(name = "OriginalUrl", nullable = false, length = 100)
 	public String getOriginalUrl() {
 		return this.originalUrl;
 	}
@@ -87,6 +99,7 @@ public class Tnews implements java.io.Serializable {
 		this.originalUrl = originalUrl;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
@@ -95,6 +108,7 @@ public class Tnews implements java.io.Serializable {
 		this.addTime = addTime;
 	}
 
+	@Column(name = "ViewCount", nullable = false)
 	public Integer getViewCount() {
 		return this.viewCount;
 	}

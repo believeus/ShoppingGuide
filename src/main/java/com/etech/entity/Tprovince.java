@@ -1,9 +1,16 @@
 package com.etech.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Tprovince entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tprovince", catalog = "dbshop")
 public class Tprovince implements java.io.Serializable {
 
 	// Fields
@@ -28,7 +35,9 @@ public class Tprovince implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "ProvinceID", nullable = false)
 	public Integer getProvinceId() {
 		return this.provinceId;
 	}
@@ -37,6 +46,7 @@ public class Tprovince implements java.io.Serializable {
 		this.provinceId = provinceId;
 	}
 
+	@Column(name = "ProvinceName", nullable = false, length = 50)
 	public String getProvinceName() {
 		return this.provinceName;
 	}
@@ -45,6 +55,7 @@ public class Tprovince implements java.io.Serializable {
 		this.provinceName = provinceName;
 	}
 
+	@Column(name = "ProvinceSortIndex", nullable = false)
 	public Integer getProvinceSortIndex() {
 		return this.provinceSortIndex;
 	}
@@ -53,6 +64,7 @@ public class Tprovince implements java.io.Serializable {
 		this.provinceSortIndex = provinceSortIndex;
 	}
 
+	@Column(name = "Remark", nullable = false, length = 50)
 	public String getRemark() {
 		return this.remark;
 	}

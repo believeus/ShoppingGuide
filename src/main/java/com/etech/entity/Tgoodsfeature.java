@@ -1,11 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Tgoodsfeature entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tgoodsfeature", catalog = "dbshop")
 public class Tgoodsfeature implements java.io.Serializable {
 
 	// Fields
@@ -29,7 +35,9 @@ public class Tgoodsfeature implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "GoodsFeatureID", nullable = false)
 	public Integer getGoodsFeatureId() {
 		return this.goodsFeatureId;
 	}
@@ -38,6 +46,7 @@ public class Tgoodsfeature implements java.io.Serializable {
 		this.goodsFeatureId = goodsFeatureId;
 	}
 
+	@Column(name = "GoodsID", nullable = false)
 	public Integer getGoodsId() {
 		return this.goodsId;
 	}
@@ -46,6 +55,7 @@ public class Tgoodsfeature implements java.io.Serializable {
 		this.goodsId = goodsId;
 	}
 
+	@Column(name = "FeatureID", nullable = false)
 	public Integer getFeatureId() {
 		return this.featureId;
 	}
@@ -54,6 +64,7 @@ public class Tgoodsfeature implements java.io.Serializable {
 		this.featureId = featureId;
 	}
 
+	@Column(name = "AddTime", nullable = false, length = 19)
 	public Timestamp getAddTime() {
 		return this.addTime;
 	}
