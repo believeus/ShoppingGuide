@@ -18,7 +18,6 @@ public class Tshopusershoprelation implements java.io.Serializable {
 	private Integer shopUserShopRelationId;
 	private Integer shopUserId;
 	private Integer shopId;
-	private Short isDefaultShop;
 
 	// Constructors
 
@@ -27,11 +26,9 @@ public class Tshopusershoprelation implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Tshopusershoprelation(Integer shopUserId, Integer shopId,
-			Short isDefaultShop) {
+	public Tshopusershoprelation(Integer shopUserId, Integer shopId) {
 		this.shopUserId = shopUserId;
 		this.shopId = shopId;
-		this.isDefaultShop = isDefaultShop;
 	}
 
 	// Property accessors
@@ -62,15 +59,6 @@ public class Tshopusershoprelation implements java.io.Serializable {
 
 	public void setShopId(Integer shopId) {
 		this.shopId = shopId;
-	}
-
-	@Column(name = "IsDefaultShop", nullable = false)
-	public Short getIsDefaultShop() {
-		return this.isDefaultShop;
-	}
-
-	public void setIsDefaultShop(Short isDefaultShop) {
-		this.isDefaultShop = isDefaultShop;
 	}
 
 }

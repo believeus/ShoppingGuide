@@ -48,13 +48,16 @@ public class Tphoneuser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tphoneuser(Short userType, Timestamp addTime, Integer loginCount,
-			Double longitude, Double latitude, Short state) {
+	public Tphoneuser(Short userType, Integer professionId, Timestamp addTime,
+			Integer loginCount, Double longitude, Double latitude,
+			Integer areaId, Short state) {
 		this.userType = userType;
+		this.professionId = professionId;
 		this.addTime = addTime;
 		this.loginCount = loginCount;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.areaId = areaId;
 		this.state = state;
 	}
 
@@ -157,7 +160,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.realName = realName;
 	}
 
-	@Column(name = "Gender", length = 4)
+	@Column(name = "Gender", length = 2)
 	public String getGender() {
 		return this.gender;
 	}
@@ -202,7 +205,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.constellation = constellation;
 	}
 
-	@Column(name = "ProfessionID")
+	@Column(name = "ProfessionID", nullable = false)
 	public Integer getProfessionId() {
 		return this.professionId;
 	}
@@ -292,7 +295,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.sign = sign;
 	}
 
-	@Column(name = "AreaId")
+	@Column(name = "AreaId", nullable = false)
 	public Integer getAreaId() {
 		return this.areaId;
 	}

@@ -24,7 +24,7 @@ public class Tshop implements java.io.Serializable {
 	private String address;
 	private String qq;
 	private String priceRange;
-	private String businessLicensePhoto;
+	private String businessLicensePhotoUrl;
 	private String logo;
 	private String qrcode;
 	private Short isRecommend;
@@ -33,6 +33,7 @@ public class Tshop implements java.io.Serializable {
 	private Integer viewCount;
 	private Integer bePraisedCount;
 	private String shopFeature;
+	private String shopBusinessScope;
 	private Integer fansCount;
 	private Double latitude;
 	private Double longitude;
@@ -68,11 +69,11 @@ public class Tshop implements java.io.Serializable {
 	/** full constructor */
 	public Tshop(Integer marketId, String shopName, String shopOwnerName,
 			String phoneNumber, String address, String qq, String priceRange,
-			String businessLicensePhoto, String logo, String qrcode,
+			String businessLicensePhotoUrl, String logo, String qrcode,
 			Short isRecommend, Short state, Timestamp addTime,
 			Integer viewCount, Integer bePraisedCount, String shopFeature,
-			Integer fansCount, Double latitude, Double longitude,
-			String shopPhotoUrl, String shopPhotoDefaultUrl,
+			String shopBusinessScope, Integer fansCount, Double latitude,
+			Double longitude, String shopPhotoUrl, String shopPhotoDefaultUrl,
 			String businessLicenseNo) {
 		this.marketId = marketId;
 		this.shopName = shopName;
@@ -81,7 +82,7 @@ public class Tshop implements java.io.Serializable {
 		this.address = address;
 		this.qq = qq;
 		this.priceRange = priceRange;
-		this.businessLicensePhoto = businessLicensePhoto;
+		this.businessLicensePhotoUrl = businessLicensePhotoUrl;
 		this.logo = logo;
 		this.qrcode = qrcode;
 		this.isRecommend = isRecommend;
@@ -90,6 +91,7 @@ public class Tshop implements java.io.Serializable {
 		this.viewCount = viewCount;
 		this.bePraisedCount = bePraisedCount;
 		this.shopFeature = shopFeature;
+		this.shopBusinessScope = shopBusinessScope;
 		this.fansCount = fansCount;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -173,13 +175,13 @@ public class Tshop implements java.io.Serializable {
 		this.priceRange = priceRange;
 	}
 
-	@Column(name = "BusinessLicensePhoto", length = 50)
-	public String getBusinessLicensePhoto() {
-		return this.businessLicensePhoto;
+	@Column(name = "BusinessLicensePhotoURL", length = 50)
+	public String getBusinessLicensePhotoUrl() {
+		return this.businessLicensePhotoUrl;
 	}
 
-	public void setBusinessLicensePhoto(String businessLicensePhoto) {
-		this.businessLicensePhoto = businessLicensePhoto;
+	public void setBusinessLicensePhotoUrl(String businessLicensePhotoUrl) {
+		this.businessLicensePhotoUrl = businessLicensePhotoUrl;
 	}
 
 	@Column(name = "Logo", length = 50)
@@ -252,6 +254,15 @@ public class Tshop implements java.io.Serializable {
 
 	public void setShopFeature(String shopFeature) {
 		this.shopFeature = shopFeature;
+	}
+
+	@Column(name = "ShopBusinessScope", length = 65535)
+	public String getShopBusinessScope() {
+		return this.shopBusinessScope;
+	}
+
+	public void setShopBusinessScope(String shopBusinessScope) {
+		this.shopBusinessScope = shopBusinessScope;
 	}
 
 	@Column(name = "FansCount", nullable = false)

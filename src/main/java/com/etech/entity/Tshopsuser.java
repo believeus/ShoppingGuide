@@ -32,6 +32,7 @@ public class Tshopsuser implements java.io.Serializable {
 	private String referee;
 	private Short grade;
 	private Integer pageView;
+	private Integer defaultShopId;
 
 	// Constructors
 
@@ -42,7 +43,7 @@ public class Tshopsuser implements java.io.Serializable {
 	/** minimal constructor */
 	public Tshopsuser(String userName, String password, String gender,
 			Timestamp addTime, Short state, Integer score, Short grade,
-			Integer pageView) {
+			Integer pageView, Integer defaultShopId) {
 		this.userName = userName;
 		this.password = password;
 		this.gender = gender;
@@ -51,6 +52,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.score = score;
 		this.grade = grade;
 		this.pageView = pageView;
+		this.defaultShopId = defaultShopId;
 	}
 
 	/** full constructor */
@@ -58,7 +60,7 @@ public class Tshopsuser implements java.io.Serializable {
 			String nickName, String realName, String gender, String idnumber,
 			Timestamp addTime, Timestamp lastLoginTime, String profilePhoto,
 			Short state, Integer score, String referee, Short grade,
-			Integer pageView) {
+			Integer pageView, Integer defaultShopId) {
 		this.userName = userName;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
@@ -74,6 +76,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.referee = referee;
 		this.grade = grade;
 		this.pageView = pageView;
+		this.defaultShopId = defaultShopId;
 	}
 
 	// Property accessors
@@ -221,6 +224,15 @@ public class Tshopsuser implements java.io.Serializable {
 
 	public void setPageView(Integer pageView) {
 		this.pageView = pageView;
+	}
+
+	@Column(name = "DefaultShopID", nullable = false)
+	public Integer getDefaultShopId() {
+		return this.defaultShopId;
+	}
+
+	public void setDefaultShopId(Integer defaultShopId) {
+		this.defaultShopId = defaultShopId;
 	}
 
 }
