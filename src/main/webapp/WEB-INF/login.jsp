@@ -26,10 +26,14 @@ body {
 }
 .log {
 	font-size:15px;
-	margin:28px 0px;
 }
-#landdiv input{
-	height:23px;
+#landdiv input[type='text']{
+	height:35px;
+	width:260px;
+	padding-left:8px;
+}
+#landdiv input[type='password']{
+	height:35px;
 	width:260px;
 	padding-left:8px;
 }
@@ -41,12 +45,10 @@ body {
 }
 
 #check {
-	width:205px; 
 	margin:0px 0px 8px 58px;
 	font-size:14px;
 }
 #check span{
-	vertical-align:top; 
 	color:#666;
 }
 a:link {
@@ -117,17 +119,24 @@ a:link {
     <div style="width:100%; height:470px; background-color:#69CDCD;">
     	<div style="margin:0px auto; width:1000px; height:470px; background-image:url(images/computer.png); background-repeat: no-repeat;">
         	<div id="landdiv">
-            	<p class="log"><b>账&nbsp;&nbsp;&nbsp;号：</b><input name="userName" id="username" placeholder="请输入商户账号，或商场管理员账号" /></p>
-            	<p class="log" style="margin-bottom:12px;"><b>密&nbsp;&nbsp;&nbsp;码：</b><input type="password" name="password" id="password" placeholder="请输入密码" /></p>
+            	<p class="log">
+            		<b>账&nbsp;&nbsp;&nbsp;号：</b>
+            		<input name="userName" id="username" type="text" placeholder="请输入商户账号，或商场管理员账号" />
+           		</p>
+            	<p class="log" style="margin-bottom:12px;">
+            		<b>密&nbsp;&nbsp;&nbsp;码：</b>
+            		<input type="password" name="password" id="password" placeholder="请输入密码" />
+           		</p>
                 <p id="check" style="display: ; width:auto;">
                 	<img src="images/chacha.png" />&nbsp;
                     <span style="vertical-align:top; color:red; font-size:14px;">您输入的账户或密码不正确，请重新输入</span>
                 </p>
             	
 				<p id="check">
-                	<input type="checkbox" style="width:auto; margin:auto;" />&nbsp;&nbsp;
-                    <span>记住账号</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span><a style="float:right;">找回密码</a></span>
+                	<label><input type="checkbox" name="" />记住账号</label>
+                    <span style="margin-left: 90px;">
+                    	<a href="">找回密码</a>
+                   	</span>
                 </p>
                 <p id="check">
                     <span>没有商户账号？<a style="text-decoration:underline;color:red;" href="/register.jhtml">立即注册</a></span>

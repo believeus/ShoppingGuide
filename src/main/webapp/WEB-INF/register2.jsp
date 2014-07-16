@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.stable p{
 			line-height:60px;
 			padding-left:40px;
+			margin:0;
 		}
 		.stable p:hover{
 			background:#EAFCFC;
@@ -90,39 +91,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="stable">
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">店铺名称：</span>
+    			<span style="font-weight:normal;">店铺名称：</span>
     			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">所在地区：</span>
+    			<span style="font-weight:normal;">详细位置：</span>
     			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">详细位置：</span>
-    			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
-   			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">经营范围：</span>
+    			<span style="font-weight:normal;">经营范围：</span>
     			<select name="">
     				<option value="">请选择经营范围</option>
     			</select>
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">价格区间：</span>
-    			<input type="text" name="" style="width:65px;height:35px;line-height:35px;">
-    			--
-    			<input type="text" name="" style="width:65px;height:35px;line-height:35px;">元
+    			<span style="font-weight:normal;">价格区间：</span>
+    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
    			</p>
    			<p>
-   				<span style="font-weight:bold;">营业执照：</span><br>
+   				<span style="font-weight:normal;">营业执照：</span><br>
    				<img src="" width="185" height="140">
    			</p>
    			<p>
-   				<span style="font-weight:bold;">店铺展示：</span><br>
+   				<span style="font-weight:normal;">店铺展示：</span><br>
    				<img src="" width="185" height="140">
    			</p>
    			<div class="btn_div">

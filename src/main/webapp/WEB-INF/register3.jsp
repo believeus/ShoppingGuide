@@ -102,11 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if($(this).hasClass("current")){
 					$(this).removeClass("current");		
 				}else{
-					if($("#tese .current").length > 4){
-						alert("最多选择5个");
-					}else{
-						$(this).addClass("current");		
-					}
+					$(this).addClass("current");		
 				}
 			});	
 			

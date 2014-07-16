@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.stable p{
 			line-height:60px;
 			padding-left:40px;
+			margin:0;
 		}
 		.stable p:hover{
 			background:#EAFCFC;
@@ -140,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<p style="margin:10px 0;">
     		<img src="images/r1.jpg" width="1000">
     	</p>
-    	<div style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
+    	<div style="width:555px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
     		<span><font color="red">*</font>为必填选项</span>
     		<span style="float:right;">已有帐号!<a href="/login.jhtml" style="color:red;">直接登录</a></span>
     	</div>
@@ -149,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">手机号码：</span>
-    			<input type="text" id="phoneNumber" name="phoneNumber" 
+    			<input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入手机号"
     				   style="width:345px;height:35px;line-height:35px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>
@@ -157,33 +158,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">用户密码：</span>
-    			<input type="password" id="password" name="password"  style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="password" name="password" placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">确定密码：</span>
-    			<input type="password" id="comfirmPwd" name="comfirmPwd"  style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="comfirmPwd" name="comfirmPwd" placeholder="请输入确认密码" style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">用户昵称：</span>
-    			<input type="text" id="nickName" name="nickName" style="width:345px;height:35px;line-height:35px;">
+    			<input type="text" id="nickName" name="nickName" placeholder="请输入昵称" style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" name="numberCode" style="width:345px;height:35px;line-height:35px;">
+    			<input type="text" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
     			<input class="btn" id="validCode" type="button" value="免费获取验证码">
    			</p>
    			<div class="btn_div">
    				<input type="submit" value="下一步">
 			</div>
-			</form>
-    	</div>
-    </div>
+		</div>
+		</form>
+  	</div>
     
     <!-- 引用尾部页面 -->
     <jsp:include page="include/footer.jsp" flush="true" />

@@ -5,20 +5,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'footer.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 	<style type="text/css">
 		#botto {
 			float:left; 
@@ -32,11 +19,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		body{
 			margin:0;
+			font-size:14px;
+			font-family:Microsoft Yahei;
+		}
+		input[type='button']{
+			cursor:pointer;
 		}
 	</style>
-  </head>
-  
-  <body>
     <div style="width:100%;height:auto; margin:0;overflow:hidden;text-align:center;background:#FFFFFF;">
     	<div id="botto">
         	<p><a>下载APP</a><span>  丨  我的微信：爱乐逛、爱乐逛助手  丨  我们的微博：武汉爱乐逛  丨</span><a>关于爱乐逛</a></p>
@@ -47,4 +36,3 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
   </body>
-</html>
