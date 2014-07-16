@@ -20,7 +20,7 @@ public class Tadminuser implements java.io.Serializable {
 	private Timestamp firstLoginTime;
 	private Timestamp lastLoginTime;
 	private String lastLoginIp;
-	private Integer state;
+	private Short state;
 
 	// Constructors
 
@@ -31,7 +31,7 @@ public class Tadminuser implements java.io.Serializable {
 	/** minimal constructor */
 	public Tadminuser(String adminUserName, String password,
 			String phoneNumber, Integer adminRoleId, Timestamp creatTime,
-			Integer state) {
+			Short state) {
 		this.adminUserName = adminUserName;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
@@ -44,7 +44,7 @@ public class Tadminuser implements java.io.Serializable {
 	public Tadminuser(String adminUserName, String password,
 			String phoneNumber, String realName, Integer adminRoleId,
 			Timestamp creatTime, Timestamp firstLoginTime,
-			Timestamp lastLoginTime, String lastLoginIp, Integer state) {
+			Timestamp lastLoginTime, String lastLoginIp, Short state) {
 		this.adminUserName = adminUserName;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
@@ -139,11 +139,11 @@ public class Tadminuser implements java.io.Serializable {
 		this.lastLoginIp = lastLoginIp;
 	}
 
-	public Integer getState() {
+	public Short getState() {
 		return this.state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(Short state) {
 		this.state = state;
 	}
 

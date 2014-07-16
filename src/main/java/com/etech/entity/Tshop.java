@@ -18,11 +18,11 @@ public class Tshop implements java.io.Serializable {
 	private String address;
 	private String qq;
 	private String priceRange;
-	private String licensePhoto;
+	private String businessLicensePhoto;
 	private String logo;
 	private String qrcode;
 	private Short isRecommend;
-	private Integer state;
+	private Short state;
 	private Timestamp addTime;
 	private Integer viewCount;
 	private Integer bePraisedCount;
@@ -32,6 +32,7 @@ public class Tshop implements java.io.Serializable {
 	private Double longitude;
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
+	private String businessLicenseNo;
 
 	// Constructors
 
@@ -41,9 +42,9 @@ public class Tshop implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Tshop(Integer marketId, String shopName, String shopOwnerName,
-			String address, Short isRecommend, Integer state,
-			Timestamp addTime, Integer viewCount, Integer bePraisedCount,
-			Integer fansCount, Double latitude, Double longitude) {
+			String address, Short isRecommend, Short state, Timestamp addTime,
+			Integer viewCount, Integer bePraisedCount, Integer fansCount,
+			Double latitude, Double longitude) {
 		this.marketId = marketId;
 		this.shopName = shopName;
 		this.shopOwnerName = shopOwnerName;
@@ -61,11 +62,12 @@ public class Tshop implements java.io.Serializable {
 	/** full constructor */
 	public Tshop(Integer marketId, String shopName, String shopOwnerName,
 			String phoneNumber, String address, String qq, String priceRange,
-			String licensePhoto, String logo, String qrcode, Short isRecommend,
-			Integer state, Timestamp addTime, Integer viewCount,
-			Integer bePraisedCount, String shopFeature, Integer fansCount,
-			Double latitude, Double longitude, String shopPhotoUrl,
-			String shopPhotoDefaultUrl) {
+			String businessLicensePhoto, String logo, String qrcode,
+			Short isRecommend, Short state, Timestamp addTime,
+			Integer viewCount, Integer bePraisedCount, String shopFeature,
+			Integer fansCount, Double latitude, Double longitude,
+			String shopPhotoUrl, String shopPhotoDefaultUrl,
+			String businessLicenseNo) {
 		this.marketId = marketId;
 		this.shopName = shopName;
 		this.shopOwnerName = shopOwnerName;
@@ -73,7 +75,7 @@ public class Tshop implements java.io.Serializable {
 		this.address = address;
 		this.qq = qq;
 		this.priceRange = priceRange;
-		this.licensePhoto = licensePhoto;
+		this.businessLicensePhoto = businessLicensePhoto;
 		this.logo = logo;
 		this.qrcode = qrcode;
 		this.isRecommend = isRecommend;
@@ -87,6 +89,7 @@ public class Tshop implements java.io.Serializable {
 		this.longitude = longitude;
 		this.shopPhotoUrl = shopPhotoUrl;
 		this.shopPhotoDefaultUrl = shopPhotoDefaultUrl;
+		this.businessLicenseNo = businessLicenseNo;
 	}
 
 	// Property accessors
@@ -155,12 +158,12 @@ public class Tshop implements java.io.Serializable {
 		this.priceRange = priceRange;
 	}
 
-	public String getLicensePhoto() {
-		return this.licensePhoto;
+	public String getBusinessLicensePhoto() {
+		return this.businessLicensePhoto;
 	}
 
-	public void setLicensePhoto(String licensePhoto) {
-		this.licensePhoto = licensePhoto;
+	public void setBusinessLicensePhoto(String businessLicensePhoto) {
+		this.businessLicensePhoto = businessLicensePhoto;
 	}
 
 	public String getLogo() {
@@ -187,11 +190,11 @@ public class Tshop implements java.io.Serializable {
 		this.isRecommend = isRecommend;
 	}
 
-	public Integer getState() {
+	public Short getState() {
 		return this.state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(Short state) {
 		this.state = state;
 	}
 
@@ -265,6 +268,14 @@ public class Tshop implements java.io.Serializable {
 
 	public void setShopPhotoDefaultUrl(String shopPhotoDefaultUrl) {
 		this.shopPhotoDefaultUrl = shopPhotoDefaultUrl;
+	}
+
+	public String getBusinessLicenseNo() {
+		return this.businessLicenseNo;
+	}
+
+	public void setBusinessLicenseNo(String businessLicenseNo) {
+		this.businessLicenseNo = businessLicenseNo;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Tmarket implements java.io.Serializable {
 	private String address;
 	private Double latitude;
 	private Double longitude;
-	private Integer floorCount;
+	private Short floorCount;
 	private Timestamp openingTimeStart;
 	private Timestamp openingTimeEnding;
 	private String introduction;
@@ -30,16 +30,17 @@ public class Tmarket implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Tmarket(Integer areaId, String marketName, Double latitude,
-			Double longitude) {
+			Double longitude, Short floorCount) {
 		this.areaId = areaId;
 		this.marketName = marketName;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.floorCount = floorCount;
 	}
 
 	/** full constructor */
 	public Tmarket(Integer areaId, String marketName, String address,
-			Double latitude, Double longitude, Integer floorCount,
+			Double latitude, Double longitude, Short floorCount,
 			Timestamp openingTimeStart, Timestamp openingTimeEnding,
 			String introduction, String photoUrl) {
 		this.areaId = areaId;
@@ -104,11 +105,11 @@ public class Tmarket implements java.io.Serializable {
 		this.longitude = longitude;
 	}
 
-	public Integer getFloorCount() {
+	public Short getFloorCount() {
 		return this.floorCount;
 	}
 
-	public void setFloorCount(Integer floorCount) {
+	public void setFloorCount(Short floorCount) {
 		this.floorCount = floorCount;
 	}
 

@@ -1,7 +1,5 @@
 package com.etech.entity;
 
-import java.sql.Timestamp;
-
 /**
  * Ttabletrace entity. @author MyEclipse Persistence Tools
  */
@@ -9,28 +7,28 @@ import java.sql.Timestamp;
 public class Ttabletrace implements java.io.Serializable {
 
 	// Fields
-	private String tableName;
-	private Integer stampID;
-	private Timestamp lastChangeTime;
-	public String getTableName() {
-		return tableName;
+
+	private TtabletraceId id;
+
+	// Constructors
+
+	/** default constructor */
+	public Ttabletrace() {
 	}
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+
+	/** full constructor */
+	public Ttabletrace(TtabletraceId id) {
+		this.id = id;
 	}
-	public Integer getStampID() {
-		return stampID;
+
+	// Property accessors
+
+	public TtabletraceId getId() {
+		return this.id;
 	}
-	public void setStampID(Integer stampID) {
-		this.stampID = stampID;
+
+	public void setId(TtabletraceId id) {
+		this.id = id;
 	}
-	public Timestamp getLastChangeTime() {
-		return lastChangeTime;
-	}
-	public void setLastChangeTime(Timestamp lastChangeTime) {
-		this.lastChangeTime = lastChangeTime;
-	}
-	
-	
 
 }

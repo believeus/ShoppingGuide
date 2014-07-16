@@ -180,7 +180,7 @@ public class ControllerRegister {
 			// 用户编辑
 		} else {
 			Tshopsuser user = (Tshopsuser) etechService.findObject(
-					Tshopsuser.class, "id", regUser.getShopId());
+					Tshopsuser.class, "id", regUser.getShopUserId());
 			// 编辑用户名和原用户名不等
 			if (!user.getUserName().equals(regUser.getUserName())) {
 				user = (Tshopsuser) etechService.findObject(
@@ -219,8 +219,8 @@ public class ControllerRegister {
 			if (StringUtils.isEmpty(sessionUser)) {
 				// 只有从sessionFactory中获取的对象才能updata
 				Tshopsuser comUser = (Tshopsuser) etechService.findObject(
-						Tshopsuser.class, regUser.getShopId());
-				log.debug("regUser.id:" + regUser.getShopId());
+						Tshopsuser.class, regUser.getShopUserId());
+				log.debug("regUser.id:" + regUser.getShopUserId());
 				session.setAttribute("sessionUser", comUser);
 				etechService.merge(regUser);
 			}

@@ -30,7 +30,7 @@ public class ControllerRegistSuccess {
 		if (!StringUtils.isEmpty(shopsuser)) {
 			HttpSession session = request.getSession();
 			shopsuser.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
-			shopsuser.setGrade(0);
+			shopsuser.setGrade((short) 0);;
 			shopsuser.setNickName("爱乐逛");
 			shopsuser.setPageView(0);
 			shopsuser.setScore(0);

@@ -8,12 +8,11 @@ import java.sql.Timestamp;
 
 public class Tshopsuser implements java.io.Serializable {
 
-	
-	private static final long serialVersionUID = -1187526397440991285L;
+	// Fields
+
 	private Integer shopUserId;
 	private String userName;
 	private String password;
-	private Integer shopId;
 	private String phoneNumber;
 	private String nickName;
 	private String realName;
@@ -21,11 +20,11 @@ public class Tshopsuser implements java.io.Serializable {
 	private String idnumber;
 	private Timestamp addTime;
 	private Timestamp lastLoginTime;
-	private String profilePicture;
+	private String profilePhoto;
 	private Short state;
 	private Integer score;
 	private String referee;
-	private Integer grade;
+	private Short grade;
 	private Integer pageView;
 
 	// Constructors
@@ -35,12 +34,11 @@ public class Tshopsuser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tshopsuser(String userName, String password, Integer shopId,
-			String gender, Timestamp addTime, Short state, Integer score,
-			Integer grade, Integer pageView) {
+	public Tshopsuser(String userName, String password, String gender,
+			Timestamp addTime, Short state, Integer score, Short grade,
+			Integer pageView) {
 		this.userName = userName;
 		this.password = password;
-		this.shopId = shopId;
 		this.gender = gender;
 		this.addTime = addTime;
 		this.state = state;
@@ -50,14 +48,13 @@ public class Tshopsuser implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Tshopsuser(String userName, String password, Integer shopId,
-			String phoneNumber, String nickName, String realName,
-			String gender, String idnumber, Timestamp addTime,
-			Timestamp lastLoginTime, String profilePicture, Short state,
-			Integer score, String referee, Integer grade, Integer pageView) {
+	public Tshopsuser(String userName, String password, String phoneNumber,
+			String nickName, String realName, String gender, String idnumber,
+			Timestamp addTime, Timestamp lastLoginTime, String profilePhoto,
+			Short state, Integer score, String referee, Short grade,
+			Integer pageView) {
 		this.userName = userName;
 		this.password = password;
-		this.shopId = shopId;
 		this.phoneNumber = phoneNumber;
 		this.nickName = nickName;
 		this.realName = realName;
@@ -65,7 +62,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.idnumber = idnumber;
 		this.addTime = addTime;
 		this.lastLoginTime = lastLoginTime;
-		this.profilePicture = profilePicture;
+		this.profilePhoto = profilePhoto;
 		this.state = state;
 		this.score = score;
 		this.referee = referee;
@@ -97,14 +94,6 @@ public class Tshopsuser implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Integer getShopId() {
-		return this.shopId;
-	}
-
-	public void setShopId(Integer shopId) {
-		this.shopId = shopId;
 	}
 
 	public String getPhoneNumber() {
@@ -163,12 +152,12 @@ public class Tshopsuser implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public String getProfilePicture() {
-		return this.profilePicture;
+	public String getProfilePhoto() {
+		return this.profilePhoto;
 	}
 
-	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
+	public void setProfilePhoto(String profilePhoto) {
+		this.profilePhoto = profilePhoto;
 	}
 
 	public Short getState() {
@@ -195,11 +184,11 @@ public class Tshopsuser implements java.io.Serializable {
 		this.referee = referee;
 	}
 
-	public Integer getGrade() {
+	public Short getGrade() {
 		return this.grade;
 	}
 
-	public void setGrade(Integer grade) {
+	public void setGrade(Short grade) {
 		this.grade = grade;
 	}
 

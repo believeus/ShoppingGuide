@@ -2,7 +2,9 @@ package com.etech.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -20,6 +22,7 @@ import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.junit.Assert;
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -113,7 +116,25 @@ public class EtechComDao extends HibernateDaoSupport {
 					}
 				});
 	}
+	public List<?> getObjectListByHQL(final String HQL){
+		return (List<?>)this.getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
+					@SuppressWarnings("unused")
+					public Object doInHibernaObject(Session session)
+						throws HibernateException,SQLException{
+						Query query = session.createQuery(HQL);
+						return query.list();
+					}
 
+					@Override
+					public Object doInHibernate(Session arg0)
+							throws HibernateException, SQLException {
+						// TODO Auto-generated method stub
+						return null;
+					}
+				});
+				
+	}
  
 	public List<?> findObjectList(final Class<?> clazz, final Integer num) {
 		return (List<?>) getHibernateTemplate().execute(

@@ -122,7 +122,18 @@
 		50
 	</property>
 	<!-- End Name:wuqiwei Date:2013-09-25 AddReason:配置hibernate search -->
-	<property name="myeclipse.connection.profile"></property>
+	<property name="myeclipse.connection.profile">test</property>
+	<property name="connection.url">
+		jdbc:mysql://127.0.0.1:3306/dbshop
+	</property>
+	<property name="connection.username">root</property>
+	<property name="connection.password">root</property>
+	<property name="connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="dialect">
+		org.hibernate.dialect.MySQLInnoDBDialect
+	</property>
 	<mapping resource="com/etech/entity/Tadminpermission.hbm.xml" />
 	<mapping resource="com/etech/entity/Tadminpermissiongroup.hbm.xml" />
 	<mapping resource="com/etech/entity/Tadminrole.hbm.xml" />
@@ -160,8 +171,10 @@
 	<mapping resource="com/etech/entity/Tshoppraisehistory.hbm.xml" />
 	<mapping resource="com/etech/entity/Tshopsuser.hbm.xml" />
 	<mapping resource="com/etech/entity/Tshopuserlogin.hbm.xml" />
+	<mapping resource="com/etech/entity/Tshopusershoprelation.hbm.xml" />
 	<mapping resource="com/etech/entity/Tshopviewhistory.hbm.xml" />
 	<mapping resource="com/etech/entity/Tsystemconfig.hbm.xml" />
+	<mapping resource="com/etech/entity/Ttabletrace.hbm.xml" />
 
 
 </session-factory>

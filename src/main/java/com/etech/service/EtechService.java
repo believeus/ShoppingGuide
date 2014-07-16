@@ -54,7 +54,9 @@ public class EtechService {
 	public void saveOrUpdata(Object object) {
 		etechComDao.saveOrUpdata(object);
 	}
-
+	public List<?> findListByHQL(String HQL){
+		return (List<?>)etechComDao.getObjectListByHQL(HQL);
+	}
 	public Page<?> findObjectListByKeyWord(Class<?> clazz, String key, String[] fields,Pageable pageable) {
 		return etechComDao.findObjectListByKeyWord(clazz, key, fields, pageable);
 	}
@@ -62,7 +64,8 @@ public class EtechService {
 	public List<?> findObjectList(Class<?> clazz, String property,Object value, int num) {
 		return (List<?>) etechComDao.findObjectList(clazz, property, value,num);
 	}
-
+	
+	//获取该对象集合个数
 	public List<?> getListByClass(Class<?> clazz, Integer num) {
 		return etechComDao.findObjectList(clazz, num);
 	}

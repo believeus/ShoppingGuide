@@ -11,6 +11,7 @@ public class Tgoodstype implements java.io.Serializable {
 	private Integer goodsTypeId;
 	private Integer parentId;
 	private String goodsTypeName;
+	private Short hasChild;
 	private String remark;
 
 	// Constructors
@@ -20,15 +21,18 @@ public class Tgoodstype implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tgoodstype(Integer parentId, String goodsTypeName) {
+	public Tgoodstype(Integer parentId, String goodsTypeName, Short hasChild) {
 		this.parentId = parentId;
 		this.goodsTypeName = goodsTypeName;
+		this.hasChild = hasChild;
 	}
 
 	/** full constructor */
-	public Tgoodstype(Integer parentId, String goodsTypeName, String remark) {
+	public Tgoodstype(Integer parentId, String goodsTypeName, Short hasChild,
+			String remark) {
 		this.parentId = parentId;
 		this.goodsTypeName = goodsTypeName;
+		this.hasChild = hasChild;
 		this.remark = remark;
 	}
 
@@ -56,6 +60,14 @@ public class Tgoodstype implements java.io.Serializable {
 
 	public void setGoodsTypeName(String goodsTypeName) {
 		this.goodsTypeName = goodsTypeName;
+	}
+
+	public Short getHasChild() {
+		return this.hasChild;
+	}
+
+	public void setHasChild(Short hasChild) {
+		this.hasChild = hasChild;
 	}
 
 	public String getRemark() {
