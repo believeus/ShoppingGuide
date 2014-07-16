@@ -2,15 +2,19 @@ package com.etech.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Variables;
@@ -22,19 +26,35 @@ public class ControllerRegister {
 	@Resource
 	private EtechService etechService;
 
-	/**
-	 * Begin Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
-	 * AddReason:普通用户注册页面
-	 */
-	@RequestMapping(value = "/personalReg")
-	public String personalRegister() {
-		return "register/personalRegister";
+	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:验证电话号码是否被注册过*/
+	@RequestMapping(value="/validatePhoneNumber")
+	public @ResponseBody String validateMobile(String phoneNumber){
+		log.debug("current register phoneNumber:"+phoneNumber);
+		// 根据手机号查找该用户是否被注册
+		Tshopsuser shopuser = (Tshopsuser)etechService.findObject(Tshopsuser.class, Variables.phoneNumber, phoneNumber);
+		// 该手机号被注册
+		if(!StringUtils.isEmpty(shopuser)){
+			return "false";
+		}
+		// 该手机号未被注册
+		return "true";
 	}
-
-	/**
-	 * Begin Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
-	 * AddReason:ajax判断一般用户的ajax验证
-	 */
+	/**End Author:wuqiwei Data:2014-07-15 AddReason:验证电话号码是否被注册过*/
+	
+	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:获取手机验证码*/
+	@RequestMapping(value="/achieveValidCode")
+	public void achieveValidCode(String phoneNumber){
+		log.debug("current phoneNumber:"+phoneNumber);
+	}
+	/**End Author:wuqiwei Data:2014-07-15 AddReason:获取手机验证码*/
+	
+	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
+	public @ResponseBody String validateNumberCode(String phoneNumber,String numberCode){
+		return "";
+	}
+	
+	/**End Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
+	
 	@RequestMapping(value = "/ajaxComValidReg")
 	public void ajaxComValidReg(Tshopsuser regUser,String submit ,String rpasswprd,
 			String cpPhone, HttpSession session, HttpServletResponse response) {

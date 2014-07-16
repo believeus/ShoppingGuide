@@ -13,7 +13,7 @@
 		com.mysql.jdbc.Driver
 	</property>
 	<property name="hibernate.connection.url">
-		jdbc:mysql://localhost:3306/shoppingguidesystem?useUnicode=true&amp;characterEncoding=UTF-8
+		jdbc:mysql://localhost:3306/dbshop?useUnicode=true&amp;characterEncoding=UTF-8
 	</property>
 	<property name="hibernate.connection.username">root</property>
 	<property name="hibernate.connection.password">root</property>

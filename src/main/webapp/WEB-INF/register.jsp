@@ -8,9 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
     <title>用户注册</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -70,7 +68,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
   </head>
-  
+  <script type="text/javascript" src="/js/jquery.js"></script>
+  <script type="text/javascript" src="/js/jquery.validate.js"></script>
+  <script type="text/javascript">
+  $(function(){
+	  $("#validCode").click(function(){
+		  var phoneNumber=$("#phoneNumber").val();
+		  if(phoneNumber==""){
+			  $("#phoneNumber").next().text("手机号必填!").css("color","red");
+		  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
+			  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
+		  }else{
+			  //将手机号码发送给webserivce,获取手机验证码
+			  $.post("/achieveValidCode.jhtml", {phoneNumber:phoneNumber},"json");
+		  }
+	  });
+	  $("#registerForm").validate({
+			rules: {
+				phoneNumber:{
+					required: true,
+					rangelength:[11,11],
+					remote:"/validatePhoneNumber.jhtml"
+				},
+				password: {
+					required: true,   
+					rangelength:[6,16]
+				},
+	  			comfirmPwd:{
+	  				required: true,
+	  				equalTo:"#password"
+	  			},
+	  			numberCode:{
+	  				required: true,
+	  				remote:"/validatePhoneNumber.jhtml"
+	  			}
+			},
+			messages: {
+				phoneNumber:{
+					required:"手机号必填",
+					rangelength:"手机号码不足11位",
+					remote:"手机号已被注册"
+				},
+				password: {
+					required:"用户密码必填",
+					rangelength:"密码长度在6-11位之间",
+				},
+				comfirmPwd:{
+					required:"确认密码必填",
+					equalTo:"与用户密码不一致!"
+				}
+			},
+			errorPlacement: function(error, element) {  //验证消息放置的地方
+		            error.appendTo(element.next().css("color","red"));   
+		    },   
+		    highlight: function(element, errorClass) {  //针对验证的表单设置高亮   
+		            $(element).addClass(errorClass);   
+		    }
+		});
+  });
+
+  </script>
   <body bgcolor="#E7E8EB">
   	 <!-- 引用尾部页面 -->
     <jsp:include page="include/header.jsp" flush="true" />
@@ -87,36 +144,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<span><font color="red">*</font>为必填选项</span>
     		<span style="float:right;">已有帐号!<a href="/login.jhtml" style="color:red;">直接登录</a></span>
     	</div>
+    	<form id="registerForm" action="#" method="post" autocomplete="off">
     	<div class="stable">
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户名称：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
+    			<span style="font-weight:bold;">手机号码：</span>
+    			<input type="text" id="phoneNumber" name="phoneNumber" 
+    				   style="width:345px;height:35px;line-height:35px;" 
+    				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
+   				<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">用户密码：</span>
-    			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="password" name="password"  style="width:345px;height:35px;line-height:35px;">
+    			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">确定密码：</span>
-    			<input type="password" name="" style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="comfirmPwd" name="comfirmPwd"  style="width:345px;height:35px;line-height:35px;">
+    			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">用户昵称：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
+    			<input type="text" id="nickName" name="nickName" style="width:345px;height:35px;line-height:35px;">
+    			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" name="" style="width:345px;height:35px;line-height:35px;">
-    			<input class="btn" type="button" value="免费获取验证码">
+    			<input type="text" name="numberCode" style="width:345px;height:35px;line-height:35px;">
+    			<input class="btn" id="validCode" type="button" value="免费获取验证码">
    			</p>
    			<div class="btn_div">
-   				<input type="button" value="下一步" onClick="javascript:window.location.href='/register2.jhtml'">
+   				<input type="submit" value="下一步">
 			</div>
+			</form>
     	</div>
     </div>
     
