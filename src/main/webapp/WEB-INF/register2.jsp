@@ -117,9 +117,6 @@
 		});
 	});
 </script>
-<c:if test="${gList==null }">
-<c:redirect url="/scopeOfBusiness.jhtml"></c:redirect>
-</c:if>
 <body bgcolor="#E7E8EB">
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/header.jsp" flush="true" />
@@ -154,8 +151,8 @@
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
 					<select id="goodsTypeName" name="goodsTypeName">
 						<option value="-2">请选择经营范围</option>
-						<c:forEach var="gli" items="${gList }">
-							<option value="${gli.goodsTypeName }">${gli.goodsTypeName }</option>
+						<c:forEach var="gli" items="${gList}">
+							<option value="${gli.goodsTypeName}">${gli.goodsTypeName}</option>
 						</c:forEach>
 					</select>
 				</p>
