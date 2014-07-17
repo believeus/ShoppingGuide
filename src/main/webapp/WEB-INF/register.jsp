@@ -76,13 +76,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   $(function(){
 	  $("#validCode").click(function(){
 		  var phoneNumber=$("#phoneNumber").val();
+		  $("#numberCode").next().text("");
 		  if(phoneNumber==""){
 			  $("#phoneNumber").next().text("手机号必填!").css("color","red");
 		  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
 			  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
 		  }else{
 			  //将手机号码发送给webserivce,获取手机验证码
-			  $.post("/achieveValidCode.jhtml", {phoneNumber:phoneNumber},"json");
+			  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
+				  if(/[0-9]{4}/.test(data.returnCode)){
+					  $("#validCode").attr('disabled',"true");
+				  }else{
+					  $("#numberCode").next().text("获取验证码失败,请重新获取").css("color","red");
+				  }
+			  },"json");
 		  }
 	  });
 	  $("#registerForm").validate({
@@ -99,6 +106,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			comfirmPwd:{
 	  				required: true,
 	  				equalTo:"#password"
+	  			},
+	  			nickName:{
+	  				required: true
 	  			},
 	  			numberCode:{
 	  				required: true,
@@ -118,6 +128,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				comfirmPwd:{
 					required:"确认密码必填",
 					equalTo:"与用户密码不一致!"
+				},
+				nickName:{
+					required:"昵称必填"
+				},
+				numberCode:{
+					required:"验证码必填",
+					remote:"验证码不匹配"
 				}
 			},
 			errorPlacement: function(error, element) {  //验证消息放置的地方
@@ -146,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<span><font color="red">*</font>为必填选项</span>
     		<span style="float:right;">已有帐号!<a href="/login.jhtml" style="color:red;">直接登录</a></span>
     	</div>
-    	<form id="registerForm" action="#" method="post" autocomplete="off">
+    	<form id="registerForm" action="/dealRegister.jhtml" method="post" autocomplete="off">
     	<div class="stable">
     		<p>
     			<font color="red">*</font>
@@ -177,7 +194,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
+    			<input type="text" id="numberCode" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
+    			<span></span>
     			<input class="btn" id="validCode" type="button" value="免费获取验证码">
    			</p>
    			<div class="btn_div">
