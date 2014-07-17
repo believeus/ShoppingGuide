@@ -2,10 +2,12 @@ package com.etech.controller;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -16,6 +18,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.etech.entity.Tfeature;
+import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
@@ -107,12 +111,24 @@ public class ControllerRegister {
 	public String registerView(){
 		return "/WEB-INF/register.jsp";
 	}
+	/**Begin Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
 	@RequestMapping(value="/register2")
-	public String registerView2(){
+	public String registerView2(HttpServletRequest request){
+		@SuppressWarnings("unchecked")
+		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.getListByClass(Tgoodstype.class, Integer.MAX_VALUE);
+		request.setAttribute("gList", gList);
+		 log.debug(gList.size());
 		return "/WEB-INF/register2.jsp";
 	}
+	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
+	/**Begin Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/
 	@RequestMapping(value="/register3")
-	public String registerView3(){
+	public String registerView3(HttpServletRequest request){
+		@SuppressWarnings("unchecked")
+		List<Tfeature> tList = (List<Tfeature>)etechService.getListByClass(Tfeature.class, Integer.MAX_VALUE);
+		request.setAttribute("tList", tList);
+		log.debug(tList.size());
 		return "/WEB-INF/register3.jsp";
 	}
+	/**End Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/
 }
