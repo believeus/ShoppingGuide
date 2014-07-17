@@ -1,10 +1,14 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,8 +18,7 @@ import javax.persistence.Table;
 @Table(name = "tshop", catalog = "dbshop")
 public class Tshop implements java.io.Serializable {
 
-	// Fields
-
+	private static final long serialVersionUID = -15115199236039315L;
 	private Integer shopId;
 	private Integer marketId;
 	private String shopName;
@@ -40,6 +43,7 @@ public class Tshop implements java.io.Serializable {
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
 	private String businessLicenseNo;
+	private List<Tshopsuser> shopusers;
 
 	// Constructors
 
@@ -318,5 +322,15 @@ public class Tshop implements java.io.Serializable {
 	public void setBusinessLicenseNo(String businessLicenseNo) {
 		this.businessLicenseNo = businessLicenseNo;
 	}
+	
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shops")
+	public List<Tshopsuser> getShopusers() {
+		return shopusers;
+	}
+
+	public void setShopusers(List<Tshopsuser> shopusers) {
+		this.shopusers = shopusers;
+	}
+	
 
 }

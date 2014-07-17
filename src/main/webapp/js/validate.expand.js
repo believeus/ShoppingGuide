@@ -8,3 +8,8 @@ $.validator.addMethod("selectNone", function(value, element) {
 	}, "必须选择一项"); 
 
 
+//手机号码的验证
+jQuery.validator.addMethod("mobileRegex", function(value, element) {
+	return this.optional(element) || (/^1[358]\d{9}$/.test(value)&& value.length==11);
+}, "手机号码格式不正确");
+
