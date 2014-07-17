@@ -27,16 +27,6 @@ public class ControllerRegistTwo {
 	private static final Log log = LogFactory.getLog(ControllerRegister.class);
 	@Resource
 	private EtechService etechService;
-	/**Begin Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
-	@RequestMapping(value = "/scopeOfBusiness")
-	public String goodType(HttpServletRequest request){
-	@SuppressWarnings("unchecked")
-	List<Tgoodstype> gList = (List<Tgoodstype>)etechService.getListByClass(Tgoodstype.class, Integer.MAX_VALUE);
-	request.setAttribute("gList", gList);
-	 log.debug(gList.size());
-		return "/register2.jhtml";
-	}
-	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
 	/**Begin Author:yangQiXian Data:2014-07-16 AddReason:添加商铺信息*/
 	@RequestMapping(value = "/regTwoSuccess")
 	public void addShop(Tshop tshop,Tgoodstype tgoodstype,Tbusinessscope busines,HttpServletResponse response,HttpSession session)
