@@ -163,6 +163,7 @@
 	<mapping class="com.etech.entity.Tprovince" />
 	<mapping class="com.etech.entity.Tsearchkeywords" />
 	<mapping class="com.etech.entity.Tshop" />
+	<mapping class="com.etech.entity.Tshopbusinessscope" />
 	<mapping class="com.etech.entity.Tshopfavorite" />
 	<mapping class="com.etech.entity.Tshopfeature" />
 	<mapping class="com.etech.entity.Tshoppraisehistory" />
@@ -173,7 +174,6 @@
 	<mapping class="com.etech.entity.Tsystemconfig" />
 	<mapping class="com.etech.entity.Ttabletrace" />
 	<mapping class="com.etech.entity.TtabletraceId" />
-
 
 </session-factory>
 

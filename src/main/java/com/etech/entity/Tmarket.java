@@ -1,6 +1,7 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ public class Tmarket implements java.io.Serializable {
 	public Tmarket() {
 	}
 
+	
 	/** minimal constructor */
 	public Tmarket(Integer areaId, String marketName, Double latitude,
 			Double longitude, Short floorCount) {

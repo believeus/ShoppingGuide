@@ -23,7 +23,22 @@ public class Variables {
 	public static final int invalid=4;
 	//phone validate code
 	public static final String validCode="validCode";
+	public static final Integer marketId = 1;
+	public static final String shopOwnerName = "shopOwnerName";
+	public static final Short isRecommend = 0;
+	public static final Short state = 0;
+	public static final Integer initViewCount=0;
+	public static final Integer bePraisedCount=0;
+	public static final Integer initFansCount=0;
+	public static final Double latitude=0.0;
+	public static final Double longitude=0.0;
+	public static final Integer parentId=1;
+	public static final Short hasChild=0;
+	public static final Short featureType=0;
+	public static final Integer initCount=0;
 	//validate webservice interface
 	public static final String webserviceValidCode=PropertiesUtils.findValue("shopping.properties", "webserviceValidCode");
 	
+	
+
 }
