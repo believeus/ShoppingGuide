@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div style="height:135px;width:100%;background:#69CDCD;">
    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
        	<div style="float:left;">
-       		<a href="/login.jhtml" title="首页"><img src="images/Logo_b.png"/></a>
+       		<a href="/login.jhtml" title="首页"><img src="/images/Logo_b.png"/></a>
         </div>
        	<div style="float:right; margin-top:40px; font-size:16px; color:#056F6F; line-height:0px;">
            	<a href="javascript:void(0);" class="hello">admin,你好！</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -84,7 +84,60 @@
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
 <script type="text/javascript">
+	$(function(){
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");
+		var gc = new BMap.Geocoder();    
+		map.centerAndZoom("重庆",12);   // 初始化地图,设置城市和地图级别。
+		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用 
+		
+		var contextMenu = new BMap.ContextMenu();
+		var txtMenuItem = [
+		  {
+		   text:'放大',
+		   callback:function(){map.zoomIn()}
+		  },
+		  {
+		   text:'缩小',
+		   callback:function(){map.zoomOut()}
+		  },
+		  {
+		   text:'放置到最大级',
+		   callback:function(){map.setZoom(18)}
+		  },
+		  {
+		   text:'查看全国',
+		   callback:function(){map.setZoom(4)}
+		  },
+		  {
+		   text:'在此添加标注',
+		   callback:function(p){
+		    var marker = new BMap.Marker(p), px = map.pointToPixel(p);
+		    map.addOverlay(marker);
+		   }
+		  }
+		 ];
+
+		 for(var i=0; i < txtMenuItem.length; i++){
+		  contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+		  if(i==1 || i==3) {
+		   contextMenu.addSeparator();
+		  }
+		 }
+		 map.addContextMenu(contextMenu);
+		
+		map.addEventListener("click", function(e){ 
+		    var pt = e.point;
+		    gc.getLocation(pt, function(rs){
+		        var addComp = rs.addressComponents;
+		        alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+		    });        
+		});
+	});
+	
 	$().ready(function() {
 		$("#registerForm").validate({
 			rules : {
@@ -120,7 +173,6 @@
 <body bgcolor="#E7E8EB">
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/header.jsp" flush="true" />
-
 	<div class="s_main">
 		<p style="font-size: 22px; margin: 10px 0px; padding-left: 35px;">
 			<font color="#69CDCD">商户注册</font> <font color="#AEAEAE">USER
@@ -144,8 +196,8 @@
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">详细位置：</span>
-					<input id="address" type="password" name="address"
-						style="width:345px;height:35px;line-height:35px;">
+					<input id="address" type="password" name="address" style="width:345px;height:35px;line-height:35px;">
+					<div id="allmap" style="width:350px;height:350px;"></div>
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>

@@ -117,7 +117,6 @@ public class ControllerRegister {
 		@SuppressWarnings("unchecked")
 		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.getListByClass(Tgoodstype.class, Integer.MAX_VALUE);
 		request.setAttribute("gList", gList);
-		 log.debug(gList.size());
 		return "/WEB-INF/register2.jsp";
 	}
 	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
