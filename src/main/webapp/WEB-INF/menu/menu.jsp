@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<img src="" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="" title="我的店铺">我的店铺</a>
+   					<a href="/myShop.jhtml" title="我的店铺">我的店铺</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<img src="" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="" title="我的粉丝">我的粉丝</a>
+   					<a href="/myFans.jhtml" title="我的粉丝">我的粉丝</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<img src="" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="" title="潮流资讯">潮流资讯</a>
+   					<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a>
    				</div>
     		</div>
     		<div class="s_menu_list" style="background:#EAEAEA;">
@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     	</div>
     	<div class="s_menu" style="border:2px dotted #2DB7EC;height:386px;line-height:386px;text-align:center;">
-    		<a href="/" title="点击添加新店铺"><font size="10" color="#2DB7EC">+</font></a>
+    		<a href="/editShopMsg.jhtml" title="点击添加新店铺"><font size="10" color="#2DB7EC">+</font></a>
     	</div>
     </div>
     

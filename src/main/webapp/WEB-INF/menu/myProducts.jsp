@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<p style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
     	<hr color="#E8E8E8" style="margin:0;"/>
     	<p>
-    		<input type="button" value="添加">
+    		<input type="button" value="添加" onClick="javascript:window.location.href='/productAdd.jhtml'">
     		<input type="button" value="刷新">
     		<input type="button" value="每页显示">
     		<span>共有<font color="#69CDCD">1234</font>条数据</span>

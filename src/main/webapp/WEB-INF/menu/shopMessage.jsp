@@ -68,8 +68,10 @@
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input type="button" value="编辑" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
-					<td style="width:8%;"><input type="button" value="返回" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:9%;">
+						<input type="button" value="编辑" onClick="javascript:window.location.href='/editShopMsg.jhtml'" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" />
+					</td>
+					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="修改用户密码" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			

@@ -29,6 +29,15 @@ public class ControllerSetting {
 	}
 	
 	/**
+	 * 修改密码
+	 * @return
+	 */
+	@RequestMapping(value="/findPsd")
+	public String findPsd(){
+		return "/WEB-INF/setting/findPsd.jsp";
+	}
+	
+	/**
 	 * 关联帐号
 	 * @return
 	 */

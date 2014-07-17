@@ -135,14 +135,14 @@ a:link {
 				<p id="check">
                 	<label><input type="checkbox" name="" />记住账号</label>
                     <span style="margin-left: 90px;">
-                    	<a href="">找回密码</a>
+                    	<a href="/findPsd.jhtml" title="找回密码">找回密码</a>
                    	</span>
                 </p>
                 <p id="check">
                     <span>没有商户账号？<a style="text-decoration:underline;color:red;" href="/register.jhtml">立即注册</a></span>
                 </p>
                 <div id="login">
-                	<p>登录</p>
+                	<p onClick="javascript:window.location.href='/menu.jhtml';">登录</p>
                 </div>
             </div>
         </div>

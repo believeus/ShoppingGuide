@@ -51,7 +51,7 @@
 		.main_table2 input[type='text'] {
 		    height: 30px;
 		    line-height: 30px;
-		    width: 700px;
+		    width: 400px;
 		}
 		.main_table2 tr td {
 		    padding: 20px 0;
@@ -76,8 +76,8 @@
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input type="button" value="编辑" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
-					<td style="width:8%;"><input type="button" value="返回" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:9%;"><input type="button" value="保存" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="修改用户密码" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
@@ -95,7 +95,7 @@
 					<td style="color:red;">*</td>
 					<td>店铺介绍：</td>
 					<td>
-						<textArea style="width:700px;height:50px;resize:none;"></textArea>
+						<textArea style="width:400px;height:50px;resize:none;"></textArea>
 					</td>
 				</tr>
 				<tr>
@@ -109,7 +109,14 @@
 					<td style="color:red;">*</td>
 					<td style="">经营范围：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						<input type="text" name="">
+						<select name="" style="width:400px;text-align:center;margin-bottom:10px;">
+							<option value="">请选择..</option>
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+							<option value="">4</option>
+							<option value="">5</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
@@ -151,7 +158,6 @@
 			
 		</div>
 
-		<hr style="width:85%;border:1px solid #E8E8E8;" />
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />

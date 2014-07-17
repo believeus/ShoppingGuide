@@ -100,4 +100,13 @@ public class ControllerMenu {
 	public String information(){
 		return "/WEB-INF/menu/Information.jsp";
 	}
+	/**
+	 * 资讯列表
+	 * @return
+	 */
+	@RequestMapping(value="/infoList")
+	public String infoList(){
+		return "/WEB-INF/menu/InfoList.jsp";
+	}
+	
 }

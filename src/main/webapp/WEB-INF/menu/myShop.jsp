@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="" width="60" height="50">
+   					<img src="/images/msg.png" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
    					<a href="/myProducts.jhtml" title="我的商品">我的商品</a>
@@ -98,18 +98,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="" width="60" height="50">
+   					<img src="/images/shop.png" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="" title="店铺信息">店铺信息</a>
+   					<a href="/shopMsg.jhtml" title="店铺信息">店铺信息</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="" width="60" height="50">
+   					<img src="/images/fans.png" width="60" height="50">
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="" title="店铺预览">店铺预览</a>
+   					<a href="javascript:void(0);" title="店铺预览" onClick="alert('暂无信息,敬请期待');">店铺预览</a>
    				</div>
     		</div>
     	</div>

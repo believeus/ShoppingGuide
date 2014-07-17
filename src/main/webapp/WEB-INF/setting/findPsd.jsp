@@ -9,13 +9,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>修改密码</title>
+    <title>找回密码</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" type="text/css" href="/css/goodsAdd.css" />
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -85,13 +86,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<jsp:include page="../include/header.jsp"/>
-    <div style="width:100%; ">
 	    <div style="width:1000px; margin:0px auto; background-color:#fff;">
 	    	<div style="padding-top:30px;">
 	        	<div id="titl">
 	                <div id="titl_name">
-	                    <span>修改密码</span>&nbsp;&nbsp;
-	                    <span style="color:#AEAEAE; text-transform:uppercase;">password change</span>
+	                    <span>找回密码</span>&nbsp;&nbsp;
+	                    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
 	                </div>
 	                <div class="butt01"><p>确认</p></div>
 	                <div class="butt01" style="margin-right:20px;"><p>取消</p></div>
@@ -99,17 +99,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <img src="/images/line.png" />
 	        </div>
 	        <div style="clear:right;">
+	        	<table class="main_table3" style="">
+					<tr>
+						<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
+						<td style="" colspan="2"><div style="float:left;color:red;">*</div>营业执照:</td>
+					</tr>
+	   				<tr style="">
+						<td colspan="2" style=""></td>
+						<td>
+							<div class="main_table3_div2" style="border:1px solid gray;margin-left:78px;"></div>
+						</td>
+						<td style="text-align: right;width: 200px;">营业执照号:</td>
+						<td>
+							<input type="text" name="" style="width:200px;margin-top:13px;"/>
+							<div style="position:relative;top:10px;right:85px;font-size:13px;">注明：必须上传营业执照或者填写执照号</div>
+						</td>
+					</tr>
+				</table>
 	            <table>
-	              <tr style="height:45px;">
-	                <td></td>
-	                <td><div><span style="color:red;">*</span>为必填选项</div></td>
-	                <td></td>
-	                <td></td>
-	              </tr>
 	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>旧&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</b></td>
+	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</b></td>
 	                <td>
-	                    <input type="password" placeholder="请输入旧密码" />
+	                    <input type="password" placeholder="请输入账号" />
 	                </td>
 	                <td><img src="images/chacha.png" /></td>
 	                <td>
@@ -119,25 +130,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </td>
 	              </tr>
 	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</b></td>
+	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>手机号码：</b></td>
 	                <td>
-	                    <input type="password" placeholder="请输入新的密码" />
+	                    <input type="text" placeholder="请输入手机号码" />
 	                </td>
 	                <td><img src="images/good.gif" /></td>
 	                <td></td>
 	              </tr>
 	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>确认新密码：</b></td>
+	                <td><b><span style="color:red;">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>验证码：</b></td>
 	                <td>
-	                    <input type="password" placeholder="请再次输入新的密码" />
+	                    <input type="password" placeholder="请输入验证码" />
 	                </td>
 	                <td></td>
 	                <td></td>
 	              </tr>
 	            </table>
+	            <img src="/images/line.png">
 	        </div>
-	   </div>
-	</div>
+		</div>
 	<jsp:include page="../include/footer.jsp"/>
   </body>
 </html>
