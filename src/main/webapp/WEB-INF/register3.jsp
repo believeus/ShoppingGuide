@@ -16,50 +16,128 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
+<style type="text/css">
+.s_main {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 20px auto;
+	background: #FFFFFF;
+}
 
-	<script type="text/javascript" src="/js/jquery.js"></script>
-	<script type="text/javascript">
-		$().ready(function(){
-			
-			//选择
-			$("[id='ta']").on('click',function(){
-				if($(this).hasClass("current")){
-					$(this).removeClass("current");		
-				}else{
-					$(this).addClass("current");		
-				}
-			});	
-			
-			//添加
-			$("#addSpecial").on('click',function(){
-				
-				var text=$("#textSpecial").val();
-				
-				if(text == ""){
-					alert("请输入关键字！");
-				}else{
-					var arr=new Array();
-					arr=text.split(" ");
-					for(var i=0;i<arr.length;i++){
-						var v=arr[i];
-						$("#tese").append("<a id='ta' name='xxx'>"+v+"</a>");
-						//选择
-						$("[id='ta']").click(function(){
-							if($(this).hasClass("current")){
-								$(this).removeClass("current");		
-							}else{
-								$(this).addClass("current");		
-							}
-						});	
-					}
-				}
-			});
+.stable {
+	width: 800px;
+	height: auto;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tese {
+	width: 500px;
+	height: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.tese a {
+	border: 1px solid #e4e4e4;
+	color: #555555;
+	border-radius: 3px;
+	margin-right: 5px;
+	padding: 5px;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+.btn {
+	width: 140px;
+	height: 30px;
+	border: 1px solid #69CDCD;
+	background: #69CDCD;
+	color: #FFFFFF;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.btn_div {
+	width: 800px;
+	height: auto;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.btn_div input {
+	width: 70px;
+	height: 30px;
+	border: 1px solid #CCCCCC;
+	background: #CCCCCC;
+	color: #FFFFFF;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.add_tese {
+	background: #ffffff;
+	border: 1px solid #e4e4e4;
+	border-radius: 4px;
+	color: #000000;
+	cursor: pointer;
+	height: 30px;
+	margin-left: 25px;
+	width: 60px;
+}
+
+.current {
+	background: #69cdcd;
+	border: 1px solid #69cdcd !important;
+	color: #ffffff !important;
+}
+</style>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+
+		//选择
+		$("[id='ta']").on('click', function() {
+			if ($(this).hasClass("current")) {
+				$(this).removeClass("current");
+			} else {
+				$(this).addClass("current");
+			}
 		});
+
+		//添加
+		$("#addSpecial").on('click', function() {
+
+			var text = $("#textSpecial").val();
+
+			if (text == "") {
+				alert("请输入关键字！");
+			} else {
+				var arr = new Array();
+				arr = text.split(" ");
+				for (var i = 0; i < arr.length; i++) {
+					var v = arr[i];
+					$("#tese").append("<a id='ta' name='xxx'>" + v + "</a>");
+					//选择
+					$("[id='ta']").click(function() {
+						if ($(this).hasClass("current")) {
+							$(this).removeClass("current");
+						} else {
+							$(this).addClass("current");
+						}
+					});
+				}
+			}
+		});
+	});
 </script>
 </head>
-<c:if test="${tList==null }">
-	<c:redirect url="/tFeature.jhtml"></c:redirect>
-</c:if>
 <body bgcolor="#E7E8EB">
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/header.jsp" flush="true" />
@@ -82,8 +160,7 @@
 			autocomplete="off">
 			<div class="stable">
 				<div class="tese" id="tese">
-					<c:forEach var="tli" items="${tList }">
-						<span style="display: none;" name="featureId">${tli.featureId }</span>
+					<c:forEach var="tli" items="${tList}">
 						<a id="ta" name="featureName">${tli.featureName }</a>
 					</c:forEach>
 				</div>
