@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			height:75px;
 			text-align:left;
 			line-height:75px;
+			cursor:pointer;
 		}
 		.s_menu_list_name:hover{
 			color:#FFFFFF;
@@ -92,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="s_menu_list_img">
    					<img src="/images/msg.png" width="60" height="50">
    				</div>
-   				<div class="s_menu_list_name">
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myProducts.jhtml'">
    					<a href="/myProducts.jhtml" title="我的商品">我的商品</a>
    				</div>
     		</div>
@@ -100,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="s_menu_list_img">
    					<img src="/images/shop.png" width="60" height="50">
    				</div>
-   				<div class="s_menu_list_name">
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/shopMsg.jhtml'">
    					<a href="/shopMsg.jhtml" title="店铺信息">店铺信息</a>
    				</div>
     		</div>

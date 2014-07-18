@@ -99,43 +99,38 @@
 }
 </style>
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript">
-	$().ready(function() {
-
-		//选择
-		$("[id='ta']").on('click', function() {
-			if ($(this).hasClass("current")) {
-				$(this).removeClass("current");
-			} else {
-				$(this).addClass("current");
-			}
-		});
-
-		//添加
-		$("#addSpecial").on('click', function() {
-
-			var text = $("#textSpecial").val();
-
-			if (text == "") {
-				alert("请输入关键字！");
-			} else {
-				var arr = new Array();
-				arr = text.split(" ");
-				for (var i = 0; i < arr.length; i++) {
-					var v = arr[i];
-					$("#tese").append("<a id='ta' name='xxx'>" + v + "</a>");
-					//选择
-					$("[id='ta']").click(function() {
-						if ($(this).hasClass("current")) {
-							$(this).removeClass("current");
-						} else {
-							$(this).addClass("current");
-						}
-					});
+	<script type="text/javascript">
+		function addclass(){
+			//选择
+			$("[id='ta']").click(function(){
+				if($(this).hasClass("current")){
+					$(this).removeClass("current");
+				}else{
+					$(this).addClass("current");		
+					$(this).attr("name","xxx"+Math.floor(Math.random()*100+1));
 				}
-			}
+			});	
+		}
+		$().ready(function(){
+			
+			//添加
+			$("#addSpecial").on('click',function(){
+				
+				var text=$("#textSpecial").val();
+				
+				if(text == ""){
+					alert("请输入关键字！");
+				}else{
+					var arr=new Array();
+					arr=text.split(" ");
+					for(var i=0;i<arr.length;i++){
+						var v=arr[i];
+						$("#tese").append("<a id='ta' name='xxx'>"+v+"</a>");
+						addclass();
+					}
+				}
+			});
 		});
-	});
 </script>
 </head>
 <body bgcolor="#E7E8EB">
