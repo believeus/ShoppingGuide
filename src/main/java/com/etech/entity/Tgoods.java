@@ -33,6 +33,7 @@ public class Tgoods implements java.io.Serializable {
 	private Integer goodsDefaultPhotoHeight;
 	private Integer viewCount;
 	private Integer bePraisedCount;
+	private Integer publishUserId;
 
 	// Constructors
 
@@ -43,7 +44,8 @@ public class Tgoods implements java.io.Serializable {
 	/** minimal constructor */
 	public Tgoods(Integer shopId, String goodsName, Integer goodsTypeId,
 			Short isOnSale, Timestamp addTime, Short isRecommend,
-			Short examineState, Integer viewCount, Integer bePraisedCount) {
+			Short examineState, Integer viewCount, Integer bePraisedCount,
+			Integer publishUserId) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
 		this.goodsTypeId = goodsTypeId;
@@ -53,6 +55,7 @@ public class Tgoods implements java.io.Serializable {
 		this.examineState = examineState;
 		this.viewCount = viewCount;
 		this.bePraisedCount = bePraisedCount;
+		this.publishUserId = publishUserId;
 	}
 
 	/** full constructor */
@@ -62,7 +65,7 @@ public class Tgoods implements java.io.Serializable {
 			Short examineState, String goodsPhotoUrl,
 			String goodsDefaultPhotoUrl, Integer goodsDefaultPhotoWidth,
 			Integer goodsDefaultPhotoHeight, Integer viewCount,
-			Integer bePraisedCount) {
+			Integer bePraisedCount, Integer publishUserId) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
 		this.goodsTypeId = goodsTypeId;
@@ -79,6 +82,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsDefaultPhotoHeight = goodsDefaultPhotoHeight;
 		this.viewCount = viewCount;
 		this.bePraisedCount = bePraisedCount;
+		this.publishUserId = publishUserId;
 	}
 
 	// Property accessors
@@ -235,6 +239,15 @@ public class Tgoods implements java.io.Serializable {
 
 	public void setBePraisedCount(Integer bePraisedCount) {
 		this.bePraisedCount = bePraisedCount;
+	}
+
+	@Column(name = "PublishUserID", nullable = false)
+	public Integer getPublishUserId() {
+		return this.publishUserId;
+	}
+
+	public void setPublishUserId(Integer publishUserId) {
+		this.publishUserId = publishUserId;
 	}
 
 }

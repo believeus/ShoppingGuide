@@ -16,7 +16,7 @@ public class Tphoneuserfeature implements java.io.Serializable {
 
 	// Fields
 
-	private Integer goodsFeatureId;
+	private Integer phoneUserFeatureId;
 	private Integer phoneUserId;
 	private Integer featureId;
 	private Timestamp addTime;
@@ -38,13 +38,13 @@ public class Tphoneuserfeature implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "GoodsFeatureID", nullable = false)
-	public Integer getGoodsFeatureId() {
-		return this.goodsFeatureId;
+	@Column(name = "PhoneUserFeatureID", nullable = false)
+	public Integer getPhoneUserFeatureId() {
+		return this.phoneUserFeatureId;
 	}
 
-	public void setGoodsFeatureId(Integer goodsFeatureId) {
-		this.goodsFeatureId = goodsFeatureId;
+	public void setPhoneUserFeatureId(Integer phoneUserFeatureId) {
+		this.phoneUserFeatureId = phoneUserFeatureId;
 	}
 
 	@Column(name = "PhoneUserID", nullable = false)

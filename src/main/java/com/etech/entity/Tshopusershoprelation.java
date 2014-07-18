@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "tshopusershoprelation", catalog = "dbshop")
 public class Tshopusershoprelation implements java.io.Serializable {
 
-	private static final long serialVersionUID = -8528593388678127856L;
+	// Fields
+
 	private Integer shopUserShopRelationId;
 	private Integer shopUserId;
 	private Integer shopId;

@@ -1,16 +1,10 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +14,8 @@ import javax.persistence.Table;
 @Table(name = "tshopsuser", catalog = "dbshop")
 public class Tshopsuser implements java.io.Serializable {
 
-	private static final long serialVersionUID = -1683145211661040364L;
+	// Fields
+
 	private Integer shopUserId;
 	private String userName;
 	private String password;
@@ -38,7 +33,6 @@ public class Tshopsuser implements java.io.Serializable {
 	private Short grade;
 	private Integer pageView;
 	private Integer defaultShopId;
-	private List<Tshop> shops;
 
 	// Constructors
 
@@ -241,16 +235,4 @@ public class Tshopsuser implements java.io.Serializable {
 		this.defaultShopId = defaultShopId;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "Tshopusershoprelation",
-    joinColumns = { @JoinColumn(name = "shopUserId", referencedColumnName = "shopUserId") }, 
-    inverseJoinColumns = { @JoinColumn(name = "shopId", referencedColumnName = "shopId") })
-	public List<Tshop> getShops() {
-		return shops;
-	}
-
-	public void setShops(List<Tshop> shops) {
-		this.shops = shops;
-	}
-	
 }
