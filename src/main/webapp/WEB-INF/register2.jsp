@@ -123,55 +123,72 @@
 </head>
 <script type="text/javascript">
 	$(function(){
+		
+		
 		// 百度地图API功能
-		var map = new BMap.Map("allmap");
-		var gc = new BMap.Geocoder();    
-		map.centerAndZoom("重庆",12);   // 初始化地图,设置城市和地图级别。
-		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
-		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用 
-		
-		var contextMenu = new BMap.ContextMenu();
-		var txtMenuItem = [
-		  {
-		   text:'放大',
-		   callback:function(){map.zoomIn()}
-		  },
-		  {
-		   text:'缩小',
-		   callback:function(){map.zoomOut()}
-		  },
-		  {
-		   text:'放置到最大级',
-		   callback:function(){map.setZoom(18)}
-		  },
-		  {
-		   text:'查看全国',
-		   callback:function(){map.setZoom(4)}
-		  },
-		  {
-		   text:'在此添加标注',
-		   callback:function(p){
-		    var marker = new BMap.Marker(p), px = map.pointToPixel(p);
-		    map.addOverlay(marker);
-		   }
-		  }
-		 ];
+		function G(id) {
+		    return document.getElementById(id);
+		}
 
-		 for(var i=0; i < txtMenuItem.length; i++){
-		  contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
-		  if(i==1 || i==3) {
-		   contextMenu.addSeparator();
-		  }
-		 }
-		 map.addContextMenu(contextMenu);
+		var map = new BMap.Map("l-map");
+		map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
 		
-		map.addEventListener("click", function(e){ 
+		var gc = new BMap.Geocoder();    
+		map.addEventListener("click", function(e){        
 		    var pt = e.point;
 		    gc.getLocation(pt, function(rs){
 		        var addComp = rs.addressComponents;
-		        alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+		        $("#suggestId").val(addComp.province + ""+ addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+		        //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
 		    });        
 		});
+		
+		var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+		    {"input" : "suggestId"
+		    ,"location" : map
+		});
+
+		ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+		var str = "";
+		    var _value = e.fromitem.value;
+		    var value = "";
+		    if (e.fromitem.index > -1) {
+		        value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		    }    
+		    str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+		    
+		    value = "";
+		    if (e.toitem.index > -1) {
+		        _value = e.toitem.value;
+		        value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		    }    
+		    str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+		    G("searchResultPanel").innerHTML = str;
+		});
+
+		var myValue;
+		ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+		var _value = e.item.value;
+		    myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		    G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		    
+		    setPlace();
+		});
+
+		function setPlace(){
+		    map.clearOverlays();    //清除地图上所有覆盖物
+		    function myFun(){
+		        var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+		        map.centerAndZoom(pp, 18);
+		        map.addOverlay(new BMap.Marker(pp));    //添加标注
+		    }
+		    var local = new BMap.LocalSearch(map, { //智能搜索
+		      onSearchComplete: myFun
+		    });
+		    local.search(myValue);
+		}
 	});
 	
 	$().ready(function() {
@@ -226,21 +243,25 @@
 		<form id="registerForm" action="/regTwoSuccess.jhtml" method="post" autocomplete="off">
 			<div class="stable">
 				<p>
-					<font color="red">*</font> <span style="font-weight:normal;">店铺名称：</span>
-					<input id="shopName" type="text" name="shopName"
-						style="width:345px;height:35px;line-height:35px;">
+					<font color="red">*</font> <span style="font-weight:normal;">店铺名称:</span>
+					<input id="shopName" type="text" name="shopName" style="width:345px;height:35px;line-height:35px;">
 				</p>
 				<p>
-					<font color="red">*</font> <span style="font-weight:normal;">详细位置：</span>
-					<input id="address" type="password" name="address" style="width:345px;height:35px;line-height:35px;">
-					<div id="allmap" style="width:350px;height:350px;"></div>
+					<div id="r-result" style="height:30px;width:auto;padding-left:40px;margin-bottom:20px;">
+						<font color="red">*</font>
+						<span style="font-weight:normal;">店铺地址:</span>
+						<input type="text" id="suggestId" name="address" size="20" value="百度" style="width:345px;height:35px;line-height:35px;"/>
+					</div>
+					<div id="searchResultPanel" style="display: none;width:150px;height:auto;"></div>
+					<div id="l-map" style="width:auto;height:350px;margin-left:40px;"></div>
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
-					<select id="goodsTypeName" name="goodsTypeName">
+					
+					<select id="goodsTypeId" name="goodsTypeId">
 						<option value="-2">请选择经营范围</option>
 						<c:forEach var="gli" items="${gList}">
-							<option value="${gli.goodsTypeName}">${gli.goodsTypeName}</option>
+							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 						</c:forEach>
 					</select>
 				</p>
@@ -257,7 +278,7 @@
 						</span>
 						<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
 					</div>
-					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+					<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 					<input type="hidden" id="filename0" name="filename0">
 				</div>
 				<div style="padding-left:40px;margin-top:20px;">

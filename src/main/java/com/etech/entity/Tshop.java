@@ -1,10 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +23,7 @@ public class Tshop implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = -15115199236039315L;
 	private Integer shopId;
 	private Integer marketId;
 	private String shopName;
@@ -40,7 +48,8 @@ public class Tshop implements java.io.Serializable {
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
 	private String businessLicenseNo;
-
+	private List<Tshopsuser> shopusers=new ArrayList<Tshopsuser>();
+	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
 	// Constructors
 
 	/** default constructor */
@@ -318,5 +327,26 @@ public class Tshop implements java.io.Serializable {
 	public void setBusinessLicenseNo(String businessLicenseNo) {
 		this.businessLicenseNo = businessLicenseNo;
 	}
+	
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shops")
+	public List<Tshopsuser> getShopusers() {
+		return shopusers;
+	}
 
+	public void setShopusers(List<Tshopsuser> shopusers) {
+		this.shopusers = shopusers;
+	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "tbusinessscope",
+    joinColumns = { @JoinColumn(name = "shopId", referencedColumnName = "shopId") }, 
+    inverseJoinColumns = { @JoinColumn(name = "goodsTypeId", referencedColumnName = "goodsTypeId") })
+	public List<Tgoodstype> getGoodsTypes() {
+		return goodsTypes;
+	}
+
+	public void setGoodsTypes(List<Tgoodstype> goodsTypes) {
+		this.goodsTypes = goodsTypes;
+	}
+	
 }

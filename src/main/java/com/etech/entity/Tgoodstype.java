@@ -1,9 +1,13 @@
 package com.etech.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -14,12 +18,13 @@ import javax.persistence.Table;
 public class Tgoodstype implements java.io.Serializable {
 
 	// Fields
-
+	private static final long serialVersionUID = -6327949680933534713L;
 	private Integer goodsTypeId;
 	private Integer parentId;
 	private String goodsTypeName;
 	private Short hasChild;
 	private String remark;
+	private List<Tshop> shops=new ArrayList<Tshop>();
 
 	// Constructors
 
@@ -91,4 +96,13 @@ public class Tgoodstype implements java.io.Serializable {
 		this.remark = remark;
 	}
 
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="goodsTypes")
+	public List<Tshop> getShops() {
+		return shops;
+	}
+
+	public void setShops(List<Tshop> shops) {
+		this.shops = shops;
+	}
+	
 }

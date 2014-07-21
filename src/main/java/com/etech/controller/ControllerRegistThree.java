@@ -45,7 +45,7 @@ public class ControllerRegistThree {
 					Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureName", featureName[i]);
 					featureId = tfeature.getFeatureId();
 					tshopfeature.setFeatureId(featureId);
-					etechService.saveOrUpdata(tshopfeature);
+					etechService.saveOrUpdate(tshopfeature);
 				}
 			}else {
 				return;

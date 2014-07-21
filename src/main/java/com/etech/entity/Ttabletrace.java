@@ -16,6 +16,7 @@ public class Ttabletrace implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = 3885636725994357685L;
 	private TtabletraceId id;
 
 	// Constructors

@@ -1,11 +1,14 @@
 package com.etech.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,16 +16,22 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.junit.Assert;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tshop;
 import com.etech.entity.Tshopsuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
+import com.etech.webutil.LatitudeUtils;
 import com.etech.webutil.Variables;
 import com.etech.webutil.WebServiceValidCode;
 @Controller
@@ -76,7 +85,7 @@ public class ControllerRegister {
 	
 	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:表单验证通过后,将该保存到数据库*/
 	@RequestMapping(value="/dealRegister")
-	public void register(Tshopsuser shopuser,HttpSession session,ServletResponse response){
+	public void dealRegister(Tshopsuser shopuser,HttpSession session,ServletResponse response){
 		log.debug("current register phoneNumber:"+shopuser.getPhoneNumber());
 		shopuser.setUserName(shopuser.getPhoneNumber());
 		// 密码md5加密
@@ -91,12 +100,51 @@ public class ControllerRegister {
 		shopuser.setState((short)Variables.reviewing);
 		// 没有注册店铺
 		shopuser.setDefaultShopId(Variables.unRegister);
-		etechService.saveOrUpdata(shopuser);
+		etechService.saveOrUpdate(shopuser);
 		session.setAttribute(Variables.sessionUser, shopuser);
 		Brower.redirect("/register2.jhtml", response);
 	}
-	
 	/**End Author:wuqiwei   Data:2014-07-15 AddReason:表单验证通过后,将该用户保存到数据库*/
+	@RequestMapping(value="/dealRegister2")
+	public void dealRegister2(Tshopsuser shopuser,HttpServletRequest request,ServletResponse response){
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> files = multipartRequest.getFileMap();
+		String storepath = "";
+		for (MultipartFile file : files.values()) {
+			InputStream inputStream;
+			try {
+				inputStream = file.getInputStream();
+				String originName=file.getOriginalFilename();
+				String extention = originName.substring(originName.lastIndexOf(".") + 1);
+				log.debug("upload file stuffix:"+extention);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		HttpSession session = request.getSession();
+		Tshopsuser sessionUser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		
+		String goodsTypeId=request.getParameter("goodsTypeId");
+		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+		
+		
+		// get shop address from form
+		String address=request.getParameter("address");
+		Map<String, String> latitude = LatitudeUtils.getLatitude(address);
+		String lat=latitude.get("lat");
+		String lng=latitude.get("lng");
+		// get shopName from form
+		String shopName=request.getParameter("shopName");
+		Tshop shop=new Tshop();
+		shop.setAddress(address);
+		shop.setShopName(shopName);
+		shop.setLatitude(Double.valueOf(lat));
+		shop.setLongitude(Double.valueOf(lng));
+		shop.getGoodsTypes().add(goodstype);
+		etechService.saveOrUpdate(shop);
+		
+		//shop.s
+	}
 	
 	/** 
 	 * End Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
@@ -113,18 +161,39 @@ public class ControllerRegister {
 	}
 	/**Begin Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
 	@RequestMapping(value="/register2")
-	public String registerView2(HttpServletRequest request){
+	public String registerView2(HttpServletRequest request,ServletResponse response){
+		HttpSession session = request.getSession();
+		Tshopsuser shopsuser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		// the user unfinish the one step register,then jump the one step register page
+		/*if(shopsuser==null){
+			String url="/register.jhtml";
+			Brower.redirect(url, response);
+		}*/
+		String hql="from Tgoodstype";
 		@SuppressWarnings("unchecked")
-		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.getListByClass(Tgoodstype.class, Integer.MAX_VALUE);
+		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
 		return "/WEB-INF/register2.jsp";
 	}
 	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
+	
 	/**Begin Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/
 	@RequestMapping(value="/register3")
-	public String registerView3(HttpServletRequest request){
+	public String registerView3(HttpServletRequest request,ServletResponse response){
+		HttpSession session = request.getSession();
+		Tshopsuser shopsuser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		// the user unfinish the one step register,then jump to one step /register.jhtml
+		if(shopsuser==null){
+			String url="/register.jhtml";
+			Brower.redirect(url, response);
+		// the user unfinish the second step register,then jump to one step /register2.jhtml
+		}else if(shopsuser.getShops().isEmpty()){
+			String url="/register2.jhtml";
+			Brower.redirect(url, response);
+		}
+		
 		@SuppressWarnings("unchecked")
-		List<Tfeature> tList = (List<Tfeature>)etechService.getListByClass(Tfeature.class, Integer.MAX_VALUE);
+		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, Integer.MAX_VALUE);
 		request.setAttribute("tList", tList);
 		log.debug(tList.size());
 		return "/WEB-INF/register3.jsp";

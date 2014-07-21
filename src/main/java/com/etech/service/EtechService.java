@@ -51,12 +51,13 @@ public class EtechService {
 		return etechComDao.findObjectList(hql, num);
 	}
 
-	public void saveOrUpdata(Object object) {
+	public void saveOrUpdate(Object object) {
 		etechComDao.saveOrUpdata(object);
 	}
-	public List<?> findListByHQL(String HQL){
-		return (List<?>)etechComDao.getObjectListByHQL(HQL);
+	public List<?> findObjectList(Class<?> clazz){
+		return (List<?>)etechComDao.findObjectList(clazz);
 	}
+	
 	public Page<?> findObjectListByKeyWord(Class<?> clazz, String key, String[] fields,Pageable pageable) {
 		return etechComDao.findObjectListByKeyWord(clazz, key, fields, pageable);
 	}
@@ -66,7 +67,7 @@ public class EtechService {
 	}
 	
 	//获取该对象集合个数
-	public List<?> getListByClass(Class<?> clazz, Integer num) {
+	public List<?> findObjectList(Class<?> clazz, Integer num) {
 		return etechComDao.findObjectList(clazz, num);
 	}
 }

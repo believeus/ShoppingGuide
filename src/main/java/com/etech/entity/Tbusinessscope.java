@@ -15,6 +15,7 @@ public class Tbusinessscope implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = -1414541045740013317L;
 	private Integer businessScopeId;
 	private Integer shopId;
 	private Integer goodsTypeId;

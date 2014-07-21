@@ -34,7 +34,7 @@ public class ControllerRegistSuccess {
 			shopsuser.setNickName("爱乐逛");
 			shopsuser.setPageView(0);
 			shopsuser.setScore(0);
-			etechService.saveOrUpdata(shopsuser);
+			etechService.saveOrUpdate(shopsuser);
 			session.setAttribute(Variables.sessionUser, shopsuser);
 			String url = "";
 			Brower.redirect(url, response);
