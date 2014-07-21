@@ -98,23 +98,6 @@
 
 </head>
 <body>
-	
-		<!-- <div id="nav" style="">
-			<div class="nav_div1" style="">
-				<img style="margin-top:30px;line-height:120px;" src="image/Logo.png" />
-			</div>
-			<div class="nav_div2" style="">
-				<table class="nav_table" style="font-size:16px;">
-					<tr>
-						<td style="color:gray;font-size:17px;">admin，您好！</td>
-						<td>&nbsp;&nbsp;</td>
-						<td><a href="#" style="color:gray;">退出</a></td>
-
-					</tr>
-				</table>
-			</div>
-		</div> -->
-		
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
@@ -122,9 +105,11 @@
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:12%;"><div style=""><a href="#" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:12%;"><div style=""><a href="/productAdd2.jhtml" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" /></td>
+					<td style="width:9%;">
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+					</td>
 					<td style="width:8%;"><input type="button" value="预览" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			

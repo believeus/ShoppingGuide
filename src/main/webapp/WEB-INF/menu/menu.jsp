@@ -29,11 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background:#FFFFFF;
 		}
 		.s_menu{
-			width:290px;
+			width:292px;
 			height:390px;
 			float:left;
 			border-radius:4px;
 			margin-right:60px;
+			border:1px solid #d5f1f0;
 		}
 		.s_menu_list{
 			width:290px;

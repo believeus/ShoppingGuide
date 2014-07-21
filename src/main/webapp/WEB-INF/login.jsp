@@ -104,9 +104,8 @@ a:link {
 </head>
 
 <body>
-<div>
-	<div style="height:135px;width:100%">
-    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
+	<div style="height:135px;width:100%;margin-top:-17px;">
+    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;height:auto;overflow:hidden;">
         	<div style="float:left;">
         		<img src="images/Logo_.png"/>
             </div>
@@ -151,6 +150,5 @@ a:link {
     <!-- 引用尾部页面 -->
     <jsp:include page="include/footer.jsp" flush="true" />
     
-</div>
 </body>
 </html>
