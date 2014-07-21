@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.etech.entity.Tgoods;
 import com.etech.service.EtechService;
 @Controller
 public class ControllerGoodsAdd {
@@ -22,7 +23,7 @@ public class ControllerGoodsAdd {
 		return "/WEB-INF/menu/goodsAdd2.jsp";
 	}
 	@RequestMapping(value="/addGoods")
-	public void addGoods(){
+	public void addGoods(Tgoods tGoods){
 		
 		
 	}

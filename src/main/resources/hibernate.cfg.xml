@@ -168,14 +168,12 @@
 	<mapping class="com.etech.entity.Tshopfeature" />
 	<mapping class="com.etech.entity.Tshoppraisehistory" />
 	<mapping class="com.etech.entity.Tshopsuser" />
+	<mapping class="com.etech.entity.Tshopuser" />
 	<mapping class="com.etech.entity.Tshopuserlogin" />
 	<mapping class="com.etech.entity.Tshopusershoprelation" />
 	<mapping class="com.etech.entity.Tshopviewhistory" />
 	<mapping class="com.etech.entity.Tsystemconfig" />
 	<mapping class="com.etech.entity.Ttabletrace" />
-
-
-
 </session-factory>
 
 </hibernate-configuration>

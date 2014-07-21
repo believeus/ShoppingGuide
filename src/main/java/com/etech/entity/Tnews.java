@@ -19,7 +19,7 @@ public class Tnews implements java.io.Serializable {
 	private Integer newsId;
 	private String title;
 	private String content;
-	private String from;
+	private String newsFrom;
 	private String originalUrl;
 	private Timestamp addTime;
 	private Integer viewCount;
@@ -31,21 +31,20 @@ public class Tnews implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tnews(String title, String content, String originalUrl,
-			Timestamp addTime, Integer viewCount) {
+	public Tnews(String title, String content, Timestamp addTime,
+			Integer viewCount) {
 		this.title = title;
 		this.content = content;
-		this.originalUrl = originalUrl;
 		this.addTime = addTime;
 		this.viewCount = viewCount;
 	}
 
 	/** full constructor */
-	public Tnews(String title, String content, String from, String originalUrl,
-			Timestamp addTime, Integer viewCount) {
+	public Tnews(String title, String content, String newsFrom,
+			String originalUrl, Timestamp addTime, Integer viewCount) {
 		this.title = title;
 		this.content = content;
-		this.from = from;
+		this.newsFrom = newsFrom;
 		this.originalUrl = originalUrl;
 		this.addTime = addTime;
 		this.viewCount = viewCount;
@@ -81,16 +80,16 @@ public class Tnews implements java.io.Serializable {
 		this.content = content;
 	}
 
-	@Column(name = "From", length = 100)
-	public String getFrom() {
-		return this.from;
+	@Column(name = "NewsFrom", length = 100)
+	public String getNewsFrom() {
+		return this.newsFrom;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setNewsFrom(String newsFrom) {
+		this.newsFrom = newsFrom;
 	}
 
-	@Column(name = "OriginalUrl", nullable = false, length = 100)
+	@Column(name = "OriginalUrl", length = 100)
 	public String getOriginalUrl() {
 		return this.originalUrl;
 	}

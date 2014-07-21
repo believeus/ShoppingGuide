@@ -16,7 +16,7 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 
 	// Fields
 
-	private Integer goodsViewHistoryId;
+	private Integer goodsPraiseHistoryId;
 	private Integer phoneUserId;
 	private Integer goodsId;
 	private Timestamp addTime;
@@ -38,13 +38,13 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "GoodsViewHistoryID", nullable = false)
-	public Integer getGoodsViewHistoryId() {
-		return this.goodsViewHistoryId;
+	@Column(name = "GoodsPraiseHistoryID", nullable = false)
+	public Integer getGoodsPraiseHistoryId() {
+		return this.goodsPraiseHistoryId;
 	}
 
-	public void setGoodsViewHistoryId(Integer goodsViewHistoryId) {
-		this.goodsViewHistoryId = goodsViewHistoryId;
+	public void setGoodsPraiseHistoryId(Integer goodsPraiseHistoryId) {
+		this.goodsPraiseHistoryId = goodsPraiseHistoryId;
 	}
 
 	@Column(name = "PhoneUserID", nullable = false)

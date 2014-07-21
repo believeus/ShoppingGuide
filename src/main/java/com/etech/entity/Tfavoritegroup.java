@@ -21,6 +21,7 @@ public class Tfavoritegroup implements java.io.Serializable {
 	private Short groupType;
 	private String favoriteGroupName;
 	private Timestamp addTime;
+	private Short isCustomGroup;
 
 	// Constructors
 
@@ -30,11 +31,12 @@ public class Tfavoritegroup implements java.io.Serializable {
 
 	/** full constructor */
 	public Tfavoritegroup(Integer phoneUserId, Short groupType,
-			String favoriteGroupName, Timestamp addTime) {
+			String favoriteGroupName, Timestamp addTime, Short isCustomGroup) {
 		this.phoneUserId = phoneUserId;
 		this.groupType = groupType;
 		this.favoriteGroupName = favoriteGroupName;
 		this.addTime = addTime;
+		this.isCustomGroup = isCustomGroup;
 	}
 
 	// Property accessors
@@ -83,6 +85,15 @@ public class Tfavoritegroup implements java.io.Serializable {
 
 	public void setAddTime(Timestamp addTime) {
 		this.addTime = addTime;
+	}
+
+	@Column(name = "IsCustomGroup", nullable = false)
+	public Short getIsCustomGroup() {
+		return this.isCustomGroup;
+	}
+
+	public void setIsCustomGroup(Short isCustomGroup) {
+		this.isCustomGroup = isCustomGroup;
 	}
 
 }
