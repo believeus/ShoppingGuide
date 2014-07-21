@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			height:auto;
 			overflow:hidden;
 			float:left;
-			margin-right: 40px;
+			/* margin-right: 40px; */
 			margin-bottom: 25px;
 		}
 		.pro_img{
@@ -94,9 +94,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			line-height:25px;
 			cursor:pointer;
 		}
+		.p_list01{
+			width:220px;
+			height:auto;
+			overflow:hidden;
+			margin-bottom: 25px;
+			float:left;
+			margin-right:40px;
+		}
 	</style>
-	<script type="text/javascript" src="/js/jquery.js"></script>
-	<script type="text/javascript" src="/js/pubu.js"></script>
 	<script type="text/javascript">
 		$().ready(function(){
 			
@@ -112,35 +118,263 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<p style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
     	<hr color="#E8E8E8" style="margin:0;"/>
     	<p>
-    		<input type="button" value="添加" onClick="javascript:window.location.href='/productAdd.jhtml'">
-    		<input type="button" value="刷新">
+    		<input type="button" value="添加" title="点击添加商品" onClick="javascript:window.location.href='/productAdd.jhtml'">
+    		<input type="button" value="刷新" title="点击刷新" onClick="javascript:window.location.reload();">
     		<input type="button" value="每页显示">
     		<span>共有<font color="#69CDCD">1234</font>条数据</span>
     		<input type="text" name="" style="float:right;">
     	</p>
-    	<div id="pubu" style="width:1000px;">
-    	<div class="pro_list">
-    		<div class="pro_img">
-    			<img src="/images/1.jpg" width="220">
-    		</div>
-    		<div class="pro_name">
-    			商品名称
-    		</div>
-    		<div class="pro_spec">
-    			<span>潮流</span>
-    			<span>潮流</span>
-    		</div>
-    		<!-- <div class="pro_dis">
-    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
-   			</div> -->
-   			<div class="pro_hit">
-   				<span style="float:left;">123赞</span>
-   				<span style="float:right;">12345点击</span>
-   			</div>
+    	<!-- 商品列表  第一列 -->
+    	<div class="p_list01">
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/1.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/2.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/3.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
     	</div>
     	
+    	<!-- 商品列表  第二列 -->
+    	<div class="p_list01">
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/4.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/5.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/6.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+    	</div>
     	
-   		</div>
+    	<!-- 商品列表  第三列 -->
+    	<div class="p_list01">
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/1.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/7.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/8.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+    	</div>
+    	
+    	<!-- 商品列表  第四列 -->
+    	<div class="p_list01" style="margin-right:0;">
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/1.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+    		<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/10.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+	    	
+	    	<div class="pro_list">
+	    		<div class="pro_img">
+	    			<img src="/images/1.jpg" width="220">
+	    		</div>
+	    		<div class="pro_name">
+	    			商品名称
+	    		</div>
+	    		<div class="pro_spec">
+	    			<span>潮流</span>
+	    			<span>潮流</span>
+	    		</div>
+	    		<!-- <div class="pro_dis">
+	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
+	   			</div> -->
+	   			<div class="pro_hit">
+	   				<span style="float:left;">123赞</span>
+	   				<span style="float:right;">12345点击</span>
+	   			</div>
+	    	</div>
+    	</div>
+    	
     </div>
     
     <!-- 引用尾部页面 -->

@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	        <div style="border-bottom:1px solid #ccc; padding-left:30px;">
 	            <p class="pp">
-		    		<input type="button" value="刷新">
+		    		<input type="button" value="刷新" onClick="javascript:window.location.reload();" title="点击刷新">
 		    		<input type="button" value="每页显示">
 		    		<span>共有<font color="#69CDCD">1234</font>条数据</span>
 		    		<input type="text" name="" style="float:right;">

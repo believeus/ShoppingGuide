@@ -18,10 +18,6 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
 <style type="text/css">
 .s_main {
 	width: 1000px;
@@ -79,12 +75,52 @@
 	cursor: pointer;
 }
 </style>
-</head>
+<style type="text/css">
+	.brandImg span{
+		display:block;
+		position:absolute;
+		top:0px;left:0px;
+		width:229px;
+		height:179px;
+	}
+	
+	.brandImg{
+		border-color: #B8B8B8 #DCDCDC #DCDCDC #B8B8B8;
+	    border-radius: 2px 2px 2px 2px;
+	    border-style: solid;
+	    border-width: 1px;
+	    background-color: #666666;
+	    width:229px;
+	    height:179px;
+	    position:relative;
+	}
+	
+	.brandImg span:hover{
+		background-color:#FFFFFF;
+	    opacity: 0.7;
+	    filter:alpha(opacity=50);
+	    -moz-opacity:0.5;
+	    -khtml-opacity: 0.5;
+	}
+	
+	.brandImg span a{
+		display:block;
+		position:absolute;
+		top:80px;
+		left:65px;
+		color:#d5d5d5;
+	}
+	
+	.deleteProductImage:hover{
+		color:#C9033B !important;
+	}
+</style>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
+</head>
 <script type="text/javascript">
 	$(function(){
 		// 百度地图API功能
@@ -213,14 +249,28 @@
 					<input id="businessLicenseNo" type="text" name="businessLicenseNo"
 						style="width:345px;height:35px;line-height:35px;">
 				</p>
-				<p>
-					<span style="font-weight:normal;">营业执照：</span><br> <img id="businessLicensePhoto" src=""
-						width="185" height="140" name="businessLicensePhoto">
-				</p>
-				<p>
-					<span style="font-weight:normal;">店铺展示：</span><br> <img src=""
-						width="185" height="140" id="shopPhotoURL" name="shopPhotoURL">
-				</p>
+				<div style="padding-left:40px;">
+					<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
+					<div class="brandImg" style="margin-top:20px;">
+						<span>
+							<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+						</span>
+						<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+					</div>
+					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+					<input type="hidden" id="filename0" name="filename0">
+				</div>
+				<div style="padding-left:40px;margin-top:20px;">
+					<span style="font-weight:normal;">店铺展示：</span><br> 
+					<div class="brandImg" style="margin-top:20px;">
+						<span>
+							<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
+						</span>
+						<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
+					</div>
+					<input type="file" style="display:none" id="file1" name="file1" onchange="filename1.value=this.value;loadImgFast(this,1)">
+					<input type="hidden" id="filename1" name="filename1">
+				</div>
 				<div class="btn_div">
 					<input type="button" value="上一步"
 						onClick="javascript:window.location.href='/register.jhtml'"
@@ -233,6 +283,18 @@
 
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/footer.jsp" flush="true" />
-
+	<script type="text/javascript">
+		function loadImgFast(img,i){
+			if (img.files && img.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
+	            reader.readAsDataURL(img.files[0]);	
+			}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
+			   	file.select(); 
+	   			path = document.selection.createRange().text;
+	   			$(".brandImg:eq("+i+") img")[0].src = path;
+	   		} 
+		}
+	</script>
 </body>
 </html>

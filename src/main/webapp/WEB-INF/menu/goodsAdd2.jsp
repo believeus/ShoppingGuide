@@ -126,9 +126,11 @@
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:12%;"><div style=""><a href="#" style="font-size:12px;color:#69CDCD;">详细发布商品</a></div></td>
+					<td style="width:12%;"><div style=""><a href="/productAdd.jhtml" style="font-size:12px;color:#69CDCD;">详细发布商品</a></div></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" /></td>
+					<td style="width:9%;">
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+					</td>
 					<td style="width:8%;"><input type="button" value="预览" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
