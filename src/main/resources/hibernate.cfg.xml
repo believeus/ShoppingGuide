@@ -132,7 +132,7 @@
 		com.mysql.jdbc.Driver
 	</property>
 	<property name="dialect">
-		org.hibernate.dialect.MySQLInnoDBDialect
+		org.hibernate.dialect.MySQLDialect
 	</property>
 	<mapping class="com.etech.entity.Tadminpermission" />
 	<mapping class="com.etech.entity.Tadminpermissiongroup" />
@@ -173,7 +173,8 @@
 	<mapping class="com.etech.entity.Tshopviewhistory" />
 	<mapping class="com.etech.entity.Tsystemconfig" />
 	<mapping class="com.etech.entity.Ttabletrace" />
-	<mapping class="com.etech.entity.TtabletraceId" />
+
+
 
 </session-factory>
 

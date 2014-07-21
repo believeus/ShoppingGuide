@@ -99,38 +99,65 @@
 }
 </style>
 <script type="text/javascript" src="/js/jquery.js"></script>
-	<script type="text/javascript">
-		function addclass(){
-			//选择
-			$("[id='ta']").click(function(){
-				if($(this).hasClass("current")){
-					$(this).removeClass("current");
-				}else{
-					$(this).addClass("current");		
-					$(this).attr("name","xxx"+Math.floor(Math.random()*100+1));
-				}
-			});	
-		}
-		$().ready(function(){
-			
-			//添加
-			$("#addSpecial").on('click',function(){
-				
-				var text=$("#textSpecial").val();
-				
-				if(text == ""){
-					alert("请输入关键字！");
-				}else{
-					var arr=new Array();
-					arr=text.split(" ");
-					for(var i=0;i<arr.length;i++){
-						var v=arr[i];
-						$("#tese").append("<a id='ta' name='xxx'>"+v+"</a>");
-						addclass();
+<script src="/js/jquery.json.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$().ready(
+			function() {
+				//选择
+				$("[id='ta']").click(function() {
+					if ($(this).hasClass("current")) {
+						$(this).removeClass("current");
+					} else {
+						$(this).addClass("current");
+
 					}
-				}
+				});
+				//添加
+				$("#addSpecial").on(
+						'click',
+						function() {
+
+							var text = $("#textSpecial").val();
+
+							if (text == "") {
+								alert("请输入关键字！");
+							} else {
+								var arr = new Array();
+								arr = text.split(" ");
+								for (var i = 0; i < arr.length; i++) {
+									var v = arr[i];
+									$("#tese").append(
+											"<a id='ta' name='xxx'>" + v
+													+ "</a>");
+									addclass();
+								}
+							}
+						});
+				$("#submit").click(
+						function() {
+							var featureName = new Array();
+							var end = $("#ta").text();
+						
+							if ($("#ta").hasClass("current")) {
+								for (var i = 0; i <10; i++) {
+									featureName[i] = $("#ta").text();
+									
+								}
+								
+								var postData = $.toJSON(featureName); 
+								var content = $.parseJSON(postData);
+								 $.each(content, function () {
+					                    alert(this.name);
+					                });
+							}
+							$.ajax({
+								type : "post",
+								url : "/saveFeature.jhtml",
+								dataType : "json",
+								data : {"featureName":content}
+							});
+						});
 			});
-		});
 </script>
 </head>
 <body bgcolor="#E7E8EB">
@@ -166,7 +193,7 @@
 				</p>
 
 				<div class="btn_div">
-					<input type="submit" value="完成注册"
+					<input id="submit" type="submit" value="完成注册"
 						style="background:#69CDCD;border:1px solid #69CDCD;">
 				</div>
 			</div>
