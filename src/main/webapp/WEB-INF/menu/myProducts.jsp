@@ -223,6 +223,7 @@
 				</c:forEach>
 			</div>
 		</div>
+	</div>
 
 		<!-- 引用尾部页面 -->
 		<jsp:include page="../include/footer.jsp" flush="true" />

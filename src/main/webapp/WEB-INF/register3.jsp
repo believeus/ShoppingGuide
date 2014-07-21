@@ -101,63 +101,60 @@
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script src="/js/jquery.json.js" type="text/javascript"></script>
 <script type="text/javascript">
-	$().ready(
-			function() {
-				//选择
-				$("[id='ta']").click(function() {
-					if ($(this).hasClass("current")) {
-						$(this).removeClass("current");
-					} else {
-						$(this).addClass("current");
 
-					}
-				});
-				//添加
-				$("#addSpecial").on(
-						'click',
-						function() {
-
-							var text = $("#textSpecial").val();
-
-							if (text == "") {
-								alert("请输入关键字！");
-							} else {
-								var arr = new Array();
-								arr = text.split(" ");
-								for (var i = 0; i < arr.length; i++) {
-									var v = arr[i];
-									$("#tese").append(
-											"<a id='ta' name='xxx'>" + v
-													+ "</a>");
-									addclass();
-								}
-							}
-						});
-				$("#submit").click(
-						function() {
-							var featureName = new Array();
-							var end = $("#ta").text();
-						
-							if ($("#ta").hasClass("current")) {
-								for (var i = 0; i <10; i++) {
-									featureName[i] = $("#ta").text();
-									
-								}
-								
-								var postData = $.toJSON(featureName); 
-								var content = $.parseJSON(postData);
-								 $.each(content, function () {
-					                    alert(this.name);
-					                });
-							}
-							$.ajax({
-								type : "post",
-								url : "/saveFeature.jhtml",
-								dataType : "json",
-								data : {"featureName":content}
-							});
-						});
+	function addclass(obj){
+		if(obj.className == "current"){
+			obj.className = "";
+		}else{
+			obj.className = "current";
+		}
+	}
+	$().ready(function() {
+		//选择
+		$("[id='ta']").click(function() {
+			if ($(this).hasClass("current")) {
+				$(this).removeClass("current");
+			} else {
+				$(this).addClass("current");
+			}
+		});
+		//添加
+		$("#addSpecial").click(function() {
+			var text = $("#textSpecial").val();
+			if (text == "") {
+				alert("请输入关键字！");
+			} else {
+				var arr = new Array();
+				arr = text.split(" ");
+				for (var i = 0; i < arr.length; i++) {
+					var v = arr[i];
+					$("#tese").append("<a id='ta' class='aaa' name='xxx' onclick='addclass(this);'>" +v+ "</a>");
+				}
+			}
+		});
+		
+		$("#submit").click(function() {
+			var featureName = new Array();
+			var end = $("#ta").text();
+			if ($("#ta").hasClass("current")) {
+				for (var i = 0; i <10; i++) {
+					featureName[i] = $("#ta").text();
+					
+				}
+				var postData = $.toJSON(featureName); 
+				var content = $.parseJSON(postData);
+				 $.each(content, function () {
+                    alert(this.name);
+                });
+			}
+			$.ajax({
+				type : "post",
+				url : "/saveFeature.jhtml",
+				dataType : "json",
+				data : {"featureName":content}
 			});
+		});
+	});
 </script>
 </head>
 <body bgcolor="#E7E8EB">
@@ -182,6 +179,9 @@
 			autocomplete="off">
 			<div class="stable">
 				<div class="tese" id="tese">
+					<a id="ta" name="featureName">你好</a>
+					<a id="ta" name="featureName">明天</a>
+					<a id="ta" name="featureName">加班</a>
 					<c:forEach var="tli" items="${tList}">
 						<a id="ta" name="featureName">${tli.featureName }</a>
 					</c:forEach>
