@@ -14,6 +14,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			color:#666; 
 			margin:40px 0px;
 		}
+		#botto a:hover{
+			color:#056f6f;			
+			text-decoration:underline;
+		}
 		a{
 			text-decoration:none;
 		}
@@ -29,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="width:100%;height:auto; margin:0;overflow:hidden;text-align:center;background:#FFFFFF;">
 	    <img src="/images/line.png">
     	<div id="botto">
-        	<p><a>下载APP</a><span>  丨  我的微信：爱乐逛、爱乐逛助手  丨  我们的微博：武汉爱乐逛  丨</span><a>关于爱乐逛</a></p>
-            <p><span>客服邮箱：kefu@aileguang.com</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：武汉谦通科技有限公司</span></p>
+        	<p><a href="#">下载APP</a><span>  丨  我的微信：<a href="#">爱乐逛、爱乐逛助手</a>  丨  我们的微博：<a href="#">武汉爱乐逛</a>  丨</span><a href="#">关于爱乐逛</a></p>
+            <p><span>客服邮箱：<a href="#">kefu@aileguang.com</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：<a href="#">武汉谦通科技有限公司</a></span></p>
         </div>
         <div style="float:left; margin:40px 0px;">
         	<img src="images/telephone.png" />

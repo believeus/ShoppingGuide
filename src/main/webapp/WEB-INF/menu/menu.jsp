@@ -33,7 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			height:390px;
 			float:left;
 			border-radius:4px;
-			margin-right:60px;
+			margin-right:37px;
+			margin-bottom:20px;
 			border:1px solid #d5f1f0;
 		}
 		.s_menu_list{
@@ -106,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="s_main">
     	<div style="width: auto; height: auto; overflow: hidden;">
+    	
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
    				<span style="margin-left:40px;font-size:20px;color:#FFFFFF;">店铺名称</span>
@@ -139,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<div class="img4" style="background-position:-78px -449px"></div>
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="javascript:void(0);" onClick="" style="color:#555555" title="流行分析">流行分析</a>
+   					<a href="javascript:void(0);" onClick="alert('暂无信息,敬请期待');" style="color:#555555" title="流行分析">流行分析</a>
    				</div>
     		</div>
     	</div>

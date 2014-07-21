@@ -129,10 +129,10 @@
 	<div class="s_main">
 		<p
 			style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
-		<hr color="#E8E8E8" style="margin:0;" />
+		<img src="/images/line.png">
 		<p>
 			<input type="button" value="添加" title="点击添加商品"
-				onClick="javascript:window.location.href='/productAdd.jhtml'">
+				onClick="javascript:window.location.href='/goodsAdd.jhtml'">
 			<input type="button" value="刷新" title="点击刷新"
 				onClick="javascript:window.location.reload();"> <input
 				type="button" value="每页显示"> <span>共有<font

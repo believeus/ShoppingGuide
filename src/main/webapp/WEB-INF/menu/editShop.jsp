@@ -104,6 +104,7 @@
 		sels.each(function(){
 			$(this).change(function(){
 				var html = "<select name='' style='width:400px;text-align:center;margin-bottom:10px;'><option value=''>请选择..</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select>";
+				alert(sels.length+"=sels.length");
 				if(sels.length >5){
 					alert("最多5个");
 				}else{

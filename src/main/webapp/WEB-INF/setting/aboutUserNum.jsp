@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <table>
 	              <tr style="height:45px;">
 	                <td></td>
-	                <td><div><span style="color:red;">*</span>为必填选项</div></td>
+	                <td><div style="font-size:13px;"><span style="color:red;">*</span>为必填选项</div></td>
 	                <td></td>
 	                <td></td>
 	              </tr>
@@ -142,7 +142,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <td></td>
 	              </tr>
 	            </table>
-	            <img src="/images/line.png">
 	        </div>
 		</div>
 	<jsp:include page="../include/footer.jsp"/>

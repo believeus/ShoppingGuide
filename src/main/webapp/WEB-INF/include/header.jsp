@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    top: 52px;
 	    z-index:999;
 	    border:1px solid #e4e4e4;
+	    padding:0 5px;
 	}
 	.setting a:hover{
 		text-decoration:underline;
