@@ -74,6 +74,12 @@
 	border-radius: 4px;
 	cursor: pointer;
 }
+.shopShow{
+	padding-left: 40px; 
+	margin-top: 20px; 
+	height: auto; 
+	overflow: hidden;
+}
 </style>
 <style type="text/css">
 	.brandImg span{
@@ -93,6 +99,7 @@
 	    width:229px;
 	    height:179px;
 	    position:relative;
+	    margin-right:15px;
 	}
 	
 	.brandImg span:hover{
@@ -192,6 +199,18 @@
 	});
 	
 	$().ready(function() {
+		
+		$("#add_img").click(function(){
+			var a = $(".shopShow .brandImg").size() + 1;
+			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
+			//alert($(".shopShow .brandImg").size());
+			if($(".shopShow .brandImg").size() > 8){
+				alert("最多9张图片");
+			}else{
+				$(".shopShow").append(html);
+			}
+		});
+		
 		$("#registerForm").validate({
 			rules : {
 				shopName : {
@@ -281,9 +300,9 @@
 					<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 					<input type="hidden" id="filename0" name="filename0">
 				</div>
-				<div style="padding-left:40px;margin-top:20px;">
-					<span style="font-weight:normal;">店铺展示：</span><br> 
-					<div class="brandImg" style="margin-top:20px;">
+				<div class="shopShow" style="">
+					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span><input id="add_img" type="button" value="添加展示图片" onClick=""/><br> 
+					<div class="brandImg" style="margin-top:20px;float:left;">
 						<span>
 							<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
 						</span>
@@ -292,7 +311,7 @@
 					<input type="file" style="display:none" id="file1" name="file1" onchange="filename1.value=this.value;loadImgFast(this,1)">
 					<input type="hidden" id="filename1" name="filename1">
 				</div>
-				<div class="btn_div">
+				<div class="btn_div" style="margin-top:20px;">
 					<input type="button" value="上一步"
 						onClick="javascript:window.location.href='/register.jhtml'"
 						style="background:#69CDCD;border:1px solid #69CDCD;"> <input
