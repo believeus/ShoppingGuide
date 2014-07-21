@@ -72,22 +72,17 @@ p{
 				<tr>
 					<td><img src="/images/shopname.png" /></td>
 					<td><span>店铺名称:</span></td>
-					<td><p>xxxx</p></td>
-				</tr>
-				<tr>
-					<td><img src="/images/forspace.png" /></td>
-					<td><span>所在地:</span></td>
-					<td><p>xxxx</p></td>
+					<td><p>${tshop.shopName }</p></td>
 				</tr>
 				<tr>
 					<td><img src="/images/detailedAddress.png" /></td>
 					<td><span>详细位子:</span></td>
-					<td><p>xxxx</p></td>
+					<td><p>${tshop.address }</p></td>
 				</tr>
 				<tr>
 					<td><img src="/images/scope.png" /></td>
 					<td><span>经营范围:</span></td>
-					<td><p>xxxx</p></td>
+					<td><p>${tshop.address }</p></td>
 				</tr>
 				<tr>
 					<td><img src="/images/qujian.png" /></td>

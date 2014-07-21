@@ -44,75 +44,7 @@
 	</style>
 
 <script type="text/javascript">
-	$().ready(function(){
-		var specs = $("#main_table2_td p");
-		specs.each(function(){
-			$(this).click(function(){
-				if($("#main_table2_td .inputClass").length >= 5){
-					alert("最多选择5个");
-				}else{
-					alert(2);
-					$(this).addClass("inputClass");		
-				}
-			},function(){
-				$(this).removeClass("inputClass");
-			});
-		});
-		
-		$("#addSpecial").click(function(){
-			var text=$("#textSpecial").val();
-			
-			if(text == ""){
-				alert("添加失败！");
-			}else{
-				var arr=new Array();
-				arr=text.split(" ");
-				for(var i=0;i<arr.length;i++){
-					var v=arr[i];
-					$("#main_table2_td").append("&nbsp;&nbsp;").append($("#special").clone(true).removeClass("inputClass").text(v));
-				}
-			}
-			
-		});
-		
-		$("#main_form").validate({
-			rules:{
-				goodsName:{required:true},
-				}
-		},{
-			messages:{
-				goodsName:{required:"请输入商品名称！"},
-			}
-		});
-		
-		$("#main_table2_td_div input").click(function(){
-			if($("#main_table2_td_div .inputClass").length >=5){
-				
-			}
-		});
 
-		
-		$("#chooseType").change(function(){
-			
-			var id=$("#chooseType option:selected").val();
-			alert(id);
-			
-			$.ajax({
-				url:"",
-				data:id,
-				type:"post",
-				dataType:"json",
-				success:function(date){
-					if(date.message == "success"){
-						//弹出正确提示
-					}else{
-						//弹出错误提示
-					}
-				}
-			});
-		});
-		
-	});	
 		
 </script>
 
@@ -134,7 +66,7 @@
 			</table>			
 			<hr style="width:85%;border:1px solid #E8E8E8;" />
 			
-			<form id="main_form" method="get" action="save.jhtml">
+			<form id="main_form" method="post" action="/addSimpleGoods.jhtml">
 			<table class="main_table2" style="">
 				<tr>
 					<td></td>

@@ -4,7 +4,7 @@ jQuery.validator.addMethod("idnumber", function(value, element) {
 }, " 请正确输入您的身份证号码 ");
 //下拉框的验证
 $.validator.addMethod("goodsTypeName", function(value, element) {
-	return value>-1;
+	return value>-2;
 	}, "必须选择一项"); 
 
 

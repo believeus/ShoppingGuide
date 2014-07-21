@@ -82,35 +82,35 @@
 					<td style="color:red;">*</td>
 					<td>店铺名称：</td>
 					<td style="width:85%;">
-						色调法规回家
+						${tshop.shopName }
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td>店铺介绍：</td>
 					<td>
-						玩儿体育附件玩儿体育覆盖和请问儿童法规遇见你玩儿头发规划额度发给你玩儿体育购买
+						xxxx
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td style="">详细位置：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						玩儿体育房管局吗请问而非推广那
+						${tshop.address }
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td style="">经营范围：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						玩儿体育房管局吗请问而非推广那
+						${tshop.priceRange }
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td style="">联系电话：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						13112345678
+						${tshop.phoneNumber }
 					</td>
 				</tr>
 			</table>

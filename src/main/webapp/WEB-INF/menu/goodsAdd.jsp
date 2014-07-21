@@ -5,7 +5,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -19,9 +19,10 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" type="text/css" href="/css/goodsAdd.css" />
-<script language="JavaScript" src="js/jquery.js"></script>
-<script language="JavaScript" src="js/jquery.validate.js"></script>
-<script language="JavaScript" src="js/messages_cn.js"></script>
+<script language="JavaScript" src="/js/jquery.js"></script>
+<script language="JavaScript" src="/js/jquery.validate.js"></script>
+<script language="JavaScript" src="/js/messages_cn.js"></script>
+<script type="text/javascript" src="/js/validate.expand.js"></script>
 	<style type="text/css">
 		.inputClass{
 			background-color:#69CDCD;
@@ -76,44 +77,23 @@
 		});
 		
 		$("#main_form").validate({
-			rules:{
-				goodsName:{required:true},
+			rules : {
+				goodsName : {
+					required : true,
+					rangelength : [ 1, 10 ]
+				},
+				goodsTypeId : {
+					goodsTypeName : true
 				}
-		},{
-			messages:{
-				goodsName:{required:"请输入商品名称！"},
+			},
+			messages : {
+				goodsName : {
+					required : "店铺名称必填",
+					rangelength : "名称长度为1-10个汉字，不能含有特殊字符"
+				}
 			}
 		});
-		
-		$("#main_table2_td_div input").click(function(){
-			if($("#main_table2_td_div .inputClass").length >=5){
-				
-			}
-		});
-
-		
-		$("#chooseType").change(function(){
-			
-			var id=$("#chooseType option:selected").val();
-			alert(id);
-			
-			$.ajax({
-				url:"",
-				data:id,
-				type:"post",
-				dataType:"json",
-				success:function(date){
-					if(date.message == "success"){
-						//弹出正确提示
-					}else{
-						//弹出错误提示
-					}
-				}
-			});
-		});
-		
 	});	
-		
 </script>
 
 </head>
@@ -150,7 +130,7 @@
 			</table>			
 			<hr style="width:85%;border:1px solid #E8E8E8;" />
 			
-			<form id="main_form" method="get" action="save.jhtml">
+			<form id="main_form" method="post" action="/addDetailedGoods.jhtml">
 			<table class="main_table2" style="">
 				<tr>
 					<td style="color:red;">*</td>
@@ -161,10 +141,11 @@
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<select id="chooseType" name="chooseType" style="width:20%;">
-							<option value="1">类型1</option>
-							<option value="2">类型2</option>
-							<option value="3">类型3</option>						
+						<select id="goodsTypeId" name="goodsTypeId" style="width:20%;">
+						<option value="-2">请选择商品类型</option>
+						<c:forEach var="gli" items="${gList}">
+							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
+						</c:forEach>
 						</select>
 					</td>
 				</tr>

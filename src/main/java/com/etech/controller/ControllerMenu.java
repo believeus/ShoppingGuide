@@ -2,10 +2,12 @@ package com.etech.controller;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.etech.entity.Tshop;
 import com.etech.service.EtechService;
 /**
  * 菜单
@@ -17,7 +19,7 @@ import com.etech.service.EtechService;
 public class ControllerMenu {
 	
 	@Resource
-	private EtechService userService;
+	private EtechService etechService;
 	
 	/**
 	 * 菜单
@@ -45,27 +47,13 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
 	/**
-	 * 添加商品(普通添加)
-	 * @return
-	 */
-	@RequestMapping(value="/productAdd")
-	public String productadd(){
-		return "/WEB-INF/menu/goodsAdd.jsp";
-	}
-	/**
-	 * 添加商品(灵活添加)
-	 * @return
-	 */
-	@RequestMapping(value="/productAdd2")
-	public String productadd2(){
-		return "/WEB-INF/menu/goodsAdd2.jsp";
-	}
-	/**
 	 * 店铺信息
 	 * @return
 	 */
 	@RequestMapping(value="/shopMsg")
-	public String shopMsg(){
+	public String shopMsg(Integer shopId,HttpServletRequest request){
+		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, 1);
+		request.setAttribute("tshop", tshop);
 		return "/WEB-INF/menu/shopMessage.jsp";
 	}
 	/**
