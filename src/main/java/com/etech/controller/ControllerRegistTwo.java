@@ -41,19 +41,13 @@ public class ControllerRegistTwo {
 			tshop.setLatitude(Variables.latitude);
 			tshop.setLongitude(Variables.longitude);
 			tshop.setShopOwnerName(Variables.shopOwnerName);
-<<<<<<< Updated upstream
-			etechService.saveOrUpdata(tshop);
-=======
 			etechService.saveOrUpdate(tshop);
-			
 			tgoodstype.setHasChild(Variables.hasChild);
 			tgoodstype.setParentId(Variables.parentId);
 			etechService.saveOrUpdate(tgoodstype);
-			
->>>>>>> Stashed changes
 			busines.setGoodsTypeId(tgoodstype.getGoodsTypeId());
 			busines.setShopId(tshop.getShopId());
-			etechService.saveOrUpdata(busines);
+			etechService.saveOrUpdate(busines);
 			log.debug("register2 SAVE SUCCESS");
 			session.setAttribute("tshop", tshop);
 		}else{

@@ -29,6 +29,7 @@ import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopsuser;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
 import com.etech.webutil.LatitudeUtils;
@@ -110,7 +111,7 @@ public class ControllerRegister {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
 		String storepath = "";
-		for (MultipartFile file : files.values()) {
+		/*for (MultipartFile file : files.values()) {
 			InputStream inputStream;
 			try {
 				inputStream = file.getInputStream();
@@ -120,7 +121,7 @@ public class ControllerRegister {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		HttpSession session = request.getSession();
 		Tshopsuser sessionUser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
 		
@@ -140,10 +141,15 @@ public class ControllerRegister {
 		shop.setShopName(shopName);
 		shop.setLatitude(Double.valueOf(lat));
 		shop.setLongitude(Double.valueOf(lng));
+		shop.setState((short)Variables.reviewing);
+		
 		shop.getGoodsTypes().add(goodstype);
 		etechService.saveOrUpdate(shop);
 		
-		//shop.s
+		sessionUser=(Tshopsuser)etechService.findObject(Tshopuser.class, sessionUser.getShopUserId());
+		sessionUser.getShops().add(shop);
+		etechService.merge(sessionUser);
+		session.setAttribute(Variables.sessionUser, sessionUser);
 	}
 	
 	/** 

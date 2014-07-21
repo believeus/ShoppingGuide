@@ -55,7 +55,7 @@ public class ControllerMenu {
 		List<Tgoods> tgLi3 = new ArrayList<Tgoods>();
 		List<Tgoods> tgLi4 = new ArrayList<Tgoods>();
 		@SuppressWarnings("unchecked")
-		List<Tgoods> tgLi = (List<Tgoods>) etechService.getListByClass(Tgoods.class, Integer.MAX_VALUE);
+		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class);
 		for (int i = 0; i < tgLi.size(); i++) {
 			int num=tgLi.get(i).getGoodsId()+4;
 			if(num%4==0){

@@ -33,8 +33,7 @@ public class ControllerGoodsAdd {
 	public String addGoodsView(HttpServletRequest request) {
 		@SuppressWarnings("unchecked")
 		// 商品类型
-		List<Tgoodstype> gList = (List<Tgoodstype>) etechService
-				.getListByClass(Tgoodstype.class, Integer.MAX_VALUE);
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
 		log.debug(gList.size());
 		return "/WEB-INF/menu/goodsAdd.jsp";
@@ -59,7 +58,7 @@ public class ControllerGoodsAdd {
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
 			tGoods.setIsRecommend(Variables.isRecommend);
-			etechService.saveOrUpdata(tGoods);
+			etechService.saveOrUpdate(tGoods);
 		} else {
 			return;
 		}
@@ -90,7 +89,7 @@ public class ControllerGoodsAdd {
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
 			tGoods.setIsRecommend(Variables.isRecommend);
-			etechService.saveOrUpdata(tGoods);
+			etechService.saveOrUpdate(tGoods);
 		} else {
 			return;
 		}
