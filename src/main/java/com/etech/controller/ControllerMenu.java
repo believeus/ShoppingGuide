@@ -130,4 +130,29 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/InfoList.jsp";
 	}
 	
+	/**
+	 * the Statistics of Fans
+	 * @return
+	 */
+	@RequestMapping(value = "/fansCount")
+	public String FansCount(String url){
+		System.out.println(url == "sex" +"=url");
+		if (url.equals("sex")) {
+			return "/WEB-INF/menu/FansCount.jsp";
+		}else if (url.equals("age")) {
+			return "/WEB-INF/menu/FansCountForAge.jsp";
+		}else if (url.equals("area")) {
+			return "/WEB-INF/menu/FansCountForArea.jsp";
+		}else if (url.equals("constellation")) {
+			return "/WEB-INF/menu/FansCountForConstellation.jsp";
+		}else if (url.equals("favourite")) {
+			return "/WEB-INF/menu/FansCountForFavourite.jsp";
+		}else if (url.equals("job")) {
+			return "/WEB-INF/menu/FansCountForJob.jsp";
+		}else if (url.equals("CZ")) {
+			return "/WEB-INF/menu/FansCountForCZ.jsp";
+		}else{
+			return "/WEB-INF/login.jsp";
+		}
+	}
 }

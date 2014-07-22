@@ -110,7 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
-   				<span style="margin-left:40px;font-size:20px;color:#FFFFFF;">店铺名称</span>
+    			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
+   				<span style="margin-left:15px;font-size:20px;color:#FFFFFF;">店铺名称</span>
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">

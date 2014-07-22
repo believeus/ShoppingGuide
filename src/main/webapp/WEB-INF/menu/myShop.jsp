@@ -75,7 +75,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript">
 		$().ready(function(){
-			
+			$(".img1").parent().parent().mouseover(function(){
+				$(".img1").css("background-position","-288px -253px");
+			}).mouseout(function(){
+				$(".img1").css("background-position","-222px -253px");
+			});
+			$(".img2").parent().parent().mouseover(function(){
+				$(".img2").css("background-position","-288px -322px");
+			}).mouseout(function(){
+				$(".img2").css("background-position","-223px -322px");
+			});
+			$(".img3").parent().parent().mouseover(function(){
+				$(".img3").css("background-position","-288px -386px");
+			}).mouseout(function(){
+				$(".img3").css("background-position","-222px -386px");
+			});
 		});
 	</script>
   </head>
@@ -87,11 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="s_main">
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
-   				<span style="margin-left:40px;font-size:20px;color:#FFFFFF;">店铺名称</span>
+    			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
+   				<span style="margin-left:20px;font-size:20px;color:#FFFFFF;">店铺名称</span>
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="/images/msg.png" width="60" height="50">
+   					<div class="img1" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -253px;margin-top:10px;margin-left:15px;"></div>
    				</div>
    				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myProducts.jhtml'">
    					<a href="/myProducts.jhtml" title="我的商品">我的商品</a>
@@ -99,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="/images/shop.png" width="60" height="50">
+   					<div class="img2" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-223px -322px;margin-top:10px;margin-left:15px;"></div>
    				</div>
    				<div class="s_menu_list_name" onClick="javascript:window.location.href='/shopMsg.jhtml'">
    					<a href="/shopMsg.jhtml" title="店铺信息">店铺信息</a>
@@ -107,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
-   					<img src="/images/fans.png" width="60" height="50">
+   					<div class="img3" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -386px;margin-top:10px;margin-left:15px;"></div>
    				</div>
    				<div class="s_menu_list_name">
    					<a href="javascript:void(0);" title="店铺预览" onClick="alert('暂无信息,敬请期待');">店铺预览</a>

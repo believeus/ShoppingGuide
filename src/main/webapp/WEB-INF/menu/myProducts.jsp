@@ -114,10 +114,24 @@
 	float: left;
 	margin-right: 40px;
 }
+.findPro{
+	background:url(/images/bg.png);
+	background-position:-356px -455px;
+	width:32px;
+	height:30px;
+	position:absolute;
+	right:150px;
+	cursor:pointer;
+}
+.findPro:hover{
+	border-left:2px solid #5AB5B6;
+	width:30px;
+	height:28px;
+}
 </style>
 <script type="text/javascript">
 	$().ready(function() {
-
+		
 	});
 </script>
 </head>
@@ -137,12 +151,14 @@
 				onClick="javascript:window.location.reload();"> <input
 				type="button" value="每页显示"> <span>共有<font
 				color="#69CDCD">1234</font>条数据
-			</span> <input type="text" name="" style="float:right;">
+			</span>
+			<input type="text" name="" style="float:right;">
+			<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
 				<div class="pro_list">
-			<c:forEach var="tgLi1" items="${tgLi1 }">
+			<c:forEach var="tgLi1" items="${tgLi1}">
 					<div class="pro_img">
 						<img src="/images/1.jpg" width="220">
 					</div>

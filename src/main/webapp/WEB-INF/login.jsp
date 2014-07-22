@@ -51,10 +51,6 @@ body {
 #check span{
 	color:#666;
 }
-a:link {
-	color:red;
-	text-decoration:underline;
-}
 #login {
 	width:140px;
 	height:35px;

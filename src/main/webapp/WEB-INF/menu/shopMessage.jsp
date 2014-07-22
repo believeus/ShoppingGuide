@@ -68,6 +68,7 @@
 		    height:179px;
 		    position:relative;
 		    float:left;
+		    margin-right:15px;
 		}
 		
 		.brandImg span:hover{
@@ -92,7 +93,16 @@
 	</style>
 <script type="text/javascript">
 	$().ready(function(){
-		
+		$("#add_img").click(function(){
+			var a = $(".shopShow .brandImg").size() + 1;
+			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
+			//alert($(".shopShow .brandImg").size());
+			if($(".shopShow .brandImg").size() > 8){
+				alert("最多9张图片");
+			}else{
+				$(".shopShow").append(html);
+			}
+		});
 	});	
 		
 </script>
@@ -182,12 +192,12 @@
 				</tr>
 				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>二维码:</td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>店铺预览:<input id="add_img" type="button" value="添加预览图"></td>
 				</tr>
    				<tr style="">
 					<td colspan="2" style=""></td>
-					<td>
-						<div class="brandImg">
+					<td class="shopShow">
+						<div class="brandImg" style="margin-top:20px;">
 							<span>
 								<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
 							</span>

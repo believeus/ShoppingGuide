@@ -153,8 +153,10 @@
 		<div id="main" style="">
 			<table class="main_table1">
 				<tr style="">
-					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">我的粉丝</p></td>
-					<td style="width:56%;"></td>
+					<td style=""><p style="font-size:24px;color:#69CDCD;">我的粉丝</p></td>
+					<td>
+						<input type="button" value="粉丝统计" onClick="javascript:window.location.href='/fansCount.jhtml?url=sex'" style="float:right;">
+					</td>
 				</tr>
 			</table>			
 			
