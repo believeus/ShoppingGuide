@@ -92,7 +92,7 @@ public class ControllerRegister {
 	
 	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:表单验证通过后,将该保存到数据库*/
 	@RequestMapping(value="/dealRegister")
-	public void dealRegister(Tshopsuser shopuser,HttpSession session,ServletResponse response){
+	public void dealRegister(Tshopuser shopuser,HttpSession session,ServletResponse response){
 		log.debug("current register phoneNumber:"+shopuser.getPhoneNumber());
 		shopuser.setUserName(shopuser.getPhoneNumber());
 		// 密码md5加密
@@ -141,7 +141,7 @@ public class ControllerRegister {
 			}
 		}
 		HttpSession session = request.getSession();
-		Tshopsuser sessionUser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		Tshopuser sessionUser=(Tshopuser)session.getAttribute(Variables.sessionUser);
 		
 		String goodsTypeId=request.getParameter("goodsTypeId");
 		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
@@ -176,7 +176,7 @@ public class ControllerRegister {
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);
 		// shop shopusers many to many Tshopuser mapped by shopusers
-		Tshopsuser currentUser=(Tshopsuser) etechService.findObject(Tshopsuser.class,"shopUserId", 2);
+		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", 2);
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
 
@@ -201,7 +201,7 @@ public class ControllerRegister {
 	@RequestMapping(value="/register2")
 	public String registerView2(HttpServletRequest request,ServletResponse response){
 		HttpSession session = request.getSession();
-		Tshopsuser shopsuser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		Tshopuser shopuser=(Tshopuser)session.getAttribute(Variables.sessionUser);
 		// the user unfinish the one step register,then jump the one step register page
 		/*if(shopsuser==null){
 			String url="/register.jhtml";
@@ -221,13 +221,13 @@ public class ControllerRegister {
 	@RequestMapping(value="/register3")
 	public String registerView3(HttpServletRequest request,ServletResponse response){
 		HttpSession session = request.getSession();
-		Tshopsuser shopsuser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
+		Tshopuser shopuser=(Tshopuser)session.getAttribute(Variables.sessionUser);
 		// the user unfinish the one step register,then jump to one step /register.jhtml
-		if(shopsuser==null){
+		if(shopuser==null){
 			String url="/register.jhtml";
 			Brower.redirect(url, response);
 		// the user unfinish the second step register,then jump to one step /register2.jhtml
-		}else if(shopsuser.getShops().isEmpty()){
+		}else if(shopuser.getShops().isEmpty()){
 			String url="/register2.jhtml";
 			Brower.redirect(url, response);
 		}

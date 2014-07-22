@@ -1,14 +1,10 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,7 +32,6 @@ public class Tshopsuser implements java.io.Serializable {
 	private Short grade;
 	private Integer pageView;
 	private Integer defaultShopId;
-	private List<Tshop> shops=new ArrayList<Tshop>();
 
 	// Constructors
 
@@ -200,16 +195,4 @@ public class Tshopsuser implements java.io.Serializable {
 	public void setDefaultShopId(Integer defaultShopId) {
 		this.defaultShopId = defaultShopId;
 	}
-	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shopusers")
-	public List<Tshop> getShops() {
-		return shops;
-	}
-
-	public void setShops(List<Tshop> shops) {
-		this.shops = shops;
-	}
-
-	
-
 }

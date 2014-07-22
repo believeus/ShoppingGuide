@@ -34,7 +34,7 @@ public class ControllerRegistTwo {
 			tshop.setAddTime(new Timestamp(new Date().getTime()));
 			tshop.setBePraisedCount(Variables.bePraisedCount);
 			tshop.setFansCount(Variables.initFansCount);
-			tshop.setMarketId(Variables.marketId);
+			//tshop.setMarketId(Variables.marketId);
 			tshop.setViewCount(Variables.initViewCount);
 			tshop.setState(Variables.state);
 			tshop.setIsRecommend(Variables.unRecommend);

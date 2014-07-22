@@ -48,7 +48,7 @@ public class Tshop implements java.io.Serializable {
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
 	private String businessLicenseNo;
-	private List<Tshopsuser> shopusers=new ArrayList<Tshopsuser>();
+	private List<Tshopuser> shopusers=new ArrayList<Tshopuser>();
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
 	private Tmarket market;
 	// Constructors
@@ -271,11 +271,11 @@ public class Tshop implements java.io.Serializable {
 	@JoinTable(name = "tshopusershoprelation",
     joinColumns = { @JoinColumn(name = "ShopId", referencedColumnName = "ShopId") }, 
     inverseJoinColumns = { @JoinColumn(name = "ShopUserID", referencedColumnName = "ShopUserID") })
-	public List<Tshopsuser> getShopusers() {
+	public List<Tshopuser> getShopusers() {
 		return shopusers;
 	}
 
-	public void setShopusers(List<Tshopsuser> shopusers) {
+	public void setShopusers(List<Tshopuser> shopusers) {
 		this.shopusers = shopusers;
 	}
 
@@ -287,12 +287,13 @@ public class Tshop implements java.io.Serializable {
 		return goodsTypes;
 	}
 
+
 	public void setGoodsTypes(List<Tgoodstype> goodsTypes) {
 		this.goodsTypes = goodsTypes;
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="marketId",referencedColumnName="marketId")
+	@JoinColumn(name="MarketID",referencedColumnName="marketId")
 	public Tmarket getMarket() {
 		return market;
 	}
