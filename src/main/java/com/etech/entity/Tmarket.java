@@ -1,10 +1,15 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +21,7 @@ public class Tmarket implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = 5698669623289145689L;
 	private Integer marketId;
 	private Integer areaId;
 	private String marketName;
@@ -27,6 +33,7 @@ public class Tmarket implements java.io.Serializable {
 	private Timestamp openingTimeEnding;
 	private String introduction;
 	private String photoUrl;
+	private List<Tshop> shops=new ArrayList<Tshop>();
 
 	// Constructors
 
@@ -161,6 +168,14 @@ public class Tmarket implements java.io.Serializable {
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="market")
+	public List<Tshop> getShops() {
+		return shops;
+	}
+
+	public void setShops(List<Tshop> shops) {
+		this.shops = shops;
 	}
 
 }

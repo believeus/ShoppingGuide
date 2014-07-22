@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +26,6 @@ public class Tshop implements java.io.Serializable {
 
 	private static final long serialVersionUID = -15115199236039315L;
 	private Integer shopId;
-	private Integer marketId;
 	private String shopName;
 	private String shopOwnerName;
 	private String phoneNumber;
@@ -50,63 +50,11 @@ public class Tshop implements java.io.Serializable {
 	private String businessLicenseNo;
 	private List<Tshopsuser> shopusers=new ArrayList<Tshopsuser>();
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
+	private Tmarket market;
 	// Constructors
 
 	/** default constructor */
 	public Tshop() {
-	}
-
-	/** minimal constructor */
-	public Tshop(Integer marketId, String shopName, String shopOwnerName,
-			String address, Short isRecommend, Short state, Timestamp addTime,
-			Integer viewCount, Integer bePraisedCount, Integer fansCount,
-			Double latitude, Double longitude) {
-		this.marketId = marketId;
-		this.shopName = shopName;
-		this.shopOwnerName = shopOwnerName;
-		this.address = address;
-		this.isRecommend = isRecommend;
-		this.state = state;
-		this.addTime = addTime;
-		this.viewCount = viewCount;
-		this.bePraisedCount = bePraisedCount;
-		this.fansCount = fansCount;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-
-	/** full constructor */
-	public Tshop(Integer marketId, String shopName, String shopOwnerName,
-			String phoneNumber, String address, String qq, String priceRange,
-			String businessLicensePhotoUrl, String logo, String qrcode,
-			Short isRecommend, Short state, Timestamp addTime,
-			Integer viewCount, Integer bePraisedCount, String shopFeature,
-			String shopBusinessScope, Integer fansCount, Double latitude,
-			Double longitude, String shopPhotoUrl, String shopPhotoDefaultUrl,
-			String businessLicenseNo) {
-		this.marketId = marketId;
-		this.shopName = shopName;
-		this.shopOwnerName = shopOwnerName;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.qq = qq;
-		this.priceRange = priceRange;
-		this.businessLicensePhotoUrl = businessLicensePhotoUrl;
-		this.logo = logo;
-		this.qrcode = qrcode;
-		this.isRecommend = isRecommend;
-		this.state = state;
-		this.addTime = addTime;
-		this.viewCount = viewCount;
-		this.bePraisedCount = bePraisedCount;
-		this.shopFeature = shopFeature;
-		this.shopBusinessScope = shopBusinessScope;
-		this.fansCount = fansCount;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.shopPhotoUrl = shopPhotoUrl;
-		this.shopPhotoDefaultUrl = shopPhotoDefaultUrl;
-		this.businessLicenseNo = businessLicenseNo;
 	}
 
 	// Property accessors
@@ -119,15 +67,6 @@ public class Tshop implements java.io.Serializable {
 
 	public void setShopId(Integer shopId) {
 		this.shopId = shopId;
-	}
-
-	@Column(name = "MarketID", nullable = false)
-	public Integer getMarketId() {
-		return this.marketId;
-	}
-
-	public void setMarketId(Integer marketId) {
-		this.marketId = marketId;
 	}
 
 	@Column(name = "ShopName", nullable = false, length = 50)
@@ -328,7 +267,10 @@ public class Tshop implements java.io.Serializable {
 		this.businessLicenseNo = businessLicenseNo;
 	}
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shops")
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "tshopusershoprelation",
+    joinColumns = { @JoinColumn(name = "ShopId", referencedColumnName = "ShopId") }, 
+    inverseJoinColumns = { @JoinColumn(name = "ShopUserID", referencedColumnName = "ShopUserID") })
 	public List<Tshopsuser> getShopusers() {
 		return shopusers;
 	}
@@ -347,6 +289,16 @@ public class Tshop implements java.io.Serializable {
 
 	public void setGoodsTypes(List<Tgoodstype> goodsTypes) {
 		this.goodsTypes = goodsTypes;
+	}
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="marketId",referencedColumnName="marketId")
+	public Tmarket getMarket() {
+		return market;
+	}
+
+	public void setMarket(Tmarket market) {
+		this.market = market;
 	}
 	
 }

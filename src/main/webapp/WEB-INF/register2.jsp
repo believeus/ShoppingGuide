@@ -214,29 +214,42 @@
 		$("#registerForm").validate({
 			rules : {
 				shopName : {
-					required : true,
-					rangelength : [ 1, 10 ]
+					required : true
 				},
-				goodsTypeName : {
-					goodsTypeName : true
+				goodsTypeId : {
+					required : true
 				},
 				address:{
 					required : true
 				},
 				businessLicenseNo :{
+					required : true
+				},
+				shopOwnerName:{
+					required : true
+				},
+				marketId:{
 					required : true
 				}
 			},
 			messages : {
 				shopName : {
 					required : "店铺名称必填",
-					rangelength : "名称长度为1-10个汉字，不能含有特殊字符"
 				},
 				address:{
 					required : "请输入您的详细地址"
 				},
 				businessLicenseNo :{
 					required : "请输入您的价格区间"
+				},
+				shopOwnerName:{
+					required : "店主姓名必填"
+				},
+				marketId:{
+					required:"商场必填"
+				},
+				goodsTypeId:{
+					required:"商品类型必填"
 				}
 			}
 		});
@@ -259,11 +272,24 @@
 				style="float:right;">已有帐号!<a href="/login.jhtml"
 				style="color:red;">直接登录</a></span>
 		</div>
-		<form id="registerForm" action="/regTwoSuccess.jhtml" method="post" autocomplete="off">
+		<form id="registerForm" action="/dealRegister2.jhtml" method="post" autocomplete="off" enctype="multipart/form-data" >
 			<div class="stable">
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">店铺名称:</span>
 					<input id="shopName" type="text" name="shopName" style="width:345px;height:35px;line-height:35px;">
+				</p>
+				<p>
+					<font color="red">*</font> <span style="font-weight:normal;">店主姓名:</span>
+					<input id="shopOwnerName" type="text" name="shopOwnerName" style="width:345px;height:35px;line-height:35px;">
+				</p>
+				<p>
+					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
+					<select name="marketId" style="width:345px;height:35px;line-height:35px;">
+						<option></option>
+						<c:forEach items="${marketList}" var="market">
+							<option value="${market.marketId}">${market.marketName}</option>
+						</c:forEach>
+					</select>
 				</p>
 				<p>
 					<div id="r-result" style="height:30px;width:auto;padding-left:40px;margin-bottom:20px;">
@@ -278,7 +304,7 @@
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
 					
 					<select id="goodsTypeId" name="goodsTypeId">
-						<option value="-2">请选择经营范围</option>
+						<option ></option>
 						<c:forEach var="gli" items="${gList}">
 							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 						</c:forEach>
@@ -297,8 +323,8 @@
 						</span>
 						<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
 					</div>
-					<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-					<input type="hidden" id="filename0" name="filename0">
+					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+					<input type="hidden" id="filename0" name="licenseImg">
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span><input id="add_img" type="button" value="添加展示图片" onClick=""/><br> 
@@ -312,10 +338,8 @@
 					<input type="hidden" id="filename1" name="filename1">
 				</div>
 				<div class="btn_div" style="margin-top:20px;">
-					<input type="button" value="上一步"
-						onClick="javascript:window.location.href='/register.jhtml'"
-						style="background:#69CDCD;border:1px solid #69CDCD;"> <input
-						type="submit" value="下一步">
+					<input type="button" value="上一步" onClick="javascript:window.location.href='/register.jhtml'" style="background:#69CDCD;border :1px solid #69CDCD;"> 
+						<input type="submit" value="下一步">
 				</div>
 			</div>
 		</form>

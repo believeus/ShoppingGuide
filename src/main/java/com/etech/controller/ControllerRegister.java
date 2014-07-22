@@ -1,11 +1,13 @@
 package com.etech.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
@@ -27,13 +31,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tmarket;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopsuser;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
+import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
 import com.etech.webutil.LatitudeUtils;
-import com.etech.webutil.Variables;
+import com.etech.webutil.PropertiesUtils;
 import com.etech.webutil.WebServiceValidCode;
 @Controller
 public class ControllerRegister {
@@ -110,18 +116,30 @@ public class ControllerRegister {
 	public void dealRegister2(Tshopsuser shopuser,HttpServletRequest request,ServletResponse response){
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
-		String storepath = "";
-		/*for (MultipartFile file : files.values()) {
+		String licenseImg = "";
+		String shopImg=""; 
+		for (MultipartFile file : files.values()) {
 			InputStream inputStream;
 			try {
+				
 				inputStream = file.getInputStream();
+				if(inputStream.available()==0)continue;
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				log.debug("upload file stuffix:"+extention);
+				if(file.getName().equals("licenseImg")){
+				  // get the license save path
+				  licenseImg=UUID.randomUUID()+"."+extention;
+				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
+				}else {
+					shopImg=UUID.randomUUID()+"."+extention;
+					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
+					shopImg+="#";
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 		HttpSession session = request.getSession();
 		Tshopsuser sessionUser=(Tshopsuser)session.getAttribute(Variables.sessionUser);
 		
@@ -136,20 +154,34 @@ public class ControllerRegister {
 		String lng=latitude.get("lng");
 		// get shopName from form
 		String shopName=request.getParameter("shopName");
+		String marketId=request.getParameter("marketId");
+		String shopOwnerName=request.getParameter("shopOwnerName");
+		Tmarket market=(Tmarket)etechService.findObject(Tmarket.class, Integer.valueOf(marketId));
 		Tshop shop=new Tshop();
-		shop.setAddress(address);
+		shop.setMarket(market);
 		shop.setShopName(shopName);
+		shop.setShopOwnerName(shopOwnerName);
+		shop.setAddress(address);
+		shop.setBusinessLicensePhotoUrl(licenseImg);
+		shop.setIsRecommend(Variables.unRecommend);
 		shop.setLatitude(Double.valueOf(lat));
 		shop.setLongitude(Double.valueOf(lng));
 		shop.setState((short)Variables.reviewing);
-		
-		shop.getGoodsTypes().add(goodstype);
+		shop.setAddTime(new Timestamp(System.currentTimeMillis()));
+		shop.setViewCount(0);
+		shop.setBePraisedCount(0);
+		shop.setFansCount(0);
+		shop.setShopPhotoUrl(shopImg);
 		etechService.saveOrUpdate(shop);
-		
-		sessionUser=(Tshopsuser)etechService.findObject(Tshopuser.class, sessionUser.getShopUserId());
-		sessionUser.getShops().add(shop);
-		etechService.merge(sessionUser);
-		session.setAttribute(Variables.sessionUser, sessionUser);
+		// shop goodstype many to many goodstype,mapped by goodstype
+		shop.getGoodsTypes().add(goodstype);
+		// shop shopusers many to many Tshopuser mapped by shopusers
+		Tshopsuser currentUser=(Tshopsuser) etechService.findObject(Tshopsuser.class,"shopUserId", 2);
+		shop.getShopusers().add(currentUser);
+		etechService.saveOrUpdate(shop);
+
+		session.setAttribute(Variables.sessionUser, currentUser);
+		Brower.redirect("/register3.jhtml", response);
 	}
 	
 	/** 
@@ -179,6 +211,8 @@ public class ControllerRegister {
 		@SuppressWarnings("unchecked")
 		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
+		List<Tmarket> marketList=(List<Tmarket>)etechService.findObjectList(Tmarket.class);
+		request.setAttribute("marketList", marketList);
 		return "/WEB-INF/register2.jsp";
 	}
 	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/

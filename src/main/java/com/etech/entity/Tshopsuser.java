@@ -3,14 +3,11 @@ package com.etech.entity;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -47,44 +44,6 @@ public class Tshopsuser implements java.io.Serializable {
 	public Tshopsuser() {
 	}
 
-	/** minimal constructor */
-	public Tshopsuser(String userName, String password, String gender,
-			Timestamp addTime, Short state, Integer score, Short grade,
-			Integer pageView, Integer defaultShopId) {
-		this.userName = userName;
-		this.password = password;
-		this.gender = gender;
-		this.addTime = addTime;
-		this.state = state;
-		this.score = score;
-		this.grade = grade;
-		this.pageView = pageView;
-		this.defaultShopId = defaultShopId;
-	}
-
-	/** full constructor */
-	public Tshopsuser(String userName, String password, String phoneNumber,
-			String nickName, String realName, String gender, String idnumber,
-			Timestamp addTime, Timestamp lastLoginTime, String profilePhoto,
-			Short state, Integer score, String referee, Short grade,
-			Integer pageView, Integer defaultShopId) {
-		this.userName = userName;
-		this.password = password;
-		this.phoneNumber = phoneNumber;
-		this.nickName = nickName;
-		this.realName = realName;
-		this.gender = gender;
-		this.idnumber = idnumber;
-		this.addTime = addTime;
-		this.lastLoginTime = lastLoginTime;
-		this.profilePhoto = profilePhoto;
-		this.state = state;
-		this.score = score;
-		this.referee = referee;
-		this.grade = grade;
-		this.pageView = pageView;
-		this.defaultShopId = defaultShopId;
-	}
 
 	// Property accessors
 	@Id
@@ -242,10 +201,7 @@ public class Tshopsuser implements java.io.Serializable {
 		this.defaultShopId = defaultShopId;
 	}
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "tbusinessscope",
-    joinColumns = { @JoinColumn(name = "shopUserId", referencedColumnName = "shopUserId") }, 
-    inverseJoinColumns = { @JoinColumn(name = "shopId", referencedColumnName = "shopId") })
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shopusers")
 	public List<Tshop> getShops() {
 		return shops;
 	}

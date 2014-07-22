@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 
+import com.etech.variable.Variables;
+
 public class WebServiceValidCode {
 	public static String getCode(String phoneNumber) {
 		String url=Variables.webserviceValidCode+phoneNumber;

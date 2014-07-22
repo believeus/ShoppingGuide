@@ -56,8 +56,7 @@
     <!-- End Name:wuqiwei Date:2013-08-13 AddReason:添加jsp视图解析器 -->    
     
     <!-- Begin name:wuhunrong Date:2014-06-05 spring 的文件上传 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 	 <!-- End Name:wuhuanrong Date:2013-08-13 spring  文件上传 -->  

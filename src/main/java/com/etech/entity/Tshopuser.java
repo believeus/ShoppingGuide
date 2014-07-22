@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Tshopuser implements java.io.Serializable {
 
 	// Fields
-
+	private static final long serialVersionUID = 7380039072436914130L;
 	private Integer shopUserId;
 	private String userName;
 	private String password;

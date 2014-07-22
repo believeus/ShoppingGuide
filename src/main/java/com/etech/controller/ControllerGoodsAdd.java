@@ -20,7 +20,7 @@ import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodstype;
 import com.etech.service.EtechService;
-import com.etech.webutil.Variables;
+import com.etech.variable.Variables;
 
 @Controller
 public class ControllerGoodsAdd {
@@ -57,7 +57,7 @@ public class ControllerGoodsAdd {
 			tGoods.setShopId(2);
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
-			tGoods.setIsRecommend(Variables.isRecommend);
+			tGoods.setIsRecommend(Variables.unRecommend);
 			etechService.saveOrUpdate(tGoods);
 		} else {
 			return;
@@ -88,7 +88,7 @@ public class ControllerGoodsAdd {
 			tGoods.setShopId(2);
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
-			tGoods.setIsRecommend(Variables.isRecommend);
+			tGoods.setIsRecommend(Variables.unRecommend);
 			etechService.saveOrUpdate(tGoods);
 		} else {
 			return;

@@ -18,7 +18,7 @@ import com.etech.entity.Tbusinessscope;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshop;
 import com.etech.service.EtechService;
-import com.etech.webutil.Variables;
+import com.etech.variable.Variables;
 
 @Controller
 public class ControllerRegistTwo {
@@ -37,7 +37,7 @@ public class ControllerRegistTwo {
 			tshop.setMarketId(Variables.marketId);
 			tshop.setViewCount(Variables.initViewCount);
 			tshop.setState(Variables.state);
-			tshop.setIsRecommend(Variables.isRecommend);
+			tshop.setIsRecommend(Variables.unRecommend);
 			tshop.setLatitude(Variables.latitude);
 			tshop.setLongitude(Variables.longitude);
 			tshop.setShopOwnerName(Variables.shopOwnerName);

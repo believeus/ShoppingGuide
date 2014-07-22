@@ -21,7 +21,7 @@ import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopfeature;
 import com.etech.service.EtechService;
-import com.etech.webutil.Variables;
+import com.etech.variable.Variables;
 
 @Controller
 public class ControllerRegistThree {
