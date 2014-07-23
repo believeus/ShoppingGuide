@@ -48,7 +48,7 @@
 }
 
 .pro_list {
-	width: 220px;
+	width: 230px;
 	height: auto;
 	overflow: hidden;
 	float: left;
@@ -57,18 +57,18 @@
 }
 
 .pro_img {
-	width: 220px;
+	width: 230px;
 	height: auto;
 }
 
 .pro_name {
-	width: 220px;
+	width: 230px;
 	padding: 5px 3px;
 	font-size: 17px;
 }
 
 .pro_spec {
-	width: 220px;
+	width: 230px;
 	height: auto;
 	line-height: 35px;
 	padding: 5px 3px;
@@ -87,13 +87,15 @@
 	height: auto;
 	line-height: 25px;
 	text-indent: 20px;
-	width: 220px;
+	width: 230px;
 	padding: 5px 3px;
 }
 
 .pro_hit {
-	width: 220px;
+	width: 225px;
 	padding: 5px 3px;
+	height:auto;
+	overflow:hidden;
 }
 
 .pro_hit span {
@@ -107,12 +109,12 @@
 }
 
 .p_list01 {
-	width: 220px;
+	width: 230px;
 	height: auto;
 	overflow: hidden;
 	margin-bottom: 25px;
 	float: left;
-	margin-right: 40px;
+	margin-right: 25px;
 }
 .findPro{
 	background:url(/images/bg.png);
@@ -127,6 +129,35 @@
 	border-left:2px solid #5AB5B6;
 	width:30px;
 	height:28px;
+}
+.addPro{
+	background: url(/images/bg.png) repeat scroll 0 -324px rgba(0, 0, 0, 0);
+    height: 25px;
+    left: 150px;
+    position: absolute;
+    width: 20px;
+}
+.reload{
+	background: url(/images/bg.png) repeat scroll -40px -355px rgba(0, 0, 0, 0);
+    height: 25px;
+    left: 230px;
+    position: absolute;
+    width: 20px;
+}
+.pageshow{
+	background: url(/images/bg.png) repeat scroll 0 -355px rgba(0, 0, 0, 0);
+    height: 25px;
+    left: 378px;
+    position: absolute;
+    width: 20px;
+}
+.pro_hit_1{
+	float:left;
+	background:url(/images/bg.png);
+	background-position:-358px -387px;
+	width:75px;
+	height:25px;
+	text-align:right;
 }
 </style>
 <script type="text/javascript">
@@ -145,22 +176,21 @@
 			style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
 		<img src="/images/line.png">
 		<p>
-			<input type="button" value="添加" title="点击添加商品"
-				onClick="javascript:window.location.href='/goodsAdd.jhtml'">
-			<input type="button" value="刷新" title="点击刷新"
-				onClick="javascript:window.location.reload();"> <input
-				type="button" value="每页显示"> <span>共有<font
-				color="#69CDCD">1234</font>条数据
-			</span>
+			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;"
+				onClick="javascript:window.location.href='/goodsAdd.jhtml'"><s class="addPro"></s>
+			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;"
+				onClick="javascript:window.location.reload();"><s class="reload"></s>
+			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
+			<span>共有<font color="#69CDCD">1234</font>条数据</span>
 			<input type="text" name="" style="float:right;">
 			<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
-				<div class="pro_list">
 			<c:forEach var="tgLi1" items="${tgLi1}">
+				<div class="pro_list">
 					<div class="pro_img">
-						<img src="/images/1.jpg" width="220">
+						<img src="/images/1.jpg" width="230">
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -170,18 +200,18 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi1.bePraisedCount}赞！</span> <span
-							style="float:right;">${tgLi1.viewCount}点击</span>
+						<span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span>
+						<span style="float:right;">${tgLi1.viewCount}点击</span>
 					</div>
-			</c:forEach>
 				</div>
+			</c:forEach>
 		</div>
 		<!-- 商品列表  第二列 -->
 		<div class="p_list01">
-			<div class="pro_list">
-				<c:forEach var="tgLi2" items="${tgLi2 }">
+			<c:forEach var="tgLi2" items="${tgLi2 }">
+				<div class="pro_list">
 					<div class="pro_img">
-						<img src="/images/1.jpg" width="220">
+						<img src="/images/1.jpg" width="230">
 					</div>
 					<div class="pro_name">${tgLi2.goodsName}</div>
 					<div class="pro_spec">
@@ -191,18 +221,18 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi2.bePraisedCount}赞！</span> <span
+						<span style="float:left;">${tgLi2.bePraisedCount}赞</span> <span
 							style="float:right;">${tgLi2.viewCount}点击</span>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 		<!-- 商品列表  第三列 -->
 		<div class="p_list01">
-			<div class="pro_list">
-				<c:forEach var="tgLi3" items="${tgLi3 }">
+			<c:forEach var="tgLi3" items="${tgLi3 }">
+				<div class="pro_list">
 					<div class="pro_img">
-						<img src="/images/1.jpg" width="220">
+						<img src="/images/1.jpg" width="230">
 					</div>
 					<div class="pro_name">${tgLi3.goodsName}</div>
 					<div class="pro_spec">
@@ -212,18 +242,18 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi3.bePraisedCount}赞！</span> <span
+						<span style="float:left;">${tgLi3.bePraisedCount}赞</span> <span
 							style="float:right;">${tgLi3.viewCount}点击</span>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 		<!-- 商品列表  第四列 -->
-		<div class="p_list01">
-			<div class="pro_list">
-				<c:forEach var="tgLi4" items="${tgLi4}">
+		<div class="p_list01" style="margin-right:0;">
+			<c:forEach var="tgLi4" items="${tgLi4}">
+				<div class="pro_list">
 					<div class="pro_img">
-						<img src="/images/1.jpg" width="220">
+						<img src="/images/1.jpg" width="230">
 					</div>
 					<div class="pro_name">${tgLi4.goodsName}</div>
 					<div class="pro_spec">
@@ -233,11 +263,11 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi4.bePraisedCount}赞！</span> <span
+						<span style="float:left;">${tgLi4.bePraisedCount}赞</span> <span
 							style="float:right;">${tgLi4.viewCount}点击</span>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 

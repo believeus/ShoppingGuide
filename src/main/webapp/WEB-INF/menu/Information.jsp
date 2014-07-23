@@ -71,9 +71,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:710px;
 		}
 		#tes1 {
-			width:815px;
-			margin:auto;
-			letter-spacing:1px;
+			letter-spacing: 1px;
+		    line-height: 35px;
+		    margin: auto;
+		    text-indent: 30px;
+		    width: 815px;
 		}
 	</style>
   </head>
@@ -85,28 +87,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="width:1000px; margin:auto; padding-top:30px;">
 	    	<div>
 	            <div>
-	                <h2>男人装百期嘉年华璀璨起航 一场力与美的饕餮盛宴</h2>
+	                <h2>${news.title}</h2>
 	            </div>
 	            <div class="butt01"><p>确认</p></div>
-	            <div class="butt01" style="margin-right:20px;"><p>取消</p></div>
+	            <div class="butt01" style="margin-right:20px;" onClick="javascript:window.history.back();"><p>取消</p></div>
 	        </div>
 	        <div id="netitl">
-	            <p>发布时间：<span>2014年7月16日12:16</span></p>
-	            <p>浏览量：<a>1234</a></p>
-	            <p>转至：<span>男人装时尚杂志</span></p>
-	            <p>原文链接：<a>www.aileguang.com</a></p>
+	            <p>发布时间：<span>${news.addTime}</span></p>
+	            <p>浏览量：<a>${news.viewCount}</a></p>
+	            <p>转至：<span>${news.newsFrom}</span></p>
+	            <p>原文链接：<a>${news.originalUrl}</a></p>
 	        </div>
-	        <hr />
-	        <div id="img_">
-	        	<img src="images/zixun.jpg"/>
-	        </div>
+	       <img src="/images/line.png">
+	        
 	        <div id="tes1">
-	        	<h4>瘦马诙谐脱口秀戏说《男人装》百期历程 世界吉尼斯纪录诞生</h4>
-	        	<p>9月12日，由时尚传媒集团旗下顶级男性杂志《男人装》主办的百期嘉年华盛典在京璀璨起航，整个盛典现场流光溢彩，超凡舞台空间布局、活力无限功能区域设计、绚烂迷离的舞美灯光、激情四射的动感音乐，一场力与美的饕餮盛宴华丽绽放！</p>
-	        	<p>盛典当日，时尚传媒集团总裁刘江、时尚传媒集团出版副总裁瘦马、《男人装》助理出版人路璐、《男人装》主编陈修远、著名纪录片导演范立欣、导演郝杰、新锐作家史航、林天宏等嘉宾名流悉数到场；崔健、韩庚、姚笛、王学兵、阿朵、郁可唯、郝云、丁当、曹云金、、孙菲菲、陈志朋、迪克牛仔、何晟铭、郑亦桐、张译、杨洋、李欣汝、王若心、侯璎珏、刘雨欣、于咏琳、甘婷婷、孔维、GALA乐队、大棒乐队、张耀栋等当红演艺明星均亲临现场，以各自的方式送上对《男人装》百期的诚挚祝福, 所有来宾与《男人装》团队、百位忠实读者、京城主流媒体一起尽享《男人装》百期嘉年华狂欢派对的幸福时光！</p>
-	            <h4>瘦马诙谐脱口秀戏说《男人装》百期历程 世界吉尼斯纪录诞生</h4>
-	        	<p>9月12日，由时尚传媒集团旗下顶级男性杂志《男人装》主办的百期嘉年华盛典在京璀璨起航，整个盛典现场流光溢彩，超凡舞台空间布局、活力无限功能区域设计、绚烂迷离的舞美灯光、激情四射的动感音乐，一场力与美的饕餮盛宴华丽绽放！</p>
-	        	<p>盛典当日，时尚传媒集团总裁刘江、时尚传媒集团出版副总裁瘦马、《男人装》助理出版人路璐、《男人装》主编陈修远、著名纪录片导演范立欣、导演郝杰、新锐作家史航、林天宏等嘉宾名流悉数到场；崔健、韩庚、姚笛、王学兵、阿朵、郁可唯、郝云、丁当、曹云金、、孙菲菲、陈志朋、迪克牛仔、何晟铭、郑亦桐、张译、杨洋、李欣汝、王若心、侯璎珏、刘雨欣、于咏琳、甘婷婷、孔维、GALA乐队、大棒乐队、张耀栋等当红演艺明星均亲临现场，以各自的方式送上对《男人装》百期的诚挚祝福, 所有来宾与《男人装》团队、百位忠实读者、京城主流媒体一起尽享《男人装》百期嘉年华狂欢派对的幸福时光！</p>
+	        	${news.content}
 	        </div>
 	    </div>
 	</div>

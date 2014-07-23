@@ -67,6 +67,13 @@ body {
 	text-align:center;
 	cursor:pointer;
 }
+.sub_btn{
+	border:1px solid #69CDCD;
+	background:#69CDCD;
+	color:#FFFFFF;
+	width:135px;
+	height:35px;
+}
 </style>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -74,27 +81,39 @@ body {
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <script type="text/javascript" src="/js/jquery.js"></script>
+<script language="JavaScript" src="js/jquery.validate.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
 		$("#login").click(function() {
-			$.ajax({
-				type : "post",
-				url : "/ajaxLoginValid.jhtml",
-				dataType : "json",
-				data : $("#loginForm").serialize(),
-				success : function(data) {
-					if (data.message == "error") {
-						$("#msg").text("用户不存在!");
+			var userName = $("#userName").val();
+			var password = $("#password").val();
+			if(userName == "" || password == ""){
+				$("#check").css("display","block");
+				return false;
+			}else{
+				$.ajax({
+					type : "post",
+					url : "/ajaxLoginValid.jhtml",
+					dataType : "json",
+					data : $("#loginForm").serialize(),
+					success : function(data) {
+						alert(data);
+						if (data.message == "error") {
+							//$("#msg").text("用户不存在!");
+							alert("caoni ma");
+							$("#check").css("display","block");
+							return false;
+						}else if (data.message == "success") {
+							location.href = "/menu.jhtml";
+						}
 					}
-					if (data.message == "success") {
-						location.href = "/regist.jhtml";
-					}
-				}
-			});
+				});
+			}
 		});
 		$("#register").click(function() {
 			window.location.href = "/regist.jhtml";
 		});
+		
 	});
 </script>
 </head>
@@ -114,15 +133,16 @@ body {
     <div style="width:100%; height:470px; background-color:#69CDCD;">
     	<div style="margin:0px auto; width:1000px; height:470px; background-image:url(images/computer.png); background-repeat: no-repeat;">
         	<div id="landdiv">
+        	<form id="loginForm" action="" method="post">
             	<p class="log">
             		<b>账&nbsp;&nbsp;&nbsp;号：</b>
-            		<input name="userName" id="username" type="text" placeholder="请输入商户账号，或商场管理员账号" />
+            		<input name="userName" id="userName" type="text" placeholder="请输入商户账号，或商场管理员账号" value=""/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密&nbsp;&nbsp;&nbsp;码：</b>
-            		<input type="password" name="password" id="password" placeholder="请输入密码" />
+            		<input type="password" name="password" id="password" placeholder="请输入密码" value=""/>
            		</p>
-                <p id="check" style="display: ; width:auto;">
+                <p id="check" style="display: none; width:auto;">
                 	<img src="images/chacha.png" />&nbsp;
                     <span style="vertical-align:top; color:red; font-size:14px;">您输入的账户或密码不正确，请重新输入</span>
                 </p>
@@ -137,8 +157,9 @@ body {
                     <span>没有商户账号？<a style="text-decoration:underline;color:red;" href="/register.jhtml">立即注册</a></span>
                 </p>
                 <div id="login">
-                	<p onClick="javascript:window.location.href='/menu.jhtml';">登录</p>
+                	<input class="sub_btn" type="submit" value="登录"/> 
                 </div>
+               </form>
             </div>
         </div>
     </div>

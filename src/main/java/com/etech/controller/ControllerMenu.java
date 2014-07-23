@@ -13,10 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tnews;
 import com.etech.entity.Tshop;
 import com.etech.service.EtechService;
 /**
- * 菜单
+ * menu
  * @author ztx
  *
  */
@@ -28,7 +29,7 @@ public class ControllerMenu {
 	private EtechService etechService;
 	
 	/**
-	 * 菜单
+	 * menu
 	 * @return
 	 */
 	@RequestMapping(value="/menu")
@@ -37,7 +38,7 @@ public class ControllerMenu {
 	}
 	
 	/**
-	 * 我的店铺
+	 * my shop
 	 * @return
 	 */
 	@RequestMapping(value="/myShop")
@@ -45,7 +46,7 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/myShop.jsp";
 	}
 	/**
-	 * 我的商品
+	 * my goods
 	 * @return
 	 */
 	@RequestMapping(value="/myProducts")
@@ -79,7 +80,7 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
 	/**
-	 * 店铺信息
+	 * shop msg
 	 * @return
 	 */
 	@RequestMapping(value="/shopMsg")
@@ -90,7 +91,7 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/shopMessage.jsp";
 	}
 	/**
-	 * 编辑店铺信息
+	 * edit shop msg
 	 * @return
 	 */
 	@RequestMapping(value="/editShopMsg")
@@ -98,7 +99,7 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/editShop.jsp";
 	}
 	/**
-	 * 点赞记录
+	 * hit praise
 	 * @return
 	 */
 	@RequestMapping(value="/hitPraise")
@@ -106,27 +107,45 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/hitPraise.jsp";
 	}
 	/**
-	 * 我的粉丝
+	 * my Fans
 	 * @return
 	 */
 	@RequestMapping(value="/myFans")
-	public String myFans(){
+	public String myFans(HttpServletRequest request){
+		
+		
+		
 		return "/WEB-INF/menu/myFans.jsp";
 	}
 	/**
-	 * 资讯详情
+	 * information
 	 * @return
 	 */
 	@RequestMapping(value="/information")
-	public String information(){
+	public String information(HttpServletRequest request,Integer newsId){
+		Tnews news = (Tnews) etechService.findObject(Tnews.class, newsId);
+		request.setAttribute("news", news);
 		return "/WEB-INF/menu/Information.jsp";
 	}
 	/**
-	 * 资讯列表
+	 * information list
 	 * @return
 	 */
 	@RequestMapping(value="/infoList")
-	public String infoList(){
+	public String infoList(HttpServletRequest request){
+		
+		@SuppressWarnings("unchecked")
+		//select all news from tNews
+		List<Tnews> news = (List<Tnews>) etechService.findObjectList(Tnews.class);
+		
+		for (Tnews tnews : news) {
+			String content = tnews.getContent();
+			if (content.length() >30) {
+				content = content.substring(0,news.size()) +"...";
+			}
+		}
+		request.setAttribute("news", news);
+		
 		return "/WEB-INF/menu/InfoList.jsp";
 	}
 	
@@ -136,7 +155,6 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value = "/fansCount")
 	public String FansCount(String url){
-		System.out.println(url == "sex" +"=url");
 		if (url.equals("sex")) {
 			return "/WEB-INF/menu/FansCount.jsp";
 		}else if (url.equals("age")) {

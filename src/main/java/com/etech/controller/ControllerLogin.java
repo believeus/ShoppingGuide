@@ -1,6 +1,5 @@
 package com.etech.controller;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -38,25 +37,22 @@ public class ControllerLogin {
 					String password =DigestUtils.md5Hex(formUser.getPassword());
 					log.debug(password);
 					if(oldPassword.equals(password)){
+						String url="/menu.jhtml";
 						/**Begin Author:wuqiwei Data:2014-07-02 AddReason:用户登陆成功,跳转到编辑商铺页面 */
-						String url = "";
-						StringBuilder sb = new StringBuilder();
-						sb.append("<script type='text/javascript'>")
-								.append("top.location.href=" + url).append("</script>");
-						log.debug(sb.toString());
-						PrintWriter pw = new PrintWriter(response.getOutputStream());
-						pw.write(sb.toString());
-						pw.close();
+						Brower.redirect(url, response);
 						log.debug("form password match user.password,login success");
+						//return;
 						/**End Author:wuqiwei Data:2014-07-02 AddReason:用户登陆,跳转到编辑商铺页面 */
 					}
 				}else {
 					message.put("message","error");
 					Brower.outJson(message, response);
+					return;
 				}
 			}else{
 				message.put("message","error");
 				Brower.outJson(message, response);
+				return;
 			}
 		
 	}

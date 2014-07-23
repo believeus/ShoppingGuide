@@ -82,6 +82,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			padding: 0px 4px;;
 		}
 		</style>
+		<style type="text/css">
+			.brandImg span{
+				display:block;
+				position:absolute;
+				top:0px;left:0px;
+				width:229px;
+				height:179px;
+			}
+			
+			.brandImg{
+				border-color: #B8B8B8 #DCDCDC #DCDCDC #B8B8B8;
+			    border-radius: 2px 2px 2px 2px;
+			    border-style: solid;
+			    border-width: 1px;
+			    background-color: #666666;
+			    width:229px;
+			    height:179px;
+			    position:relative;
+			    float:left;
+			    margin-right:15px;
+			}
+			
+			.brandImg span:hover{
+				background-color:#FFFFFF;
+			    opacity: 0.7;
+			    filter:alpha(opacity=50);
+			    -moz-opacity:0.5;
+			    -khtml-opacity: 0.5;
+			}
+			
+			.brandImg span a{
+				display:block;
+				position:absolute;
+				top:80px;
+				left:65px;
+				color:#d5d5d5;
+			}
+			
+			.deleteProductImage:hover{
+				color:#C9033B !important;
+			}
+		</style>
   </head>
   
   <body>
@@ -107,7 +149,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   				<tr style="">
 						<td colspan="2" style=""></td>
 						<td>
-							<div class="main_table3_div2" style="border:1px solid gray;margin-left:78px;"></div>
+							<div class="brandImg">
+								<span>
+									<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+								</span>
+								<img style="width:229px;height:179px" src="" name="img"/>
+							</div>
+							<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+							<input type="hidden" id="filename0" name="filename0">
 						</td>
 						<td style="text-align: right;width: 200px;">营业执照号:</td>
 						<td>
@@ -146,9 +195,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <td></td>
 	              </tr>
 	            </table>
-	            <img src="/images/line.png">
 	        </div>
 		</div>
 	<jsp:include page="../include/footer.jsp"/>
+	<script type="text/javascript">
+			function loadImgFast(img,i){
+				if (img.files && img.files[0]){
+					var reader = new FileReader();
+					reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
+		            reader.readAsDataURL(img.files[0]);
+				}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
+				   	file.select();
+		   			path = document.selection.createRange().text;
+		   			$(".brandImg:eq("+i+") img")[0].src = path;
+		   		}
+			}
+		</script>
   </body>
 </html>

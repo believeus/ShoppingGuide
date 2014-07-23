@@ -135,6 +135,14 @@
 		    background:#EFEFEF;
 		    color:#B3B3B3;
 		}
+		.gougou{
+			background: url("/images/bg.png") repeat scroll -41px -332px rgba(0, 0, 0, 0);
+		    height: 20px;
+		    margin-left: 6px;
+		    margin-top: 4px;
+		    position: absolute;
+		    width: 20px;
+		}
 	</style>
 
 <script type="text/javascript">
@@ -176,6 +184,7 @@
 							<div class="p_top_word_time">
 								<span class="nTime">2014年7月16日 12：59</span>
 								<span class="nRecord">已关注</span>
+								<s class="gougou"></s>
 							</div>
 						</div>
 					</div>
@@ -203,6 +212,7 @@
 							<div class="p_top_word_time">
 								<span class="nTime">2014年7月16日 12：59</span>
 								<span class="nRecord">已关注</span>
+								<s class="gougou"></s>
 							</div>
 						</div>
 					</div>
@@ -228,6 +238,7 @@
 							<div class="p_top_word_time">
 								<span class="nTime">2014年7月16日 12：59</span>
 								<span class="nRecord">已关注</span>
+								<s class="gougou"></s>
 							</div>
 						</div>
 					</div>
@@ -253,6 +264,7 @@
 							<div class="p_top_word_time">
 								<span class="nTime">2014年7月16日 12：59</span>
 								<span class="nRecord">已关注</span>
+								<s class="gougou"></s>
 							</div>
 						</div>
 					</div>
@@ -278,6 +290,7 @@
 							<div class="p_top_word_time">
 								<span class="nTime">2014年7月16日 12：59</span>
 								<span class="nRecord">已关注</span>
+								<s class="gougou"></s>
 							</div>
 						</div>
 					</div>

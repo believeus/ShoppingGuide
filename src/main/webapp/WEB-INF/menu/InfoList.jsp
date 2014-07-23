@@ -3,7 +3,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -70,6 +71,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			border:2px solid #5AB5B6;
 			margin-right:10px;
 		}
+		.findPro{
+			background:url(/images/bg.png);
+			background-position:-356px -455px;
+			width:32px;
+			height:30px;
+			position:absolute;
+			right:160px;
+			cursor:pointer;
+		}
+		.findPro:hover{
+			border-left:2px solid #5AB5B6;
+			width:30px;
+			height:28px;
+		}
 	</style>
 	<script type="text/javascript" src="/js/jquery.js"></script>
   </head>
@@ -93,75 +108,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<input type="button" value="每页显示">
 		    		<span>共有<font color="#69CDCD">1234</font>条数据</span>
 		    		<input type="text" name="" style="float:right;">
+		    		<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
 		    	</p>
 	        </div>
 	        <div>
 	        	<table>
-	            	<tr>
-	                	<td>
-	                    	<p style="font-weight:bold; font-size:16px;">
-	                    		<a href="/information.jhtml" title="">京东苏宁价格战内幕 一场恶意做空的阴谋</a>
-                    		</p>
-	                    	<p>京东苏宁电商价格战，京东苏宁国美价格战打响，苏宁国美股价暴跌，15日开盘后...</p>
-	                    </td>
-	                    <td>
-	                    	<p>2014年7月16日</p>
-	                        <p><span>1234</span>次点击</p>
-	                    </td>
-	                </tr>
-	                <tr>
-	                	<td>
-	                    	<p style="font-weight:bold; font-size:16px;">
-		                    	<a href="/information.jhtml" title="">如何用好最直接的电子商务推广方式</a>
-	                    	</p>
-	                    	<p>电子商务的快速发展让各位企业主更加重视企业运营的成本。而在众多营销手段中,说较低的...</p>
-	                    </td>
-	                    <td>
-	                    	<p>2014年7月16日</p>
-	                        <p><span>423</span>次点击</p>
-	                    </td>
-	                </tr>
-	                <tr>
-	                	<td>
-	                    	<p style="font-weight:bold; font-size:16px;">
-	                    		<a href="/information.jhtml" title="">电子商务推广的两大方向</a>
-                    		</p>
-	                    	<p>电子商务推广就是将企业的全部信息详细地完美地展现在客户面前，通过强大的互联网...</p>
-	                    </td>
-	                    <td>
-	                    	<p>2014年7月16日</p>
-	                        <p><span>124</span>次点击</p>
-	                    </td>
-	                </tr>
-	                <tr>
-	                	<td>
-	                    	<p style="font-weight:bold; font-size:16px;">
-	                    		<a href="/information.jhtml" title="">京东苏宁价格战内幕 一场恶意做空的阴谋</a>
-                    		</p>
-	                    	<p>京东苏宁电商价格战，京东苏宁国美价格战打响，苏宁国美股价暴跌，15日开盘后...</p>
-	                    </td>
-	                    <td>
-	                    	<p>2014年7月16日</p>
-	                        <p><span>1234</span>次点击</p>
-	                    </td>
-	                </tr>
-	                <tr>
-	                	<td>
-	                    	<p style="font-weight:bold; font-size:16px;">
-	                    		<a href="/information.jhtml" title="">如何用好最直接的电子商务推广方式</a>
-                    		</p>
-	                    	<p>电子商务的快速发展让各位企业主更加重视企业运营的成本。而在众多营销手段中,说较低的...</p>
-	                    </td>
-	                    <td>
-	                    	<p>2014年7月16日</p>
-	                        <p><span>423</span>次点击</p>
-	                    </td>
-	                </tr>
+		        	<c:forEach var="news" items="${news}">
+		            	<tr>
+		                	<td>
+		                    	<p style="font-weight:bold; font-size:16px;">
+		                    		<a href="/information.jhtml?newsId=${news.newsId}" title="${news.title}">${news.title}</a>
+	                    		</p>
+		                    	<p title="${news.content}">
+		                    		${fn:substring(news.content, 0, 40)}...
+		                    	</p>
+		                    </td>
+		                    <td>
+		                    	<p>${news.addTime}</p>
+		                        <p><span>${news.viewCount}</span>次点击</p>
+		                    </td>
+		                </tr>
+	                </c:forEach>
 	            </table>
 	        </div>
-	        <div style="width:800px; margin:auto;s">
+	        <!-- <div style="width:800px; margin:auto;">
 	        	<p style="text-align:right;">上一页《 1 2 3 4 5 》 下一页</p>
-	        </div>
+	        </div> -->
 	   </div>
 	</div>
     <jsp:include page="../include/footer.jsp"/>
