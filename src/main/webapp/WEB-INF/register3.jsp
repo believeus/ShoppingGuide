@@ -130,7 +130,6 @@
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					alert(tfeatureId);
 					$("#tese").append("<a id='ta' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</a>");
 					$("#textSpecial").val("");
 				 });
@@ -142,8 +141,12 @@
 			$("#ta.current").each(function(){
 				featureIds.push($(this).attr("value"));
 			});
-			$.post("/saveFeature.jhtml",{"featureIds":featureIds.toString(),"sessionUserId":2},function(result){
-				top.location.href="/menu.jhtml";
+			$.post("/saveFeature.jhtml",{"featureIds":featureIds.toString(),"sessionUserId":${sessionUser.shopUserId}},function(result){
+				if(result=="success"){
+					top.location.href="/menu.jhtml";
+				}else if(result=="error"){
+					top.location.href="/login.jhtml";
+				}
 				
 			});
 	});

@@ -25,7 +25,7 @@ import com.etech.service.EtechService;
 
 @Controller
 public class ControllerMenu {
-	private static final Log log = LogFactory.getLog(ControllerRegister.class);
+	private static final Log log = LogFactory.getLog(ControllerRegisterOne.class);
 	@Resource
 	private EtechService etechService;
 	

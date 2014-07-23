@@ -98,7 +98,6 @@ body {
 					dataType : "json",
 					data : $("#loginForm").serialize(),
 					success : function(data) {
-						alert(data);
 						if (data.message == "error") {
 							//$("#msg").text("用户不存在!");
 							$("#check").css("display","block");
@@ -143,12 +142,11 @@ body {
             		<input type="password" name="password" id="password" placeholder="请输入密码" value=""/>
            		</p>
                 <p id="check" style="display: none; width:auto;">
-                	<img src="images/chacha.png" />&nbsp;
+                	<img src="/images/chacha.png" />&nbsp;
                     <span style="vertical-align:top; color:red; font-size:14px;">您输入的账户或密码不正确，请重新输入</span>
                 </p>
             	
 				<p id="check">
-                	<label><input type="checkbox" name="" />记住账号</label>
                     <span style="margin-left: 90px;">
                     	<a href="/findPsd.jhtml" title="找回密码">找回密码</a>
                    	</span>
@@ -157,7 +155,7 @@ body {
                     <span>没有商户账号？<a style="text-decoration:underline;color:red;" href="/register.jhtml">立即注册</a></span>
                 </p>
                 <div id="login">
-                	<input class="sub_btn" type="submit" value="登录"/> 
+                	<input class="sub_btn" type="button" value="登录"/> 
                 </div>
                </form>
             </div>

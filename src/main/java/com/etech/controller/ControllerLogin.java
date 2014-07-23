@@ -26,7 +26,6 @@ public class ControllerLogin {
 	/**Begin Author:yangQiXian Data:2014-07-02 AddReason:用户登陆,进行ajax登录验证 */
 	@RequestMapping(value = "/ajaxLoginValid")
 	public void ajaxLoginValid(Tshopuser formUser, HttpServletResponse response,HttpSession session) throws Exception {
-		Assert.assertNotNull(formUser);
 		log.debug("current user name:"+formUser.getUserName());
 		log.debug("current user passowrd:"+formUser.getPassword());
 		Tshopuser sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "userName", formUser.getUserName());
