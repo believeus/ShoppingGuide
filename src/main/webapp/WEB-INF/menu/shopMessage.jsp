@@ -122,7 +122,7 @@
 						<input type="button" value="编辑" onClick="javascript:window.location.href='/editShopMsg.jhtml'" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" />
 					</td>
 					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
-					<td style="width:8%;"><input type="button" value="修改用户密码" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:8%;"><input type="button" value="修改用户密码" onClick="javascript:window.location.href='/editPassword.jhtml'" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
 			<hr style="width:85%;border:1px solid #E8E8E8;" />

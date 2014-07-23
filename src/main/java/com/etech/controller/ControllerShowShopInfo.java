@@ -1,5 +1,7 @@
 package com.etech.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,4 +29,14 @@ public class ControllerShowShopInfo {
 //		
 //	}
 	/**End Author:yangQiXian Data:2014-07-21 AddReason:显示商铺信息*/
+	
+	/**Begin Author:sunao Data:2014-07-22 AddReason:显示商铺信息*/
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/ShowShopInfo")
+	public String ShowShopInfo(HttpServletRequest request){
+		List<Tshop> allShop=(List<Tshop>) etechService.findObjectList(Tshop.class);
+		request.setAttribute("allShop", allShop);
+		return "/WEB-INF/menu/menu.jsp";
+	}
+	/**End Author:sunao Data:2014-07-22 AddReason:显示商铺信息*/
 }

@@ -125,7 +125,82 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		</style>
   </head>
-  
+  <script type="text/javascript">
+  	$(function(){
+  		
+  		$("#license").blur(function(){
+  			var license=$("#license").val();
+  			$.ajax({
+  				type : "post",
+				url : "/licenseNum.jhtml",
+				dataType : "json",
+				data :{"license":license} ,
+				success : function(data) {
+					if(data.message == "error"){
+						$("#licenseMsg")[0].innerHTML="营业执照格式不正确！";
+						$("#licenseMsg").css("color","red");
+					}else if(data.message == "success"){
+						$("#licenseMsg")[0].innerHTML="营业执照格式正确！";
+						$("#licenseMsg").css("color","black");
+					}else{
+						$("#licenseMsg")[0].innerHTML="注明：必须上传营业执照或者填写执照号";
+						$("#licenseMsg").css("color","black");
+					}
+				}
+  			});
+  		});
+  		
+  		$("#userNum").blur(function(){
+  			var userNum=$("#userNum").val();
+  			$.ajax({
+  				type : "post",
+				url : "/userNum.jhtml",
+				dataType : "json",
+				data :{"userNum":userNum} ,
+				success : function(data) {
+					if(data.message == "error"){
+						$("#userNumImg").css("display","block");
+						$("#userNumMsg").css("display","block");
+					}else if(data.message == "success"){
+						$("#userNumImg").css("display","block")[0].src="images/good.gif";
+						$("#userNumMsg").css("display","none");
+					}else{
+						$("#userNumImg").css("display","none");
+						$("#userNumMsg").css("display","none");
+					}
+				}
+  			});
+  		});
+  		
+  		$("#telphone").blur(function(){
+  			var userNum=$("#telphone").val();
+  			$.ajax({
+  				type : "post",
+				url : "/userNum.jhtml",
+				dataType : "json",
+				data :{"userNum":userNum} ,
+				success : function(data) {
+					if(data.message == "error"){
+						$("#telImg").css("display","block");
+						$("#telMsg").css("display","block");
+					}else if(data.message == "success"){
+						$("#telImg").css("display","block")[0].src="images/good1.gif";
+						$("#telMsg").css("display","none");
+					}else{
+						$("#telImg").css("display","none");
+						$("#telMsg").css("display","none");
+					}
+				}
+  			});
+  		});
+  		
+  		$("#submit").click(function(){
+  			document.form1.submit();
+  		});
+  		
+  		
+  	});
+  </script>
   <body>
   	<jsp:include page="../include/header.jsp"/>
 	    <div style="width:1000px; margin:0px auto; background-color:#fff;">
@@ -135,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <span>找回密码</span>&nbsp;&nbsp;
 	                    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
 	                </div>
-	                <div class="butt01"><p>确认</p></div>
+	                <div id="submit" class="butt01"><p>确认</p></div>
 	                <div class="butt01" style="margin-right:20px;"><p>取消</p></div>
 	            </div>
 	            <img src="/images/line.png" />
@@ -195,6 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <td></td>
 	              </tr>
 	            </table>
+
 	        </div>
 		</div>
 	<jsp:include page="../include/footer.jsp"/>

@@ -125,8 +125,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="s_menu_list_img">
    					<div class="img2" style="background-position:-78px -311px"></div>
    				</div>
-   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myFans.jhtml'">
-   					<a href="/myFans.jhtml" title="我的粉丝">我的粉丝</a>
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/showFans.jhtml'">
+   					<a href="/showFans.jhtml" title="我的粉丝">我的粉丝</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
@@ -148,8 +148,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</div>
     	<div class="s_menu"
     		style="border:2px dotted #2DB7EC;height:386px;line-height:386px;text-align:center;margin-right:0;cursor:pointer;"
-    		onClick="javascript:window.location.href='/editShopMsg.jhtml'">
-    		<a href="/editShopMsg.jhtml" title="点击添加新店铺"><font size="10" color="#2DB7EC">+</font></a>
+    		onClick="javascript:window.location.href='/addShop.jhtml'">
+    		<a href="/addShop.jhtml" title="点击添加新店铺"><font size="10" color="#2DB7EC">+</font></a>
     	</div>
    		</div>
     </div>

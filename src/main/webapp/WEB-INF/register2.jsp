@@ -342,6 +342,7 @@
 					<input type="button" value="上一步" onClick="javascript:window.location.href='/register.jhtml'" style="background:#69CDCD;border :1px solid #69CDCD;"> 
 						<input type="submit" value="下一步">
 				</div>
+				</div>
 			</div>
 		</form>
 	</div>

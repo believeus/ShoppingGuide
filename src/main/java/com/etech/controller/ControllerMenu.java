@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tnews;
+import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshop;
 import com.etech.service.EtechService;
 /**
@@ -85,7 +86,7 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/shopMsg")
 	public String shopMsg(Integer shopId,HttpServletRequest request){
-		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, 1);
+		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, 2);
 		request.setAttribute("tshop", tshop);
 		log.debug("SHOW SHOPINFO");
 		return "/WEB-INF/menu/shopMessage.jsp";
@@ -173,4 +174,43 @@ public class ControllerMenu {
 			return "/WEB-INF/login.jsp";
 		}
 	}
+	@RequestMapping(value="/associate")
+	public String associate(){
+		
+		return "/WEB-INF/setting/aboutUserNum.jsp";
+	}
+	
+	/**
+	 * 修改密码
+	 * @return
+	 */
+	@RequestMapping(value="/editPassword")
+	public String editPassword(){
+		
+		return "/WEB-INF/setting/updatePsd.jsp";
+	}
+	
+	/**
+	 * 找回密码
+	 * @return
+	 */
+	@RequestMapping(value="/toFindPsd")
+	public String findPsd(){
+		
+		return "/WEB-INF/setting/findPsd.jsp";
+	}
+	
+	/**
+	 * 店铺添加
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/addShop")
+	public String loginView(HttpServletRequest request){
+		
+		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
+		request.setAttribute("range", range);
+		return "/WEB-INF/menu/addShop.jsp";
+	}
+	
 }

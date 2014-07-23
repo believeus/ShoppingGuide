@@ -29,7 +29,6 @@
 			color:white;
 		}
 		.main_table2_td p{
-			font-size:13px;
 			border-radius:.2em;
 			margin-right:15px;
 			width:auto;
@@ -55,6 +54,57 @@
 		}
 		.main_table2 tr td {
 		    padding: 20px 0;
+		}
+		
+		<!--  chqx  -->
+		#suib {
+			padding:0px 45px;	
+			margin: 0px auto;
+		}
+		#suib tr {
+			height:65px;
+		}
+		#suib tr:hover {
+			background:#EAFCFC;
+		}
+		#suib td:first-of-type {
+			width:155px;
+		}
+		#suib td:nth-child(2) {
+			width:345px;	
+		}
+		#suib td:nth-child(3) {
+			width:30px;	
+		}
+		#suib td:last-of-type {
+			width:355px;	
+		}
+		#suib input {
+			width:340px; 
+			height:28px; 
+			padding: 0px 4px;;
+		}
+		
+		#shopSpec{
+			padding-top:5px;
+		}
+		#shopSpec p{
+			font-size:13px;
+			border-radius:.2em;
+			margin-right:15px;
+			width:auto;
+			border:1px solid gray;
+			height:20px;
+			line-height:20px;
+			float:left;
+			display:block;
+			padding:3px 15px;
+			cursor:pointer;
+		}
+		.inputClass{
+			background-color:#69CDCD;
+			border-radius:.2em;
+			color:white;
 		}
 	</style>
 	<style type="text/css">
@@ -113,6 +163,7 @@
 				}
 			});
 		});
+<<<<<<< Updated upstream
 		
 		$("#add_img").click(function(){
 			var a = $(".shopShow .brandImg").size() + 1;
@@ -124,6 +175,84 @@
 				$(".shopShow").append(html);
 			}
 		});
+=======
+
+		$("#shopName").blur(function(){
+			var shopName=$("#shopName").val();
+			$.ajax({
+				type : "post",
+				url : "/editShopName.jhtml",
+				dataType : "json",
+				data :{"shopName":shopName} ,
+				success : function(data) {
+					if(data.message == "error"){
+						$("#shopNameImg").css("display","block")[0].src="images/chacha.png";
+						$("#shopNameMsg").css("display","block");
+						$("#shopNameMsg2").css("display","none");
+					}else if(data.message == "success"){
+						$("#shopNameImg").css("display","block")[0].src="images/good.gif";
+						$("#shopNameMsg").css("display","none");
+						$("#shopNameMsg2").css("display","none");
+					}else{
+						$("#shopNameImg").css("display","none");
+						$("#shopNameMsg").css("display","none");
+						$("#shopNameMsg2").css("display","block");
+					}
+				}
+			});
+		});	
+		
+		$("#phoneNum").blur(function(){
+			var phoneNum=$("#phoneNum").val();
+			$.ajax({
+				type : "post",
+				url : "/phoneNum.jhtml",
+				dataType : "json",
+				data :{"phoneNum":phoneNum} ,
+				success : function(data) {
+					if(data.message == "success"){
+						$("#phoneNumMsg").css("display","none");
+						$("#phoneNumImg").css("display","block")[0].src="images/good2.gif";
+					}else if(data.message == "error"){
+						$("#phoneNumMsg").css("display","block");
+						$("#phoneNumImg").css("display","block")[0].src="images/chacha.png";
+					}else{
+						$("#phoneNumMsg").css("display","none");
+						$("#phoneNumImg").css("display","none");
+					}
+				}
+			});
+		});
+		
+		$("#qqNum").blur(function(){
+			var qqNum=$("#qqNum").val();
+			$.ajax({
+				type : "post",
+				url : "/qqNum.jhtml",
+				dataType : "json",
+				data :{"qqNum":qqNum} ,
+				success : function(data) {
+					if(data.message == "success"){
+						$("#qqNumMsg").css("display","none");
+						$("#qqNumImg").css("display","block")[0].src="images/good3.gif";
+					}else{
+						$("#qqNumMsg").css("display","block");
+						$("#qqNumImg").css("display","block")[0].src="images/chacha.png";
+					}
+				}
+			});
+		});
+		
+		$("#businessRange").change(function(){
+			if($("#businessTd select").length < 5){
+				var buss=$("#businessRange").clone(true);
+				$(this).unbind();
+				$("#businessRange").attr("id","Range");
+				$("#businessTd").append(buss);
+			}
+		});
+
+>>>>>>> Stashed changes
 	});	
 		
 </script>
@@ -146,6 +275,7 @@
 			</table>			
 			<hr style="width:85%;border:1px solid #E8E8E8;" />
 			
+<<<<<<< Updated upstream
 			<table class="main_table2" cellspacing="0">
 				<tr>
 					<td style="color:red;">*</td>
@@ -235,6 +365,123 @@
 				</tr>
 			</table>
 			
+=======
+			<!--   chqx -->
+			<table id="suib" style="margin:0px auto;">
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
+		                <td>
+		                    <input id="shopName" type="text" name="shopName">
+		                </td>
+		                <td><img id="shopNameImg" style="display:none;" src="images/chacha.png" /></td>
+		                <td>
+		                    <div id="shopNameMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
+		                        <p style="line-height:28px; color:red; margin-left:20px;">输入格式不正确，请重新输入！</p>
+		                    </div>
+		                    <div id="shopNameMsg2" style="width:351px; height:31px; margin-bottom:14px; background-image:url(images/bg.png);background-position:-101px 407px;">
+		                        <p style="line-height:28px; color:black; margin-left:20px;">名称长度为1-10个汉字，不能含有特殊字符!</p>
+		                    </div>
+		                </td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>详细位置：</b></td>
+		                <td>
+		                    <input id="location" name="location" type="text" />
+		                </td>
+		                <td></td>
+		                <td></td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>经营范围：</b></td>
+		                <td id="businessTd">
+		                    <select id="businessRange" name="businessRange" style="width:340px;text-align:center;margin-bottom:10px;">
+								<option value=""  selected="selected">请选择..</option>
+								<option value="1">1======</option>
+								<option value="2">2======</option>
+								<option value="3">3=======</option>
+								<option value="4">4==========</option>
+								<option value="5">5=====</option>
+							</select>
+		                </td>
+		                <td></td>
+		                <td></td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>价格区间：</b></td>
+		                <td>
+		                    <input id="priceRange" type="text" name="priceRange" />
+		                </td>
+		                <td></td>
+		                <td></td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>联系电话：</b></td>
+		                <td>
+		                    <input id="phoneNum" type="text" name="phoneNum">
+		                </td>
+		                <td><img id="phoneNumImg" style="display:none;" src="images/chacha.png" /></td>
+		                <td>
+		                	<div id="phoneNumMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
+		                        <p style="line-height:28px; color:red; margin-left:20px;">输入手机号不正确，请重新输入！</p>
+		                    </div>
+		                </td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>QQ号码：</b></td>
+		                <td>
+		                    <input onkeyup="value=this.value.replace(/\D+/g,'')" id="qqNum" type="text" name="qqNum" />
+		                </td>
+		                <td><img id="qqNumImg" style="display:none;" src="images/chacha.png" /></td>
+		                <td>
+		                	<div id="qqNumMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
+		                        <p style="line-height:28px; color:red; margin-left:20px;">输入格式不正确，请重新输入！</p>
+		                    </div>
+		                </td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺特色：</b></td>
+		                <td colspan="2" id="shopSpec">
+		                	<p id="special" name="special" style="margin-top:13px;">潮流</p>
+							<p id="special" name="special" style="">精致韩风</p>
+							<p id="special" name="special" style="">商务休闲</p>
+							<p id="special" name="special" style="">青春活力</p>
+							<p id="special" name="special" style="">小清新</p>
+							<p id="special" name="special" style="">欧美简约</p>
+							
+							<p id="special" name="special" style="">基础大众</p>
+							<p id="special" name="special" style="">日系复古</p>
+							<p id="special" name="special" style="">美式休闲</p>
+							<p id="special" name="special" style="">英式学院</p>
+							<p id="special" name="special" style="">商务正装</p>
+							
+							<p id="special" name="special" style="">中国风</p>
+							<p id="special" name="special" style="">工装军旅</p>
+							<p id="special" name="special" style="">嘻哈</p>
+							<p id="special" name="special" style="">朋克</p>
+		                </td>
+		                <td></td>
+		              </tr>
+		              <tr>
+		              	<td></td>
+		              	<td>
+		              		<div style="padding-left:40px;">
+								<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
+								<div class="brandImg" style="margin-top:20px;">
+									<span>
+										<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+									</span>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+								</div>
+								<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
+								<input type="hidden" id="filename0" name="filename0">
+							</div>
+		              	</td>
+		              	<td></td>
+		              	<td></td>
+		              </tr>
+		         
+		            </table>
+>>>>>>> Stashed changes
 		</div>
 
 		
