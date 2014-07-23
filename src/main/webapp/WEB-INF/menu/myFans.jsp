@@ -171,7 +171,6 @@
 			<div class="p_main">
 				<img src="/images/line.png" style="margin-bottom:20px;">
 				
-<<<<<<< Updated upstream
 				<div class="p_list">
 					<div class="p_top">
 						<div class="p_top_img">
@@ -251,41 +250,11 @@
 						<p class="p_speci_p">小清新</p>
 					</div>
 				</div>
-=======
-				<c:forEach items="fans" var="fan">
->>>>>>> Stashed changes
 				
-					<div class="p_list">
-						<div class="p_top">
-							<div class="p_top_img">
-								<img src="/images/header.png" width="50" height="50">
-							</div>
-<<<<<<< Updated upstream
-							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
-								<span class="nRecord">已关注</span>
-								<s class="gougou"></s>
-=======
-							<div class="p_top_word">
-								<div class="p_top_word_name">
-									<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-									<span class="nSex">女</span>
-								</div>
-								<div class="p_top_word_time">
-									<span class="nTime">2014年7月16日 12：59</span>
-									<span class="nRecord">已关注</span>
-								</div>
->>>>>>> Stashed changes
-							</div>
-						</div>
-						<div class="p_speci">
-							<p class="p_speci_p">潮流</p>
-							<p class="p_speci_p">潮流</p>
-							<p class="p_speci_p">潮流</p>
-							<p class="p_speci_p">商务休闲</p>
-							<p class="p_speci_p">青春活力</p>
-							<p class="p_speci_p">精致韩风</p>
-							<p class="p_speci_p">小清新</p>
+				<div class="p_list">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
 						</div>
 						<div class="p_top_word">
 							<div class="p_top_word_name">
@@ -301,13 +270,15 @@
 					</div>
 					<div class="p_speci">
 						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">精致韩风</p>
+						<p class="p_speci_p">潮流</p>
+						<p class="p_speci_p">潮流</p>
 						<p class="p_speci_p">商务休闲</p>
 						<p class="p_speci_p">青春活力</p>
+						<p class="p_speci_p">精致韩风</p>
 						<p class="p_speci_p">小清新</p>
 					</div>
+				</div>
 				
-				</c:forEach>
 			</div>
 		</div>
 

@@ -73,6 +73,7 @@ body {
 	color:#FFFFFF;
 	width:135px;
 	height:35px;
+	cursor:pointer;
 }
 </style>
 <meta http-equiv="pragma" content="no-cache">
@@ -100,7 +101,6 @@ body {
 						alert(data);
 						if (data.message == "error") {
 							//$("#msg").text("用户不存在!");
-							alert("caoni ma");
 							$("#check").css("display","block");
 							return false;
 						}else if (data.message == "success") {
@@ -133,7 +133,7 @@ body {
     <div style="width:100%; height:470px; background-color:#69CDCD;">
     	<div style="margin:0px auto; width:1000px; height:470px; background-image:url(images/computer.png); background-repeat: no-repeat;">
         	<div id="landdiv">
-        	<form id="loginForm" action="" method="post">
+        	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
             		<b>账&nbsp;&nbsp;&nbsp;号：</b>
             		<input name="userName" id="userName" type="text" placeholder="请输入商户账号，或商场管理员账号" value=""/>

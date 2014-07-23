@@ -98,7 +98,7 @@
 	overflow:hidden;
 }
 
-.pro_hit span {
+.pro_hit_span {
 	background: #58B3B4;
 	color: #FFFFFF;
 	border-radius: 2px;
@@ -158,6 +158,8 @@
 	width:75px;
 	height:25px;
 	text-align:right;
+	color:#FFFFFF;
+	line-height:25px;
 }
 </style>
 <script type="text/javascript">
@@ -201,7 +203,7 @@
 	   			</div> -->
 					<div class="pro_hit">
 						<span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span>
-						<span style="float:right;">${tgLi1.viewCount}点击</span>
+						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
 					</div>
 				</div>
 			</c:forEach>
@@ -221,8 +223,8 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi2.bePraisedCount}赞</span> <span
-							style="float:right;">${tgLi2.viewCount}点击</span>
+						<span class="pro_hit_1">${tgLi2.bePraisedCount}赞</span> 
+						<span class="pro_hit_span" style="float:right;">${tgLi2.viewCount}点击</span>
 					</div>
 				</div>
 			</c:forEach>
@@ -242,8 +244,8 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi3.bePraisedCount}赞</span> <span
-							style="float:right;">${tgLi3.viewCount}点击</span>
+						<span class="pro_hit_1">${tgLi3.bePraisedCount}赞</span> 
+						<span  class="pro_hit_span" style="float:right;">${tgLi3.viewCount}点击</span>
 					</div>
 				</div>
 			</c:forEach>
@@ -263,8 +265,8 @@
 	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
 	   			</div> -->
 					<div class="pro_hit">
-						<span style="float:left;">${tgLi4.bePraisedCount}赞</span> <span
-							style="float:right;">${tgLi4.viewCount}点击</span>
+						<span class="pro_hit_1">${tgLi4.bePraisedCount}赞</span> 
+						<span  class="pro_hit_span" style="float:right;">${tgLi4.viewCount}点击</span>
 					</div>
 				</div>
 			</c:forEach>

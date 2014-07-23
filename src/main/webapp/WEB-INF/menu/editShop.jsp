@@ -163,7 +163,6 @@
 				}
 			});
 		});
-<<<<<<< Updated upstream
 		
 		$("#add_img").click(function(){
 			var a = $(".shopShow .brandImg").size() + 1;
@@ -175,7 +174,6 @@
 				$(".shopShow").append(html);
 			}
 		});
-=======
 
 		$("#shopName").blur(function(){
 			var shopName=$("#shopName").val();
@@ -252,7 +250,6 @@
 			}
 		});
 
->>>>>>> Stashed changes
 	});	
 		
 </script>
@@ -275,98 +272,6 @@
 			</table>			
 			<hr style="width:85%;border:1px solid #E8E8E8;" />
 			
-<<<<<<< Updated upstream
-			<table class="main_table2" cellspacing="0">
-				<tr>
-					<td style="color:red;">*</td>
-					<td>店铺名称：</td>
-					<td style="width:85%;">
-						<input type="text" name="">
-					</td>
-				</tr>
-				<tr>
-					<td style="color:red;">*</td>
-					<td>店铺介绍：</td>
-					<td>
-						<textArea style="width:400px;height:50px;resize:none;"></textArea>
-					</td>
-				</tr>
-				<tr>
-					<td style="color:red;">*</td>
-					<td style="">详细位置：</td>
-					<td id="main_table2_td" class="main_table2_td" style="">
-						<input type="text" name="">
-					</td>
-				</tr>
-				<tr>
-					<td style="color:red;">*</td>
-					<td style="">经营范围：</td>
-					<td id="main_table2_td2" class="main_table2_td" style="">
-						<select name="" style="width:400px;text-align:center;margin-bottom:10px;">
-							<option value="">请选择..</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td style="color:red;">*</td>
-					<td style="">联系电话：</td>
-					<td id="main_table2_td" class="main_table2_td" style="">
-						<input type="text" name="">
-					</td>
-				</tr>
-			</table>
-
-
-			<hr style="width:85%;border:1px solid #E8E8E8;" />
-			
-			<table class="main_table3" style="">
-				<tr>
-					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>营业执照:</td>
-				</tr>
-   				<tr style="">
-					<td colspan="2" style=""></td>
-					<td>
-						<div class="brandImg">
-							<span>
-								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<img style="width:229px;height:179px" src="" name="img"/>
-						</div>
-						<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
-						<input type="hidden" id="filename0" name="filename0">
-						<div class="main_table3_div3">
-							营业执照：<input type="text" name=""><br/>
-							注：必须上传营业执照或填写营业执照号
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>店铺预览:<input id="add_img" type="button" value="添加预览图"></td>
-				</tr>
-   				<tr style="">
-					<td colspan="2" style=""></td>
-					<td class="shopShow">
-						<div class="brandImg" style="margin-top:20px;">
-							<span>
-								<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<img style="width:229px;height:179px" src="" name="img"/>
-						</div>
-						<input type="file" style="display:none" id="file1" name="file1" onchange="filename1.value=this.value;loadImgFast(this,1)">
-						<input type="hidden" id="filename1" name="filename1">
-					</td>
-				</tr>
-			</table>
-			
-=======
-			<!--   chqx -->
 			<table id="suib" style="margin:0px auto;">
 		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
@@ -462,10 +367,9 @@
 		                <td></td>
 		              </tr>
 		              <tr>
-		              	<td></td>
+		              	<td><font color="red">*</font><span style="font-weight:normal;">营业执照：</span></td>
 		              	<td>
 		              		<div style="padding-left:40px;">
-								<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
 								<div class="brandImg" style="margin-top:20px;">
 									<span>
 										<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
@@ -481,7 +385,6 @@
 		              </tr>
 		         
 		            </table>
->>>>>>> Stashed changes
 		</div>
 
 		
