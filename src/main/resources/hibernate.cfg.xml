@@ -111,7 +111,6 @@
 	<mapping class="com.etech.entity.Tshopfavorite" />
 	<mapping class="com.etech.entity.Tshopfeature" />
 	<mapping class="com.etech.entity.Tshoppraisehistory" />
-	<mapping class="com.etech.entity.Tshopsuser" />
 	<mapping class="com.etech.entity.Tshopuser" />
 	<mapping class="com.etech.entity.Tshopuserlogin" />
 	<mapping class="com.etech.entity.Tshopviewhistory" />

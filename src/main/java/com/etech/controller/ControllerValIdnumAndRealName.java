@@ -2,17 +2,15 @@ package com.etech.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.etech.entity.Tshopsuser;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
 
@@ -26,7 +24,7 @@ public class ControllerValIdnumAndRealName {
 	 * Begin Author:yangQiXian Data:2014=07-03 AddReason:ajax验证身份证和真实姓名
 	 */
 	@RequestMapping(value = "/registidnumberandrealname")
-	public void registIdAndRN(Tshopsuser regUser, HttpServletRequest request,
+	public void registIdAndRN(Tshopuser regUser, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> message = new HashMap<String, Object>();
 		

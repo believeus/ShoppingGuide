@@ -8,38 +8,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
-import org.junit.Assert;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tshop;
-import com.etech.entity.Tshopsuser;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
 import com.etech.webutil.LatitudeUtils;
-import com.etech.webutil.PropertiesUtils;
 import com.etech.webutil.WebServiceValidCode;
 @Controller
 public class ControllerRegister {
@@ -53,7 +44,7 @@ public class ControllerRegister {
 	public @ResponseBody String validateMobile(String phoneNumber){
 		log.debug("current register phoneNumber:"+phoneNumber);
 		// 根据手机号查找该用户是否被注册
-		Tshopsuser shopuser = (Tshopsuser)etechService.findObject(Tshopsuser.class, Variables.phoneNumber, phoneNumber);
+		Tshopuser shopuser = (Tshopuser)etechService.findObject(Tshopuser.class, Variables.phoneNumber, phoneNumber);
 		// 该手机号被注册
 		if(!StringUtils.isEmpty(shopuser)){
 			return "false";
@@ -113,7 +104,7 @@ public class ControllerRegister {
 	}
 	/**End Author:wuqiwei   Data:2014-07-15 AddReason:表单验证通过后,将该用户保存到数据库*/
 	@RequestMapping(value="/dealRegister2")
-	public void dealRegister2(Tshopsuser shopuser,HttpServletRequest request,ServletResponse response){
+	public void dealRegister2(Tshopuser shopuser,HttpServletRequest request,ServletResponse response){
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
 		String licenseImg = "";
@@ -235,7 +226,6 @@ public class ControllerRegister {
 		@SuppressWarnings("unchecked")
 		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, Integer.MAX_VALUE);
 		request.setAttribute("tList", tList);
-		log.debug(tList.size());
 		return "/WEB-INF/register3.jsp";
 	}
 	/**End Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/

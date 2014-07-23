@@ -13,7 +13,7 @@ import org.junit.Assert;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.etech.entity.Tshopsuser;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
 
@@ -26,11 +26,11 @@ public class ControllerLogin {
 	
 	/**Begin Author:yangQiXian Data:2014-07-02 AddReason:用户登陆,进行ajax登录验证 */
 	@RequestMapping(value = "/ajaxLoginValid")
-	public void ajaxLoginValid(Tshopsuser formUser, HttpServletResponse response,HttpSession session) throws Exception {
+	public void ajaxLoginValid(Tshopuser formUser, HttpServletResponse response,HttpSession session) throws Exception {
 		Assert.assertNotNull(formUser);
 		log.debug("current user name:"+formUser.getUserName());
 		log.debug("current user passowrd:"+formUser.getPassword());
-		Tshopsuser sessionUser = (Tshopsuser) userService.findObject(Tshopsuser.class, "userName", formUser.getUserName());
+		Tshopuser sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "userName", formUser.getUserName());
 		Map<String, Object> message=new HashMap<String, Object>();
 			if(!StringUtils.isEmpty(sessionUser)){
 				String oldPassword = DigestUtils.md5Hex(formUser.getPassword());

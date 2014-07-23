@@ -1,17 +1,15 @@
 package com.etech.controller;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.etech.entity.Tshopsuser;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.webutil.Brower;
 @Controller
@@ -24,12 +22,12 @@ public class ControllerRegistUserName {
 	 * Begin Author:yangQiXian Data:2014=07-02 AddReason:ajax判断用户名的ajax验证
 	 */
 	@RequestMapping(value = "/ajaxRegValidateUserName")
-	public void ajaxComValidUserName(Tshopsuser regUser,
+	public void ajaxComValidUserName(Tshopuser regUser,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		log.debug("current regUser reginName:" + regUser.getUserName());
 		String userName = regUser.getUserName();
-		Tshopsuser sessionUser = (Tshopsuser) etechService.findObject(Tshopsuser.class, "userName", userName);
+		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, "userName", userName);
 		Map<String, Object> message = new HashMap<String, Object>();
 		if (!StringUtils.isEmpty(sessionUser)) {
 			if (regUser.getUserName().equals(sessionUser.getUserName())) {

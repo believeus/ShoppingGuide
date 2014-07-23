@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etech.entity.Tshopsuser;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
@@ -27,7 +27,7 @@ public class ControllerRegistSuccess {
 	 * Begin Author:yangQiXian Data:2014=07-03 AddReason:注册成功
 	 */
 	@RequestMapping(value = "/registSuccess")
-	public void registSuccess(Tshopsuser shopsuser, HttpServletRequest request,
+	public void registSuccess(Tshopuser shopsuser, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		if (!StringUtils.isEmpty(shopsuser)) {
