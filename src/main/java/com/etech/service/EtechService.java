@@ -29,8 +29,7 @@ public class EtechService {
 		return etechComDao.findObject(clazz, property, value);
 	}
 
-	public List<?> findObjectList(Class<?> clazz, Object property,
-			Object value) {
+	public List<?> findObjectList(Class<?> clazz, Object property,Object value) {
 		return etechComDao.findObjectList(clazz, property, value);
 	}
 

@@ -273,6 +273,7 @@
 				style="color:red;">直接登录</a></span>
 		</div>
 		<form id="registerForm" action="/dealRegister2.jhtml" method="post" autocomplete="off" enctype="multipart/form-data" >
+			<input type="hidden" name="shopuserId" value="${sessionUser.shopUserId}"/>
 			<div class="stable">
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">店铺名称:</span>
@@ -323,8 +324,8 @@
 						</span>
 						<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
 					</div>
-					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
-					<input type="hidden" id="filename0" name="licenseImg">
+					<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
+					<input type="hidden" id="filename0">
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span><input id="add_img" type="button" value="添加展示图片" onClick=""/><br> 

@@ -1,9 +1,14 @@
 package com.etech.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,12 +18,13 @@ import javax.persistence.Table;
 @Table(name = "tfeature", catalog = "dbshop")
 public class Tfeature implements java.io.Serializable {
 
-	// Fields
-
+	private static final long serialVersionUID = 934741253301408491L;
 	private Integer featureId;
 	private String featureName;
 	private Short featureType;
 	private Integer count;
+	private List<Tshop> shops=new ArrayList<Tshop>();
+	
 
 	// Constructors
 
@@ -33,7 +39,6 @@ public class Tfeature implements java.io.Serializable {
 		this.count = count;
 	}
 
-	// Property accessors
 	@Id
 	@GeneratedValue
 	@Column(name = "FeatureID", nullable = false)
@@ -71,5 +76,14 @@ public class Tfeature implements java.io.Serializable {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="features")
+	public List<Tshop> getShops() {
+		return shops;
+	}
 
+	public void setShops(List<Tshop> shops) {
+		this.shops = shops;
+	}
+	
+	
 }

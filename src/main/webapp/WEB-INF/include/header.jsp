@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	<div class="msg" style="">
            	<a href="javascript:void(0);" class="hello">admin,你好！</a>&nbsp;&nbsp;&nbsp;
            	<a href="" title="查看消息" style="color:#056f6f;">消息(0)</a>&nbsp;|&nbsp;
-           	<a href="" title="退出" style="color:#056f6f;">退出</a>
+           	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>
            	<div class="setting">
            		<div style="width:103px;height:33px;line-height:33px;">
            			admin,你好！

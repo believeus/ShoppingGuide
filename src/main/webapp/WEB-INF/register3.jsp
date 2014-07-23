@@ -120,16 +120,14 @@
 		});
 		//添加
 		$("#addSpecial").click(function() {
-			var text = $("#textSpecial").val();
-			if (text == "") {
+			var feature = $("#textSpecial").val();
+			if (feature == "") {
 				alert("请输入关键字！");
 			} else {
-				var arr = new Array();
-				arr = text.split(" ");
-				for (var i = 0; i < arr.length; i++) {
-					var v = arr[i];
-					$("#tese").append("<a id='ta' class='aaa' name='xxx' onclick='addclass(this);'>" +v+ "</a>");
-				}
+				$.post("/insertFeature.jhtml",{feature:feature},function(result){
+					$("#tese").append("<a id='ta' class='aaa' name='xxx' onclick='addclass(this);'>" +feature+ "</a>");
+					$("#textSpecial").val("");
+				 });
 			}
 		});
 		
@@ -179,17 +177,13 @@
 			autocomplete="off">
 			<div class="stable">
 				<div class="tese" id="tese">
-					<a id="ta" name="featureName">你好</a>
-					<a id="ta" name="featureName">明天</a>
-					<a id="ta" name="featureName">加班</a>
 					<c:forEach var="tli" items="${tList}">
 						<a id="ta" name="featureName">${tli.featureName }</a>
 					</c:forEach>
 				</div>
 				<p>
-					<input id="textSpecial" type="text" name=""
-						style="width:300px;height:30px;" /> <input id="addSpecial"
-						class="add_tese" type="button" name="" value="添加" />
+					<input id="textSpecial" type="text" name="" style="width:300px;height:30px;" />
+					<input id="addSpecial" class="add_tese" type="button" name="" value="添加" />
 				</p>
 
 				<div class="btn_div">

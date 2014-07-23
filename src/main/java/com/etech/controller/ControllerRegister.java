@@ -8,10 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tmarket;
@@ -96,15 +99,22 @@ public class ControllerRegister {
 		shopuser.setAddTime(new Timestamp(System.currentTimeMillis()));
 		shopuser.setPageView(0);
 		shopuser.setState((short)Variables.reviewing);
+		shopuser.setLoginCount(1);
 		// 没有注册店铺
 		shopuser.setDefaultShopId(Variables.unRegister);
 		etechService.saveOrUpdate(shopuser);
 		session.setAttribute(Variables.sessionUser, shopuser);
 		Brower.redirect("/register2.jhtml", response);
 	}
-	/**End Author:wuqiwei   Data:2014-07-15 AddReason:表单验证通过后,将该用户保存到数据库*/
+	
 	@RequestMapping(value="/dealRegister2")
 	public void dealRegister2(Tshopuser shopuser,HttpServletRequest request,ServletResponse response){
+		String shopuserId=request.getParameter("shopuserId");
+		if(StringUtils.isEmpty(shopuserId)){
+			Brower.redirect("/login.jhtml", response);
+			return;
+		}
+		HttpSession session = request.getSession();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
 		String licenseImg = "";
@@ -117,10 +127,11 @@ public class ControllerRegister {
 				if(inputStream.available()==0)continue;
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
-				log.debug("upload file stuffix:"+extention);
-				if(file.getName().equals("licenseImg")){
+				log.debug("upload file name:"+file.getName());
+				if(file.getName().equals("shopLicenseImg")){
 				  // get the license save path
 				  licenseImg=UUID.randomUUID()+"."+extention;
+				  log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
 				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
 				}else {
 					shopImg=UUID.randomUUID()+"."+extention;
@@ -131,12 +142,9 @@ public class ControllerRegister {
 				e.printStackTrace();
 			}
 		}
-		HttpSession session = request.getSession();
-		Tshopuser sessionUser=(Tshopuser)session.getAttribute(Variables.sessionUser);
-		
+		log.debug("shop image sava db url:"+shopImg);
 		String goodsTypeId=request.getParameter("goodsTypeId");
 		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
-		
 		
 		// get shop address from form
 		String address=request.getParameter("address");
@@ -167,7 +175,7 @@ public class ControllerRegister {
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);
 		// shop shopusers many to many Tshopuser mapped by shopusers
-		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", 2);
+		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", Integer.valueOf(shopuserId));
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
 
@@ -175,58 +183,53 @@ public class ControllerRegister {
 		Brower.redirect("/register3.jhtml", response);
 	}
 	
-	/** 
-	 * End Author:wuqiwei Data:2014=05-26 Email:1058633117@qq.com
-	 * AddReason:ajax判断一般用户的ajax验证
-	 */
-
-	/**
-	 * 注册
-	 * @return
-	 */
 	@RequestMapping(value="/register")
 	public String registerView(){
 		return "/WEB-INF/register.jsp";
 	}
-	/**Begin Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/register2")
 	public String registerView2(HttpServletRequest request,ServletResponse response){
 		HttpSession session = request.getSession();
 		Tshopuser shopuser=(Tshopuser)session.getAttribute(Variables.sessionUser);
 		// the user unfinish the one step register,then jump the one step register page
-		/*if(shopsuser==null){
+		if(shopuser==null){
 			String url="/register.jhtml";
 			Brower.redirect(url, response);
-		}*/
-		String hql="from Tgoodstype";
-		@SuppressWarnings("unchecked")
+		}
 		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
 		List<Tmarket> marketList=(List<Tmarket>)etechService.findObjectList(Tmarket.class);
 		request.setAttribute("marketList", marketList);
 		return "/WEB-INF/register2.jsp";
 	}
-	/**End Author:yangQiXian Data:2014-07-16 AddReason:返回经营范围*/
 	
-	/**Begin Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/
 	@RequestMapping(value="/register3")
 	public String registerView3(HttpServletRequest request,ServletResponse response){
-		HttpSession session = request.getSession();
-		Tshopuser shopuser=(Tshopuser)session.getAttribute(Variables.sessionUser);
+		/*HttpSession session = request.getSession();
+		Integer shopUserId=((Tshopuser)session.getAttribute(Variables.sessionUser)).getShopUserId();
+		 Tshopuser shopuser=(Tshopuser)etechService.findObject(Tshopuser.class, 2);*/
 		// the user unfinish the one step register,then jump to one step /register.jhtml
-		if(shopuser==null){
-			String url="/register.jhtml";
-			Brower.redirect(url, response);
+		/*if(shopuser==null){
+			return "redirect:/register.jhtml";
 		// the user unfinish the second step register,then jump to one step /register2.jhtml
 		}else if(shopuser.getShops().isEmpty()){
-			String url="/register2.jhtml";
-			Brower.redirect(url, response);
-		}
-		
+			return "redirect:/register2.jhtml";
+		}*/
 		@SuppressWarnings("unchecked")
-		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, Integer.MAX_VALUE);
+		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, "featureType",new Short((short) 0));
 		request.setAttribute("tList", tList);
 		return "/WEB-INF/register3.jsp";
 	}
-	/**End Author:yangQiXian Data:2014-07-17 AddReason:返回商品特色*/
+	@RequestMapping(value="/insertFeature")
+	public void insertFeature(String feature,ServletResponse response){
+		Tfeature tfeature=new Tfeature();
+		tfeature.setFeatureName(feature);
+		tfeature.setFeatureType((short)1);
+		tfeature.setCount(0);
+		etechService.merge(tfeature);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg", "success");
+		Brower.outJson(map, response);
+	}
 }

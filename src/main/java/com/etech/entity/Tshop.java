@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @Table(name = "tshop", catalog = "dbshop")
 public class Tshop implements java.io.Serializable {
 
-	// Fields
 
 	private static final long serialVersionUID = -15115199236039315L;
 	private Integer shopId;
@@ -50,6 +49,7 @@ public class Tshop implements java.io.Serializable {
 	private String businessLicenseNo;
 	private List<Tshopuser> shopusers=new ArrayList<Tshopuser>();
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
+	private List<Tfeature> features=new ArrayList<Tfeature>();
 	private Tmarket market;
 	// Constructors
 
@@ -300,6 +300,18 @@ public class Tshop implements java.io.Serializable {
 
 	public void setMarket(Tmarket market) {
 		this.market = market;
+	}
+	
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "tshopfeature",
+    joinColumns = { @JoinColumn(name = "ShopID", referencedColumnName = "ShopID") }, 
+    inverseJoinColumns = { @JoinColumn(name = "FeatureID", referencedColumnName = "FeatureID") })
+	public List<Tfeature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<Tfeature> features) {
+		this.features = features;
 	}
 	
 }
