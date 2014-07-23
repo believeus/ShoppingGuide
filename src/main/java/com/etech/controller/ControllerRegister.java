@@ -227,9 +227,9 @@ public class ControllerRegister {
 		tfeature.setFeatureName(feature);
 		tfeature.setFeatureType((short)1);
 		tfeature.setCount(0);
-		etechService.merge(tfeature);
+		etechService.saveOrUpdate(tfeature);
 		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("msg", "success");
+		map.put("tfeatureId", tfeature.getFeatureId());
 		Brower.outJson(map, response);
 	}
 }

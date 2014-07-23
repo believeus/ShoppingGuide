@@ -125,33 +125,24 @@
 				alert("请输入关键字！");
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
-					$("#tese").append("<a id='ta' class='aaa' name='xxx' onclick='addclass(this);'>" +feature+ "</a>");
+					var tfeatureId=result.match(/[0-9]+/);
+					alert(tfeatureId);
+					$("#tese").append("<a id='ta' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</a>");
 					$("#textSpecial").val("");
 				 });
 			}
 		});
 		
 		$("#submit").click(function() {
-			var featureName = new Array();
-			var end = $("#ta").text();
-			if ($("#ta").hasClass("current")) {
-				for (var i = 0; i <10; i++) {
-					featureName[i] = $("#ta").text();
-					
-				}
-				var postData = $.toJSON(featureName); 
-				var content = $.parseJSON(postData);
-				 $.each(content, function () {
-                    alert(this.name);
-                });
-			}
-			$.ajax({
-				type : "post",
-				url : "/saveFeature.jhtml",
-				dataType : "json",
-				data : {"featureName":content}
+			var featureIds=new Array();
+			$("#ta.current").each(function(){
+				featureIds.push($(this).attr("value"));
 			});
-		});
+			$.post("/saveFeature.jhtml",{"featureIds":featureIds.toString(),"sessionUserId":2},function(result){
+				top.location.href="/menu.jhtml";
+				
+			});
+	});
 	});
 </script>
 </head>
@@ -161,8 +152,7 @@
 
 	<div class="s_main">
 		<p style="font-size: 22px; margin: 10px 0px; padding-left: 35px;">
-			<font color="#69CDCD">商户注册</font> <font color="#AEAEAE">USER
-				REGEDIT</font>
+			<font color="#69CDCD">商户注册</font> <font color="#AEAEAE">USER REGEDIT</font>
 		</p>
 		<p style="margin:10px 0;">
 			<img src="images/r3.jpg" width="1000">
@@ -178,7 +168,7 @@
 			<div class="stable">
 				<div class="tese" id="tese">
 					<c:forEach var="tli" items="${tList}">
-						<a id="ta" name="featureName">${tli.featureName }</a>
+						<a id="ta" value="${tli.featureId}">${tli.featureName }</a>
 					</c:forEach>
 				</div>
 				<p>
@@ -187,8 +177,7 @@
 				</p>
 
 				<div class="btn_div">
-					<input id="submit" type="submit" value="完成注册"
-						style="background:#69CDCD;border:1px solid #69CDCD;">
+					<input id="submit" type="button" value="完成注册" style="background:#69CDCD;border:1px solid #69CDCD;">
 				</div>
 			</div>
 		</form>
