@@ -47,7 +47,7 @@ public class ControllerRegistThree {
 			for (Iterator<Tshop> iterator = shops.iterator(); iterator.hasNext();) {
 				Tshop tshop = (Tshop) iterator.next();
 				Tshopfeature shopfeature=new Tshopfeature();
-				shopfeature.setShopFeatureId(feature.getFeatureId());
+				shopfeature.setFeatureId(feature.getFeatureId());
 				shopfeature.setShopId(tshop.getShopId());
 				shopfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
 				etechService.merge(shopfeature);
