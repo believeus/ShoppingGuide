@@ -86,29 +86,19 @@ body {
 <script type="text/javascript">
 	$().ready(function() {
 		$("#login").click(function() {
-			var userName = $("#userName").val();
-			var password = $("#password").val();
-			if(userName == "" || password == ""){
+			if($("#userName").val() == "" || $("#password").val() == ""){
 				$("#check").css("display","block");
-				return false;
 			}else{
-				$.ajax({
-					type : "post",
-					url : "/ajaxLoginValid.jhtml",
-					dataType : "json",
-					data : $("#loginForm").serialize(),
-					success : function(data) {
-						if (data.message == "error") {
-							//$("#msg").text("用户不存在!");
-							$("#check").css("display","block");
-							return false;
-						}else if (data.message == "success") {
-							location.href = "/menu.jhtml";
-						}
+				$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
+					if(message=="success"){
+						top.location.href="/menu.jhtml";
+					}else{
+						$("#check").css("display","block");
 					}
 				});
 			}
 		});
+		
 		$("#register").click(function() {
 			window.location.href = "/regist.jhtml";
 		});
