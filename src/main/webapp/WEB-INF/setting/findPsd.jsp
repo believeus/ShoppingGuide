@@ -233,11 +233,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
 							<input type="hidden" id="filename0" name="filename0">
 						</td>
-						<td style="text-align: right;width: 200px;">营业执照号:</td>
-						<td>
-							<input type="text" name="" style="width:200px;margin-top:13px;"/>
-							<div style="position:relative;top:10px;right:85px;font-size:13px;">注明：必须上传营业执照或者填写执照号</div>
-						</td>
 					</tr>
 				</table>
 	            <table>
