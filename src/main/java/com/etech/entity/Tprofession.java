@@ -32,7 +32,7 @@ public class Tprofession implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ProfessionID", nullable = false)
+	@Column(name = "ProfessionID", unique = true, nullable = false)
 	public Integer getProfessionId() {
 		return this.professionId;
 	}

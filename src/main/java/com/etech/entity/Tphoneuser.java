@@ -40,6 +40,7 @@ public class Tphoneuser implements java.io.Serializable {
 	private String sign;
 	private Integer areaId;
 	private Short state;
+	private String userName;
 
 	// Constructors
 
@@ -50,7 +51,7 @@ public class Tphoneuser implements java.io.Serializable {
 	/** minimal constructor */
 	public Tphoneuser(Short userType, Integer professionId, Timestamp addTime,
 			Integer loginCount, Double longitude, Double latitude,
-			Integer areaId, Short state) {
+			Integer areaId, Short state, String userName) {
 		this.userType = userType;
 		this.professionId = professionId;
 		this.addTime = addTime;
@@ -59,6 +60,7 @@ public class Tphoneuser implements java.io.Serializable {
 		this.latitude = latitude;
 		this.areaId = areaId;
 		this.state = state;
+		this.userName = userName;
 	}
 
 	/** full constructor */
@@ -68,7 +70,7 @@ public class Tphoneuser implements java.io.Serializable {
 			Integer professionId, String fancy, Timestamp addTime,
 			Timestamp lastLoginTime, Integer loginCount, String profilePhoto,
 			String openId, Double longitude, Double latitude, String sign,
-			Integer areaId, Short state) {
+			Integer areaId, Short state, String userName) {
 		this.userType = userType;
 		this.phoneNumber = phoneNumber;
 		this.imei = imei;
@@ -92,12 +94,13 @@ public class Tphoneuser implements java.io.Serializable {
 		this.sign = sign;
 		this.areaId = areaId;
 		this.state = state;
+		this.userName = userName;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "PhoneUserID", nullable = false)
+	@Column(name = "PhoneUserID", unique = true, nullable = false)
 	public Integer getPhoneUserId() {
 		return this.phoneUserId;
 	}
@@ -311,6 +314,15 @@ public class Tphoneuser implements java.io.Serializable {
 
 	public void setState(Short state) {
 		this.state = state;
+	}
+
+	@Column(name = "UserName", nullable = false, length = 30)
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

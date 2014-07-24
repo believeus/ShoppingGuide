@@ -62,7 +62,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "FindPasswordForShopUserID", nullable = false)
+	@Column(name = "FindPasswordForShopUserID", unique = true, nullable = false)
 	public Integer getFindPasswordForShopUserId() {
 		return this.findPasswordForShopUserId;
 	}

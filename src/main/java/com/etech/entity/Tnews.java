@@ -53,7 +53,7 @@ public class Tnews implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "NewsID", nullable = false)
+	@Column(name = "NewsID", unique = true, nullable = false)
 	public Integer getNewsId() {
 		return this.newsId;
 	}

@@ -50,7 +50,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "Id", nullable = false)
+	@Column(name = "Id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
 	}

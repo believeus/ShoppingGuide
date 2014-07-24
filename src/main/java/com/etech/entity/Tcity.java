@@ -46,7 +46,7 @@ public class Tcity implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "CityID", nullable = false)
+	@Column(name = "CityID", unique = true, nullable = false)
 	public Integer getCityId() {
 		return this.cityId;
 	}

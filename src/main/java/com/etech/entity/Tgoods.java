@@ -19,7 +19,6 @@ public class Tgoods implements java.io.Serializable {
 	private Integer goodsId;
 	private Integer shopId;
 	private String goodsName;
-	private Integer goodsTypeId;
 	private Short isOnSale;
 	private String goodsFeature;
 	private String introduction;
@@ -34,6 +33,7 @@ public class Tgoods implements java.io.Serializable {
 	private Integer viewCount;
 	private Integer bePraisedCount;
 	private Integer publishUserId;
+	private Short publishFlag;
 
 	// Constructors
 
@@ -42,13 +42,12 @@ public class Tgoods implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tgoods(Integer shopId, String goodsName, Integer goodsTypeId,
-			Short isOnSale, Timestamp addTime, Short isRecommend,
-			Short examineState, Integer viewCount, Integer bePraisedCount,
-			Integer publishUserId) {
+	public Tgoods(Integer shopId, String goodsName, Short isOnSale,
+			Timestamp addTime, Short isRecommend, Short examineState,
+			Integer viewCount, Integer bePraisedCount, Integer publishUserId,
+			Short publishFlag) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
-		this.goodsTypeId = goodsTypeId;
 		this.isOnSale = isOnSale;
 		this.addTime = addTime;
 		this.isRecommend = isRecommend;
@@ -56,19 +55,19 @@ public class Tgoods implements java.io.Serializable {
 		this.viewCount = viewCount;
 		this.bePraisedCount = bePraisedCount;
 		this.publishUserId = publishUserId;
+		this.publishFlag = publishFlag;
 	}
 
 	/** full constructor */
-	public Tgoods(Integer shopId, String goodsName, Integer goodsTypeId,
-			Short isOnSale, String goodsFeature, String introduction,
-			Timestamp addTime, Timestamp stateChangeTime, Short isRecommend,
-			Short examineState, String goodsPhotoUrl,
-			String goodsDefaultPhotoUrl, Integer goodsDefaultPhotoWidth,
-			Integer goodsDefaultPhotoHeight, Integer viewCount,
-			Integer bePraisedCount, Integer publishUserId) {
+	public Tgoods(Integer shopId, String goodsName, Short isOnSale,
+			String goodsFeature, String introduction, Timestamp addTime,
+			Timestamp stateChangeTime, Short isRecommend, Short examineState,
+			String goodsPhotoUrl, String goodsDefaultPhotoUrl,
+			Integer goodsDefaultPhotoWidth, Integer goodsDefaultPhotoHeight,
+			Integer viewCount, Integer bePraisedCount, Integer publishUserId,
+			Short publishFlag) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
-		this.goodsTypeId = goodsTypeId;
 		this.isOnSale = isOnSale;
 		this.goodsFeature = goodsFeature;
 		this.introduction = introduction;
@@ -83,12 +82,13 @@ public class Tgoods implements java.io.Serializable {
 		this.viewCount = viewCount;
 		this.bePraisedCount = bePraisedCount;
 		this.publishUserId = publishUserId;
+		this.publishFlag = publishFlag;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "GoodsID", nullable = false)
+	@Column(name = "GoodsID", unique = true, nullable = false)
 	public Integer getGoodsId() {
 		return this.goodsId;
 	}
@@ -113,15 +113,6 @@ public class Tgoods implements java.io.Serializable {
 
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
-	}
-
-	@Column(name = "GoodsTypeID", nullable = false)
-	public Integer getGoodsTypeId() {
-		return this.goodsTypeId;
-	}
-
-	public void setGoodsTypeId(Integer goodsTypeId) {
-		this.goodsTypeId = goodsTypeId;
 	}
 
 	@Column(name = "IsOnSale", nullable = false)
@@ -248,6 +239,15 @@ public class Tgoods implements java.io.Serializable {
 
 	public void setPublishUserId(Integer publishUserId) {
 		this.publishUserId = publishUserId;
+	}
+
+	@Column(name = "PublishFlag", nullable = false)
+	public Short getPublishFlag() {
+		return this.publishFlag;
+	}
+
+	public void setPublishFlag(Short publishFlag) {
+		this.publishFlag = publishFlag;
 	}
 
 }

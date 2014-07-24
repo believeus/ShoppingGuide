@@ -34,7 +34,7 @@ public class Tshopbusinessscope implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ShopBusinessScopeID", nullable = false)
+	@Column(name = "ShopBusinessScopeID", unique = true, nullable = false)
 	public Integer getShopBusinessScopeId() {
 		return this.shopBusinessScopeId;
 	}

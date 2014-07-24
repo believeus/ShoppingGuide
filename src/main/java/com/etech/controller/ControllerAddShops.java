@@ -14,9 +14,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etech.entity.Tbusinessscope;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshop;
+import com.etech.entity.Tshopbusinessscope;
 import com.etech.service.EtechService;
 import com.etech.webutil.Variables;
 
@@ -28,7 +28,7 @@ public class ControllerAddShops {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/addShopDetails")
-	public String addShop(Tbusinessscope bscope,Tshop newShop,String shopName,String businessRange,String priceRange,String businessLicense,HttpServletRequest request,HttpSession session){
+	public String addShop(Tshopbusinessscope bscope,Tshop newShop,String shopName,String businessRange,String priceRange,String businessLicense,HttpServletRequest request,HttpSession session){
 		
 		
 //		String[] range=businessRange.split(",");

@@ -37,7 +37,7 @@ public class Tprovince implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ProvinceID", nullable = false)
+	@Column(name = "ProvinceID", unique = true, nullable = false)
 	public Integer getProvinceId() {
 		return this.provinceId;
 	}

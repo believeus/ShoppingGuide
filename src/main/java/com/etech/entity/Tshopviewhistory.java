@@ -38,7 +38,7 @@ public class Tshopviewhistory implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ShopViewHistoryID", nullable = false)
+	@Column(name = "ShopViewHistoryID", unique = true, nullable = false)
 	public Integer getShopViewHistoryId() {
 		return this.shopViewHistoryId;
 	}

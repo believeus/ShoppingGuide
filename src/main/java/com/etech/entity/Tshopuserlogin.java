@@ -48,7 +48,7 @@ public class Tshopuserlogin implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ShopUserLoginID", nullable = false)
+	@Column(name = "ShopUserLoginID", unique = true, nullable = false)
 	public Integer getShopUserLoginId() {
 		return this.shopUserLoginId;
 	}

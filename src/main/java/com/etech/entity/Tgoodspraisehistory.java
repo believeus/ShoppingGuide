@@ -38,7 +38,7 @@ public class Tgoodspraisehistory implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "GoodsPraiseHistoryID", nullable = false)
+	@Column(name = "GoodsPraiseHistoryID", unique = true, nullable = false)
 	public Integer getGoodsPraiseHistoryId() {
 		return this.goodsPraiseHistoryId;
 	}

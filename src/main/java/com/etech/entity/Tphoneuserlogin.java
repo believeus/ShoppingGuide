@@ -48,7 +48,7 @@ public class Tphoneuserlogin implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "PhoneUserLoginID", nullable = false)
+	@Column(name = "PhoneUserLoginID", unique = true, nullable = false)
 	public Integer getPhoneUserLoginId() {
 		return this.phoneUserLoginId;
 	}

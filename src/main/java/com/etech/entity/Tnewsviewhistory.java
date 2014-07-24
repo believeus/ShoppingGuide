@@ -47,7 +47,7 @@ public class Tnewsviewhistory implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "NewsViewHistoryID", nullable = false)
+	@Column(name = "NewsViewHistoryID", unique = true, nullable = false)
 	public Integer getNewsViewHistoryId() {
 		return this.newsViewHistoryId;
 	}

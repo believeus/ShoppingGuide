@@ -78,6 +78,7 @@
 	<property name="connection.password">root</property>
 	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	
 	<mapping class="com.etech.entity.Tadminpermission" />
 	<mapping class="com.etech.entity.Tadminpermissiongroup" />
 	<mapping class="com.etech.entity.Tadminrole" />

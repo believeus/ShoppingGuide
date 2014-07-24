@@ -66,7 +66,7 @@ public class Tadminuser implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "AdminUserID", nullable = false)
+	@Column(name = "AdminUserID", unique = true, nullable = false)
 	public Integer getAdminUserId() {
 		return this.adminUserId;
 	}

@@ -7,13 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+/**
+ * Tshopfeature entity. @author MyEclipse Persistence Tools
+ */
 @Entity
 @Table(name = "tshopfeature", catalog = "dbshop")
 public class Tshopfeature implements java.io.Serializable {
 
 	// Fields
-	private static final long serialVersionUID = -1554610193552004000L;
+
 	private Integer shopFeatureId;
 	private Integer shopId;
 	private Integer featureId;
@@ -35,7 +37,7 @@ public class Tshopfeature implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "ShopFeatureID", nullable = false)
+	@Column(name = "ShopFeatureID", unique = true, nullable = false)
 	public Integer getShopFeatureId() {
 		return this.shopFeatureId;
 	}

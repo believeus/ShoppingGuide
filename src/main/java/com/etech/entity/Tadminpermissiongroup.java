@@ -40,7 +40,7 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "AdminRolePermissionsOwnID", nullable = false)
+	@Column(name = "AdminRolePermissionsOwnID", unique = true, nullable = false)
 	public Integer getAdminRolePermissionsOwnId() {
 		return this.adminRolePermissionsOwnId;
 	}

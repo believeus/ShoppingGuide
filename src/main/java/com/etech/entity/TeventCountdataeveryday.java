@@ -50,7 +50,7 @@ public class TeventCountdataeveryday implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "EventID", nullable = false)
+	@Column(name = "EventID", unique = true, nullable = false)
 	public Integer getEventId() {
 		return this.eventId;
 	}

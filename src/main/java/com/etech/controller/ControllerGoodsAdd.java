@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodstype;
 import com.etech.service.EtechService;
@@ -81,7 +80,6 @@ public class ControllerGoodsAdd {
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setGoodsName("");
 			tGoods.setPublishUserId(2);
-			tGoods.setGoodsTypeId(-1);
 			tGoods.setAddTime(new Timestamp(new Date().getTime()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);

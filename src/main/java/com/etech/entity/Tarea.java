@@ -46,7 +46,7 @@ public class Tarea implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "AreaID", nullable = false)
+	@Column(name = "AreaID", unique = true, nullable = false)
 	public Integer getAreaId() {
 		return this.areaId;
 	}

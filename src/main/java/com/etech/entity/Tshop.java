@@ -47,9 +47,9 @@ public class Tshop implements java.io.Serializable {
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
 	private String businessLicenseNo;
-	private List<Tshopuser> shopusers=new ArrayList<Tshopuser>();
-	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
-	private List<Tfeature> features=new ArrayList<Tfeature>();
+	private List<Tshopuser> shopusers=new ArrayList<Tshopuser>(0);
+	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>(0);
+	private List<Tfeature> features=new ArrayList<Tfeature>(0);
 	private Tmarket market;
 	// Constructors
 
@@ -280,9 +280,9 @@ public class Tshop implements java.io.Serializable {
 	}
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "tbusinessscope",
+	@JoinTable(name = "tshopbusinessscope",
     joinColumns = { @JoinColumn(name = "shopId", referencedColumnName = "shopId") }, 
-    inverseJoinColumns = { @JoinColumn(name = "goodsTypeId", referencedColumnName = "goodsTypeId") })
+    inverseJoinColumns = { @JoinColumn(name = "GoodsTypeID", referencedColumnName = "GoodsTypeID") })
 	public List<Tgoodstype> getGoodsTypes() {
 		return goodsTypes;
 	}

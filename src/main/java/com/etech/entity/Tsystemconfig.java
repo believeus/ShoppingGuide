@@ -39,7 +39,7 @@ public class Tsystemconfig implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "SystemConfigID", nullable = false)
+	@Column(name = "SystemConfigID", unique = true, nullable = false)
 	public Integer getSystemConfigId() {
 		return this.systemConfigId;
 	}

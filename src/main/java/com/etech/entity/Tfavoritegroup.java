@@ -42,7 +42,7 @@ public class Tfavoritegroup implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "FavoriteGroupID", nullable = false)
+	@Column(name = "FavoriteGroupID", unique = true, nullable = false)
 	public Integer getFavoriteGroupId() {
 		return this.favoriteGroupId;
 	}
