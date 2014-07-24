@@ -242,18 +242,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 	            <table>
 	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</b></td>
-	                <td>
-	                    <input type="password" placeholder="请输入账号" />
-	                </td>
-	                <td><img src="images/chacha.png" /></td>
-	                <td>
-	                    <div style="width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-	                        <p style="line-height:28px; color:red; margin-left:20px;">密码不能为空</p>
-	                    </div>
-	                </td>
-	              </tr>
-	              <tr>
 	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>手机号码：</b></td>
 	                <td>
 	                    <input type="text" placeholder="请输入手机号码" />
