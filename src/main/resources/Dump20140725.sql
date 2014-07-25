@@ -350,7 +350,7 @@ CREATE TABLE `tgoods` (
 
 LOCK TABLES `tgoods` WRITE;
 /*!40000 ALTER TABLE `tgoods` DISABLE KEYS */;
-INSERT INTO `tgoods` VALUES (1,1,'企鹅男士皮鞋',1,'正太','好皮鞋，你值得拥有','2014-07-12 12:12:12','2014-07-12 12:12:12',1,1,NULL,NULL,400,480,0,2,0,0),(2,1,'女士T恤',1,'1','1','2014-07-18 15:35:09','2014-07-18 15:35:09',0,0,'20140718153509850705.jpg,','20140718153509850705.jpg,',0,0,0,0,1,0),(3,1,'好好',1,'1','1','2014-07-18 15:54:28','2014-07-18 15:54:28',0,0,'20140718155427990471.jpg,','20140718155427990471.jpg,',0,0,0,0,1,0),(4,1,'好好',1,'1','1','2014-07-18 15:54:57','2014-07-18 15:54:57',0,0,'20140718155456102369.jpg,','20140718155456102369.jpg,',0,0,0,0,1,0);
+INSERT INTO `tgoods` VALUES (1,1,'企鹅男士皮鞋',1,'正太','好皮鞋，你值得拥有','2014-07-12 12:12:12','2014-07-12 12:12:12',1,1,NULL,NULL,400,480,0,1,0,0),(2,1,'女士T恤',1,'1','1','2014-07-18 15:35:09','2014-07-18 15:35:09',0,0,'20140718153509850705.jpg,','20140718153509850705.jpg,',0,0,0,0,1,0),(3,1,'好好',1,'1','1','2014-07-18 15:54:28','2014-07-18 15:54:28',0,0,'20140718155427990471.jpg,','20140718155427990471.jpg,',0,0,0,0,1,0),(4,1,'好好',1,'1','1','2014-07-18 15:54:57','2014-07-18 15:54:57',0,0,'20140718155456102369.jpg,','20140718155456102369.jpg,',0,0,0,0,1,0);
 /*!40000 ALTER TABLE `tgoods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +367,7 @@ CREATE TABLE `tgoodsfavorite` (
   `GoodsID` int(11) NOT NULL COMMENT '用户ID',
   `AddTime` datetime NOT NULL COMMENT '记录时间',
   PRIMARY KEY (`GoodsFavoriteID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品收藏表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品收藏表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +452,6 @@ CREATE TABLE `tgoodspraisehistory` (
 
 LOCK TABLES `tgoodspraisehistory` WRITE;
 /*!40000 ALTER TABLE `tgoodspraisehistory` DISABLE KEYS */;
-INSERT INTO `tgoodspraisehistory` VALUES (1,1,1,'2014-07-19 13:56:26');
 /*!40000 ALTER TABLE `tgoodspraisehistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,6 +468,7 @@ CREATE TABLE `tgoodstype` (
   `GoodsTypeName` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '名称',
   `HasChild` tinyint(4) NOT NULL DEFAULT '0',
   `Remark` text COLLATE utf8_bin COMMENT '备注',
+  `SortOrderNo` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`GoodsTypeID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品类型表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -479,7 +479,7 @@ CREATE TABLE `tgoodstype` (
 
 LOCK TABLES `tgoodstype` WRITE;
 /*!40000 ALTER TABLE `tgoodstype` DISABLE KEYS */;
-INSERT INTO `tgoodstype` VALUES (-1,-2,'无',1,NULL),(0,-1,'商品分类',1,NULL),(31,0,'女上装',1,NULL),(32,0,'女下装',1,NULL),(33,0,'男上装',1,NULL),(34,0,'男下装',1,NULL),(35,0,'女鞋',1,NULL),(36,0,'男鞋',1,NULL),(37,0,'内衣',1,NULL),(38,0,'箱包',1,NULL),(39,31,'T恤',1,NULL),(40,31,'雪纺衫',1,NULL),(41,31,'蕾丝衫',1,NULL),(42,39,'修身款',0,NULL),(43,39,'显瘦款',0,NULL),(44,39,'加大加宽',0,NULL);
+INSERT INTO `tgoodstype` VALUES (-1,-2,'无',1,NULL,0),(0,-1,'商品分类',1,NULL,0),(31,0,'女上装',1,NULL,0),(32,0,'女下装',1,NULL,0),(33,0,'男上装',1,NULL,0),(34,0,'男下装',1,NULL,0),(35,0,'女鞋',1,NULL,0),(36,0,'男鞋',1,NULL,0),(37,0,'内衣',1,NULL,0),(38,0,'箱包',1,NULL,0),(39,31,'T恤',1,NULL,0),(40,31,'雪纺衫',1,NULL,0),(41,31,'蕾丝衫',1,NULL,0),(42,39,'修身款',0,NULL,0),(43,39,'显瘦款',0,NULL,0),(44,39,'加大加宽',0,NULL,0);
 /*!40000 ALTER TABLE `tgoodstype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -828,6 +828,7 @@ CREATE TABLE `tshop` (
   `ShopPhotoURL` text COLLATE utf8_bin COMMENT '店铺图片URL',
   `ShopPhotoDefaultURL` text COLLATE utf8_bin COMMENT '店铺默认图片URL',
   `BusinessLicenseNo` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `Referee` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ShopID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商铺表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -838,7 +839,7 @@ CREATE TABLE `tshop` (
 
 LOCK TABLES `tshop` WRITE;
 /*!40000 ALTER TABLE `tshop` DISABLE KEYS */;
-INSERT INTO `tshop` VALUES (1,1,'七分美','张老板','13545123389','大洋百货一楼','4303654','100-1000',NULL,NULL,NULL,1,1,'2014-07-12 23:23:21',0,2,'正太',NULL,0,0,0,NULL,NULL,NULL),(2,1,'艾莱依','周老板','13456789087','大洋百货二楼',NULL,'200-500',NULL,NULL,NULL,0,1,'2014-07-12 23:23:21',0,0,NULL,NULL,0,0,0,NULL,NULL,NULL),(3,1,'珂卡芙','小张','13423458908','大洋百货二楼',NULL,'价格实惠',NULL,NULL,NULL,0,1,'2014-07-13 23:23:21',0,0,NULL,NULL,0,0,0,NULL,NULL,NULL);
+INSERT INTO `tshop` VALUES (1,1,'七分美','张老板','13545123389','大洋百货一楼','4303654','100-1000',NULL,NULL,NULL,1,1,'2014-07-12 23:23:21',0,1,'正太',NULL,0,0,0,NULL,NULL,NULL,NULL),(2,1,'艾莱依','周老板','13456789087','大洋百货二楼',NULL,'200-500',NULL,NULL,NULL,0,1,'2014-07-12 23:23:21',0,0,NULL,NULL,0,0,0,NULL,NULL,NULL,NULL),(3,1,'珂卡芙','小张','13423458908','大洋百货二楼',NULL,'价格实惠',NULL,NULL,NULL,0,1,'2014-07-13 23:23:21',0,0,NULL,NULL,0,0,0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tshop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -940,7 +941,7 @@ CREATE TABLE `tshoppraisehistory` (
 
 LOCK TABLES `tshoppraisehistory` WRITE;
 /*!40000 ALTER TABLE `tshoppraisehistory` DISABLE KEYS */;
-INSERT INTO `tshoppraisehistory` VALUES (1,1,1,'2014-07-03 12:12:12'),(2,1,2,'2014-07-09 12:12:12'),(3,2,2,'2014-07-10 12:12:12'),(4,2,3,'2014-07-12 12:12:12'),(5,2,1,'2014-07-19 13:17:14');
+INSERT INTO `tshoppraisehistory` VALUES (2,1,2,'2014-07-09 12:12:12'),(3,2,2,'2014-07-10 12:12:12'),(4,2,3,'2014-07-12 12:12:12'),(5,2,1,'2014-07-19 13:17:14');
 /*!40000 ALTER TABLE `tshoppraisehistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -966,9 +967,7 @@ CREATE TABLE `tshopuser` (
   `ProfilePhoto` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '头像',
   `State` tinyint(4) NOT NULL DEFAULT '0',
   `Score` int(11) NOT NULL DEFAULT '0',
-  `Referee` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `Grade` tinyint(4) NOT NULL DEFAULT '1',
-  `PageView` int(11) NOT NULL DEFAULT '0',
   `DefaultShopID` int(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`ShopUserID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商铺用户表';
@@ -980,7 +979,7 @@ CREATE TABLE `tshopuser` (
 
 LOCK TABLES `tshopuser` WRITE;
 /*!40000 ALTER TABLE `tshopuser` DISABLE KEYS */;
-INSERT INTO `tshopuser` VALUES (1,'test','e10adc3949ba59abbe56e057f20f883e','13545123387','买女孩的小火柴','张洁','女','420111198710157334','2014-07-12 23:21:12','2014-07-22 11:56:01',6,NULL,1,0,NULL,0,0,1),(2,'guest','e10adc3949ba59abbe56e057f20f883e','13545123381','小火柴','张小贤','男',NULL,'2014-07-14 23:21:12','2014-07-15 23:21:12',0,NULL,1,0,NULL,0,0,3),(3,'13545123387','e10adc3949ba59abbe56e057f20f883e','13545123387',NULL,NULL,NULL,NULL,'2014-07-23 08:56:44',NULL,0,NULL,1,0,NULL,1,0,-1);
+INSERT INTO `tshopuser` VALUES (1,'test','e10adc3949ba59abbe56e057f20f883e','13545123387','买女孩的小火柴','张洁','女','420111198710157334','2014-07-12 23:21:12','2014-07-24 16:35:00',7,NULL,1,0,0,1),(2,'guest','e10adc3949ba59abbe56e057f20f883e','13545123381','小火柴','张小贤','男',NULL,'2014-07-14 23:21:12','2014-07-15 23:21:12',0,NULL,1,0,0,3),(3,'13545123387','e10adc3949ba59abbe56e057f20f883e','13545123387',NULL,NULL,NULL,NULL,'2014-07-23 08:56:44',NULL,0,NULL,1,0,1,-1);
 /*!40000 ALTER TABLE `tshopuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -998,7 +997,7 @@ CREATE TABLE `tshopuserlogin` (
   `LoginTime` datetime NOT NULL COMMENT '登录时间',
   `IPAddress` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '登录IP',
   PRIMARY KEY (`ShopUserLoginID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商铺用户登录表【查看历史痕迹之用】';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商铺用户登录表【查看历史痕迹之用】';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1007,7 +1006,7 @@ CREATE TABLE `tshopuserlogin` (
 
 LOCK TABLES `tshopuserlogin` WRITE;
 /*!40000 ALTER TABLE `tshopuserlogin` DISABLE KEYS */;
-INSERT INTO `tshopuserlogin` VALUES (1,1,1,'2014-07-19 09:30:00',NULL),(2,1,1,'2014-07-19 10:05:05',NULL),(3,1,1,'2014-07-19 10:06:12',NULL),(4,1,0,'2014-07-22 11:20:05',NULL),(5,1,0,'2014-07-22 11:28:41',NULL),(6,1,0,'2014-07-22 11:56:01',NULL);
+INSERT INTO `tshopuserlogin` VALUES (1,1,1,'2014-07-19 09:30:00',NULL),(2,1,1,'2014-07-19 10:05:05',NULL),(3,1,1,'2014-07-19 10:06:12',NULL),(4,1,0,'2014-07-22 11:20:05',NULL),(5,1,0,'2014-07-22 11:28:41',NULL),(6,1,0,'2014-07-22 11:56:01',NULL),(7,1,0,'2014-07-24 16:35:00',NULL);
 /*!40000 ALTER TABLE `tshopuserlogin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1199,6 +1198,93 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pactCacelPraiseGoodsByPhoneUserID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pactCacelPraiseGoodsByPhoneUserID`(in inPhoneUserID int,in inGoodsID int,out outactCacelPraiseGoodsByPhoneUserID integer)
+top:BEGIN
+SElECT count(GoodsPraiseHistoryID) INTO @cnt  from tGoodsPraiseHistory 
+where PhoneUserID=inPhoneUserID and GoodsID=inGoodsID;
+if @cnt > 0 then 
+delete  sp.* from tGoodsPraiseHistory sp
+where PhoneUserID=inPhoneUserID and GoodsID=inGoodsID;
+update tGoods set BePraisedCount=BePraisedCount-1 Where GoodsID=inGoodsID;
+select 1 into outactCacelPraiseGoodsByPhoneUserID  ;
+else
+select -2 into outactCacelPraiseGoodsByPhoneUserID  ;
+end if;
+ end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pactCacelPraiseShopByPhoneUserID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pactCacelPraiseShopByPhoneUserID`(in inPhoneUserID int,in inShopID int,out outactCacelPraiseShopByPhoneUserID integer)
+top:BEGIN
+SElECT count(ShopPraiseHistoryID) INTO @cnt  from tShopPraiseHistory 
+where PhoneUserID=inPhoneUserID and ShopID=inShopID;
+if @cnt > 0 then 
+delete  sp.* from tShopPraiseHistory sp
+where PhoneUserID=inPhoneUserID and ShopID=inShopID;
+update tshop set BePraisedCount=BePraisedCount-1 Where ShopID=inShopID;
+select 1 into outactCacelPraiseShopByPhoneUserID  ;
+else
+select -2 into outactCacelPraiseShopByPhoneUserID  ;
+end if;
+ end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pactFavoriteGoodsByPhoneUserID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pactFavoriteGoodsByPhoneUserID`(in inGoodsID int,in inFavoriteGroupID int,
+out outactFavoriteGoodsByPhoneUserID integer)
+top:BEGIN
+SElECT count(GoodsFavoriteID) INTO @cnt  from tGoodsFavorite  sf,tFavoriteGroup  fg
+where sf.FavoriteGroupID=fg.FavoriteGroupID
+and  sf.GoodsID=inGoodsID;
+if @cnt > 0 then 
+select -2 into outactFavoriteGoodsByPhoneUserID  ;
+else
+insert into tGoodsFavorite
+(FavoriteGroupID,GoodsID,AddTime)
+values
+(inFavoriteGroupID,inGoodsID,now());
+select 1 into outactFavoriteGoodsByPhoneUserID  ;
+end if;
+ end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pactPraiseGoodsByPhoneUserID` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1380,6 +1466,44 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pdeleteGoodsFavoriteByPhoneUserIDandGoodsID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pdeleteGoodsFavoriteByPhoneUserIDandGoodsID`(in inPhoneUserID int,in inGoodsID int,out outDeleteGoodsFavoriteByPhoneUserIDandGoodsID integer)
+top:BEGIN
+
+SElECT count(sf.GoodsFavoriteID) INTO @cnt  
+from  tGoodsFavorite sf,tFavoriteGroup fg
+where sf.FavoriteGroupID=fg.FavoriteGroupID
+and sf.GoodsID=inGoodsID
+and fg.GroupType=2
+and fg.PhoneUserID=inPhoneUserID;
+if @cnt > 0 then 
+delete sf.*  from  tGoodsFavorite 
+sf,tFavoriteGroup fg
+where sf.FavoriteGroupID=fg.FavoriteGroupID
+and sf.GoodsID=inGoodsID
+and fg.GroupType=2
+and fg.PhoneUserID=inPhoneUserID;
+
+select 1 into outDeleteGoodsFavoriteByPhoneUserIDandGoodsID;
+else
+select -2 into outDeleteGoodsFavoriteByPhoneUserIDandGoodsID;
+end if;
+
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pdeleteShopFavoriteByPhoneUserIDandShopID` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1417,6 +1541,57 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pgetAllGoodsOfFavoriteShopByPhoneUserIDWithPage` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pgetAllGoodsOfFavoriteShopByPhoneUserIDWithPage`(in inPhoneUserID int,in inaPageofRows int,in inCurrentPage int)
+top:BEGIN
+declare currow int;  
+set currow=(inCurrentPage - 1) * inaPageofRows;
+select g.ShopName,g.Logo,gd.GoodsPhotoURL,gd.GoodsDefaultPhotoURL,
+gd.GoodsFeature,gd.AddTime,gd.ViewCount,gd.BePraisedCount,
+g.ShopPhotoDefaultURL,gd.GoodsID,gd.Introduction,gd.PublishFlag
+from tShopfavorite sf,tfavoritegroup fg,tPhoneUser pu,tShop g,tGoods  gd
+where sf.FavoriteGroupID=fg.FavoriteGroupID
+and fg.PhoneUserID=pu.PhoneUserID
+and g.ShopID=sf.ShopID
+and g.ShopID=gd.ShopID
+and fg.GroupType=1
+and pu.PhoneUserID=inPhoneUserID
+order by addtime desc
+Limit currow,inaPageofRows;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pgetAllGoodsType` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pgetAllGoodsType`()
+top:BEGIN
+select GoodsTypeID,GoodsTypeName,SortOrderNo from tgoodstype Where GoodsTypeID>0;
+ end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `pgetBusinessScope` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1429,7 +1604,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pgetBusinessScope`()
 top:BEGIN
-select GoodsTypeID,GoodsTypeName from tgoodstype;
+select GoodsTypeID,GoodsTypeName from tgoodstype Where ParentID=0;
  end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1491,6 +1666,30 @@ and pu.PhoneUserID=inPhoneUserID
 Limit currow,inaPageofRows;
 
 end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `pgetGoodsandShopDetailByGoodsID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pgetGoodsandShopDetailByGoodsID`(in inGoodsID int)
+top:BEGIN
+select g.GoodsID ,g.GoodsName,g.GoodsPhotoURL,g.GoodsFeature,g.Introduction,
+s.ShopID,s.ShopName,s.PhoneNumber,s.Address,s.QQ,
+s.ViewCount,s.BePraisedCount,s.FansCount
+from tGoods  g,tShop s
+where  g.ShopID=s.ShopID
+and Goodsid=inGoodsID; 
+ end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -1667,8 +1866,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pgetShopByShopID`(in inShopID int)
 top:BEGIN
-select ShopName,PhoneNumber,Address,QQ,ShopBusinessScope,PriceRange,ShopFeature,BusinessLicensePhotoURL,
-ShopPhotoURL, ShopPhotoDefaultURL
+select 
+
+ShopName,PhoneNumber,Address,QQ,ShopBusinessScope,PriceRange,ShopFeature,
+BusinessLicensePhotoURL ,ShopPhotoURL,ShopPhotoDefaultURL
 from tshop 
 where shopid=inShopID; 
  end ;;
@@ -1917,4 +2118,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-24  9:05:47
+-- Dump completed on 2014-07-25 10:11:23

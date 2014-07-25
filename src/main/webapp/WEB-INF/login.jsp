@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -86,12 +84,12 @@ body {
 <script type="text/javascript">
 	$().ready(function() {
 		$("#login").click(function() {
-			if($("#userName").val() == "" || $("#password").val() == ""){
+			if($("#phoneNumber").val() == "" || $("#password").val() == ""){
 				$("#check").css("display","block");
 			}else{
 				$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
 					if(message=="success"){
-						top.location.href="/menu.jhtml?userName="+$("#userName").val();
+						top.location.href="/menu.jhtml";
 					}else{
 						$("#check").css("display","block");
 					}
@@ -120,8 +118,8 @@ body {
         	<div id="landdiv">
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
-            		<b>账&nbsp;&nbsp;&nbsp;号：</b>
-            		<input name="userName" id="userName" type="text" placeholder="请输入商户账号，或商场管理员账号" value=""/>
+            		<b>手机号：</b>
+            		<input name="phoneNumber" id="phoneNumber" type="text" placeholder="请输入注册手机号" value=""/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密&nbsp;&nbsp;&nbsp;码：</b>

@@ -13,6 +13,7 @@ public class Variables {
 	public static final String man="男";
 	public static final String woman="女";
 	public static final int unRegister=-1;
+	public static Short webLogin=1;
 	// the shopuser or shop reviewing
 	public static final int reviewing=0;
 	//the shopuser or shop review success
@@ -85,6 +86,7 @@ public class Variables {
 	public static final String shopUserHeadURL=PropertiesUtils.findValue("shopping.properties", "shopUserHeadURL");
 	// the shop find password image access url
 	public static final String findPasswordURL=PropertiesUtils.findValue("shopping.properties", "findPasswordURL");
+	
 	
 
 }

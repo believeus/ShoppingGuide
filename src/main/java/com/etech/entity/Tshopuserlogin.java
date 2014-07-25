@@ -10,19 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/**
- * Tshopuserlogin entity. @author MyEclipse Persistence Tools
- */
+
 @Entity
 @Table(name = "tshopuserlogin", catalog = "dbshop")
 public class Tshopuserlogin implements java.io.Serializable {
 
-	// Fields
-
 
 	private static final long serialVersionUID = -8841437889194632827L;
 	private Integer shopUserLoginId;
-	private Integer shopUserId;
 	private Short loginType;
 	private Timestamp loginTime;
 	private String ipaddress;
@@ -34,22 +29,6 @@ public class Tshopuserlogin implements java.io.Serializable {
 	public Tshopuserlogin() {
 	}
 
-	/** minimal constructor */
-	public Tshopuserlogin(Integer shopUserId, Short loginType,
-			Timestamp loginTime) {
-		this.shopUserId = shopUserId;
-		this.loginType = loginType;
-		this.loginTime = loginTime;
-	}
-
-	/** full constructor */
-	public Tshopuserlogin(Integer shopUserId, Short loginType,
-			Timestamp loginTime, String ipaddress) {
-		this.shopUserId = shopUserId;
-		this.loginType = loginType;
-		this.loginTime = loginTime;
-		this.ipaddress = ipaddress;
-	}
 
 	// Property accessors
 	@Id
@@ -63,14 +42,6 @@ public class Tshopuserlogin implements java.io.Serializable {
 		this.shopUserLoginId = shopUserLoginId;
 	}
 
-	@Column(name = "ShopUserID", nullable = false)
-	public Integer getShopUserId() {
-		return this.shopUserId;
-	}
-
-	public void setShopUserId(Integer shopUserId) {
-		this.shopUserId = shopUserId;
-	}
 
 	@Column(name = "LoginType", nullable = false)
 	public Short getLoginType() {

@@ -35,9 +35,7 @@ public class Tshopuser implements java.io.Serializable {
 	private String profilePhoto;
 	private Short state;
 	private Integer score;
-	private String referee;
 	private Short grade;
-	private Integer pageView;
 	private Integer defaultShopId;
 	private List<Tshop> shops=new ArrayList<Tshop>(0);
 	private List<Tshopuserlogin> shopuserLogins=new ArrayList<Tshopuserlogin>(0);
@@ -47,46 +45,6 @@ public class Tshopuser implements java.io.Serializable {
 	public Tshopuser() {
 	}
 
-	/** minimal constructor */
-	public Tshopuser(String userName, String password, String gender,
-			Timestamp addTime, Integer loginCount, Short state, Integer score,
-			Short grade, Integer pageView, Integer defaultShopId) {
-		this.userName = userName;
-		this.password = password;
-		this.gender = gender;
-		this.addTime = addTime;
-		this.loginCount = loginCount;
-		this.state = state;
-		this.score = score;
-		this.grade = grade;
-		this.pageView = pageView;
-		this.defaultShopId = defaultShopId;
-	}
-
-	/** full constructor */
-	public Tshopuser(String userName, String password, String phoneNumber,
-			String nickName, String realName, String gender, String idnumber,
-			Timestamp addTime, Timestamp lastLoginTime, Integer loginCount,
-			String profilePhoto, Short state, Integer score, String referee,
-			Short grade, Integer pageView, Integer defaultShopId) {
-		this.userName = userName;
-		this.password = password;
-		this.phoneNumber = phoneNumber;
-		this.nickName = nickName;
-		this.realName = realName;
-		this.gender = gender;
-		this.idnumber = idnumber;
-		this.addTime = addTime;
-		this.lastLoginTime = lastLoginTime;
-		this.loginCount = loginCount;
-		this.profilePhoto = profilePhoto;
-		this.state = state;
-		this.score = score;
-		this.referee = referee;
-		this.grade = grade;
-		this.pageView = pageView;
-		this.defaultShopId = defaultShopId;
-	}
 
 	// Property accessors
 	@Id
@@ -217,14 +175,6 @@ public class Tshopuser implements java.io.Serializable {
 		this.score = score;
 	}
 
-	@Column(name = "Referee", length = 20)
-	public String getReferee() {
-		return this.referee;
-	}
-
-	public void setReferee(String referee) {
-		this.referee = referee;
-	}
 
 	@Column(name = "Grade", nullable = false)
 	public Short getGrade() {
@@ -235,14 +185,6 @@ public class Tshopuser implements java.io.Serializable {
 		this.grade = grade;
 	}
 
-	@Column(name = "PageView", nullable = false)
-	public Integer getPageView() {
-		return this.pageView;
-	}
-
-	public void setPageView(Integer pageView) {
-		this.pageView = pageView;
-	}
 
 	@Column(name = "DefaultShopID", nullable = false)
 	public Integer getDefaultShopId() {

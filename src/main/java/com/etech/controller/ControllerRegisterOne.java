@@ -78,7 +78,6 @@ public class ControllerRegisterOne {
 		shopuser.setGender(Variables.man);
 		// 创建时间
 		shopuser.setAddTime(new Timestamp(System.currentTimeMillis()));
-		shopuser.setPageView(0);
 		shopuser.setState((short)Variables.reviewing);
 		shopuser.setLoginCount(1);
 		// 没有注册店铺
