@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-
+		<% double[] age=(double[])request.getAttribute("ageCount"); %>
 		$('#container').highcharts({
 			chart: { 
 				type: 'bar' 
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				text: '粉丝年龄分布图' 
 			}, 
 			xAxis: { 
-				categories: ['10-19岁', '20-29岁', '30-39岁', '40-49岁', '50-59岁'],
+				categories: ['未知','10-19岁', '20-29岁', '30-39岁', '40-49岁', '50-59岁'],
 				title: {
 					text: null
 				} 
@@ -72,7 +72,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}, 
 			series: [{ 
 				name: '所占比例',
-				data: [7,86,7,0,0],
+				data: [	<%=age[5] %>,
+						<%=age[0]%>,
+						<%=age[1]%>,
+						<%=age[2]%>,
+						<%=age[3]%>,
+						<%=age[4]%>],
 			}]
 		});
 		

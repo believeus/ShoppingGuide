@@ -22,7 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-
+		
+		
+		
 		$("#container").highcharts({
 	        chart: {
 	            plotBackgroundColor: null,
@@ -53,14 +55,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            type: 'pie',
 	            name: '所占比例',
 	            data: [
-	                ['男用户', 76.67], 
+	                ['男用户', <%=request.getAttribute("manPrecent")%>], 
 					{ 
 					    name: '女用户', 
-					    y: 23.33, 
+					    y: <%=request.getAttribute("womanPrecent")%>, 
 					    sliced: true,
 					    selected: true ,
 					    color:'pink'
-					}
+					},
+					['其它', <%=request.getAttribute("unknown")%>]
 	            ]
 	        }]
 	    });
@@ -124,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
 	                <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
-	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</最爱a>
+	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
 	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>
