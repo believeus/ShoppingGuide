@@ -85,7 +85,6 @@
 	<mapping class="com.etech.entity.Tadminrolepermissionsown" />
 	<mapping class="com.etech.entity.Tadminuser" />
 	<mapping class="com.etech.entity.Tarea" />
-	<mapping class="com.etech.entity.Tbusinessscope" />
 	<mapping class="com.etech.entity.Tcity" />
 	<mapping class="com.etech.entity.TeventCountdataeveryday" />
 	<mapping class="com.etech.entity.Tfavoritegroup" />
