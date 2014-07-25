@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -9,7 +11,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
 <title>店铺信息</title>
 
@@ -47,6 +48,21 @@
 		}
 		.main_table2 tr:hover{
 			background:#EAFCFC;
+		}
+		.pp{
+			border: 1px solid gray;
+		    border-radius: 0.2em;
+		    display: block;
+		    float: left;
+		    font-size: 13px;
+		    height: 20px;
+		    line-height: 20px;
+		    margin: 5px;
+		    padding: 3px 15px;
+		    width: auto;
+		    background:#cccccc;
+		    color:#666666;
+		    border:1px solid #cccccc;
 		}
 	</style>
 	<style type="text/css">
@@ -109,7 +125,6 @@
 
 </head>
 <body>
-	
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
@@ -119,13 +134,15 @@
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
 					<td style="width:56%;"></td>
 					<td style="width:9%;">
-						<input type="button" value="编辑" onClick="javascript:window.location.href='/editShopMsg.jhtml'" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" />
+						<input type="button" value="编辑" onClick="javascript:window.location.href='/editShopMsg.jhtml?shopId=${tshop.shopId}'" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" />
 					</td>
 					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="修改用户密码" onClick="javascript:window.location.href='/editPassword.jhtml'" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
-			<hr style="width:85%;border:1px solid #E8E8E8;" />
+			<div style="width:1000px;height:auto;margin:0 auto;overflow:hidden;">
+				<img src="/images/line.png">
+			</div>
 			
 			<table class="main_table2" cellspacing="0">
 				<tr>
@@ -137,9 +154,11 @@
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
-					<td>店铺介绍：</td>
+					<td>店铺特色：</td>
 					<td>
-						xxxx
+						<c:forEach var="features" items="${features }">
+							<p id="special" class="pp">${features.featureName }</p>
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>
@@ -153,7 +172,7 @@
 					<td style="color:red;">*</td>
 					<td style="">经营范围：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						${tshop.priceRange }
+						${tshop.shopBusinessScope }
 					</td>
 				</tr>
 				<tr>
@@ -176,35 +195,26 @@
    				<tr style="">
 					<td colspan="2" style=""></td>
 					<td>
+					
 						<div class="brandImg">
-							<span>
-								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<img style="width:229px;height:179px" src="" name="img"/>
+							<img style="width:229px;height:179px" src="${tshop.businessLicensePhotoUrl }" name="img"/>
 						</div>
-						<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
-						<input type="hidden" id="filename0" name="filename0">
 						<div class="main_table3_div3">
-							营业执照：<input type="text" name=""><br/>
+							营业执照：${tshop.businessLicenseNo }<br/>
 							注：必须上传营业执照或填写营业执照号
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>店铺预览:<input id="add_img" type="button" value="添加预览图"></td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>店铺预览:</td>
 				</tr>
    				<tr style="">
 					<td colspan="2" style=""></td>
 					<td class="shopShow">
 						<div class="brandImg" style="margin-top:20px;">
-							<span>
-								<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<img style="width:229px;height:179px" src="" name="img"/>
+							<img style="width:229px;height:179px" src="${tshop.shopPhotoUrl}" name="img"/>
 						</div>
-						<input type="file" style="display:none" id="file1" name="file1" onchange="filename1.value=this.value;loadImgFast(this,1)">
-						<input type="hidden" id="filename1" name="filename1">
 					</td>
 				</tr>
 			</table>
@@ -214,18 +224,5 @@
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
-   	 	<script type="text/javascript">
-			function loadImgFast(img,i){
-				if (img.files && img.files[0]){
-					var reader = new FileReader();
-					reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
-		            reader.readAsDataURL(img.files[0]);	
-				}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
-				   	file.select(); 
-		   			path = document.selection.createRange().text;
-		   			$(".brandImg:eq("+i+") img")[0].src = path;
-		   		} 
-			}
-		</script>
 </body>
 </html>

@@ -91,16 +91,12 @@ body {
 			}else{
 				$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
 					if(message=="success"){
-						top.location.href="/menu.jhtml";
+						top.location.href="/menu.jhtml?userName="+$("#userName").val();
 					}else{
 						$("#check").css("display","block");
 					}
 				});
 			}
-		});
-		
-		$("#register").click(function() {
-			window.location.href = "/regist.jhtml";
 		});
 		
 	});

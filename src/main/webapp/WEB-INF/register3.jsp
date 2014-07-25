@@ -143,7 +143,7 @@
 			});
 			$.post("/saveFeature.jhtml",{"featureIds":featureIds.toString(),"sessionUserId":${sessionUser.shopUserId}},function(result){
 				if(result=="success"){
-					top.location.href="/menu.jhtml";
+					top.location.href="/menu.jhtml?userName="+${sessionUser.userName};
 				}else if(result=="error"){
 					top.location.href="/login.jhtml";
 				}

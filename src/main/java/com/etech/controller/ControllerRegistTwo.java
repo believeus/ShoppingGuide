@@ -132,7 +132,11 @@ public class ControllerRegistTwo {
 		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", Integer.valueOf(shopuserId));
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
-
+		
+		@SuppressWarnings("unchecked")
+		List<Tshop> shops = (List<Tshop>) etechService.findObjectList(Tshop.class, Integer.parseInt(shopuserId));
+		session.setAttribute("shops", shops);
+		
 		session.setAttribute(Variables.sessionUser, currentUser);
 		Brower.redirect("/register3.jhtml", response);
 	}

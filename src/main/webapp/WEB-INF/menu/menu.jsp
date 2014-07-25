@@ -3,11 +3,10 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     
     <title>菜单页面</title>
     
@@ -108,17 +107,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="s_main">
     	<div style="width: auto; height: auto; overflow: hidden;">
     	
+    	<c:forEach var="shop" items="${shops}">
+    		
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
     			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
-   				<span style="margin-left:15px;font-size:20px;color:#FFFFFF;">店铺名称</span>
+   				<span style="margin-left:15px;font-size:20px;color:#FFFFFF;">${shop.shopName}</span>
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
    					<div class="img1" style="background-position:-78px -245px"></div>
    				</div>
-   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myShop.jhtml'">
-   					<a href="/myShop.jhtml" title="我的店铺">我的店铺</a>
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myShop.jhtml?shopId=${shop.shopId}'">
+   					<a href="/myShop.jhtml?shopId=${shop.shopId}" title="我的店铺">我的店铺</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
@@ -146,10 +147,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    				</div>
     		</div>
     	</div>
+    	</c:forEach>
     	<div class="s_menu"
     		style="border:2px dotted #2DB7EC;height:386px;line-height:386px;text-align:center;margin-right:0;cursor:pointer;"
-    		onClick="javascript:window.location.href='/addShop.jhtml'">
-    		<a href="/addShop.jhtml" title="点击添加新店铺"><font size="10" color="#2DB7EC">+</font></a>
+    		onClick="alert('暂无信息');">
+    		<a href="javascript:void(0);" title="点击添加新店铺" onClick="alert('暂无信息');"><font size="10" color="#2DB7EC">+</font></a>
+    		<!-- href="/addShop.jhtml" -->
     	</div>
    		</div>
     </div>

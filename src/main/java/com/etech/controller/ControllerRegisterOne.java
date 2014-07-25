@@ -58,7 +58,7 @@ public class ControllerRegisterOne {
 		String sessionCode = (String)session.getAttribute(Variables.validCode);
 		log.debug("input valid code:"+numberCode+" session Valid code:"+sessionCode);
 		if(!sessionCode.equals(numberCode)){
-			return "false";
+			return "true";
 		}
 		// 验证码不匹配
 		return "true";

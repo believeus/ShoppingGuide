@@ -37,7 +37,9 @@ public class EtechService {
 	public void delete(Class<?> clazz, Integer id) {
 		etechComDao.delete(clazz, id);
 	}
-
+	public void delete(Object entity){
+		etechComDao.delete(entity);
+	}
 	public void delete(Class<?> clazz, String property, final Object value) {
 		etechComDao.delete(clazz, property, value);
 	}

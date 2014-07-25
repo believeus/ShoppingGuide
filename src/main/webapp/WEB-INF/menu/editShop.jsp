@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -9,8 +10,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
-
 <title>编辑店铺信息</title>
 
 <meta http-equiv="pragma" content="no-cache">
@@ -91,7 +90,7 @@
 		#shopSpec p{
 			font-size:13px;
 			border-radius:.2em;
-			margin-right:15px;
+			margin:5px;
 			width:auto;
 			border:1px solid gray;
 			height:20px;
@@ -105,6 +104,9 @@
 			background-color:#69CDCD;
 			border-radius:.2em;
 			color:white;
+		}
+		.error {
+		    color: red;
 		}
 	</style>
 	<style type="text/css">
@@ -127,6 +129,7 @@
 		    position:relative;
 		    float:left;
 		    margin-right:15px;
+		    float:left;
 		}
 		
 		.brandImg span:hover{
@@ -148,21 +151,85 @@
 		.deleteProductImage:hover{
 			color:#C9033B !important;
 		}
+		.current {
+			background: #69cdcd;
+			border: 1px solid #69cdcd !important;
+			color: #ffffff !important;
+		}
 	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
 <script type="text/javascript">
+$(function(){
+	<c:forEach var="feature" items="${shopfeatures }">
+		$("p[value='${feature.featureId}']").attr("class","current");
+	</c:forEach>
+	$("#marketId").val("${tshop.market.marketName}");
+	// 百度地图API功能
+	function G(id) {
+	    return document.getElementById(id);
+	}
+
+	var map = new BMap.Map("l-map");
+	map.centerAndZoom("北京",12);     // 初始化地图,设置城市和地图级别。
+	map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+	
+	var gc = new BMap.Geocoder();    
+	map.addEventListener("click", function(e){        
+	    var pt = e.point;
+	    gc.getLocation(pt, function(rs){
+	        var addComp = rs.addressComponents;
+	        $("#suggestId").val(addComp.province + ""+ addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+	        //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+	    });        
+	});
+	
+	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+	    {"input" : "suggestId"
+	    ,"location" : map
+	});
+
+	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	var str = "";
+	    var _value = e.fromitem.value;
+	    var value = "";
+	    if (e.fromitem.index > -1) {
+	        value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	    }    
+	    str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+	    
+	    value = "";
+	    if (e.toitem.index > -1) {
+	        _value = e.toitem.value;
+	        value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	    }    
+	    str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+	    G("searchResultPanel").innerHTML = str;
+	});
+
+	var myValue;
+	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	var _value = e.item.value;
+	    myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+	    G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+	    
+	    setPlace();
+	});
+
+	function setPlace(){
+	    map.clearOverlays();    //清除地图上所有覆盖物
+	    function myFun(){
+	        var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+	        map.centerAndZoom(pp, 18);
+	        map.addOverlay(new BMap.Marker(pp));    //添加标注
+	    }
+	    var local = new BMap.LocalSearch(map, { //智能搜索
+	      onSearchComplete: myFun
+	    });
+	    local.search(myValue);
+	}
+});
 	$().ready(function(){
-		var sels = $("#main_table2_td2 select");
-		sels.each(function(){
-			$(this).change(function(){
-				var html = "<select name='' style='width:400px;text-align:center;margin-bottom:10px;'><option value=''>请选择..</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select>";
-				alert(sels.length+"=sels.length");
-				if(sels.length >5){
-					alert("最多5个");
-				}else{
-					$(this).parent().append(html);
-				}
-			});
-		});
 		
 		$("#add_img").click(function(){
 			var a = $(".shopShow .brandImg").size() + 1;
@@ -171,7 +238,7 @@
 			if($(".shopShow .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
-				$(".shopShow").append(html);
+				$(".shopShow .brandImg").parent().append(html);
 			}
 		});
 
@@ -241,15 +308,66 @@
 			});
 		});
 		
-		$("#businessRange").change(function(){
+		$("#shopSpec p").click(function(){
+			if($(this).hasClass("current")){
+				$(this).removeClass("current");
+			}else{
+				$(this).addClass("current");
+			}
+			var featureIds=new Array();
+			$("#special.current").each(function(){
+				featureIds.push($(this).attr("value"));
+			});
+			$("#featureIds").val();
+			$("#featureIds").val(featureIds);
+		});
+		
+		/* $("#businessRange").change(function(){
 			if($("#businessTd select").length < 5){
 				var buss=$("#businessRange").clone(true);
 				$(this).unbind();
 				$("#businessRange").attr("id","Range");
 				$("#businessTd").append(buss);
 			}
+		}); */
+		
+		$("#editShop").validate({
+			rules : {
+				shopName : {
+					required : true
+				},
+				goodsTypeId : {
+					required : true
+				},
+				businessLicense :{
+					required : true
+				},
+				marketId:{
+					required : true
+				},
+				filename0:{
+					required : true
+				}
+			},
+			messages : {
+				shopName : {
+					required : "店铺名称必填",
+				},
+				businessLicense :{
+					required : "请输入营业执照"
+				},
+				marketId:{
+					required:"商场必填"
+				},
+				goodsTypeId:{
+					required:"商品类型必填"
+				},
+				filename0:{
+					required : "请上传营业执照"
+				}
+			}
+			
 		});
-
 	});	
 		
 </script>
@@ -259,112 +377,87 @@
 	
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
-		
 		<div id="main" style="">
+		<form id="editShop" action="updateShop.jhtml" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="shopuserId" value="${sessionUser.shopUserId}"/>
+		<input type="hidden" name="shopId" value="${tshop.shopId}"/>
 			<table class="main_table1">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input type="button" value="保存" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:9%;"><input type="submit" value="保存" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="修改用户密码" onClick="javascript:window.location.href='/updatePsd.jhtml'" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
-			<hr style="width:85%;border:1px solid #E8E8E8;" />
+			<div style="width:1000px;height:auto;margin:0 auto;overflow:hidden;">
+				<img src="/images/line.png">
+			</div>
 			
-			<table id="suib" style="margin:0px auto;">
+			<table id="suib" style="margin:0px auto;" cellspacing="0">
 		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
-		                <td>
-		                    <input id="shopName" type="text" name="shopName">
-		                </td>
-		                <td><img id="shopNameImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                    <div id="shopNameMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">输入格式不正确，请重新输入！</p>
-		                    </div>
-		                    <div id="shopNameMsg2" style="width:351px; height:31px; margin-bottom:14px; background-image:url(images/bg.png);background-position:-101px 407px;">
-		                        <p style="line-height:28px; color:black; margin-left:20px;">名称长度为1-10个汉字，不能含有特殊字符!</p>
-		                    </div>
-		                </td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>详细位置：</b></td>
-		                <td>
-		                    <input id="location" name="location" type="text" />
-		                </td>
-		                <td></td>
-		                <td></td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>经营范围：</b></td>
-		                <td id="businessTd">
-		                    <select id="businessRange" name="businessRange" style="width:340px;text-align:center;margin-bottom:10px;">
-								<option value=""  selected="selected">请选择..</option>
-								<option value="1">1======</option>
-								<option value="2">2======</option>
-								<option value="3">3=======</option>
-								<option value="4">4==========</option>
-								<option value="5">5=====</option>
-							</select>
-		                </td>
-		                <td></td>
-		                <td></td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>价格区间：</b></td>
-		                <td>
-		                    <input id="priceRange" type="text" name="priceRange" />
-		                </td>
-		                <td></td>
-		                <td></td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>联系电话：</b></td>
-		                <td>
-		                    <input id="phoneNum" type="text" name="phoneNum">
-		                </td>
-		                <td><img id="phoneNumImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                	<div id="phoneNumMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">输入手机号不正确，请重新输入！</p>
-		                    </div>
-		                </td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>QQ号码：</b></td>
-		                <td>
-		                    <input onkeyup="value=this.value.replace(/\D+/g,'')" id="qqNum" type="text" name="qqNum" />
-		                </td>
-		                <td><img id="qqNumImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                	<div id="qqNumMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">输入格式不正确，请重新输入！</p>
-		                    </div>
+		                <td colspan="3">
+		                    <input id="shopName" type="text" name="shopName" value="${tshop.shopName }">
 		                </td>
 		              </tr>
 		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺特色：</b></td>
-		                <td colspan="2" id="shopSpec">
-		                	<p id="special" name="special" style="margin-top:13px;">潮流</p>
-							<p id="special" name="special" style="">精致韩风</p>
-							<p id="special" name="special" style="">商务休闲</p>
-							<p id="special" name="special" style="">青春活力</p>
-							<p id="special" name="special" style="">小清新</p>
-							<p id="special" name="special" style="">欧美简约</p>
-							
-							<p id="special" name="special" style="">基础大众</p>
-							<p id="special" name="special" style="">日系复古</p>
-							<p id="special" name="special" style="">美式休闲</p>
-							<p id="special" name="special" style="">英式学院</p>
-							<p id="special" name="special" style="">商务正装</p>
-							
-							<p id="special" name="special" style="">中国风</p>
-							<p id="special" name="special" style="">工装军旅</p>
-							<p id="special" name="special" style="">嘻哈</p>
-							<p id="special" name="special" style="">朋克</p>
+		                <td colspan="3" id="shopSpec">
+							<c:forEach var="features" items="${features }">
+								<p id="special" name="special" value="${features.featureId}" style="">${features.featureName }</p>
+							</c:forEach>
+							 <input type="hidden" name="featureIds" id="featureIds"/>
 		                </td>
-		                <td></td>
+		               
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>详细位置：</b></td>
+		                <td colspan="3">
+		                    <input id="suggestId" name="address" type="text" value="" placeholder="${tshop.address }"/>
+		                    <label style="color:#00f;font-size:13px;">(若更改地址请点击地址选择，若不改，则为原地址)</label><br/>
+		                   <%-- <label style="color:#00f;font-size:13px;">原地址是：${tshop.address }</label> --%>
+		                </td>
+		              </tr>
+		              <tr>
+	              		<td colspan="4">
+		                	<div id="searchResultPanel" style="display: none;width:150px;height:auto;"></div>
+							<div id="l-map" style="width:1000px;height:350px;margin:0 auto;"></div>
+	              		</td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>经营范围：</b></td>
+		                <td id="businessTd" colspan="3">
+		                	
+		                    <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
+								<option value="${tshop.shopBusinessScope }"  selected="selected">${tshop.shopBusinessScope }</option>
+								<c:forEach var="gli" items="${range}">
+									<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
+								</c:forEach>
+							</select>
+		                </td>
+		              </tr>
+		               <tr>
+		              	<td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
+		              	<td colspan="3">
+		              		<select id="marketId" name="marketId" style="height: 30px; line-height: 30px; width: 340px;">
+								<c:forEach items="${marketList}" var="market">
+									<option value="${market.marketId}">${market.marketName}</option>
+								</c:forEach>
+							</select>
+		              	</td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>价格区间：</b></td>
+		                <td colspan="3">
+		                    <input id="priceRange" type="text" name="priceRange" value="${tshop.priceRange }"/>
+		                </td>
+		              </tr>
+		              <tr>
+		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>联系电话：</b></td>
+		                <td colspan="3">
+		                    <input id="phoneNum" type="text" name="phoneNum" value="${tshop.phoneNumber }">
+		                </td>
 		              </tr>
 		              <tr>
 		              	<td><font color="red">*</font><span style="font-weight:normal;">营业执照：</span></td>
@@ -374,7 +467,7 @@
 									<span>
 										<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
-									<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="${tshop.businessLicensePhotoUrl }" name="businessLicensePhoto"/>
 								</div>
 								<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 								<input type="hidden" id="filename0" name="filename0">
@@ -383,8 +476,23 @@
 		              	<td></td>
 		              	<td></td>
 		              </tr>
-		         
+		              <tr>
+		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span><input id="add_img" type="button" value="添加预览图" style="width: 85px;"></td>
+		              	<td class="shopShow" colspan="3">
+		              		<div style="padding-left:40px;">
+								<div class="brandImg" style="margin-top:20px;">
+									<span>
+										<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
+									</span>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
+								</div>
+								<input type="file" style="display:none" id="file1" name="lienseImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
+								<input type="hidden" id="filename1" name="filename1">
+							</div>
+		              	</td>
+		              </tr>
 		            </table>
+	            </form>
 		</div>
 
 		

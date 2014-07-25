@@ -50,15 +50,24 @@ public class EtechComDao extends HibernateDaoSupport {
 	public void delete(Class<?> clazz, final Integer id) {
 		Object object = this.getHibernateTemplate().get(clazz, id);
 		getHibernateTemplate().delete(object);
+		this.getHibernateTemplate().flush();
 	}
 	/** End Author:wuqiwei Data:2014-05-22 AddReason:根据id的方式删除对象 */
-
+	public void delete(Object entity){
+		this.getHibernateTemplate().delete(entity);
+		this.getHibernateTemplate().flush();
+	}
+	
 	/** Begin Author:wuqiwei Data:2014-05-22 AddReason:根据属性的方式删除对象 */
 	public void delete(Class<?> clazz, String property, final Object value) {
-		Object object = this.findObject(clazz, property, value);
-		getHibernateTemplate().delete(object);
+		HibernateTemplate ht = getHibernateTemplate();
+		List<?> objectList = this.findObjectList(clazz, property, value);
+		for (Object entity : objectList) {
+			ht.delete(entity);
+			ht.flush();
+		}
 	}
-
+	
 	/** End Author:wuqiwei Data:2014-05-22 AddReason:根据属性的方式删除对象 */
 
 	// 获取单一对象

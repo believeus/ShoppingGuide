@@ -7,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     
     <title>我的店铺</title>
     
@@ -102,22 +101,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
     			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
-   				<span style="margin-left:20px;font-size:20px;color:#FFFFFF;">店铺名称</span>
+   				<span style="margin-left:20px;font-size:20px;color:#FFFFFF;">${shop.shopName}</span>
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
    					<div class="img1" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -253px;margin-top:10px;margin-left:15px;"></div>
    				</div>
-   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myProducts.jhtml'">
-   					<a href="/myProducts.jhtml" title="我的商品">我的商品</a>
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/myProducts.jhtml?shopId=${shop.shopId}'">
+   					<a href="/myProducts.jhtml?shopId=${shop.shopId}" title="我的商品">我的商品</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
    					<div class="img2" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-223px -322px;margin-top:10px;margin-left:15px;"></div>
    				</div>
-   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/shopMsg.jhtml'">
-   					<a href="/shopMsg.jhtml" title="店铺信息">店铺信息</a>
+   				<div class="s_menu_list_name" onClick="javascript:window.location.href='/shopMsg.jhtml?shopId=${shop.shopId}'">
+   					<a href="/shopMsg.jhtml?shopId=${shop.shopId}" title="店铺信息">店铺信息</a>
    				</div>
     		</div>
     		<div class="s_menu_list">
