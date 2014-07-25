@@ -57,6 +57,7 @@ public class ControllerRegistTwo {
 	@RequestMapping(value="/dealRegister2")
 	public void dealRegister2(Tshopuser shopuser,HttpServletRequest request,ServletResponse response){
 		String shopuserId=request.getParameter("shopuserId");
+		Tshopuser user = (Tshopuser) etechService.findObject(Tshopuser.class, "shopUserId", Integer.parseInt(shopuserId));
 		if(StringUtils.isEmpty(shopuserId)){
 			Brower.redirect("/login.jhtml", response);
 			return;
@@ -112,6 +113,7 @@ public class ControllerRegistTwo {
 		Tmarket market=(Tmarket)etechService.findObject(Tmarket.class, Integer.valueOf(marketId));
 		Tshop shop=new Tshop();
 		shop.setMarket(market);
+		shop.setPriceRange(request.getParameter("businessLicenseNo"));
 		shop.setShopName(shopName);
 		shop.setShopOwnerName(shopOwnerName);
 		shop.setAddress(address);
@@ -124,6 +126,8 @@ public class ControllerRegistTwo {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
+		System.out.println(user.getPhoneNumber()+"-----------------");
+		shop.setPhoneNumber(user.getPhoneNumber());
 		shop.setShopPhotoUrl(appendImg);
 		etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype

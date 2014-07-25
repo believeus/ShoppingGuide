@@ -431,7 +431,9 @@ $(function(){
 		                <td id="businessTd" colspan="3">
 		                	
 		                    <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
-								<option value="${tshop.shopBusinessScope }"  selected="selected">${tshop.shopBusinessScope }</option>
+								<c:forEach var="tgoodstype" items="${tgoodstypes}">
+									<option value="${tgoodstype.goodsTypeId}">${tgoodstype.goodsTypeName}</option>
+								</c:forEach>
 								<c:forEach var="gli" items="${range}">
 									<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 								</c:forEach>
@@ -442,6 +444,7 @@ $(function(){
 		              	<td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
 		              	<td colspan="3">
 		              		<select id="marketId" name="marketId" style="height: 30px; line-height: 30px; width: 340px;">
+								<option value="${tshop.market.marketId}">${tshop.market.marketName}</option>
 								<c:forEach items="${marketList}" var="market">
 									<option value="${market.marketId}">${market.marketName}</option>
 								</c:forEach>
@@ -487,7 +490,7 @@ $(function(){
 									</span>
 									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopsLogoURL %>${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
 								</div>
-								<input type="file" style="display:none" id="file1" name="lienseImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
+								<input type="file" style="display:none" id="file1" name="shopImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
 								<input type="hidden" id="filename1" name="filename1">
 							</div>
 		              	</td>

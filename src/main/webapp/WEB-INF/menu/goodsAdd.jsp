@@ -187,7 +187,7 @@ function addclass(obj){
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:12%;"><div style=""><a href="/goodsAdd2.jhtml" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:12%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
 					<td style="width:56%;"></td>
 					<td style="width:9%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
@@ -268,7 +268,7 @@ function addclass(obj){
 							</span>
 							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
 						</div>
-						<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 						<input type="hidden" id="filename0" name="filename0">
 					</td>
 				</tr>

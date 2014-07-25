@@ -220,8 +220,14 @@
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
+					<!-- 如果商品名称为 "" 或者 PublishFlag =1时 即为简单快速发布商品 则不显示商品特色(潮流、潮流)-->
+					<c:if test="${tgLi1.publishFlag}==<%=(short)1 %>">
 						<span>潮流</span>
 						<span>潮流</span>
+					</c:if> 
+             		<c:if test="${tgLi1.publishFlag}==0">
+             			
+             		</c:if>
 						<%-- <c:forEach var="" items="">
 							
 						</c:forEach> --%>

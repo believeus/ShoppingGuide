@@ -165,14 +165,17 @@
 					<td style="color:red;">*</td>
 					<td style="">详细位置：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						${tshop.address }
+						${tshop.address}
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td style="">经营范围：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						${tshop.shopBusinessScope }
+						
+						<c:forEach var="goodsTypes" items="${tshop.goodsTypes }">
+							${goodsTypes.goodsTypeName}
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>

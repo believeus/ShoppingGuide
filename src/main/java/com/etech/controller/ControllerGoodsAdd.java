@@ -54,14 +54,15 @@ public class ControllerGoodsAdd {
 	}
 
 	@RequestMapping(value = "/goodsAdd2")
-	public String addGoodsView2() {
+	public String addGoodsView2(HttpServletRequest request,Integer shopId) {
+		request.setAttribute("shopId", shopId);
 		return "/WEB-INF/menu/goodsAdd2.jsp";
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addDetailedGoods")
 	public String addGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request) throws Exception {
-		Tshopuser sessionUser = (Tshopuser) session.getAttribute("sessionUser");
+		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
 		String featureIds=request.getParameter("featureIds");
 		//goods feature
 		if(!featureIds.isEmpty()){
@@ -101,7 +102,7 @@ public class ControllerGoodsAdd {
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
-					if(file.getName().equals("filename0")){
+					if(file.getName().equals("goodsImg")){
 					  // get the goods save path
 					  goodsImg=UUID.randomUUID()+"."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
@@ -116,53 +117,74 @@ public class ControllerGoodsAdd {
 				}
 			}
 			log.debug("shop image sava db url:"+shopImg);
+			tGoods.setGoodsPhotoUrl(goodsImg);
 			etechService.saveOrUpdate(tGoods);
 			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(request.getParameter("shopId")));
 			request.setAttribute("tgLi", tgLi);
+			request.setAttribute("shopId", request.getParameter("shopId"));
 			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";
 		}
-		
-		/*String url = "";
-		StringBuilder sb = new StringBuilder();
-		sb.append("<script type='text/javascript'>")
-				.append("top.location.href=" + url).append("</script>");
-		log.debug(sb.toString());
-		PrintWriter pw = new PrintWriter(response.getOutputStream());
-		pw.write(sb.toString());
-		pw.close();*/
-
 	}
 
-	/** Begin Author:yangQiXian Data:2014-07-21 AddReason:添加商品简便信息 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addSimpleGoods")
-	public void addSimpleGoods(Tgoods tGoods, HttpSession session,
-			HttpServletResponse response) throws Exception {
+	public String addSimpleGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request) throws Exception {
+		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
+		String shopId = request.getParameter("shopId");
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setGoodsName("");
 			tGoods.setPublishUserId(2);
 			tGoods.setAddTime(new Timestamp(new Date().getTime()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
-			tGoods.setShopId(2);
+			tGoods.setShopId(sessionUser.getShopUserId());
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
+			tGoods.setPublishFlag((short) 1);
 			tGoods.setIsRecommend(Variables.unRecommend);
+			tGoods.setIntroduction(request.getParameter("goodsDetail"));
+			
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			Map<String, MultipartFile> files = multipartRequest.getFileMap();
+			String goodsImg = "";
+			String shopImg=""; 
+			for (MultipartFile file : files.values()) {
+				InputStream inputStream;
+				try {
+					
+					inputStream = file.getInputStream();
+					if(inputStream.available()==0)continue;
+					String originName=file.getOriginalFilename();
+					String extention = originName.substring(originName.lastIndexOf(".") + 1);
+					log.debug("upload file name:"+file.getName());
+					if(file.getName().equals("goodsImg")){
+					  // get the goods save path
+					  goodsImg=UUID.randomUUID()+"."+extention;
+					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					}else {
+						shopImg=UUID.randomUUID()+"."+extention;
+						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
+						shopImg+="#";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			log.debug("shop image sava db url:"+shopImg);
+			tGoods.setGoodsPhotoUrl(goodsImg);
 			etechService.saveOrUpdate(tGoods);
+			
+			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(shopId));
+			request.setAttribute("tgLi", tgLi);
+			request.setAttribute("shopId", shopId);
+			
+			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
-			return;
+			return "/WEB-INF/login.jsp";
 		}
-		String url = "";
-		StringBuilder sb = new StringBuilder();
-		sb.append("<script type='text/javascript'>")
-				.append("top.location.href=" + url).append("</script>");
-		log.debug(sb.toString());
-		PrintWriter pw = new PrintWriter(response.getOutputStream());
-		pw.write(sb.toString());
-		pw.close();
 
 	}
-	/** End Author:yangQiXian Data:2014-07-21 AddReason:添加商品简便信息 */
-
 }

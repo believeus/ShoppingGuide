@@ -20,12 +20,10 @@ import com.etech.webutil.Variables;
 public class AccessFilter implements Filter {
 	private  Log log = LogFactory.getLog(AccessFilter.class);
 	private List<String> allowAccessURLs;
-	private List<String> sessionUserUnAccessURL;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		allowAccessURLs=Arrays.asList(config.getInitParameter("allowAccessURL").split(","));
-		sessionUserUnAccessURL=Arrays.asList(config.getInitParameter("sessionUserUnAccessURL").split(","));
 	}
 
 

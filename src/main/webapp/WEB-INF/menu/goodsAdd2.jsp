@@ -108,7 +108,7 @@
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:12%;"><div style=""><a href="/goodsAdd.jhtml" style="font-size:12px;color:#69CDCD;">详细发布商品</a></div></td>
+					<td style="width:12%;"><div style=""><a href="/goodsAdd.jhtml?shopId=${shopId }" style="font-size:12px;color:#69CDCD;">详细发布商品</a></div></td>
 					<td style="width:56%;"></td>
 					<td style="width:9%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
@@ -120,7 +120,8 @@
 				<img src="/images/line.png">
 			</div>
 			
-			<form id="main_form" method="post" action="/addSimpleGoods.jhtml">
+			<form id="main_form" method="post" action="/addSimpleGoods.jhtml" enctype="multipart/form-data">
+			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
 					<td></td>
@@ -136,7 +137,6 @@
 				</tr>
 			</table>
 
-			</form>
 
 			<div style="width:1000px;text-align:center;margin:0 auto;">
 				<img src="/images/line.png">
@@ -156,12 +156,12 @@
 							</span>
 							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
 						</div>
-						<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 						<input type="hidden" id="filename0" name="filename0">
 					</td>
 				</tr>
 			</table>
-			
+				</form>
 		</div>
 
 		

@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
@@ -80,6 +81,9 @@ public class ControllerMenu {
 	public String productView(HttpServletRequest request,Integer shopId){
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
+		for (Tgoods tgoods : tgLi) {
+			tgoods.getGoodsFeature();
+		}
 		request.setAttribute("tgLi", tgLi);
 		request.setAttribute("shopId", shopId);
 		return "/WEB-INF/menu/myProducts.jsp";
@@ -122,6 +126,9 @@ public class ControllerMenu {
 		List<Tmarket> marketList = (List<Tmarket>) etechService.findObjectList(Tmarket.class);
 		request.setAttribute("marketList", marketList);//shop market
 		
+		List<Tgoodstype> tgoodstypes = tshop.getGoodsTypes();
+		request.setAttribute("tgoodstypes", tgoodstypes);//shop market
+		
 		return "/WEB-INF/menu/editShop.jsp";
 	}
 	
@@ -160,7 +167,7 @@ public class ControllerMenu {
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				log.debug("upload file name:"+file.getName());
-				if(file.getName().equals("shopLicenseImg")){
+				if(file.getName().equals("licenseImg")){
 				  // get the license save path
 				  licenseImg=UUID.randomUUID()+"."+extention;
 				  log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
@@ -219,12 +226,13 @@ public class ControllerMenu {
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
 		shop.setShopPhotoUrl(shopImg);
+		shop.setBusinessLicensePhotoUrl(licenseImg);
 		//etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);
 		// shop shopusers many to many Tshopuser mapped by shopusers
 		shop.getShopusers().add(sessionUser);
-		etechService.saveOrUpdate(shop);
+		etechService.saveOrUpdate(shop);//更新 会增加一条数据？
 
 		session.setAttribute(Variables.sessionUser, sessionUser);
 		request.setAttribute("tshop", shop);
