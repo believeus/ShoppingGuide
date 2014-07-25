@@ -37,13 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background-color:#5AB5B6; 
 			height:34px;
 			width:70px; 
-			height:34px; 
 			border-radius:3px; 
 			float:right;
 			margin-right:40px;
 		}
 		.butt01 p {
-			line-height:34px; 
 			color:#FFF; 
 			font-weight:bold; 
 			font-size:15px; 
@@ -56,25 +54,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:1000px; 
 			margin-bottom:10px;
 		}
-		table {
-			padding:0px 45px;	
+		.stable{
+			width:800px;
+			height:auto;
+			overflow:hidden;
+			margin-left:auto;
+			margin-right:auto;
 		}
-		table tr {
-			height:65px;
+		.stable p{
+			line-height:60px;
+			padding-left:40px;
+			margin:0;
 		}
-		table td:first-of-type {
-			width:155px;
-			text-align:right;
+		.stable p:hover{
+			background:#EAFCFC;
 		}
-		table td:nth-child(2) {
-			width:345px;	
-		}
-		table td:nth-child(3) {
-			width:45px;	
-			padding-left:10px;
-		}
-		table td:last-of-type {
-			width:350px;	
+		.btn{
+			width:140px;
+			height:30px;
+			border:1px solid #69CDCD;
+			background:#69CDCD;
+			color:#FFFFFF;
+			border-radius:4px;
+			cursor:pointer;
 		}
 		input {
 			width:340px; 
@@ -119,143 +121,111 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				left:65px;
 				color:#d5d5d5;
 			}
-			
+			.btn_div{
+				width:800px;
+				height:auto;
+				overflow:hidden;
+				margin-left:auto;
+				margin-right:auto;
+				text-align:center;
+				margin-bottom:5px;
+			}
+			.btn_div input{
+				width:70px;
+				height:30px;
+				border:1px solid #CCCCCC;
+				background:#CCCCCC;
+				color:#FFFFFF;
+				border-radius:4px;
+				cursor:pointer;
+			}
 			.deleteProductImage:hover{
 				color:#C9033B !important;
 			}
 		</style>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+  		<script type="text/javascript" src="/js/jquery.validate.js"></script>
   </head>
   <script type="text/javascript">
   	$(function(){
-  		
-  		$("#license").blur(function(){
-  			var license=$("#license").val();
-  			$.ajax({
-  				type : "post",
-				url : "/licenseNum.jhtml",
-				dataType : "json",
-				data :{"license":license} ,
-				success : function(data) {
-					if(data.message == "error"){
-						$("#licenseMsg")[0].innerHTML="营业执照格式不正确！";
-						$("#licenseMsg").css("color","red");
-					}else if(data.message == "success"){
-						$("#licenseMsg")[0].innerHTML="营业执照格式正确！";
-						$("#licenseMsg").css("color","black");
-					}else{
-						$("#licenseMsg")[0].innerHTML="注明：必须上传营业执照或者填写执照号";
-						$("#licenseMsg").css("color","black");
-					}
+  		$("#findPsdForm").validate({
+  			rules:{
+  				telphoneNum:{
+  					required: true,
+					rangelength:[11,11]
+  				},
+	  			numberCode:{
+	  				required: true
+	  			}
+  			},
+  			messages:{
+  				telphoneNum:{
+  					required:"手机号必填",
+					rangelength:"手机号码不足11位"
+  				},
+				numberCode:{
+					required:"验证码必填"
 				}
-  			});
-  		});
-  		
-  		$("#userNum").blur(function(){
-  			var userNum=$("#userNum").val();
-  			$.ajax({
-  				type : "post",
-				url : "/userNum.jhtml",
-				dataType : "json",
-				data :{"userNum":userNum} ,
-				success : function(data) {
-					if(data.message == "error"){
-						$("#userNumImg").css("display","block");
-						$("#userNumMsg").css("display","block");
-					}else if(data.message == "success"){
-						$("#userNumImg").css("display","block")[0].src="images/good.gif";
-						$("#userNumMsg").css("display","none");
-					}else{
-						$("#userNumImg").css("display","none");
-						$("#userNumMsg").css("display","none");
-					}
-				}
-  			});
-  		});
-  		
-  		$("#telphone").blur(function(){
-  			var userNum=$("#telphone").val();
-  			$.ajax({
-  				type : "post",
-				url : "/userNum.jhtml",
-				dataType : "json",
-				data :{"userNum":userNum} ,
-				success : function(data) {
-					if(data.message == "error"){
-						$("#telImg").css("display","block");
-						$("#telMsg").css("display","block");
-					}else if(data.message == "success"){
-						$("#telImg").css("display","block")[0].src="images/good1.gif";
-						$("#telMsg").css("display","none");
-					}else{
-						$("#telImg").css("display","none");
-						$("#telMsg").css("display","none");
-					}
-				}
-  			});
-  		});
-  		
-  		$("#submit").click(function(){
-  			document.form1.submit();
-  		});
-  		
-  		
+  			},
+			errorPlacement: function(error, element) {  //验证消息放置的地方
+	            error.appendTo(element.next().css("color","red"));   
+		    },   
+		    highlight: function(element, errorClass) {  //针对验证的表单设置高亮   
+		            $(element).addClass(errorClass);   
+		    }
+	  		});
   	});
+  	
+
+
+
   </script>
   <body>
   	<jsp:include page="../include/header.jsp"/>
-	    <div style="width:1000px; margin:0px auto; background-color:#fff;">
-	    	<div style="padding-top:30px;">
-	        	<div id="titl">
-	                <div id="titl_name">
-	                    <span>找回密码</span>&nbsp;&nbsp;
-	                    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
-	                </div>
-	                <div id="submit" class="butt01"><p>确认</p></div>
-	                <div class="butt01" style="margin-right:20px;"><p>取消</p></div>
-	            </div>
-	            <img src="/images/line.png" />
-	        </div>
-	        <div style="clear:right;">
-	        	<table class="main_table3" style="">
-					<tr>
-						<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-						<td style="" colspan="2"><div style="float:left;color:red;">*</div>营业执照:</td>
-					</tr>
-	   				<tr style="">
-						<td colspan="2" style=""></td>
-						<td>
-							<div class="brandImg">
-								<span>
-									<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-								</span>
-								<img style="width:229px;height:179px" src="" name="img"/>
+	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
+	    	<form id="findPsdForm" method="post" action="">
+		    	<div>
+		    		<div style="padding-top:30px;">
+			        	<div id="titl">
+						    <div id="titl_name">
+							    <span>找回密码</span>&nbsp;&nbsp;
+							    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
 							</div>
-							<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
-							<input type="hidden" id="filename0" name="filename0">
-						</td>
-					</tr>
-				</table>
-	            <table>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>手机号码：</b></td>
-	                <td>
-	                    <input type="text" placeholder="请输入手机号码" />
-	                </td>
-	                <td><img src="images/good.gif" /></td>
-	                <td></td>
-	              </tr>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>验证码：</b></td>
-	                <td>
-	                    <input type="password" placeholder="请输入验证码" />
-	                </td>
-	                <td></td>
-	                <td></td>
-	              </tr>
-	            </table>
-
-	        </div>
+							<div style="width:700px;" class="btn_div"><input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> <input type="button" value="取消" /></div>
+						</div>
+			            <img src="/images/line.png" />
+			        </div>
+		    	</div>
+		    	<p><font color="red" style="margin-left:150px;">*</font>营业执照</p>
+		    	<div>
+		    		<div class="brandImg" style="margin-left:200px;">
+						<span>
+							<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+						</span>
+						<img style="width:229px;height:179px" src="" name="img"/>
+					</div>
+					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
+					<input type="hidden" id="filename0" name="filename0">
+		    	</div>
+				<p style="clear:both;">
+					<font color="red" style="margin-left:150px;">*&nbsp;</font>
+	    			<span style="font-weight:bold;">手机号码：</span>
+	    			<input type="text" id="telphoneNum" name="telphoneNum" placeholder="请输入手机号"
+	    				   style="width:345px;height:35px;line-height:35px;" 
+	    				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
+	   				<span></span>
+				</p>
+				<p>
+					<font color="red" style="margin-left:150px;">*&nbsp;</font>
+	    			<span style="font-weight:bold;">短信验证：</span>
+	    			<input type="text" id="numberCode" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
+	    			<span></span>
+	    			<input class="btn" id="validCode" type="button" value="免费获取验证码">
+	    			<span></span>
+				</p>
+	   		</form>
 		</div>
+		
 	<jsp:include page="../include/footer.jsp"/>
 	<script type="text/javascript">
 			function loadImgFast(img,i){
