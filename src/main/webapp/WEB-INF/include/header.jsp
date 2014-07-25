@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+<% 
+  String path = request.getContextPath();
+  String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <style type="text/css">
 	.msg{
@@ -58,17 +58,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            	<a href="javascript:void(0);" class="hello">admin,你好！</a>&nbsp;&nbsp;&nbsp;
            	<a href="" title="查看消息" style="color:#056f6f;">消息(0)</a>&nbsp;|&nbsp;
            	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>
-           	<div class="setting">
-           		<div style="width:103px;height:33px;line-height:33px;">
-           			admin,你好！
-          			</div>
-           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
-          			</div>
-           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-           			<a href="/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
-       			</div>
-           	</div>
+	           	<div class="setting">
+	           		<div style="width:103px;height:33px;line-height:33px;">${sessionUser.phoneNumber},你好！</div>
+	           		
+	           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
+	           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
+	          		</div>
+	           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
+	           			<a href="/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
+	       			</div>
+	           	</div>
         </div>
        </div>
 </div>

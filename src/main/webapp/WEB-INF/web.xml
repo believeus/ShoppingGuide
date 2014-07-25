@@ -15,11 +15,9 @@
 		<filter-class>com.etech.filter.AccessFilter</filter-class>
 		<init-param>
 			<param-name>allowAccessURL</param-name>
-			<param-value>/login.jhtml,/ajaxLoginValid.jhtml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>sessionUserUnAccessURL</param-name>
-			<param-value>/register.jhtml,/register2.jhtml,/register3</param-value>
+			<param-value>
+			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml
+			</param-value>
 		</init-param>
 	</filter>
 	<!--Begin 这是Spring中的一个编码过滤器 设置每次请求的request请求解码的类型为UTF-8 -->

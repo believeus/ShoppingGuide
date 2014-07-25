@@ -45,10 +45,7 @@ public class AccessFilter implements Filter {
 				httpresponse.sendRedirect("/login.jhtml");
 				return;
 			}else {
-				if(sessionUserUnAccessURL.contains(requestURI)){
-					httpresponse.sendRedirect("/menu.jhtml");
-					return;
-				}
+				chain.doFilter(request, response);
 			}
 		}
 		chain.doFilter(request, response);

@@ -50,7 +50,10 @@ public class ControllerLogin {
 						userLogin.setShopuser(sessionUser);
 						etechService.saveOrUpdate(userLogin);
 						session.setAttribute(Variables.sessionUser,sessionUser);
-						return "success";
+						if(sessionUser.getShops().isEmpty()){
+							return "/register2.jhtml";
+						}
+						return "/menu.jhtml";
 					}
 				}else {
 					return "error";

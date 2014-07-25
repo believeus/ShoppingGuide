@@ -80,7 +80,7 @@ body {
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script language="JavaScript" src="js/jquery.validate.js"></script>
+<script language="JavaScript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
 		$("#login").click(function() {
@@ -88,10 +88,10 @@ body {
 				$("#check").css("display","block");
 			}else{
 				$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
-					if(message=="success"){
-						top.location.href="/menu.jhtml";
-					}else{
+					if(message=="error"){
 						$("#check").css("display","block");
+					}else{
+						top.location.href=message;
 					}
 				});
 			}

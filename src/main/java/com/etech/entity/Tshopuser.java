@@ -12,9 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- * Tshopuser entity. @author MyEclipse Persistence Tools
- */
+
 @Entity
 @Table(name = "tshopuser", catalog = "dbshop")
 public class Tshopuser implements java.io.Serializable {
