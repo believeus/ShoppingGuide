@@ -16,6 +16,7 @@ public class Tgoodsfeature implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = -6032972136919064851L;
 	private Integer goodsFeatureId;
 	private Integer goodsId;
 	private Integer featureId;

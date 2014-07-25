@@ -16,7 +16,7 @@
 		<init-param>
 			<param-name>allowAccessURL</param-name>
 			<param-value>
-			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml
+			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml,/findPsd.jhtml
 			</param-value>
 		</init-param>
 	</filter>
@@ -52,9 +52,8 @@
 
 	<!-- 经测试filter的执行过程是按照filter-mapping的顺序决定的 ,比如说来了一个.html的请求 -->
 	<!-- 会先被SessionUserCheckUpdate拦截,之后才会被UrlRewriteFilter拦截UrlRewriteFilter被拦截到请求 -->
-	
 	<filter-mapping>
-		<filter-name>accessFilter</filter-name>
+		<filter-name>hibernateFilter</filter-name>
 		<url-pattern>*.jhtml</url-pattern>
 	</filter-mapping>
 	
@@ -62,13 +61,14 @@
 		<filter-name>charsetEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<!-- Begin Name:wuqiwei Date:2013-10-4 08:39:02 AddReason:访问一个页面直到页面完全打开之后session才关闭,解决懒加载问题 -->
 	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>accessFilter</filter-name>
+		<url-pattern>*.jhtml</url-pattern>
 	</filter-mapping>
-	<!-- Begin Name:wuqiwei Date:2013-10-4 08:39:02 AddReason:访问一个页面直到页面完全打开之后session才关闭,解决懒加载问题 -->
+	
+	
+
+	
 
 
 
