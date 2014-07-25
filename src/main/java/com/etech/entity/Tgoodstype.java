@@ -24,7 +24,8 @@ public class Tgoodstype implements java.io.Serializable {
 	private String goodsTypeName;
 	private Short hasChild;
 	private String remark;
-	private List<Tshop> shops=new ArrayList<Tshop>();
+	private List<Tshop> shops=new ArrayList<Tshop>(0);
+	private List<Tgoods> goodses=new ArrayList<Tgoods>(0);
 
 	// Constructors
 
@@ -103,6 +104,15 @@ public class Tgoodstype implements java.io.Serializable {
 
 	public void setShops(List<Tshop> shops) {
 		this.shops = shops;
+	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="goodsTypes")
+	public List<Tgoods> getGoodses() {
+		return goodses;
+	}
+
+	public void setGoodses(List<Tgoods> goodses) {
+		this.goodses = goodses;
 	}
 	
 }

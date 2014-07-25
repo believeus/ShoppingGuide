@@ -1,10 +1,17 @@
 package com.etech.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +41,7 @@ public class Tgoods implements java.io.Serializable {
 	private Integer bePraisedCount;
 	private Integer publishUserId;
 	private Short publishFlag;
+	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
 
 	// Constructors
 
@@ -250,4 +258,16 @@ public class Tgoods implements java.io.Serializable {
 		this.publishFlag = publishFlag;
 	}
 
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "Tgoodsgoodstyperelation",
+    joinColumns = { @JoinColumn(name = "GoodsID", referencedColumnName = "GoodsID") }, 
+    inverseJoinColumns = { @JoinColumn(name = "GoodsTypeID", referencedColumnName = "GoodsTypeID") })
+	public List<Tgoodstype> getGoodsTypes() {
+		return goodsTypes;
+	}
+
+	public void setGoodsTypes(List<Tgoodstype> goodsTypes) {
+		this.goodsTypes = goodsTypes;
+	}
+	
 }

@@ -3,13 +3,13 @@ package com.etech.entity;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,8 +39,8 @@ public class Tshopuser implements java.io.Serializable {
 	private Short grade;
 	private Integer pageView;
 	private Integer defaultShopId;
-	private List<Tshop> shops=new ArrayList<Tshop>();
-
+	private List<Tshop> shops=new ArrayList<Tshop>(0);
+	private List<Tshopuserlogin> shopuserLogins=new ArrayList<Tshopuserlogin>(0);
 	// Constructors
 
 	/** default constructor */
@@ -260,6 +260,15 @@ public class Tshopuser implements java.io.Serializable {
 
 	public void setShops(List<Tshop> shops) {
 		this.shops = shops;
+	}
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="shopuser")
+	public List<Tshopuserlogin> getShopuserLogins() {
+		return shopuserLogins;
+	}
+
+	public void setShopuserLogins(List<Tshopuserlogin> shopuserLogins) {
+		this.shopuserLogins = shopuserLogins;
 	}
 
 }
