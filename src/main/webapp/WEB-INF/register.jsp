@@ -62,8 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.btn_div input{
 			width:70px;
 			height:30px;
-			border:1px solid #CCCCCC;
-			background:#CCCCCC;
+			border:1px solid #69cdcd;
+			background:#69cdcd;
 			color:#FFFFFF;
 			border-radius:4px;
 			cursor:pointer;

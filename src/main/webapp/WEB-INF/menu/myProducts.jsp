@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -9,7 +10,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
 <title>我的商品</title>
 
@@ -48,12 +48,19 @@
 }
 
 .pro_list {
-	width: 230px;
+	width: 228px;
 	height: auto;
 	overflow: hidden;
 	float: left;
 	/* margin-right: 40px; */
 	margin-bottom: 25px;
+	border:1px solid #e4e4e4;
+	border-radius:4px;
+	
+	margin-right:20px;
+}
+.pro_list:hover {
+	border:1px solid #59B5B4;
 }
 
 .pro_img {
@@ -106,15 +113,17 @@
 	height: 25px;
 	line-height: 25px;
 	cursor: pointer;
+	margin-right:3px;
 }
 
 .p_list01 {
-	width: 230px;
+	width: auto;
+/* 	width: 230px; */
 	height: auto;
 	overflow: hidden;
 	margin-bottom: 25px;
 	float: left;
-	margin-right: 25px;
+	/* margin-right: 25px; */
 }
 .findPro{
 	background:url(/images/bg.png);
@@ -161,6 +170,21 @@
 	color:#FFFFFF;
 	line-height:25px;
 }
+.middle-money {
+    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    color: #ffffff;
+    font-family: "微软雅黑";
+    font-size: 13px;
+    font-weight: bold;
+    height: 32px;
+    left: 0;
+    line-height: 32px;
+    position: relative;
+    text-align: center;
+    top: -178px;
+    width: 230px;
+}
 </style>
 <script type="text/javascript">
 	$().ready(function() {
@@ -179,7 +203,7 @@
 		<img src="/images/line.png">
 		<p>
 			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;"
-				onClick="javascript:window.location.href='/goodsAdd.jhtml'"><s class="addPro"></s>
+				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s class="addPro"></s>
 			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
@@ -189,88 +213,31 @@
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
-			<c:forEach var="tgLi1" items="${tgLi1}">
+			<c:forEach var="tgLi1" items="${tgLi}">
 				<div class="pro_list">
 					<div class="pro_img">
-						<img src="/images/1.jpg" width="230">
+						<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-						<span>潮流</span> <span>潮流</span>
+						<span>潮流</span>
+						<span>潮流</span>
+						<%-- <c:forEach var="" items="">
+							
+						</c:forEach> --%>
 					</div>
-					<!-- <div class="pro_dis">
-	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
-	   			</div> -->
+					<div class="pro_dis">
+		    			${tgLi1.introduction}
+		   			</div> 
 					<div class="pro_hit">
 						<span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span>
 						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
 					</div>
+					<!-- <div class="middle-money">上架</div> -->
 				</div>
 			</c:forEach>
 		</div>
-		<!-- 商品列表  第二列 -->
-		<div class="p_list01">
-			<c:forEach var="tgLi2" items="${tgLi2 }">
-				<div class="pro_list">
-					<div class="pro_img">
-						<img src="/images/1.jpg" width="230">
-					</div>
-					<div class="pro_name">${tgLi2.goodsName}</div>
-					<div class="pro_spec">
-						<span>潮流</span> <span>潮流</span>
-					</div>
-					<!-- <div class="pro_dis">
-	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
-	   			</div> -->
-					<div class="pro_hit">
-						<span class="pro_hit_1">${tgLi2.bePraisedCount}赞</span> 
-						<span class="pro_hit_span" style="float:right;">${tgLi2.viewCount}点击</span>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-		<!-- 商品列表  第三列 -->
-		<div class="p_list01">
-			<c:forEach var="tgLi3" items="${tgLi3 }">
-				<div class="pro_list">
-					<div class="pro_img">
-						<img src="/images/1.jpg" width="230">
-					</div>
-					<div class="pro_name">${tgLi3.goodsName}</div>
-					<div class="pro_spec">
-						<span>潮流</span> <span>潮流</span>
-					</div>
-					<!-- <div class="pro_dis">
-	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
-	   			</div> -->
-					<div class="pro_hit">
-						<span class="pro_hit_1">${tgLi3.bePraisedCount}赞</span> 
-						<span  class="pro_hit_span" style="float:right;">${tgLi3.viewCount}点击</span>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-		<!-- 商品列表  第四列 -->
-		<div class="p_list01" style="margin-right:0;">
-			<c:forEach var="tgLi4" items="${tgLi4}">
-				<div class="pro_list">
-					<div class="pro_img">
-						<img src="/images/1.jpg" width="230">
-					</div>
-					<div class="pro_name">${tgLi4.goodsName}</div>
-					<div class="pro_spec">
-						<span>潮流</span> <span>潮流</span>
-					</div>
-					<!-- <div class="pro_dis">
-	    			撒旦认同感回家玩儿推广和儿童购和女斯蒂芬购层
-	   			</div> -->
-					<div class="pro_hit">
-						<span class="pro_hit_1">${tgLi4.bePraisedCount}赞</span> 
-						<span  class="pro_hit_span" style="float:right;">${tgLi4.viewCount}点击</span>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
+		
 	</div>
 
 		<!-- 引用尾部页面 -->

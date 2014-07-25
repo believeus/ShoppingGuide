@@ -211,55 +211,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <img src="/images/line.png" />
 	        </div>
 	        <div style="clear:right;">
-	            <table>
-	              <tr style="height:45px;">
-	                <td></td>
-	                <td><div style="font-size:13px;"><span style="color:red;">*</span>为必填选项</div></td>
-	                <td></td>
-	                <td></td>
-	              </tr>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</b></td>
-	                <td>
-	                    <input type="password" placeholder="请输入当前主账号的密码" />
-	                </td>
-	                <td><img src="images/chacha.png" /></td>
-	                <td>
-	                    <div style="width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-	                        <p style="line-height:28px; color:red; margin-left:20px;">密码不能为空</p>
-	                    </div>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</b></td>
-	                <td>
-	                    <input type="text" placeholder="请输入要关联的账号" />
-	                </td>
-	                <td><img src="images/good.gif" /></td>
-	                <td></td>
-	              </tr>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</b></td>
-	                <td>
-	                    <input type="password" placeholder="请输入要关联账号的密码" />
-	                </td>
-	                <td></td>
-	                <td></td>
-	              </tr>
-	              <tr>
-	                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>确认密码：</b></td>
-	                <td>
-	                    <input type="password" placeholder="请再次输入要关联账号的密码" />
-	                </td>
-	                <td></td>
-	                <td></td>
-	              </tr>
-	            </table>
 	        	<form id="aboutUserNumForm" method="post" action="">
 		            <table>
 		              <tr style="height:45px;">
 		                <td></td>
-		                <td><div><span style="color:red;">*</span>为必填选项</div></td>
+		                <td><div style="font-size:13px;"><span style="color:red">*</span>为必填选项</div></td>
 		                <td></td>
 		                <td></td>
 		              </tr>

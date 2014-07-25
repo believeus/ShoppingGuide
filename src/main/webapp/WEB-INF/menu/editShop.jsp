@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
@@ -467,7 +468,7 @@ $(function(){
 									<span>
 										<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
-									<img id="businessLicensePhoto" style="width:229px;height:179px" src="${tshop.businessLicensePhotoUrl }" name="businessLicensePhoto"/>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="businessLicensePhoto"/>
 								</div>
 								<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 								<input type="hidden" id="filename0" name="filename0">
@@ -484,7 +485,7 @@ $(function(){
 									<span>
 										<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
-									<img id="businessLicensePhoto" style="width:229px;height:179px" src="${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopsLogoURL %>${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
 								</div>
 								<input type="file" style="display:none" id="file1" name="lienseImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
 								<input type="hidden" id="filename1" name="filename1">

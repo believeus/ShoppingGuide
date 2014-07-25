@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -52,9 +51,10 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value="/menu")
-	public String menuView(String userName,HttpServletRequest request){
-		Tshopuser sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "userName", userName);
-//		etechService.findObjectList(Tshop.class, "",sessionUser.getShopUserId());
+	public String menuView(String phoneNumber,HttpServletRequest request,HttpSession session){
+		
+		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
+		sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "phoneNumber", sessionUser.getPhoneNumber());
 		if (sessionUser != null) {
 			List<Tshop> shops = sessionUser.getShops();
 			request.setAttribute("shops", shops);
@@ -77,33 +77,11 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value="/myProducts")
-	public String productView(HttpServletRequest request){
-		List<Tgoods> tgLi1 = new ArrayList<Tgoods>();
-		List<Tgoods> tgLi2 = new ArrayList<Tgoods>();
-		List<Tgoods> tgLi3 = new ArrayList<Tgoods>();
-		List<Tgoods> tgLi4 = new ArrayList<Tgoods>();
+	public String productView(HttpServletRequest request,Integer shopId){
 		@SuppressWarnings("unchecked")
-		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class);
-		for (int i = 0; i < tgLi.size(); i++) {
-			int num=tgLi.get(i).getGoodsId()+4;
-			if(num%4==0){
-				tgLi1.add(tgLi.get(i));
-			}else if(num%4==1){
-				tgLi2.add(tgLi.get(i));
-			}else if(num%4==2){
-				tgLi3.add(tgLi.get(i));
-			}else if(num%4==3){
-				tgLi4.add(tgLi.get(i));
-			}
-		}
-		log.debug(tgLi1.size());
-		log.debug(tgLi2.size());
-		log.debug(tgLi3.size());
-		log.debug(tgLi4.size());
-		request.setAttribute("tgLi1", tgLi1);
-		request.setAttribute("tgLi2", tgLi2);
-		request.setAttribute("tgLi3", tgLi3);
-		request.setAttribute("tgLi4", tgLi4);
+		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
+		request.setAttribute("tgLi", tgLi);
+		request.setAttribute("shopId", shopId);
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
 	/**

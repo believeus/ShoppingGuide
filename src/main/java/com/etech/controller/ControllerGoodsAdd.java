@@ -1,23 +1,35 @@
 package com.etech.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 
@@ -27,52 +39,102 @@ public class ControllerGoodsAdd {
 	@Resource
 	private EtechService etechService;
 
-	/** Begin Author:yangQiXian Data:2014-07-21 AddReason:返回商品类型和特色 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/goodsAdd")
-	public String addGoodsView(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		// 商品类型
+	public String addGoodsView(HttpServletRequest request,Integer shopId) {
+		// Tgoodstype
 		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
-		log.debug(gList.size());
+		// Tfeature
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
+		request.setAttribute("tfeatures", tfeatures);
+		request.setAttribute("shopId", shopId);
+		
 		return "/WEB-INF/menu/goodsAdd.jsp";
 	}
 
-	/** End Author:yangQiXian Data:2014-07-21 AddReason:返回商品特色 */
 	@RequestMapping(value = "/goodsAdd2")
 	public String addGoodsView2() {
 		return "/WEB-INF/menu/goodsAdd2.jsp";
 	}
 
-	/** Begin Author:yangQiXian Data:2014-07-21 AddReason:添加商品详细信息 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addDetailedGoods")
-	public void addGoods(Tgoods tGoods, HttpSession session,
-			HttpServletResponse response) throws Exception {
+	public String addGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request) throws Exception {
+		Tshopuser sessionUser = (Tshopuser) session.getAttribute("sessionUser");
+		String featureIds=request.getParameter("featureIds");
+		//goods feature
+		if(!featureIds.isEmpty()){
+			for (String featureId : featureIds.split(",")) {
+				Tgoodsfeature goodsfeature=new Tgoodsfeature();
+				goodsfeature.setFeatureId(Integer.parseInt(featureId));
+				goodsfeature.setGoodsId(tGoods.getGoodsId());
+				goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+			} 
+		}
 		if (!StringUtils.isEmpty(tGoods)) {
-			tGoods.setPublishUserId(2);
+			tGoods.setPublishUserId(sessionUser.getShopUserId());
 			tGoods.setAddTime(new Timestamp(new Date().getTime()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
-			tGoods.setShopId(2);
+			tGoods.setShopId(Integer.parseInt(request.getParameter("shopId")));
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
 			tGoods.setIsRecommend(Variables.unRecommend);
+			tGoods.setIntroduction(request.getParameter("goodsDetail"));
+			tGoods.setGoodsName(request.getParameter("goodsName"));
+			tGoods.setPublishFlag((short) 0);
+			String goodsTypeId=request.getParameter("goodsTypeId");
+			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+			tGoods.getGoodsTypes().add(goodstype);
+			
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			Map<String, MultipartFile> files = multipartRequest.getFileMap();
+			String goodsImg = "";
+			String shopImg=""; 
+			for (MultipartFile file : files.values()) {
+				InputStream inputStream;
+				try {
+					
+					inputStream = file.getInputStream();
+					if(inputStream.available()==0)continue;
+					String originName=file.getOriginalFilename();
+					String extention = originName.substring(originName.lastIndexOf(".") + 1);
+					log.debug("upload file name:"+file.getName());
+					if(file.getName().equals("filename0")){
+					  // get the goods save path
+					  goodsImg=UUID.randomUUID()+"."+extention;
+					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					}else {
+						shopImg=UUID.randomUUID()+"."+extention;
+						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
+						shopImg+="#";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			log.debug("shop image sava db url:"+shopImg);
 			etechService.saveOrUpdate(tGoods);
+			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(request.getParameter("shopId")));
+			request.setAttribute("tgLi", tgLi);
+			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
-			return;
+			return "/WEB-INF/login.jsp";
 		}
-		String url = "";
+		
+		/*String url = "";
 		StringBuilder sb = new StringBuilder();
 		sb.append("<script type='text/javascript'>")
 				.append("top.location.href=" + url).append("</script>");
 		log.debug(sb.toString());
 		PrintWriter pw = new PrintWriter(response.getOutputStream());
 		pw.write(sb.toString());
-		pw.close();
+		pw.close();*/
 
 	}
 
-	/** End Author:yangQiXian Data:2014-07-21 AddReason:添加商品详细信息 */
 	/** Begin Author:yangQiXian Data:2014-07-21 AddReason:添加商品简便信息 */
 	@RequestMapping(value = "/addSimpleGoods")
 	public void addSimpleGoods(Tgoods tGoods, HttpSession session,

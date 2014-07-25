@@ -197,7 +197,7 @@
 					<td>
 					
 						<div class="brandImg">
-							<img style="width:229px;height:179px" src="${tshop.businessLicensePhotoUrl }" name="img"/>
+							<img style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="img"/>
 						</div>
 						<div class="main_table3_div3">
 							营业执照：${tshop.businessLicenseNo }<br/>
@@ -213,7 +213,7 @@
 					<td colspan="2" style=""></td>
 					<td class="shopShow">
 						<div class="brandImg" style="margin-top:20px;">
-							<img style="width:229px;height:179px" src="${tshop.shopPhotoUrl}" name="img"/>
+							<img style="width:229px;height:179px" src="<%=Variables.shopsLogoURL %>${tshop.shopPhotoUrl}" name="img"/>
 						</div>
 					</td>
 				</tr>

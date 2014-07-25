@@ -9,7 +9,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
 <title>商品添加</title>
 
@@ -25,17 +24,21 @@
 <script type="text/javascript" src="/js/validate.expand.js"></script>
 	<style type="text/css">
 		.inputClass{
-			background-color:#69CDCD;
+			background:#69CDCD;
+			border:1px solid #69CDCD !important;
 			border-radius:.2em;
 			color:white;
+		}
+		.error {
+		    color: red;
 		}
 		.main_table2_td p{
 			font-size:13px;
 			border-radius:.2em;
-			margin-right:15px;
+			margin:5px;
 			width:auto;
 			border:1px solid gray;
-			height:20px;toggle
+			height:20px;
 			line-height:20px;
 			float:left;
 			display:block;
@@ -85,6 +88,13 @@
 	}
 </style>
 <script type="text/javascript">
+function addclass(obj){
+	if(obj.className == "inputClass"){
+		obj.className = "";
+	}else{
+		obj.className = "inputClass";
+	}
+}
 	$().ready(function(){
 		
 		$("#add_img").click(function(){
@@ -98,21 +108,29 @@
 			}
 		});
 		
-		var specs = $("#main_table2_td p");
+		var specs = $("[id=special]");
+		
 		specs.each(function(){
 			$(this).click(function(){
-				if($("#main_table2_td .inputClass").length >= 5){
-					alert("最多选择5个");
+				if($(this).hasClass("inputClass")){
+					$(this).removeClass("inputClass");
 				}else{
-					alert(2);
-					$(this).addClass("inputClass");		
+					if($("#main_table2_td .inputClass").length >= 5){
+						alert("最多选择5个");
+					}else{
+						$(this).addClass("inputClass");		
+					}
 				}
-			},function(){
-				$(this).removeClass("inputClass");
+				var featureIds=new Array();
+				$("#special.inputClass").each(function(){
+					featureIds.push($(this).attr("value"));
+				});
+				$("#featureIds").val();
+				$("#featureIds").val(featureIds);
 			});
 		});
 		
-		$("#addSpecial").click(function(){
+		/* $("#addSpecial").click(function(){
 			var text=$("#textSpecial").val();
 			
 			if(text == ""){
@@ -125,7 +143,19 @@
 					$("#main_table2_td").append("&nbsp;&nbsp;").append($("#special").clone(true).removeClass("inputClass").text(v));
 				}
 			}
-			
+		}); */
+		//添加
+		$("#addSpecial").click(function() {
+			var feature = $("#textSpecial").val();
+			if (feature == "") {
+				alert("请输入关键字！");
+			} else {
+				$.post("/insertFeature.jhtml",{feature:feature},function(result){
+					var tfeatureId=result.match(/[0-9]+/);
+					$("#main_table2_td").append("<p id='special' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					$("#textSpecial").val("");
+				 });
+			}
 		});
 		
 		$("#main_form").validate({
@@ -169,7 +199,8 @@
 				<img src="/images/line.png">
 			</div>
 			
-			<form id="main_form" method="post" action="/addDetailedGoods.jhtml">
+			<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
+			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
 					<td style="color:red;">*</td>
@@ -192,23 +223,10 @@
 					<td style="color:red;">*</td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-							<p id="special" name="special" style="margin-top:13px;">潮流</p>
-							<p id="special" name="special" style="">精致韩风</p>
-							<p id="special" name="special" style="">商务休闲</p>
-							<p id="special" name="special" style="">青春活力</p>
-							<p id="special" name="special" style="">小清新</p>
-							<p id="special" name="special" style="">欧美简约</p>
-							
-							<p id="special" name="special" style="">基础大众</p>
-							<p id="special" name="special" style="">日系复古</p>
-							<p id="special" name="special" style="">美式休闲</p>
-							<p id="special" name="special" style="">英式学院</p>
-							<p id="special" name="special" style="">商务正装</p>
-							
-							<p id="special" name="special" style="">中国风</p>
-							<p id="special" name="special" style="">工装军旅</p>
-							<p id="special" name="special" style="">嘻哈</p>
-							<p id="special" name="special" style="">朋克</p>
+						<c:forEach var="tfeatures" items="${tfeatures }">
+							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
+						</c:forEach>
+						<input type="text" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
 				<tr>
@@ -230,7 +248,7 @@
 				</tr>
 			</table>
 
-			</form>
+			
 
 			<div style="width:1000px;text-align:center;margin:0 auto;">
 				<img src="/images/line.png">
@@ -255,7 +273,7 @@
 					</td>
 				</tr>
 			</table>
-			
+			</form>
 		</div>
 
 		 <!-- 引用尾部页面 -->
