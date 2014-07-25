@@ -3,9 +3,11 @@ package com.etech.entity;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -193,7 +195,7 @@ public class Tshopuser implements java.io.Serializable {
 		this.defaultShopId = defaultShopId;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },mappedBy="shopusers")
+	@ManyToMany(fetch=FetchType.LAZY,cascade = { CascadeType.ALL },mappedBy="shopusers")
 	public List<Tshop> getShops() {
 		return shops;
 	}

@@ -21,8 +21,8 @@ import javax.persistence.Table;
 @Table(name = "tgoods", catalog = "dbshop")
 public class Tgoods implements java.io.Serializable {
 
-	// Fields
 
+	private static final long serialVersionUID = -4363951674315621252L;
 	private Integer goodsId;
 	private Integer shopId;
 	private String goodsName;
@@ -42,7 +42,7 @@ public class Tgoods implements java.io.Serializable {
 	private Integer publishUserId;
 	private Short publishFlag;
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
-
+	private List<Tfeature> features=new ArrayList<Tfeature>();
 	// Constructors
 
 	/** default constructor */
@@ -269,5 +269,19 @@ public class Tgoods implements java.io.Serializable {
 	public void setGoodsTypes(List<Tgoodstype> goodsTypes) {
 		this.goodsTypes = goodsTypes;
 	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "tgoodsfeature",
+    joinColumns = { @JoinColumn(name = "goodsId", referencedColumnName = "goodsId") }, 
+    inverseJoinColumns = { @JoinColumn(name = "FeatureID", referencedColumnName = "FeatureID") })
+	public List<Tfeature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<Tfeature> features) {
+		this.features = features;
+	}
+	
+	
 	
 }

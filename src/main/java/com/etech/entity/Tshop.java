@@ -302,7 +302,7 @@ public class Tshop implements java.io.Serializable {
 		this.market = market;
 	}
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany(cascade = { CascadeType.ALL})
 	@JoinTable(name = "tshopfeature",
     joinColumns = { @JoinColumn(name = "ShopID", referencedColumnName = "ShopID") }, 
     inverseJoinColumns = { @JoinColumn(name = "FeatureID", referencedColumnName = "FeatureID") })

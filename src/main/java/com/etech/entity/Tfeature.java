@@ -24,6 +24,7 @@ public class Tfeature implements java.io.Serializable {
 	private Short featureType;
 	private Integer count;
 	private List<Tshop> shops=new ArrayList<Tshop>();
+	private List<Tgoods> goodses=new ArrayList<Tgoods>();
 	
 
 	// Constructors
@@ -83,6 +84,14 @@ public class Tfeature implements java.io.Serializable {
 
 	public void setShops(List<Tshop> shops) {
 		this.shops = shops;
+	}
+	@ManyToMany(cascade = { CascadeType.ALL},mappedBy="features")
+	public List<Tgoods> getGoodses() {
+		return goodses;
+	}
+
+	public void setGoodses(List<Tgoods> goodses) {
+		this.goodses = goodses;
 	}
 	
 	
