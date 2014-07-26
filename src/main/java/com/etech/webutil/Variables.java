@@ -38,6 +38,7 @@ public class Variables {
 	public static final Integer initCount=0;
 	//validate webservice interface
 	public static final String webserviceValidCode=PropertiesUtils.findValue("shopping.properties", "webserviceValidCode");
+	public static String shopLicenseImgPath=PropertiesUtils.findValue("shopping.properties","ShopLicenseImgPath");;
 
 
 

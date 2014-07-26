@@ -148,12 +148,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <script type="text/javascript">
   	$(function(){
+  		$("#validCode").click(function(){
+  			
+  			 var phoneNumber=$("#telphoneNum").val();
+  			  $("#telphoneNum").next().text("");
+  			  if(phoneNumber==""){
+  				  $("#telphoneNum").next().text("手机号必填!").css("color","red");
+  			  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
+  				  $("#telphoneNum").next().text("手机号格式不正确!").css("color","red");
+  			  }else{
+  				  $("#validCode").attr('disabled',"false");
+  				  //将手机号码发送给webserivce,获取手机验证码
+  				  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
+  					 if(/[0-9]{4}/.test(data.returnCode)){
+  						  $("#validCode").attr('disabled',"true");
+  					  }else{
+  						 $("#validCode").attr('disabled',"false");
+  						  $("#telphoneNum").next().text("获取验证码失败,请重新获取").css("color","red");
+  					  }
+  				  },"json");
+  			  }
+  			
+  			
+  		});
   		$("#findPsdForm").validate({
   			rules:{
   				telphoneNum:{
   					required: true,
-					rangelength:[11,11],
-					remote:"/validatePhoneNumber.jhtml"
+					rangelength:[11,11]
   				},
 	  			numberCode:{
 	  				required: true
@@ -166,7 +188,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				telphoneNum:{
   					required:"手机号必填",
 					rangelength:"手机号码不足11位",
-					remote:"验证码不匹配"
   				},
 				numberCode:{
 					required:"验证码必填"
@@ -189,9 +210,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </script>
   <body>
-  	<jsp:include page="../include/header.jsp"/>
+  	<jsp:include page="/WEB-INF/include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
-	    	<form id="findPsdForm" method="post" action="">
+	    	<form id="findPsdForm" method="post" action="/findPsdLogic.jhtml" enctype="multipart/form-data">
 		    	<div>
 		    		<div style="padding-top:30px;">
 			        	<div id="titl">
@@ -213,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img style="width:229px;height:179px" src="" name="img" id="licenseImg"/>
 					</div>
 					<input type="file" style="display:none" id="file0" name="file0" onchange="filename.value=this.value;loadImgFast(this,0)">
-					<input type="hidden" id="filename" name="filename"/>
+					<input readonly="readonly" type="text" id="filename" name="filename" style="width: 250px"/>
 					<span></span>
 		    	</div>
 				<p style="clear:both;">

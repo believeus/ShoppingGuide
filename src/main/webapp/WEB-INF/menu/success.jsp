@@ -18,7 +18,7 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <body>
-	<h1>密码更新成功</h1>
+	<h1>${message}</h1>
 	<a href="/menu.jhtml">返回菜单页面</a>
 
 </body>

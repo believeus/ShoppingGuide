@@ -54,9 +54,10 @@
        	<div style="float:left;">
        		<a href="/login.jhtml" title="首页"><img src="/images/Logo_b.png"/></a>
         </div>
+        <c:if test="${sessionUser != null }">
        	<div class="msg" style="">
            	<a href="javascript:void(0);" class="hello">${sessionUser.phoneNumber}</a>&nbsp;&nbsp;&nbsp;,你好！
-           	<a href="" title="查看消息" style="color:#056f6f;">消息(0)</a>&nbsp;|&nbsp;
+           	<a href="" title="查看消息" style="color:#056f6f;">消息(q)</a>&nbsp;|&nbsp;
            	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>
 	           	<div class="setting">
 	           		<div style="width:103px;height:33px;line-height:33px;">${sessionUser.phoneNumber}</div>
@@ -69,5 +70,6 @@
 	       			</div>
 	           	</div>
         </div>
+        </c:if>
        </div>
 </div>

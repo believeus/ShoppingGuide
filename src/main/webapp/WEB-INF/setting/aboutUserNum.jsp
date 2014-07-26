@@ -103,10 +103,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#aboutUserNumForm").validate({
   			rules:{
   				oldPassword:{
-  					required: true
+  					required: true,
+  					remote:"/ajaxMacthPwd.jhtml"
   				},
-  				aboutUser:{
-  					required: true
+  				phoneNumber:{
+  					required: true,
+  					remote:"/validatePhoneNumber.jhtml"
   				},
   				aboutPsd:{
   					required: true,
@@ -119,10 +121,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   			messages:{
   				oldPassword:{
-  					required:"旧密码必填！"
+  					required:"旧密码必填！",
+  					remote:"输入旧密码不正确"
   				},
-  				aboutUser:{
-  					required:"关联帐号必填！"
+  				phoneNumber:{
+  					required:"关联帐号必填！",
+  					remote:"该关联帐号已被关联"
   				},
   				aboutPsd:{
   					required:"关联密码必填！",
@@ -146,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<jsp:include page="../include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
 	    
-	    	<form id="aboutUserNumForm" action="" method="post">
+	    	<form id="aboutUserNumForm" action="/relationCount.jhtml" method="post">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">
 		                <div id="titl_name">
@@ -168,8 +172,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
-		    			<span style="font-weight:bold;">关联帐号：</span>
-		    			<input type="text" id="aboutUser" name="aboutUser" placeholder="请输入新密码"
+		    			<span style="font-weight:bold;">关联手机：</span>
+		    			<input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入关联手机号"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>

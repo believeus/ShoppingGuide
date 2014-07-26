@@ -8,11 +8,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,10 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
-import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
@@ -167,7 +163,7 @@ public class ControllerMenu {
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				log.debug("upload file name:"+file.getName());
-				if(file.getName().equals("licenseImg")){
+				if(file.getName().equals("shopLicenseImg")){
 				  // get the license save path
 				  licenseImg=UUID.randomUUID()+"."+extention;
 				  log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
@@ -230,13 +226,10 @@ public class ControllerMenu {
 		//etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);
-		// shop shopusers many to many Tshopuser mapped by shopusers
-		shop.getShopusers().add(sessionUser);
-		etechService.saveOrUpdate(shop);//更新 会增加一条数据？
+		etechService.saveOrUpdate(shop);//更新 
 
 		session.setAttribute(Variables.sessionUser, sessionUser);
 		request.setAttribute("tshop", shop);
-		
 		return "/WEB-INF/menu/shopMessage.jsp";
 	}
 	/**

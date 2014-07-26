@@ -473,7 +473,7 @@ $(function(){
 									</span>
 									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="businessLicensePhoto"/>
 								</div>
-								<input type="file" style="display:none" id="file0" name="lienseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
+								<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 								<input type="hidden" id="filename0" name="filename0">
 							</div>
 		              	</td>

@@ -82,11 +82,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
 			  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
 		  }else{
+			  $("#validCode").attr('disabled',"false");
 			  //将手机号码发送给webserivce,获取手机验证码
 			  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
 				  if(/[0-9]{4}/.test(data.returnCode)){
 					  $("#validCode").attr('disabled',"true");
 				  }else{
+					  $("#validCode").attr('disabled',"false");
 					  $("#numberCode").next().text("获取验证码失败,请重新获取").css("color","red");
 				  }
 			  },"json");

@@ -16,6 +16,7 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 
 	// Fields
 
+	private static final long serialVersionUID = -7032897331015497339L;
 	private Integer findPasswordForShopUserId;
 	private String userName;
 	private String phoneNumber;
