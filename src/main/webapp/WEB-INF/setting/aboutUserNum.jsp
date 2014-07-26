@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<script language="JavaScript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery.validate.js"></script>
 	<style type="text/css">
 		body {
 			font-family: Microsoft YaHei !important;	
@@ -55,26 +56,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:1000px; 
 			margin-bottom:10px;
 		}
-		table {
-			padding:0px 45px;	
+		.nav_div{
+			line-height:60px;
+			padding-left:40px;
+			margin:0;
 		}
-		table tr {
-			height:65px;
+		.nav_div:hover{
+			background:#EAFCFC;
 		}
-		table td:first-of-type {
-			width:155px;
-			text-align:right;
+		.btn{
+			width:140px;
+			height:30px;
+			border:1px solid #69CDCD;
+			background:#69CDCD;
+			color:#FFFFFF;
+			border-radius:4px;
+			cursor:pointer;
 		}
-		table td:nth-child(2) {
-			width:345px;	
+		.btn_div{
+			width:800px;
+			height:auto;
+			overflow:hidden;
+			margin-left:auto;
+			margin-right:auto;
+			text-align:center;
+			margin-bottom:5px;
 		}
-		table td:nth-child(3) {
-			width:30px;
-/* 			width:45px;	 */
-/* 			padding-left:10px; */
-		}
-		table td:last-of-type {
-			width:350px;	
+		.btn_div input{
+			width:70px;
+			height:30px;
+			border:1px solid #CCCCCC;
+			background:#CCCCCC;
+			color:#FFFFFF;
+			border-radius:4px;
+			cursor:pointer;
 		}
 		input {
 			width:340px; 
@@ -85,196 +100,97 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <script type="text/javascript">
   	$(function(){
-  		
-//   		验证当前帐号密码
-  		$("#password").blur(function(){
-  			var password=$("#password").val();
-  			$.ajax({
-  				type : "post",
-				url : "/ajaxAssociatePasswordValid.jhtml",
-				dataType : "json",
-				data :{"password":password} ,
-				success : function(data) {
-					if (data.message == "error") {
-						//提示当前帐号密码输入错误
-						$("#passwordMsg").css("display","block");
-						$("#passwordImg").css("display","block")[0].src="images/chacha.png";
-					}else if(data.message == "success"){
-						//
-						$("#passwordMsg").css("display","none");
-						$("#passwordImg").css("display","block")[0].src="images/good.gif";
-					}else if(data.message == "nu"){
-						$("#passwordMsg").css("display","none");
-						$("#passwordImg").css("display","none");
-						
-					}
-				}
-  			});
+  		$("#aboutUserNumForm").validate({
+  			rules:{
+  				oldPassword:{
+  					required: true
+  				},
+  				aboutUser:{
+  					required: true
+  				},
+  				aboutPsd:{
+  					required: true,
+  					rangelength:[6,18]
+  				},
+  				confirmPsd:{
+  					required: true,
+  					equalTo: "#aboutPsd"
+  				}
+  			},
+  			messages:{
+  				oldPassword:{
+  					required:"旧密码必填！"
+  				},
+  				aboutUser:{
+  					required:"关联帐号必填！"
+  				},
+  				aboutPsd:{
+  					required:"关联密码必填！",
+  					rangelength:"密码长度6-18位，必须含有字母！"
+  				},
+  				confirmPsd:{
+  					required:"确认密码必填！",
+  					equalTo: "两次输入密码不一致！"
+  				}
+  			},
+			errorPlacement: function(error, element) {  //验证消息放置的地方
+	            error.appendTo(element.next().css("color","red"));   
+		    },   
+		    highlight: function(element, errorClass) {  //针对验证的表单设置高亮   
+		            $(element).addClass(errorClass);   
+		    }
   		});
-  		
-//   		验证关联帐号
-  		$("#aboutUser").blur(function(){
-  			var aboutUser=$("#aboutUser").val();
-  			$.ajax({
-  					type : "post",
-  					url : "/ajaxAssociateUserValid.jhtml",
-  					dataType : "json",
-  					data :{"aboutUser":aboutUser} ,
-  					success : function(data) {
-  						if (data.message == "error") {
-  							//提示帐号为空
-  							$("#userMsg1").css("display","block");
-  							$("#userMsg2").css("display","none");
-  							$("#userImg").css("display","block")[0].src="images/chacha.png";
-  						}else if(data.message == "success"){
-  							//
-  							$("#userMsg1").css("display","none");
-  							$("#userMsg2").css("display","none");
-  							$("#userImg").css("display","block")[0].src="images/good1.gif";
-  						}else{
-  							$("#userMsg1").css("display","none");
-  							$("#userMsg2").css("display","block");
-  							$("#userImg").css("display","none");
-  						}
-  					}
-  			});
-  		});
-  		
-//   		验证关联帐号密码
-		$("#aboutPwd").blur(function(){
-			var aboutPwd=$("#aboutPwd").val();
-			$.ajax({
-				type : "post",
-				url : "/ajaxAssociateNewPwdValid.jhtml",
-				dataType : "json",
-				data :{"aboutPwd":aboutPwd} ,
-				success : function(data) {
-					if (data.message == "error") {
-						//提
-						$("#pwdMsg1").css("display","block");
-						$("#pwdMsg2").css("display","none");
-						$("#aboutPwdImg").css("display","block")[0].src="images/chacha.png";
-					}else if (data.message == "success") {
-						//
-						$("#pwdMsg1").css("display","none");
-						$("#pwdMsg2").css("display","none");
-						$("#aboutPwdImg").css("display","block")[0].src="images/good2.gif";
-					}else{
-						$("#pwdMsg1").css("display","none");
-						$("#pwdMsg2").css("display","block");
-						$("#aboutPwdImg").css("display","none");
-					}
-				}
-			});
-		});
-  		
-//   		验证两次密码输入相同
-  		$("#comfirmPwd").blur(function(){
-  			var aboutPwd=$("#aboutPwd").val();
-  			var comfirmPwd=$("#comfirmPwd").val();
-  			
-  			$.ajax({
-  				type : "post",
-				url : "/ajaxAssociateComparePwdValid.jhtml",
-				dataType : "json",
-				data :{"aboutPwd":aboutPwd,"comfirmPwd":comfirmPwd} ,
-				success : function(data) {
-					if (data.message == "error") {
-						$("#confirmpwdMsg").css("display","block");
-						$("#comfirm").css("display","block")[0].src="images/chacha.png";
-					}else if(data.message == "success"){
-						$("#confirmpwdMsg").css("display","none");
-						$("#comfirm").css("display","block")[0].src="images/good3.gif";
-					}else{
-						$("#confirmpwdMsg").css("display","none");
-						$("#comfirm").css("display","none");
-					}
-				}
-  			});
-  			
-  		});
-  		
   	});
   </script>
   <body>
   	<jsp:include page="../include/header.jsp"/>
-	    <div style="width:1000px; margin:0px auto; background-color:#fff;">
-	    	<div style="padding-top:30px;">
-	        	<div id="titl">
-	                <div id="titl_name">
-	                    <span>关联账号</span>&nbsp;&nbsp;
-	                    <span style="color:#AEAEAE; text-transform:uppercase;">user associate</span>
-	                </div>
-	                <div class="butt01"><p>确认</p></div>
-	                <div class="butt01" style="margin-right:20px;"><p>取消</p></div>
-	            </div>
-	            <img src="/images/line.png" />
-	        </div>
-	        <div style="clear:right;">
-	        	<form id="aboutUserNumForm" method="post" action="">
-		            <table>
-		              <tr style="height:45px;">
-		                <td></td>
-		                <td><div style="font-size:13px;"><span style="color:red">*</span>为必填选项</div></td>
-		                <td></td>
-		                <td></td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</b></td>
-		                <td>
-		                    <input id="password" name="password" type="password" placeholder="请输入当前主账号的密码" />
-		                </td>
-		                <td>
-		                	<img id="passwordImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td style="width:355px;">
-		                    <div id="passwordMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">密码错误，请重新输入!</p>
-		                    </div>
-		                </td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</b></td>
-		                <td>
-		                    <input id="aboutUser" name="aboutUser" type="text" placeholder="请输入要关联的账号" />
-		                </td>
-		                <td><img id="userImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                	<div id="userMsg1" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">输入手机号不正确，请重新输入！</p>
-		                    </div>
-		                    <div id="userMsg2" style="display:;width:351px; height:31px; margin-bottom:14px; background-image:url(images/bg.png);background-position:-101px 407px;">
-		                        <p style="line-height:28px; color:black; margin-left:20px;">账号仅支持手机号注册！</p>
-		                    </div>
-		                </td>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</b></td>
-		                <td>
-		                    <input id="aboutPwd" name="aboutPwd" type="password" placeholder="请输入要关联账号的密码" />
-		                </td>
-		                <td><img id="aboutPwdImg" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                	<div id="pwdMsg1" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">输入格式不正确，请重新输入！</p>
-		                    </div>
-		                    <div id="pwdMsg2" style="display:;width:351px; height:31px; margin-bottom:14px;background-image:url(images/bg.png);background-position:-101px 407px;">
-		                        <p style="line-height:28px; color:black; margin-left:20px;">密码长度6-18位，必须含有字母！</p>
-		                    </div>
-		              </tr>
-		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>确认密码：</b></td>
-		                <td>
-		                    <input id="comfirmPwd" name="comfirmPwd" type="password" placeholder="请再次输入要关联账号的密码" />
-		                </td>
-		                <td><img id="comfirm" style="display:none;" src="images/chacha.png" /></td>
-		                <td>
-		                	<div id="confirmpwdMsg" style="display:none;width:351px; height:28px; margin-bottom:14px; background-image:url(images/warning.png)">
-		                        <p style="line-height:28px; color:red; margin-left:20px;">两次输入的密码不一致，请重新输入！</p>
-		                    </div>
-		              </tr>
-		            </table>
-	            </form>
-	        </div>
+	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
+	    
+	    	<form id="aboutUserNumForm" action="" method="post">
+		    	<div style="padding-top:30px;">
+		        	<div id="titl">
+		                <div id="titl_name">
+		                    <span>关联账号</span>&nbsp;&nbsp;
+		                    <span style="color:#AEAEAE; text-transform:uppercase;">user associate</span>
+		                </div>
+		                <div style="width:700px;" class="btn_div"><input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> <input onClick="javascript:window.history.back();" type="button" value="取消" /></div>
+		            </div>
+		            <img src="/images/line.png" />
+		        </div>
+		        <div style="clear:right;">
+			         
+					<div class="nav_div">
+						<font color="red" style="margin-left:150px;">*&nbsp;</font>
+		    			<span style="font-weight:bold;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+		    			<input type="text" id="oldPassword" name="oldPassword" placeholder="请输入旧密码"
+		    				   style="width:345px;height:35px;line-height:35px;">
+		   				<span></span>
+					</div>
+					<div class="nav_div">
+						<font color="red" style="margin-left:150px;">*&nbsp;</font>
+		    			<span style="font-weight:bold;">关联帐号：</span>
+		    			<input type="text" id="aboutUser" name="aboutUser" placeholder="请输入新密码"
+		    				   style="width:345px;height:35px;line-height:35px;">
+		   				<span></span>
+					</div>
+					<div class="nav_div">
+						<font color="red" style="margin-left:150px;">*&nbsp;</font>
+		    			<span style="font-weight:bold;">关联密码：</span>
+		    			<input type="text" id="aboutPsd" name="aboutPsd"
+		    				   style="width:345px;height:35px;line-height:35px;">
+		   				<span></span>
+					</div>
+					<div class="nav_div">
+						<font color="red" style="margin-left:150px;">*&nbsp;</font>
+		    			<span style="font-weight:bold;">确认密码：</span>
+		    			<input type="text" id="confirmPsd" name="confirmPsd"
+		    				   style="width:345px;height:35px;line-height:35px;">
+		   				<span></span>
+					</div>
+			            
+		        </div>
+			</form>
+	    
 		</div>
 	<jsp:include page="../include/footer.jsp"/>
   </body>
