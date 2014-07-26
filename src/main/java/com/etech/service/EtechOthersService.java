@@ -58,16 +58,17 @@ public class EtechOthersService {
 	public List<Tgoodstype> findObject(int phoneUserId){
 		
 		List<Tphoneuserfeature> tfeature=(List<Tphoneuserfeature>) etechComDao.findObject(Tphoneuserfeature.class, phoneUserId);
-		List featureID=new ArrayList();
-		for(int i=0;i<tfeature.size();i++){
-			featureID.add(tfeature.get(i).getFeatureId());
-		}
-		
 		List featureName=new ArrayList();
-		for(int i=0;i<featureID.size();i++){
-			Integer id=(Integer) featureID.get(i);
-			List<Tfeature> feature=(List<Tfeature>) etechComDao.findObject(Tfeature.class, id);
-			featureName.add(feature.get(i).getFeatureName());
+		List featureID=new ArrayList();
+		if (!StringUtils.isEmpty(tfeature)) {
+			for(int i=0;i<tfeature.size();i++){
+				featureID.add(tfeature.get(i).getFeatureId());
+			}
+			for(int i=0;i<featureID.size();i++){
+				Integer id=(Integer) featureID.get(i);
+				List<Tfeature> feature=(List<Tfeature>) etechComDao.findObject(Tfeature.class, id);
+				featureName.add(feature.get(i).getFeatureName());
+			}
 		}
 		
 		return featureName;
@@ -140,7 +141,7 @@ public class EtechOthersService {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public String[] getConstellation(List<Tphoneuser> user){
+	public Double[] getConstellation(List<Tphoneuser> user){
 		String[] constellate={"白羊座","金牛座","双子座","巨蟹座","狮子座","处女座","天秤座","天蝎座","射手座","摩羯座","水瓶座","双鱼座"};
 		int num[] =new int[13];
 		log.debug("user:"+user.get(0).getConstellation()+";2:"+user.get(2).getConstellation());
@@ -158,12 +159,15 @@ public class EtechOthersService {
 		}
 
 		DecimalFormat df=new DecimalFormat(".##");
-		List constellatPre=new ArrayList();
+		List<Double> constellatPre=new ArrayList<Double>();
 		for(int i=0;i<num.length;i++){
 			constellatPre.add(Double.parseDouble(df.format((double)num[i]/user.size()*100)));
 		}
 		
-		String[] arr=(String[]) constellatPre.toArray(new String[constellatPre.size()]);
+		
+		// 可不可能是这样:constellatPre 是新定义的一个数组,new String[constellatPre.size()] 
+		System.out.println(constellatPre.size());
+		Double[] arr=(Double[]) constellatPre.toArray(new Double[constellatPre.size()]);
 		
 		return arr;
 		

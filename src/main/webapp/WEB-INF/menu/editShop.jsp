@@ -431,9 +431,6 @@ $(function(){
 		                <td id="businessTd" colspan="3">
 		                	
 		                    <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
-								<c:forEach var="tgoodstype" items="${tgoodstypes}">
-									<option value="${tgoodstype.goodsTypeId}">${tgoodstype.goodsTypeName}</option>
-								</c:forEach>
 								<c:forEach var="gli" items="${range}">
 									<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 								</c:forEach>
@@ -443,8 +440,13 @@ $(function(){
 		               <tr>
 		              	<td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
 		              	<td colspan="3">
+		              		<script type="text/javascript">
+                                   $(function(){
+                                       $("#marketId").val("${tshop.market.marketId}"); 
+                                    });
+                            </script>
+		              		
 		              		<select id="marketId" name="marketId" style="height: 30px; line-height: 30px; width: 340px;">
-								<option value="${tshop.market.marketId}">${tshop.market.marketName}</option>
 								<c:forEach items="${marketList}" var="market">
 									<option value="${market.marketId}">${market.marketName}</option>
 								</c:forEach>

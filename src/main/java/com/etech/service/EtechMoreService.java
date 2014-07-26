@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.etech.dao.EtechComDao;
 
 @Service
-public class EtechAgeBirthdayService {
+public class EtechMoreService {
 	
 	private static final Log log = LogFactory.getLog(EtechOthersService.class);
 	@Resource

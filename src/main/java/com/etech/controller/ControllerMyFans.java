@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.terracotta.ehcachedx.org.mortbay.log.Log;
 
 import com.etech.entity.Tphoneuser;
 import com.etech.service.EtechOthersService;
@@ -33,7 +34,7 @@ public class ControllerMyFans {
 		for(int i=0;i<fans.size();i++){
 			int id=fans.get(i).getPhoneUserId();
 			List feature=etechOthersService.findObject(id);
-			featurelist.add(feature);
+			featurelist.addAll(feature);
 		}
 		request.setAttribute("featurelist", featurelist);
 		return "/WEB-INF/menu/myFans.jsp";

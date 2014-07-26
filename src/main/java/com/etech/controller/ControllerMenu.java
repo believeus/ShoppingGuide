@@ -127,7 +127,7 @@ public class ControllerMenu {
 		request.setAttribute("marketList", marketList);//shop market
 		
 		List<Tgoodstype> tgoodstypes = tshop.getGoodsTypes();
-		request.setAttribute("tgoodstypes", tgoodstypes);//shop market
+		request.setAttribute("tgoodstypes", tgoodstypes);
 		
 		return "/WEB-INF/menu/editShop.jsp";
 	}
@@ -301,21 +301,21 @@ public class ControllerMenu {
 	@RequestMapping(value = "/fansCount")
 	public String FansCount(String url){
 		if (url.equals("sex")) {
-			return "/WEB-INF/menu/FansCount.jsp";
+			return "redirect:/fansSexCount.jhtml";
 		}else if (url.equals("age")) {
-			return "/WEB-INF/menu/FansCountForAge.jsp";
+			return "redirect:/fansAgeCount.jhtml";
 		}else if (url.equals("area")) {
 			return "/WEB-INF/menu/FansCountForArea.jsp";
 		}else if (url.equals("constellation")) {
-			return "/WEB-INF/menu/FansCountForConstellation.jsp";
+			return "redirect:/fansConstellationCount.jhtml";
 		}else if (url.equals("favourite")) {
 			return "/WEB-INF/menu/FansCountForFavourite.jsp";
 		}else if (url.equals("job")) {
 			return "/WEB-INF/menu/FansCountForJob.jsp";
 		}else if (url.equals("CZ")) {
-			return "/WEB-INF/menu/FansCountForCZ.jsp";
+			return "redirect:/fansCzCount.jhtml";
 		}else{
-			return "/WEB-INF/login.jsp";
+			return "/login.jhtml";
 		}
 	}
 	@RequestMapping(value="/associate")

@@ -56,7 +56,7 @@ public class ControllerFansCount {
 		
 		List<Tphoneuser> users=(List<Tphoneuser>) etechService.findObjectList(Tphoneuser.class);
 		
-		String[] constellat=etechOthersService.getConstellation(users);
+		Double[] constellat=etechOthersService.getConstellation(users);
 		request.setAttribute("constellat", constellat);
 		
 		return "/WEB-INF/menu/FansCountForConstellation.jsp";

@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-		<% double[] constellat=(double[])request.getAttribute("constellat"); %>
+		<% Double[] constellat=(Double[])request.getAttribute("constellat"); %>
 		$('#container').highcharts({
 	        chart: {
 	            type: 'column'
