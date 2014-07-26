@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-
+		<% double[] constellat=(double[])request.getAttribute("constellat"); %>
 		$('#container').highcharts({
 	        chart: {
 	            type: 'column'
@@ -43,7 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                '射手座',
 	                '摩羯座',
 	                '水瓶座',
-	                '双鱼座'
+	                '双鱼座',
+	                '其他'
 	            ]
 	        },
 	        yAxis: {
@@ -66,7 +67,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        },
 	        series: [{
 	            name: '所占比例',
-	            data: [5.0, 6.0, 7.5, 8.5, 10.5, 9.5, 6.0, 3.0, 15.0, 7.0, 8.5, 9.]
+	            data: [	<%=constellat[0]%>,
+	            		<%=constellat[1]%>,
+	            		<%=constellat[2]%>,
+	            		<%=constellat[3]%>,
+	            		<%=constellat[4]%>,
+	            		<%=constellat[5]%>,
+	            		<%=constellat[6]%>,
+	            		<%=constellat[7]%>,
+	            		<%=constellat[8]%>,
+	            		<%=constellat[9]%>,
+	            		<%=constellat[10]%>,
+	            		<%=constellat[11]%>,
+	            		<%=constellat[12]%>]
 
 	        }]
 	    });
@@ -132,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
 	               <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
-	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</最爱a>
+	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
 	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>
