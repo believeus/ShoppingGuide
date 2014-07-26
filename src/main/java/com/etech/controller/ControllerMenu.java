@@ -8,16 +8,20 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tmarket;
@@ -152,7 +156,9 @@ public class ControllerMenu {
 		HttpSession session = request.getSession();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
+		int count=0;
 		String licenseImg = "";
+		String appendImg="";
 		String shopImg=""; 
 		for (MultipartFile file : files.values()) {
 			InputStream inputStream;
@@ -171,13 +177,17 @@ public class ControllerMenu {
 				}else {
 					shopImg=UUID.randomUUID()+"."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-					shopImg+="#";
+					if(count==files.size()){
+						appendImg+=shopImg+"#";
+					}else {
+						appendImg+=shopImg;
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		log.debug("shop image sava db url:"+shopImg);
+		log.debug("shop image sava db url:"+appendImg);
 		String goodsTypeId=request.getParameter("goodsTypeId");
 		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 		
@@ -213,7 +223,10 @@ public class ControllerMenu {
 		String phoneNum = request.getParameter("phoneNum");
 		shop.setPhoneNumber(phoneNum);
 		shop.setBusinessLicenseNo(lisenceId);
-		shop.setBusinessLicensePhotoUrl(licenseImg);
+		if (!StringUtils.isEmpty(licenseImg)) {
+			log.debug("licenseImg:"+licenseImg);
+			shop.setBusinessLicensePhotoUrl(licenseImg);
+		}
 		shop.setIsRecommend(Variables.unRecommend);
 		
 		shop.setState((short)Variables.reviewing);
@@ -221,9 +234,10 @@ public class ControllerMenu {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
-		shop.setShopPhotoUrl(shopImg);
-		shop.setBusinessLicensePhotoUrl(licenseImg);
-		//etechService.saveOrUpdate(shop);
+		// 这里会有八张全部都替换了
+		if(!StringUtils.isEmpty(appendImg)){
+			shop.setShopPhotoUrl(appendImg);
+		}
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);
 		etechService.saveOrUpdate(shop);//更新 
@@ -246,9 +260,6 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/myFans")
 	public String myFans(HttpServletRequest request){
-		
-		
-		
 		return "/WEB-INF/menu/myFans.jsp";
 	}
 	/**
@@ -329,7 +340,6 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/toFindPsd")
 	public String findPsd(){
-		
 		return "/WEB-INF/setting/findPsd.jsp";
 	}
 	

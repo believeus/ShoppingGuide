@@ -3,6 +3,7 @@ package com.etech.filter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,10 +13,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import com.etech.entity.Tshopuser;
-import com.etech.webutil.Variables;
+import com.etech.variable.Variables;
 
 public class AccessFilter implements Filter {
 	private  Log log = LogFactory.getLog(AccessFilter.class);

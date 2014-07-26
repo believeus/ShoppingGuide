@@ -481,14 +481,16 @@ $(function(){
 		              	<td></td>
 		              </tr>
 		              <tr>
-		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span><input id="add_img" type="button" value="添加预览图" style="width: 85px;"></td>
+		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span>
+		              	<!-- <input id="add_img" type="button" value="添加预览图" style="width: 85px;"> -->
+		              	</td>
 		              	<td class="shopShow" colspan="3">
 		              		<div style="padding-left:40px;">
 								<div class="brandImg" style="margin-top:20px;">
 									<span>
 										<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
-									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopsLogoURL %>${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
+									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopURL %>${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
 								</div>
 								<input type="file" style="display:none" id="file1" name="shopImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
 								<input type="hidden" id="filename1" name="filename1">

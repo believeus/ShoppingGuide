@@ -328,7 +328,9 @@
 					<input type="hidden" id="filename0">
 				</div>
 				<div class="shopShow" style="">
-					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span><input id="add_img" type="button" value="添加展示图片" onClick=""/><br> 
+					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>
+					<!-- <input id="add_img" type="button" value="添加展示图片" onClick=""/> -->
+					<br> 
 					<div class="brandImg" style="margin-top:20px;float:left;">
 						<span>
 							<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>

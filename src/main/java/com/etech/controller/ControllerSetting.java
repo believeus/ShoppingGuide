@@ -26,7 +26,7 @@ import com.etech.entity.Tfindpasswordforshopuser;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
-import com.etech.webutil.Variables;
+import com.etech.variable.Variables;
 /**
  * 设置
  * @author ztx
