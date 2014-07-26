@@ -154,4 +154,16 @@ public class ControllerSetting {
 		request.setAttribute("message", "关联"+phoneNumber+"手机号成功！");
 		return "/WEB-INF/menu/success.jsp";
 	}
+	@RequestMapping(value="/insertBussnessScope")
+	public @ResponseBody String insertBussnessScope(HttpServletRequest request,String featureNames){
+		log.debug(featureNames);
+		HttpSession session = request.getSession();
+		Integer shopuserId = ((Tshopuser)session.getAttribute(Variables.sessionUser)).getShopUserId();
+		Tshopuser sessionUser=(Tshopuser)etechService.findObject(Tshopuser.class, "shopUserId",shopuserId);
+		Tshop tshop = sessionUser.getShops().get(0);
+		tshop.setShopBusinessScope(featureNames);
+		etechService.saveOrUpdate(tshop);
+		return "success";
+		
+	}
 }

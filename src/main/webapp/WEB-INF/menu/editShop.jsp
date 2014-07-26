@@ -315,12 +315,21 @@ $(function(){
 			}else{
 				$(this).addClass("current");
 			}
+			
 			var featureIds=new Array();
+			var featureNames=new Array();
 			$("#special.current").each(function(){
 				featureIds.push($(this).attr("value"));
+				featureNames.push($(this).text());
 			});
+			// 在店铺表中插入店铺特色
+			$.post("/insertBussnessScope.jhtml",{featureNames:featureNames.toString()},function(result){
+				
+			 });
+			
 			$("#featureIds").val();
 			$("#featureIds").val(featureIds);
+			
 		});
 		
 		/* $("#businessRange").change(function(){
