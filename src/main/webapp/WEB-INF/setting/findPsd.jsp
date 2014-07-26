@@ -152,20 +152,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			rules:{
   				telphoneNum:{
   					required: true,
-					rangelength:[11,11]
+					rangelength:[11,11],
+					remote:"/validatePhoneNumber.jhtml"
   				},
 	  			numberCode:{
+	  				required: true
+	  			},
+	  			filename:{
 	  				required: true
 	  			}
   			},
   			messages:{
   				telphoneNum:{
   					required:"手机号必填",
-					rangelength:"手机号码不足11位"
+					rangelength:"手机号码不足11位",
+					remote:"验证码不匹配"
   				},
 				numberCode:{
 					required:"验证码必填"
-				}
+				},
+				filename:{
+					required:"图片必须上传"
+				},
   			},
 			errorPlacement: function(error, element) {  //验证消息放置的地方
 	            error.appendTo(element.next().css("color","red"));   
@@ -202,16 +210,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span>
 							<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
 						</span>
-						<img style="width:229px;height:179px" src="" name="img"/>
+						<img style="width:229px;height:179px" src="" name="img" id="licenseImg"/>
 					</div>
-					<input type="file" style="display:none" id="file0" name="file0" onchange="filename0.value=this.value;loadImgFast(this,0)">
-					<input type="hidden" id="filename0" name="filename0">
+					<input type="file" style="display:none" id="file0" name="file0" onchange="filename.value=this.value;loadImgFast(this,0)">
+					<input type="hidden" id="filename" name="filename"/>
+					<span></span>
 		    	</div>
 				<p style="clear:both;">
 					<font color="red" style="margin-left:150px;">*&nbsp;</font>
 	    			<span style="font-weight:bold;">手机号码：</span>
-	    			<input type="text" id="telphoneNum" name="telphoneNum" placeholder="请输入手机号"
-	    				   style="width:345px;height:35px;line-height:35px;" 
+	    			<input type="text" id="telphoneNum" name="telphoneNum" placeholder="请输入手机号" style="width:345px;height:35px;line-height:35px;" 
 	    				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
 	   				<span></span>
 				</p>

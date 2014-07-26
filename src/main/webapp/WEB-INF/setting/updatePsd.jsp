@@ -104,6 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			rules:{
   				oldPassword:{
   					required: true,
+  					remote:"/ajaxMacthPwd.jhtml"
   				},
   				newPassword:{
   					required: true,
@@ -116,7 +117,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   			messages:{
   				oldPassword:{
-  					required:"新密码必填！"
+  					required:"新密码必填！",
+  					remote:"输入旧密码不正确"
   				},
   				newPassword:{
   					required:"新密码必填！",
@@ -141,7 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div style="width:100%; ">
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
 	    	
-	    	<form id="updatePsdForm" action="" method="post">
+	    	<form id="updatePsdForm" action="/modifyPwd.jhtml" method="post">
+	    		<input type="hidden" name="shopUserId" value="${sessionUser.shopUserId}">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">
 		                <div id="titl_name">
@@ -157,21 +160,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">旧密码&nbsp;&nbsp;&nbsp;：</span>
-		    			<input type="text" id="oldPassword" name="oldPassword" placeholder="请输入旧密码"
+		    			<input type="password" id="oldPassword" name="oldPassword" placeholder="请输入旧密码"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">新密码&nbsp;&nbsp;&nbsp;：</span>
-		    			<input type="text" id="newPassword" name="newPassword" placeholder="请输入新密码"
+		    			<input type="password" id="newPassword" name="newPassword" placeholder="请输入新密码"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">确认密码：</span>
-		    			<input type="text" id="confirmPsd" name="confirmPsd"
+		    			<input type="password" id="confirmPsd" name="confirmPsd"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>
