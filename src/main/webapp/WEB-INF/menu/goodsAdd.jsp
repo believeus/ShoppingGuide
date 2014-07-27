@@ -156,6 +156,7 @@ function addclass(obj){
 					$("#textSpecial").val("");
 				 });
 			}
+			location.reload();
 		});
 		
 		$("#main_form").validate({
@@ -192,7 +193,9 @@ function addclass(obj){
 					<td style="width:9%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
-					<td style="width:8%;"><input type="button" value="预览" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:8%;"><input type="button" value="预览"
+					 onClick="javascript:window.location.href='/goodsPreview.jhtml'"
+					 style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>
 			<div style="width:1000px;text-align:center;margin:0 auto;">
@@ -202,6 +205,21 @@ function addclass(obj){
 			<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
+				<tr>
+					<td style="color:red;">*</td>
+					<td style="">特色：</td>
+					<td id="main_table2_td" class="main_table2_td" style="">
+						<c:forEach var="tfeatures" items="${tfeatures }">
+							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
+						</c:forEach>
+						<input type="hidden" value="" id="featureIds" name="featureIds">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="height:35px;width:60px;" type="button" value="添加" /></td>
+				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td>商品名称：</td>
@@ -220,21 +238,6 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
-					<td style="">特色：</td>
-					<td id="main_table2_td" class="main_table2_td" style="">
-						<c:forEach var="tfeatures" items="${tfeatures }">
-							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
-						</c:forEach>
-						<input type="text" value="" id="featureIds" name="featureIds">
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="height:35px;width:60px;" type="button" value="添加" /></td>
-				</tr>
-				<tr>
 					<td></td>
 					<td>商品简介：</td>
 					<td>
@@ -244,7 +247,7 @@ function addclass(obj){
 				<tr>
 					<td></td>
 					<td></td>
-					<td><input type="submit" style="height:35px;width:60px;" value="发布" /></td>
+					<td><input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="发布" /></td>
 				</tr>
 			</table>
 

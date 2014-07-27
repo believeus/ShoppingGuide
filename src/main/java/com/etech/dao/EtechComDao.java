@@ -111,7 +111,7 @@ public class EtechComDao extends HibernateDaoSupport {
 
 	public List<?> findObjectList(Class<?> clazz, final Object property,
 			final Object value) {
-		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value";
+		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value order by addTime desc";
 		return (List<?>) this.getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 

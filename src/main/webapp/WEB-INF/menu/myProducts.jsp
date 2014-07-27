@@ -49,7 +49,7 @@
 
 .pro_list {
 	width: 228px;
-	height: auto;
+	height: 395px;
 	overflow: hidden;
 	float: left;
 	/* margin-right: 40px; */
@@ -86,7 +86,10 @@
 	border-radius: 2px;
 	height: 20px;
 	margin-right: 10px;
+	margin-bottom:10px;
 	padding: 5px 15px;
+	display:inline-block;
+	line-height:20px;
 }
 
 .pro_dis {
@@ -180,15 +183,31 @@
     height: 32px;
     left: 0;
     line-height: 32px;
-    position: relative;
+   /*  position: relative; */
     text-align: center;
     top: -178px;
     width: 230px;
+    margin-top:-32px;
+    opacity:0.9;
+    cursor:pointer;
 }
 </style>
 <script type="text/javascript">
 	$().ready(function() {
-		
+		 var pros =  $(".pro_list");
+		// alert(pros.length);
+		 pros.each(function(){
+			$(this).hover(function(){
+				$(this).find(".middle-money").css("display","block");
+			},function(){
+				$(this).find(".middle-money").css("display","none");
+			});
+			$(this).find(".middle-money").click(function(){
+				//alert($(this).find(".middle-money").text());
+				//$(this).find(".middle-money").text() == "下架";
+			});
+		 });
+		 
 	});
 </script>
 </head>
@@ -207,30 +226,23 @@
 			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
-			<span>共有<font color="#69CDCD">1234</font>条数据</span>
+			<span>共有<font color="#69CDCD">${size }</font>条数据</span>
 			<input type="text" name="" style="float:right;">
-			<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
+			<s class="findPro" title="点击搜索商品" onClick="alert('xx');"></s>
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
 			<c:forEach var="tgLi1" items="${tgLi}">
 				<div class="pro_list">
 					<div class="pro_img">
-						<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230" height="200">
+						<span class="middle-money" style="display:none;">上架</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-					<!-- 如果商品名称为 "" 或者 PublishFlag =1时 即为简单快速发布商品 则不显示商品特色(潮流、潮流)-->
-					<c:if test="${tgLi1.publishFlag}==<%=(short)1 %>">
-						<span>潮流</span>
-						<span>潮流</span>
-					</c:if> 
-             		<c:if test="${tgLi1.publishFlag}==0">
-             			
-             		</c:if>
-						<%-- <c:forEach var="" items="">
-							
-						</c:forEach> --%>
+						<c:forEach var="feature" items="${tgLi1.features}">
+							<span>${feature.featureName }</span>
+						</c:forEach>
 					</div>
 					<div class="pro_dis">
 		    			${tgLi1.introduction}

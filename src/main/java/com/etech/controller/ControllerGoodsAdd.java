@@ -61,21 +61,15 @@ public class ControllerGoodsAdd {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addDetailedGoods")
-	public String addGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request) throws Exception {
+	public String addGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
 		String featureIds=request.getParameter("featureIds");
 		//goods feature
-		if(!featureIds.isEmpty()){
-			for (String featureId : featureIds.split(",")) {
-				Tgoodsfeature goodsfeature=new Tgoodsfeature();
-				goodsfeature.setFeatureId(Integer.parseInt(featureId));
-				goodsfeature.setGoodsId(tGoods.getGoodsId());
-				goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
-			} 
-		}
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
+		
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setPublishUserId(sessionUser.getShopUserId());
-			tGoods.setAddTime(new Timestamp(new Date().getTime()));
+			tGoods.setAddTime(new Timestamp(System.currentTimeMillis()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
 			tGoods.setShopId(Integer.parseInt(request.getParameter("shopId")));
@@ -87,8 +81,8 @@ public class ControllerGoodsAdd {
 			tGoods.setPublishFlag((short) 0);
 			String goodsTypeId=request.getParameter("goodsTypeId");
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+			tGoods.getGoodsTypes().removeAll(tGoods.getGoodsTypes());
 			tGoods.getGoodsTypes().add(goodstype);
-			
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
 			String goodsImg = "";
@@ -119,9 +113,23 @@ public class ControllerGoodsAdd {
 			log.debug("shop image sava db url:"+shopImg);
 			tGoods.setGoodsPhotoUrl(goodsImg);
 			etechService.saveOrUpdate(tGoods);
+			if(!featureIds.isEmpty()){
+				for (String featureId : featureIds.split(",")) {
+					Tgoodsfeature goodsfeature=new Tgoodsfeature();
+					goodsfeature.setFeatureId(Integer.parseInt(featureId));
+					goodsfeature.setGoodsId(tGoods.getGoodsId());
+					goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+					etechService.merge(goodsfeature);
+					Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", Integer.parseInt(featureId));
+					tfeatures.add(tfeature);
+				} 
+			}
+			//tGoods.setFeatures(tfeatures);
 			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(request.getParameter("shopId")));
 			request.setAttribute("tgLi", tgLi);
+			request.setAttribute("size", tgLi.size());
 			request.setAttribute("shopId", request.getParameter("shopId"));
+			response.sendRedirect("/myProducts.jhtml?shopId="+tGoods.getShopId());
 			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";
@@ -130,7 +138,7 @@ public class ControllerGoodsAdd {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addSimpleGoods")
-	public String addSimpleGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request) throws Exception {
+	public String addSimpleGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
 		String shopId = request.getParameter("shopId");
 		if (!StringUtils.isEmpty(tGoods)) {
@@ -179,9 +187,10 @@ public class ControllerGoodsAdd {
 			
 			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(shopId));
 			request.setAttribute("tgLi", tgLi);
+			request.setAttribute("size", tgLi.size());
 			request.setAttribute("shopId", shopId);
-			
-			return "/WEB-INF/menu/myProducts.jsp";
+			response.sendRedirect("/myProducts.jhtml?shopId="+tGoods.getShopId());
+			return "redirect:/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";
 		}

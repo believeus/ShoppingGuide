@@ -113,7 +113,9 @@
 					<td style="width:9%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
-					<td style="width:8%;"><input type="button" value="预览" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:8%;"><input type="button" value="预览" 
+					onClick="javascript:window.location.href='/goodsPreview.jhtml'"
+					 style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
 			</table>			
 			<div style="width:1000px;text-align:center;margin:0 auto;">

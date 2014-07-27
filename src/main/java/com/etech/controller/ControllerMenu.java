@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -81,10 +82,8 @@ public class ControllerMenu {
 	public String productView(HttpServletRequest request,Integer shopId){
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
-		for (Tgoods tgoods : tgLi) {
-			tgoods.getGoodsFeature();
-		}
 		request.setAttribute("tgLi", tgLi);
+		request.setAttribute("size", tgLi.size());
 		request.setAttribute("shopId", shopId);
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
@@ -145,12 +144,16 @@ public class ControllerMenu {
 		// delete before relationship for shop and feature
 		etechService.delete(Tshopfeature.class,"shopId",shopId);
 		
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
 		if(!featureIds.isEmpty()){
 			for (String featureId : featureIds.split(",")) {
 				Tshopfeature shopfeature=new Tshopfeature();
 				shopfeature.setFeatureId(Integer.parseInt(featureId));
 				shopfeature.setShopId(shopId);
 				shopfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+				etechService.merge(shopfeature);
+				Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", Integer.parseInt(featureId));
+				tfeatures.add(tfeature);
 			} 
 		}
 		HttpSession session = request.getSession();
@@ -239,11 +242,13 @@ public class ControllerMenu {
 			shop.setShopPhotoUrl(appendImg);
 		}
 		// shop goodstype many to many goodstype,mapped by goodstype
+		shop.getGoodsTypes().removeAll(shop.getGoodsTypes());
 		shop.getGoodsTypes().add(goodstype);
 		etechService.saveOrUpdate(shop);//更新 
 
 		session.setAttribute(Variables.sessionUser, sessionUser);
 		request.setAttribute("tshop", shop);
+		request.setAttribute("features", tfeatures);
 		return "/WEB-INF/menu/shopMessage.jsp";
 	}
 	/**
@@ -356,6 +361,26 @@ public class ControllerMenu {
 		List<Tmarket> marketList=(List<Tmarket>)etechService.findObjectList(Tmarket.class);
 		request.setAttribute("marketList", marketList);
 		return "/WEB-INF/menu/addShop.jsp";
+	}
+	
+	/**
+	 * 店铺预览
+	 * @return
+	 */
+	@RequestMapping(value = "/shopPreview")
+	public String shopPreview(){
+		
+		return "/WEB-INF/menu/shopPreview.jsp";
+	}
+	
+	/**
+	 * 商品预览
+	 * @return
+	 */
+	@RequestMapping(value = "goodsPreview")
+	public String goodsPreview(){
+		
+		return "/WEB-INF/menu/goodsPreview.jsp";
 	}
 	
 }

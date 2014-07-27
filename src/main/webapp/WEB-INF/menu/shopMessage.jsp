@@ -156,7 +156,10 @@
 					<td style="color:red;">*</td>
 					<td>店铺特色：</td>
 					<td>
-						${tshop.shopBusinessScope }
+						<%-- ${tshop.shopBusinessScope } --%>
+						<c:forEach var="feature" items="${features }">
+							<p class="pp">${feature.featureName }</p>
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>

@@ -126,7 +126,6 @@ public class ControllerRegistTwo {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
-		System.out.println(user.getPhoneNumber()+"-----------------");
 		shop.setPhoneNumber(user.getPhoneNumber());
 		shop.setShopPhotoUrl(appendImg);
 		etechService.saveOrUpdate(shop);
