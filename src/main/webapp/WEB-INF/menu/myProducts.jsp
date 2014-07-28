@@ -203,8 +203,12 @@
 				$(this).find(".middle-money").css("display","none");
 			});
 			$(this).find(".middle-money").click(function(){
-				//alert($(this).find(".middle-money").text());
-				//$(this).find(".middle-money").text() == "下架";
+				//alert($(this).text());
+				if($(this).text() == "上架"){
+					$(this).html("下架");
+				}else{
+					$(this).html("上架");
+				}
 			});
 		 });
 		 

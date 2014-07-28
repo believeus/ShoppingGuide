@@ -2,14 +2,11 @@ package com.etech.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.terracotta.ehcachedx.org.mortbay.log.Log;
-
+import com.etech.entity.Tfeature;
 import com.etech.entity.Tphoneuser;
 import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
@@ -22,7 +19,7 @@ public class ControllerMyFans {
 	@Resource
 	private EtechOthersService etechOthersService;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked"})
 	@RequestMapping(value="/showFans")
 	public String showFans(HttpServletRequest request){
 		
@@ -30,10 +27,10 @@ public class ControllerMyFans {
 		
 		request.setAttribute("fans", fans);
 		
-		List<Object> featurelist=new ArrayList<Object>();
+		List<String> featurelist=new ArrayList<String>();
 		for(int i=0;i<fans.size();i++){
 			int id=fans.get(i).getPhoneUserId();
-			List feature=etechOthersService.findObject(id);
+			List<String> feature= etechOthersService.findObject(id);
 			featurelist.addAll(feature);
 		}
 		request.setAttribute("featurelist", featurelist);

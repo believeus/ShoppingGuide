@@ -55,10 +55,10 @@ public class EtechOthersService {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Tgoodstype> findObject(int phoneUserId){
+	public List findObject(int phoneUserId){
 		
-		List<Tphoneuserfeature> tfeature=(List<Tphoneuserfeature>) etechComDao.findObject(Tphoneuserfeature.class, phoneUserId);
-		List featureName=new ArrayList();
+		List<Tphoneuserfeature> tfeature= (List<Tphoneuserfeature>) etechComDao.findObjectList(Tphoneuserfeature.class, phoneUserId);
+		List<String> featureName=new ArrayList();
 		List featureID=new ArrayList();
 		if (!StringUtils.isEmpty(tfeature)) {
 			for(int i=0;i<tfeature.size();i++){
@@ -66,7 +66,7 @@ public class EtechOthersService {
 			}
 			for(int i=0;i<featureID.size();i++){
 				Integer id=(Integer) featureID.get(i);
-				List<Tfeature> feature=(List<Tfeature>) etechComDao.findObject(Tfeature.class, id);
+				List<Tfeature> feature=(List<Tfeature>) etechComDao.findObjectList(Tfeature.class, id);
 				featureName.add(feature.get(i).getFeatureName());
 			}
 		}

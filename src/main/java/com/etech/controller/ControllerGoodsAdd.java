@@ -139,7 +139,7 @@ public class ControllerGoodsAdd {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addSimpleGoods")
 	public String addSimpleGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
-		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
+		//Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
 		String shopId = request.getParameter("shopId");
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setGoodsName("");
@@ -147,7 +147,7 @@ public class ControllerGoodsAdd {
 			tGoods.setAddTime(new Timestamp(new Date().getTime()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
-			tGoods.setShopId(sessionUser.getShopUserId());
+			tGoods.setShopId(Integer.parseInt(shopId));
 			tGoods.setExamineState((short) 0);
 			tGoods.setIsOnSale((short) 1);
 			tGoods.setPublishFlag((short) 1);
@@ -189,8 +189,8 @@ public class ControllerGoodsAdd {
 			request.setAttribute("tgLi", tgLi);
 			request.setAttribute("size", tgLi.size());
 			request.setAttribute("shopId", shopId);
-			response.sendRedirect("/myProducts.jhtml?shopId="+tGoods.getShopId());
-			return "redirect:/WEB-INF/menu/myProducts.jsp";
+			response.sendRedirect("/myProducts.jhtml?shopId="+shopId);
+			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";
 		}

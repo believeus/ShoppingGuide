@@ -59,7 +59,7 @@
 			width:300px;
 			height:200px;
 			float:left;
-			margin-right:47px;
+			margin-right:30px;
 			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;
@@ -192,8 +192,8 @@
 						</div>
 						
 						<div class="p_speci">
-							<c:forEach items="${featurelist }" var="feature" begin="${state.index }" end="${state.index }">
-								<p class="p_speci_p">${feature.featureName }</p>
+							<c:forEach items="${featurelist}" var="feature">
+								<p class="p_speci_p">${feature}</p>
 							</c:forEach>
 						</div>
 						
