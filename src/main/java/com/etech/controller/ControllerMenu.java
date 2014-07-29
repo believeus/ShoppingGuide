@@ -72,6 +72,7 @@ public class ControllerMenu {
 	public String shopView(Integer shopId,HttpServletRequest request){
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("shop", shop);
+		System.out.println(shop.getShopName()+"=name");
 		return "/WEB-INF/menu/myShop.jsp";
 	}
 	/**
@@ -368,8 +369,9 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value = "/shopPreview")
-	public String shopPreview(){
-		
+	public String shopPreview(Integer shopId,HttpServletRequest request){
+		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
+		request.setAttribute("shop", shop);
 		return "/WEB-INF/menu/shopPreview.jsp";
 	}
 	
@@ -378,8 +380,9 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value = "goodsPreview")
-	public String goodsPreview(){
-		
+	public String goodsPreview(Integer tgoodsId,HttpServletRequest request){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
+		request.setAttribute("tgoods", tgoods);
 		return "/WEB-INF/menu/goodsPreview.jsp";
 	}
 	

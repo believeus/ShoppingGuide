@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -159,46 +160,41 @@ hr {
    		 <jsp:include page="../include/header.jsp" flush="true" />
   	<div id="div0">
 	<div id="div01">
-    	<p>潮流时尚专卖店</p>
+    	<p>${shop.shopName}</p>
     </div>
     <div>
     	<img src="/images/shop_img.jpg" />
     </div>
     <div id="spn">
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-        <span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
+    	<c:forEach var="feature" items="${shop.features }">
+    		<span>${feature.featureName }</span>
+    	</c:forEach>
     </div>
     <div id="sp2_rady">
     	<ol>
         	<li>时尚潮流专卖店</li>
-            <li>秦园中路18号</li>
-            <li>18612345678</li>
-            <li>123456789</li>
+            <li>${shop.address }</li>
+            <li>${shop.phoneNumber }</li>
+            <li>12312321321${shop.qq }</li>
         </ol>
         <div id="sp2_ra">
         	<p>
-            	<span>123</span>
+            	<span>${bePraisedCount }</span>
             </p>
             <p style="width:195px;">
-           		<span>4567</span>
+           		<span>${shop.fansCount }</span>
             </p>
             <p style="width:auto;">
-            	<span>4567</span>
+            	<span>${shop.viewCount }</span>
             </p>
         </div>
     </div>
     <div id="shop">
     	<div>
+    	<!-- 商品列表 -->
+    	<%-- <c:forEach var="" items="">
+    		
+    	</c:forEach> --%>
         	<div>
             	<img src="/images/img11.png" />
                 <p>潮流水彩双袋双肩包</p>

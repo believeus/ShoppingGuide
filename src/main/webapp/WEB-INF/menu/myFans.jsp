@@ -149,7 +149,6 @@
 	$().ready(function(){
 		
 	});	
-		
 </script>
 
 </head>
@@ -203,7 +202,6 @@
 				
 			</div>
 		</div>
-	</div>
 
 		
 		 <!-- 引用尾部页面 -->

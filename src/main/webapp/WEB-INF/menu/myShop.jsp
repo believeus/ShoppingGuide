@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<div class="img3" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -386px;margin-top:10px;margin-left:15px;"></div>
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="/shopPreview.jhtml" title="店铺预览">店铺预览</a>
+   					<a href="/shopPreview.jhtml?shopId=${shop.shopId}" title="店铺预览">店铺预览</a>
    				</div>
     		</div>
     	</div>
