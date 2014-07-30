@@ -253,6 +253,12 @@
 				}
 			}
 		});
+		
+		var cascade=new Cascade();
+		cascade.init("/initProvice.jhtml","provinceId","/initCity.jhtml","cityId");
+		cascade.cascade("cityId", "/initArea.jhtml", "areaId");
+		cascade.cascade("areaId","/initMarket.jhtml","marketId");
+		
 	});
 </script>
 <body bgcolor="#E7E8EB">
@@ -291,12 +297,15 @@
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
-					<select name="marketId" style="width:345px;height:35px;line-height:35px;">
-						<option></option>
-						<c:forEach items="${marketList}" var="market">
-							<option value="${market.marketId}">${market.marketName}</option>
-						</c:forEach>
-					</select>
+					<script type="text/javascript" src="/js/cascading.js"></script>
+					<script type="text/javascript">
+						var cascade=new Cascade();
+						cascade.init("/initProvice.jhtml","provinceId","/initCity.jhtml","cityId");
+					    cascade.cascade("cityId", "/initArea.jhtml", "areaId");
+					    cascade.cascade("areaId","/initMarket.jhtml","marketId");
+					</script>
+					<select id="provinceId"></select><select id="cityId"></select><select id="areaId"></select><select id="marketId"></select>
+					
 				</p>
 				<p>
 					<div id="r-result" style="height:30px;width:auto;padding-left:40px;margin-bottom:20px;">
