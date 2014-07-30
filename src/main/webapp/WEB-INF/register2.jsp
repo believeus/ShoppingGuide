@@ -284,6 +284,12 @@
 					<input id="shopOwnerName" type="text" name="shopOwnerName" style="width:345px;height:35px;line-height:35px;">
 				</p>
 				<p>
+					<span style="font-weight:normal;">店主QQ号:</span>
+					<input id="qq" type="text" name="qq" 
+					 onkeyup="value=this.value.replace(/\D+/g,'')" maxlength="11"
+					 style="width:345px;height:35px;line-height:35px;">
+				</p>
+				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
 					<select name="marketId" style="width:345px;height:35px;line-height:35px;">
 						<option></option>

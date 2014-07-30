@@ -94,6 +94,21 @@
 				$(".brandImg").parent().append(html);
 			}
 		});
+		
+		$("input[type='submit']").click(function(){
+			var dis = $("#goodsDetail").val();
+			var imgs = $("[id^='filename']");
+			imgs.each(function(){
+				if($(this).val() != "" || dis != ""){
+					$.post("/addSimpleGoods.jhtml",$("#main_form").serialize(),function(){
+						//window.location.href = "/myProducts.jhtml";
+					});
+				}else{
+					alert("请填写商品介绍或者选择商品图片");
+					return  false;
+				}
+			});
+		});
 	});
 		
 </script>
@@ -105,37 +120,41 @@
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
 		<div id="main" style="">
+			<p style="margin:0 auto;width:1000px;">所在位置：
+				<a href="/menu.jhtml" title="菜单">菜单</a> >
+   				<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
+				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
+				<a href="/goodsAdd2.jhtml?shopId=${shopId }" title="商品添加">商品添加</a>
+			</p>
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
 					<td style="width:12%;"><div style=""><a href="/goodsAdd.jhtml?shopId=${shopId }" style="font-size:12px;color:#69CDCD;">详细发布商品</a></div></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;">
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
-					</td>
-					<td style="width:8%;"><input type="button" value="预览" 
-					onClick="javascript:window.location.href='/goodsPreview.jhtml'"
-					 style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
+					<td style="width:9%;"></td>
 				</tr>
 			</table>			
 			<div style="width:1000px;text-align:center;margin:0 auto;">
 				<img src="/images/line.png">
 			</div>
 			
-			<form id="main_form" method="post" action="/addSimpleGoods.jhtml" enctype="multipart/form-data">
+		<form id="main_form" method="post" action="/addSimpleGoods.jhtml" enctype="multipart/form-data">
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea id="goodsDetail" name="goodsDetail"  style=""></textarea>
+						<textarea id="goodsDetail" name="goodsDetail">请输入商品简介</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td><input type="submit" style="height:35px;width:60px;" value="发布" /></td>
+					<td>
+						<input type="submit" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+					</td>
 				</tr>
 			</table>
 
@@ -163,7 +182,7 @@
 					</td>
 				</tr>
 			</table>
-				</form>
+		</form>
 		</div>
 
 		

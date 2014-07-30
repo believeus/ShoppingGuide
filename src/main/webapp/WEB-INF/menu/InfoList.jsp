@@ -93,6 +93,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../include/header.jsp"/>
     <div>
 	    <div style="width:1000px; margin:0px auto; background-color:#fff; border:1px solid #ccc;">
+	    	<p>所在位置：
+	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a>
+			</p>
 	    	<div style="padding-top:30px;">
 	        	<div id="titl">
 	                <div id="titl_name1">
@@ -106,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <p class="pp">
 		    		<input type="button" value="刷新" onClick="javascript:window.location.reload();" title="点击刷新">
 		    		<input type="button" value="每页显示">
-		    		<span>共有<font color="#69CDCD">1234</font>条数据</span>
+		    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>
 		    		<input type="text" name="" style="float:right;">
 		    		<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
 		    	</p>

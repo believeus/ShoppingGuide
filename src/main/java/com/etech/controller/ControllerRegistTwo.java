@@ -128,6 +128,12 @@ public class ControllerRegistTwo {
 		shop.setFansCount(0);
 		shop.setPhoneNumber(user.getPhoneNumber());
 		shop.setShopPhotoUrl(appendImg);
+		String qq = request.getParameter("qq");
+		if(qq != null){
+			shop.setQq(qq);
+		}else {
+			shop.setQq("10000");
+		}
 		etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		shop.getGoodsTypes().add(goodstype);

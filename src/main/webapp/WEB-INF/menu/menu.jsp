@@ -105,6 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../include/header.jsp" flush="true" />
     
     <div class="s_main">
+    	<p>所在位置：<a href="/menu.jhtml" title="菜单">菜单</a></p>
     	<div style="width: auto; height: auto; overflow: hidden;">
     	
     	<c:forEach var="shop" items="${shops}">

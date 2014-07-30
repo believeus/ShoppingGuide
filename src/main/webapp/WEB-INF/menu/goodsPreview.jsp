@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -113,6 +115,9 @@ hr {
 	text-align:center;
 	color:#fff;
 	font-size:28px;
+	width:275px;
+	float:left;
+	cursor:pointer;
 }
 </style>
   </head>
@@ -122,24 +127,20 @@ hr {
     <jsp:include page="../include/header.jsp" flush="true" />
     <div id="div0">
 	<div id="div01">
-    	<p>时尚双肩包</p>
+    	<p>${tgoods.goodsName }</p>
     </div>
     <div>
-    	<img src="/images/img_tel.png" />
+    	<c:if test="${tgLi1.goodsPhotoUrl ==''}">
+			<img src="/images/defaultImg.jpg" width="645">
+		</c:if>
+		<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+			<img src="<%=Variables.goodsPhotoURL %>${tgoods.goodsPhotoUrl }" width="645">
+		</c:if>
     </div>
     <div id="spn">
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-        <span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
-    	<span>潮流</span>
-        <span>精致韩风</span>
-        <span>欧美简约</span>
+    <c:forEach var="feature" items="${tgoods.features }">
+    	<span>${feature.featureName }</span>
+    </c:forEach>
     </div>
     <div style="margin:25px 38px; height:33px;">
     	<div id="titi_1"></div>
@@ -147,8 +148,7 @@ hr {
     </div>
     <hr />
     <div id="sp1_font">
-    	<p>商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍</p>
-        <p>商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍商品介绍</p>
+    	<p>${tgoods.introduction }</p>
     </div>
     <div style="margin:50px auto 25px 38px; height:33px;">
     	<div id="titi_1"></div>
@@ -157,25 +157,26 @@ hr {
     <hr />
     <div id="sp2_rady">
     	<ol>
-        	<li>时尚潮流专卖店</li>
-            <li>秦园中路18号</li>
-            <li>18612345678</li>
-            <li>123456789</li>
+        	<li>${shop.shopName }</li>
+            <li>${shop.address }</li>
+            <li>${shop.phoneNumber }</li>
+            <li>${shop.qq }</li>
         </ol>
         <div id="sp2_ra">
         	<p>
-            	<span>123</span>
+            	<span>${shop.bePraisedCount }</span>
             </p>
             <p style="width:195px;">
-           		<span>4567</span>
+           		<span>${shop.fansCount }</span>
             </p>
             <p style="width:auto;">
-            	<span>4567</span>
+            	<span>${shop.viewCount }</span>
             </p>
         </div>
     </div>
     <div id="butt">
-		<p>编辑</p>    
+		<p style="margin-right:20px;" title="提交" onClick="javascript:window.location.href='/myProducts.jhtml?shopId=${shop.shopId}'">提交</p>    
+		<p title="取消" onClick="javascript:window.location.href='/deletePro.jhtml?goodsId=${tgoods.goodsId}'">取消</p>    
     </div>
 </div>
 	<!-- 引用尾部页面 -->

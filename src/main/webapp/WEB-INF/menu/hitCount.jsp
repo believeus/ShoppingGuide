@@ -158,10 +158,6 @@
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
 		<div id="main" style="">
-			<p style="margin:0 auto;width:1000px;">所在位置：
-	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
-	   			<a href="/myFans.jhtml" title="我的粉丝">我的粉丝</a>
-			</p>
 			<table class="main_table1">
 				<tr style="">
 					<td style=""><p style="font-size:24px;color:#69CDCD;">我的粉丝</p></td>

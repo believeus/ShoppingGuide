@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.etech.dao.EtechComDao;
 import com.etech.dao.Page;
 import com.etech.dao.Pageable;
+import com.etech.entity.Tgoods;
 
 @Service
 public class EtechService {
@@ -71,4 +72,10 @@ public class EtechService {
 	public List<?> findObjectList(Class<?> clazz, Integer num) {
 		return etechComDao.findObjectList(clazz, num);
 	}
+
+	public void update(Integer goodsId, short isOnSale) {
+		etechComDao.update(goodsId,isOnSale);
+	}
+
+
 }
