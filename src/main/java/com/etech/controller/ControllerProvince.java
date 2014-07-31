@@ -62,6 +62,7 @@ public class ControllerProvince {
 		}
 		return areaIdName;
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/initMarket", produces = "text/plain; charset=UTF-8")
 	public @ResponseBody String getMarket(Integer id){
 		List<Tmarket> marketList = (List<Tmarket>)etechService.findObjectList(Tmarket.class,"areaId",id);

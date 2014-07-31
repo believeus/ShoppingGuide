@@ -297,17 +297,21 @@
 					<script type="text/javascript">
 					  $(function(){
 							var cascade=new Cascade();
-							cascade.init("/initProvice.jhtml","provinceId");
-							cascade.changeCascade("provinceId","/initCity.jhtml","cityId");
-						    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId");
-						    cascade.changeCascade("areaId","/initMarket.jhtml","marketId");
+							cascade.initRoot("/initProvice.jhtml","provinceId","--请选择省--");
+							cascade.changeCascade("provinceId","/initCity.jhtml","cityId","--请选择市--");
+						    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId","--请选择区--");
+						    cascade.changeCascade("areaId","/initMarket.jhtml","market","--请选择商场--");
+						    $("#market").click(function(){
+						    	$("#marketId").val($(this).val());
+						    });
 					  });
 					</script>
 					<select id="provinceId"></select>
 					<select id="cityId"></select>
 					<select id="areaId"></select>
-					<select id="marketId" name="marketId"></select>
-					
+					<select id="market"></select>
+					<input type="text" style="width: 0px;border:0;" name="marketId" id="marketId"/>
+					<span></span>
 				</p>
 				<p>
 					<div id="r-result" style="height:30px;width:auto;padding-left:40px;margin-bottom:20px;">

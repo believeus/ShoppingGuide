@@ -164,7 +164,6 @@ $(function(){
 	<c:forEach var="feature" items="${shopfeatures }">
 		$("p[value='${feature.featureId}']").attr("class","current");
 	</c:forEach>
-	$("#marketId").val("${tshop.market.marketName}");
 	// 百度地图API功能
 	function G(id) {
 	    return document.getElementById(id);
@@ -422,6 +421,55 @@ $(function(){
 		               
 		              </tr>
 		              <tr>
+		                 <td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
+		                  <script type="text/javascript">
+		                  	$(function(){
+		                  		 $("#hide").bind("click",function(){
+		                  			$("#marketName").next().hide();
+		                  		 });
+		                  		 $("#marketName").next().hide();
+		                  		 $("#editMarket").bind("click",function(){
+		                  			$("#marketName").next().show();
+		                  		 });
+		                  		 $("#market").click(function(){
+		                  			var text="";
+		                  			text=$("#provinceId").find("option:selected").text()+
+		                  			     $("#cityId").find("option:selected").text()+
+		                  			     $("#areaId").find("option:selected").text()+
+		                  			     $("#market").find("option:selected").text();
+		                  			
+								    $("#marketName > span").text(text);
+								    $("#marketId").val($("#market").find("option:selected").val());
+								 });
+		                  	});
+		                  	
+		                  </script>
+		                 <td id="marketName"><span>${tshop.market.marketName}</span><a href="javascript:void(0);" id="editMarket"><font color="red">更改</font></a></td>
+		                 <td>
+			               <script type="text/javascript" src="/js/cascading.js"></script>
+						   <script type="text/javascript">
+							  $(function(){
+									var cascade=new Cascade();
+									cascade.initRoot("/initProvice.jhtml","provinceId","--请选择省--");
+									cascade.changeCascade("provinceId","/initCity.jhtml","cityId","--请选择市--");
+								    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId","--请选择区--");
+								    cascade.changeCascade("areaId","/initMarket.jhtml","market","--请选择商场--");
+								    $("#market").click(function(){
+								    	$("#marketId").val($(this).val());
+								    });
+							  });
+							</script>
+							<select id="provinceId"></select>
+							<select id="cityId"></select>
+							<select id="areaId"></select>
+							<select id="market"></select>
+							<input type="text" style="width:0px;border:0;" name="marketId" id="marketId" value="${tshop.market.marketId}" />
+							<a id="hide" href="javascript:void(0)"><font color="red">隐藏</font></a>
+							<span></span>
+		               </td>
+		              </tr>
+		              
+		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>详细位置：</b></td>
 		                <td colspan="3">
 		                    <input id="suggestId" name="address" type="text" value="" placeholder="${tshop.address }"/>
@@ -445,22 +493,6 @@ $(function(){
 								</c:forEach>
 							</select>
 		                </td>
-		              </tr>
-		               <tr>
-		              	<td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
-		              	<td colspan="3">
-		              		<script type="text/javascript">
-                                   $(function(){
-                                       $("#marketId").val("${tshop.market.marketId}"); 
-                                    });
-                            </script>
-		              		
-		              		<select id="marketId" name="marketId" style="height: 30px; line-height: 30px; width: 340px;">
-								<c:forEach items="${marketList}" var="market">
-									<option value="${market.marketId}">${market.marketName}</option>
-								</c:forEach>
-							</select>
-		              	</td>
 		              </tr>
 		              <tr>
 		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>价格区间：</b></td>

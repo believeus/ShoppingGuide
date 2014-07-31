@@ -164,6 +164,13 @@
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
+					<td style="">所在商场：</td>
+					<td id="main_table2_td" class="main_table2_td" style="">
+						${tshop.market.marketName}
+					</td>
+				</tr>
+				<tr>
+					<td style="color:red;">*</td>
 					<td style="">详细位置：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
 						${tshop.address}
