@@ -1,16 +1,28 @@
 /**
  * 使用方法
  *  前台使用方式
- * var cascade=new Cascade();
-   cascade.init("/initProvice.jhtml","parentId","/initCity.jhtml","childId");
-   cascade.cascade("childId", "/initArea.jhtml", "areaId");
-   cascade.cascade("areaId","/initMarket.jhtml","marketId");
+ *
+   <script type="text/javascript">
+	  $(function(){
+			var cascade=new Cascade();
+			// init 第一个参数为url,第二个参数为select的id,将后台返回 1:北京,2:武汉,3:天津 放入 provinceId中
+			cascade.init("/initProvice.jhtml","provinceId");
+			// provinceId 省selectId  /initCity.jhtml返回的市 1:钱江 2:武汉 放入 selectId是cityId中
+			cascade.changeCascade("provinceId","/initCity.jhtml","cityId");
+		    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId");
+		    cascade.changeCascade("areaId","/initMarket.jhtml","marketId");
+	  });
+    </script>
+	<select id="provinceId"></select>
+	<select id="cityId"></select>
+	<select id="areaId"></select>
+	<select id="marketId" name="marketId"></select>
    
-   后台返回 1:北京,2:武汉,3:天津
+   后台返回  1:北京,2:武汉,3:天津 即可
  * */
 
 var Cascade=function(){
-	this.init=function(initURL,parentId,changeEvenURL,childId){
+	this.init=function(initURL,parentId){
 		
 		$.post(initURL,function(message){
 			var datas=message.split(",");
@@ -19,26 +31,13 @@ var Cascade=function(){
 				$("#"+parentId).append("<option value=" + data[0] + ">"+data[1]+ "</option>");
 			}
 		});
-		
-		$("#"+parentId).change(function(){
-			$.post(changeEvenURL,{"id":$(this).val()},function(message){
-				$("#"+childId).find("option").remove();
-				var datas=message.split(",");
-				for (var i = 0; i < datas.length; i++) {
-					var data=datas[i].split(":");
-					$("#"+childId).append("<option value=" + data[0] + ">"+data[1]+ "</option>");
-				}
-			});
-		});
-	}
+	};
 	
-	this.cascade=function(parentId,changeEvenURL,childId){
-		$("#"+parentId).change(function(){
+	this.changeCascade=function(parentId,changeEvenURL,childId){
+		$("#"+parentId).bind("change",function(){
 			$.post(changeEvenURL,{"id":$(this).val()},function(message){
-				if(message==""){
-					return;
-				}
-				$("#"+childId).find("option").remove();
+				$("#"+parentId).nextAll().find("option").remove();
+				if(message=="")return;
 				var datas=message.split(",");
 				for (var i = 0; i < datas.length; i++) {
 					var data=datas[i].split(":");
@@ -46,5 +45,5 @@ var Cascade=function(){
 				}
 			});
 		});
-	}
-}
+	};
+};

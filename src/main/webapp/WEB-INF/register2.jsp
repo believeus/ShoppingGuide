@@ -254,10 +254,6 @@
 			}
 		});
 		
-		var cascade=new Cascade();
-		cascade.init("/initProvice.jhtml","provinceId","/initCity.jhtml","cityId");
-		cascade.cascade("cityId", "/initArea.jhtml", "areaId");
-		cascade.cascade("areaId","/initMarket.jhtml","marketId");
 		
 	});
 </script>
@@ -299,12 +295,18 @@
 					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
 					<script type="text/javascript" src="/js/cascading.js"></script>
 					<script type="text/javascript">
-						var cascade=new Cascade();
-						cascade.init("/initProvice.jhtml","provinceId","/initCity.jhtml","cityId");
-					    cascade.cascade("cityId", "/initArea.jhtml", "areaId");
-					    cascade.cascade("areaId","/initMarket.jhtml","marketId");
+					  $(function(){
+							var cascade=new Cascade();
+							cascade.init("/initProvice.jhtml","provinceId");
+							cascade.changeCascade("provinceId","/initCity.jhtml","cityId");
+						    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId");
+						    cascade.changeCascade("areaId","/initMarket.jhtml","marketId");
+					  });
 					</script>
-					<select id="provinceId"></select><select id="cityId"></select><select id="areaId"></select><select id="marketId"></select>
+					<select id="provinceId"></select>
+					<select id="cityId"></select>
+					<select id="areaId"></select>
+					<select id="marketId" name="marketId"></select>
 					
 				</p>
 				<p>
