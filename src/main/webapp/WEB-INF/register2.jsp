@@ -325,12 +325,13 @@
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
 					
-					<select id="goodsTypeId" name="goodsTypeId">
+					<c:forEach var="gli" items="${gList}">
+						<label><input type="checkbox" name="goodsTypeId">${gli.goodsTypeName}</label>
+					</c:forEach>
+					<%-- <select id="goodsTypeId" name="goodsTypeId">
 						<option ></option>
-						<c:forEach var="gli" items="${gList}">
 							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
-						</c:forEach>
-					</select>
+					</select> --%>
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">价格区间：</span>

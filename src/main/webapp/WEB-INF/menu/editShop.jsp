@@ -387,6 +387,10 @@ $(function(){
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		<div id="main" style="">
+		<p style="margin:0 auto;width:1000px;">所在位置：
+   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+   			<a href="/editShopMsg.jhtml?shopId=${tshop.shopId}" title="编辑店铺资料">编辑店铺资料</a>
+		</p>
 		<form id="editShop" action="updateShop.jhtml" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="shopuserId" value="${sessionUser.shopUserId}"/>
 		<input type="hidden" name="shopId" value="${tshop.shopId}"/>

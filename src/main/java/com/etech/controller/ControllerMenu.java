@@ -85,16 +85,21 @@ public class ControllerMenu {
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
 		request.setAttribute("tgLi", tgLi);
-		System.out.println(tgLi.size()+"--");
 		List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
 		List<Tgoods> tgoods2 = new ArrayList<Tgoods>();
 		List<Tgoods> tgoods3 = new ArrayList<Tgoods>();
 		List<Tgoods> tgoods4 = new ArrayList<Tgoods>();
-		for (int i = 0; i+3 < tgLi.size(); i+=4) {
+		for (int i = 0; i < tgLi.size(); i+=4) {
 			tgoods1.add(tgLi.get(i));
-			tgoods2.add(tgLi.get(i+1));
-			tgoods3.add(tgLi.get(i+2));
-			tgoods4.add(tgLi.get(i+3));
+			if (i+1 < tgLi.size()) {
+				tgoods2.add(tgLi.get(i+1));
+			}
+			if (i+2 < tgLi.size()) {
+				tgoods3.add(tgLi.get(i+2));
+			}
+			if (i+3 < tgLi.size()) {
+				tgoods4.add(tgLi.get(i+3));
+			}
 		}
 		request.setAttribute("tgoods1", tgoods1);
 		request.setAttribute("tgoods2", tgoods2);
