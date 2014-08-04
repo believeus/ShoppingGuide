@@ -326,7 +326,7 @@
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
 					
 					<c:forEach var="gli" items="${gList}">
-						<label><input type="checkbox" name="goodsTypeId">${gli.goodsTypeName}</label>
+						<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}">${gli.goodsTypeName}</label>
 					</c:forEach>
 					<%-- <select id="goodsTypeId" name="goodsTypeId">
 						<option ></option>
@@ -351,6 +351,7 @@
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>
+					<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span>
 					<!-- <input id="add_img" type="button" value="添加展示图片" onClick=""/> -->
 					<br> 
 					<div class="brandImg" style="margin-top:20px;float:left;">
