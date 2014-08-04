@@ -141,7 +141,6 @@
 		map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
 		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
 		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
-		
 		var gc = new BMap.Geocoder();    
 		map.addEventListener("click", function(e){        
 		    var pt = e.point;
@@ -196,6 +195,20 @@
 		    });
 		    local.search(myValue);
 		}
+		
+		$("#provinceId").change(function(){
+		  var provinceId=$("#provinceId").find("option:selected").text();	
+		  map.centerAndZoom(provinceId,12);  
+		});
+		$("#cityId").change(function(){
+			  var cityId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text();
+			  map.centerAndZoom(cityId,12);  
+		});
+		$("#areaId").change(function(){
+			  var areaId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text();	
+			  map.centerAndZoom(areaId,12);  
+		});
+		
 	});
 	
 	$().ready(function() {
