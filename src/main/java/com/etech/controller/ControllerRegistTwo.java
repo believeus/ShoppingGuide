@@ -98,8 +98,6 @@ public class ControllerRegistTwo {
 			}
 		}
 		log.debug("shop image sava db url:"+appendImg);
-		String goodsTypeId=request.getParameter("goodsTypeId");
-		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 		
 		// get shop address from form
 		String address=request.getParameter("address");
@@ -136,7 +134,11 @@ public class ControllerRegistTwo {
 		}
 		etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
-		shop.getGoodsTypes().add(goodstype);
+		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+		for (String goodsTypeId : goodsTypeIds) {
+			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+			shop.getGoodsTypes().add(goodstype);
+		}
 		// shop shopusers many to many Tshopuser mapped by shopusers
 		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", Integer.valueOf(shopuserId));
 		shop.getShopusers().add(currentUser);
