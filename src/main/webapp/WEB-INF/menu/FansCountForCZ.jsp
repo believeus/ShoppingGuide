@@ -22,7 +22,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-		<% double[] zc=(double[])request.getAttribute("cZPrecent"); %>
+		<%
+			Double[] zc=(Double[])request.getAttribute("cZPrecent");
+			int len=zc.length-1;		
+		%>
 		$('#container').highcharts({
 	        chart: {
 	            type: 'column'
@@ -67,19 +70,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        },
 	        series: [{
 	            name: '所占比例',
-	            data: [	<%=zc[0] %>,
-	            		<%=zc[1] %>,
-	            		<%=zc[2] %>,
-	            		<%=zc[3] %>,
-	            		<%=zc[4] %>,
-	            		<%=zc[5] %>,
-	            		<%=zc[6] %>,
-	            		<%=zc[7] %>,
-	            		<%=zc[8] %>,
-	            		<%=zc[9] %>,
-	            		<%=zc[10] %>,
-	            		<%=zc[11] %>,
-	            		<%=zc[12] %>	]
+	            data: [	<%	for(int i=0;i<len;i++){	%>
+	            			<%=zc[i]%>,
+	            		<% } %>
+	            			<%=zc[len]%>
+	            	]
 
 	        }]
 	    });

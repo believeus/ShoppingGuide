@@ -22,13 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-		<% Double[] constellat=(Double[])request.getAttribute("constellat"); %>
+		<% 
+			Double[] constellat=(Double[])request.getAttribute("constellat");
+			int len=constellat.length-1;
+		%>
 		$('#container').highcharts({
 	        chart: {
 	            type: 'column'
 	        },
 	        title: {
-	            text: '粉丝所属星座比例图'
+	            text: '粉丝星座比例图'
 	        },
 	        xAxis: {
 	            categories: [
@@ -67,20 +70,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        },
 	        series: [{
 	            name: '所占比例',
-	            data: [	<%=constellat[0]%>,
-	            		<%=constellat[1]%>,
-	            		<%=constellat[2]%>,
-	            		<%=constellat[3]%>,
-	            		<%=constellat[4]%>,
-	            		<%=constellat[5]%>,
-	            		<%=constellat[6]%>,
-	            		<%=constellat[7]%>,
-	            		<%=constellat[8]%>,
-	            		<%=constellat[9]%>,
-	            		<%=constellat[10]%>,
-	            		<%=constellat[11]%>,
-	            		<%=constellat[12]%>]
-
+	            data: [	<%	for(int i=0;i<len;i++){	%>
+	            			<%=constellat[i]%>,
+	            		<% } %>
+	            			<%=constellat[len]%>
+	            	]
 	        }]
 	    });
 		

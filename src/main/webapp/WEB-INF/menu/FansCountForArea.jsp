@@ -22,49 +22,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-
-		$("#container").highcharts({
+		
+		<% 
+			String[] name=(String[])request.getAttribute("area");
+			String[] percent=(String[])request.getAttribute("precent");
+			int len=percent.length-1;
+			Double[] pre=new Double[len];
+			for(int i=0;i<len;i++){
+				String p=percent[i];
+				pre[i]=Double.parseDouble(p);
+			}
+		%>
+		
+		$('#container').highcharts({
 	        chart: {
-	            plotBackgroundColor: null,
-	            plotBorderWidth: null,
-	            plotShadow: false
+	            type: 'column'
 	        },
 	        title: {
-	            text: '粉丝性别比例饼图'
+	            text: '<%=request.getAttribute("name")%>各区/县比例图'
+	        },
+	        xAxis: {
+	            categories: [<%	for(int i=0;i<len;i++){%>
+					            		'<%=name[i]%>' ,
+					            		
+					            <% } %>
+					            		'<%=name[len]%>'
+	            ]
+	        },
+	        yAxis: {
+	            min: 0.0,
+	            title: {
+	                text: '百分比 (%)'
+	            }
 	        },
 	        tooltip: {
-	    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	            headerFormat: '<span style="font-size:10px">{point.key}</span><table><tr><td style="color:{series.color};padding:0"></td><td style="padding:0"></td></tr></table>',
+	            shared: true,
+	            valueSuffix: '%',
+	            useHTML: true
 	        },
 	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                dataLabels: {
-	                    enabled: true,
-	                    color: '#000000',
-	                    connectorColor: '#000000',
-	                    formatter: function() {
-	                        return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-	                    }
-	                }
+	            column: {
+	                pointPadding: 0.2,
+	                borderWidth: 0
 	            }
 	        },
 	        series: [{
-	            type: 'pie',
 	            name: '所占比例',
-	            data: [
-	                ['男用户', 76.67], 
-					{ 
-					    name: '女用户', 
-					    y: 23.33, 
-					    sliced: true,
-					    selected: true ,
-					    color:'pink'
-					}
+	            data: [<%	for(int i=0;i<len;i++){	%>
+	            				<%=pre[i]%> ,
+	            <% }	%> 
+	            				<%=pre[len]%>
 	            ]
+
 	        }]
 	    });
+		
 	});	
+		
 </script>
 	<style>
 		#titl {
@@ -124,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
 	                <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
-	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</最爱a>
+	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
 	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>

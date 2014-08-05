@@ -22,7 +22,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-
+		
+		<%
+			String[] name=(String[])request.getAttribute("name");
+		
+			String[] pre=(String[])request.getAttribute("pre");
+			int len=pre.length-1;
+			Double[] percent=new Double[pre.length];
+			
+			for(int i=0;i<pre.length;i++){
+				percent[i]=Double.parseDouble(pre[i]);
+			}
+		%>
+		
 		$('#container').highcharts({
 	        chart: {
 	            type: 'column'
@@ -31,34 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            text: '粉丝职业比例图'
 	        },
 	        xAxis: {
-	            categories: [
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1',
-	                '职业1'
+	            categories: [<%	for(int i=0;i<len;i++){%>
+	            		'<%=name[i]%>' ,
+	            		
+	            <% } %>
+	            		'<%=name[len]%>'
 	            ]
 	        },
 	        yAxis: {
@@ -81,7 +70,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        },
 	        series: [{
 	            name: '所占比例',
-	            data: [5.0, 6.0, 7.5, 8.5, 20.0, 0.0, 6.0, 3.0, 15.0, 20.0, 0.0, 6.0, 3.0, 15.0, 7.0, 8.5, 9.0, 7.5, 8.5, 20.0, 0.0, 6.0, 3.0, 15.0, 7.0, 8.5, 9.0,]
+	            data: [<%	for(int i=0;i<len;i++){%>
+	            				<%=percent[i]%> ,
+	            <% }	%> 
+	            				<%=percent[len]%>
+	            ]
 
 	        }]
 	    });
@@ -147,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
 	                <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
-	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</最爱a>
+	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
 	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>

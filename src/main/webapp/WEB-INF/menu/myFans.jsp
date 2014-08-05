@@ -184,7 +184,7 @@
 								</div>
 								<div class="p_top_word_time">
 									<span class="nTime">${fan.addTime }</span>
-									<span class="nRecord">已关注</span>
+									<span class="nRecord"></span>
 									<s class="gougou"></s>
 								</div>
 							</div>

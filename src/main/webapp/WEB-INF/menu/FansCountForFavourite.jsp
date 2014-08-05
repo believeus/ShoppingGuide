@@ -22,6 +22,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
+		<%
+			String[] fname=(String[])request.getAttribute("fname");
+			String[] fper=(String[])request.getAttribute("fper");
+			int len=fper.length-1;
+			Double[] percent=new Double[len];
+			for(int i=0;i<len;i++){
+				percent[i]=Double.parseDouble(fper[i]);
+			}
+		%>
 
 		$('#container').highcharts({
 	        chart: {
@@ -31,35 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            text: '粉丝喜好比例图'
 	        },
 	        xAxis: {
-	            categories: [
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1',
-	                '喜好1'
-	            ]
+	            categories: [  <% for(int i=0;i<len;i++){%>
+	            					'<%=fname[i]%>',
+	            			<% } %>
+	            					<%=fname[len]%>
+	            		]
 	        },
 	        yAxis: {
 	            min: 0.0,
@@ -81,7 +66,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        },
 	        series: [{
 	            name: '有此爱好粉丝',
-	            data: [5.0, 6.0, 7.5, 8.5, 20.0, 0.0, 6.0, 3.0, 15.0, 20.0, 0.0, 6.0, 3.0, 15.0, 7.0, 8.5, 9.0, 7.5, 8.5, 20.0, 0.0, 6.0, 3.0, 15.0, 7.0, 8.5, 9.0,]
+	            data: [	<% for(int i=0;i<len;i++){ %>
+	            			<%=percent[i]%>,
+	            		<%}%>
+	            			<%=percent[len]%>
+	            	]
+	            }
 
 	        }]
 	    });
