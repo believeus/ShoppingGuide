@@ -105,7 +105,11 @@ public class ControllerFansCount {
 		//获取tcity对象
 		Tcity city=(Tcity) etechComDao.findObject(Tcity.class, cityId);
 		String cityName=city.getCityName();
+		int provinceId=city.getProvinceId();
+		Tprovince pro=(Tprovince) etechComDao.findObject(Tprovince.class, provinceId);
+		String provinceName=pro.getProvinceName();
 		request.setAttribute("cityName", cityName);
+		request.setAttribute("provinceName", provinceName);
 		
 		String[] pre=etechOthersService.getArea(cityId);
 		int len=pre.length/2;

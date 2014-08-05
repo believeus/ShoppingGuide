@@ -19,6 +19,7 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/css/goodsAdd.css" />
 <script language="JavaScript" src="js/jquery.js"></script>
 <script language="JavaScript" src="js/jquery.validate.js"></script>
@@ -28,26 +29,6 @@
 			background-color:#69CDCD;
 			border-radius:.2em;
 			color:white;
-		}
-		.main_table2_td p{
-			font-size:13px;
-			border-radius:.2em;
-			margin-right:15px;
-			width:auto;
-			border:1px solid gray;
-			height:20px;
-			line-height:20px;
-			float:left;
-			display:block;
-			padding:3px 15px;
-			cursor:pointer;
-		}
-		.main_table2 tr {
-		    line-height: 40px;
-		    vertical-align: top;
-		}
-		.main_table2 tr:hover{
-			background:#EAFCFC;
 		}
 		.p_main{
 			width:1000px;
@@ -148,6 +129,21 @@
 <script type="text/javascript">
 	$().ready(function(){
 		
+		$("[id=note]").click(function(){
+			$input=$(this).parent().prev();
+			$input.css("display","");
+			$input.prev().css("display","none");
+			$input.focus();
+			
+			$input.blur(function(){
+				var nickName=$input.val();
+				var phoneUserId=$(this).prev().prev().val();
+				
+				$.post("toChangeNote.jhtml",
+						{"nickName":nickName,"phoneUserId":phoneUserId});
+				location.replace("/showFans.jhtml");
+			});
+		});
 	});	
 </script>
 
@@ -173,9 +169,7 @@
 			
 			<div class="p_main">
 				<img src="/images/line.png" style="margin-bottom:20px;">
-				
 				<c:forEach items="${fans }" varStatus="state" var="fan">
-				
 					<div class="p_list">
 						<div class="p_top">
 							<div class="p_top_img">
@@ -183,27 +177,42 @@
 							</div>
 							<div class="p_top_word">
 								<div class="p_top_word_name">
-									<span class="nName">${fan.nickName }<font color="#32A8A8">(备注四字)</font></span>
+									<span class="nName">
+									<c:if test="${fan.nickName == ''}">
+										<input type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.userName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.userName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
+									</c:if>
+									<c:if test="${fan.nickName != ''}">
+										<input type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.nickName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.nickName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
+									</c:if>
+									</span>
 									<span class="nSex">${fan.gender }</span>
 								</div>
 								<div class="p_top_word_time">
 									<span class="nTime">${fan.addTime }</span>
 									<span class="nRecord"></span>
-									<s class="gougou"></s>
 								</div>
 							</div>
 						</div>
 						
 						<div class="p_speci">
-							<c:forEach items="${featurelist}" var="feature">
-								<p class="p_speci_p">${feature}</p>
+							<c:forEach items="${featurelist}" var="feature" begin="${state.index }" end="${state.index }" >
+									<c:forEach items="${feature}" var="fe">
+										<p class="p_speci_p">${fe}</p>
+									</c:forEach>
 							</c:forEach>
 						</div>
-						
 					</div>
-				
 				</c:forEach>
-				
 			</div>
 		</div>
 

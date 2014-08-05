@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                '摩羯座',
 	                '水瓶座',
 	                '双鱼座',
-	                '其他'
+	                '未知'
 	            ]
 	        },
 	        yAxis: {
@@ -110,12 +110,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			letter-spacing:1px;
 			text-align:center;
 			border:1px solid #ccc;
-			background-color:#E6E6E6;
 			margin-right:30px;
 			padding:2px 5px;
 			cursor:pointer;
 			border-radius:4px;
 			line-height:24px;
+		}
+		#cleck a:hover {
+			background-color:#00AAAA;
+			color:#E63F00;
+			font-weight:bold;
 		}
 	</style>
   </head>
@@ -140,10 +144,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <div id="cleck">
 	               <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
 	                <a href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
-	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
+	                <a style="background-color:#00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>
-	                <a href="javascript:void(0);" title="所在地" onClick="alert('暂无信息');">所在地</a>
+	                <a href="/fansCount.jhtml?url=area" title="所在地">所在地</a>
 	                <a href="/fansCount.jhtml?url=favourite" title="喜欢">喜欢</a>
 	            </div>
 	        </div>

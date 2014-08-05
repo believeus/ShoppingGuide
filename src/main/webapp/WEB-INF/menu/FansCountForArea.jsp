@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -23,12 +24,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	$().ready(function(){
 		
+		var xmlHttp;
+     	//该函数用于创建一个XMLHttpRequest对象
+       function createXMLHttpRequest() {
+			if (window.ActiveXObject) {
+		  		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		    else if (window.XMLHttpRequest) {
+		  		xmlHttp = new XMLHttpRequest();
+		  	}
+		}  
+     	
+     	$("#province").change(function(){
+     		var selected=$(this).val();
+     		//创建一个XMLHttpRequest对象
+			createXMLHttpRequest();
+			//将状态触发器绑定到一个函数
+			xmlHttp.onreadystatechange = processor1;
+			xmlHttp.open("GET", "getCity.jhtml?selected="+selected);
+			//发送请求
+			xmlHttp.send(null);
+     	});
+    	
+		  //处理从服务器返回的XML文档并更新地市下拉列表
+		  function processor1() {
+			//定义一个变量用于存放从服务器返回的响应结果
+			var result;
+			if(xmlHttp.readyState == 4) { //如果响应完成
+				if(xmlHttp.status == 200) {//如果返回成功
+					//取出服务器返回的XML文档的所有city标签的子节点
+					result = xmlHttp.responseXML.getElementsByTagName("city");
+					//先清除地市列表的现有内容
+					while (document.all.slt2.options.length>0){
+						document.all.slt2.removeChild(document.all.slt2.childNodes[0]); 
+					}
+					document.all.slt2.add(new Option("请选择地市:","0"));
+				//解析XML中的数据并更新地市列表
+				for(var i=0;i<result.length;i++){
+					var option = document.createElement("OPTION");
+					option.text = result[i].childNodes[0].childNodes[0].nodeValue;//这就是取出<cityname>中的值
+					option.value = result[i].childNodes[1].childNodes[0].nodeValue;//这就是取出<cityvalue>中的值
+					document.all.slt2.options.add(option);//为地市列表中添加选项
+				}
+			}
+		}
+	} 
+    	
+   	$("#slt2").change(function(){
+   		var cityId=$("#slt2").val();
+   		window.location="fansAreaCount.jhtml?cityId="+cityId;
+   	});
+		
 		<% 
 			String[] name=(String[])request.getAttribute("area");
 			String[] percent=(String[])request.getAttribute("precent");
 			int len=percent.length-1;
-			Double[] pre=new Double[len];
-			for(int i=0;i<len;i++){
+			Double[] pre=new Double[len+1];
+			for(int i=0;i<len+1;i++){
 				String p=percent[i];
 				pre[i]=Double.parseDouble(p);
 			}
@@ -39,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            type: 'column'
 	        },
 	        title: {
-	            text: '<%=request.getAttribute("name")%>各区/县比例图'
+	            text: '<%=request.getAttribute("provinceName")%><%=request.getAttribute("cityName")%>各区/县比例图'
 	        },
 	        xAxis: {
 	            categories: [<%	for(int i=0;i<len;i++){%>
@@ -110,12 +162,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			letter-spacing:1px;
 			text-align:center;
 			border:1px solid #ccc;
-			background-color:#E6E6E6;
 			margin-right:30px;
 			padding:2px 5px;
 			cursor:pointer;
 			border-radius:4px;
 			line-height:24px;
+		}
+		#cleck a:hover {
+			background-color:#00AAAA;
+			color:#E63F00;
+			font-weight:bold;
 		}
 	</style>
   </head>
@@ -143,10 +199,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>
-	                <a href="javascript:void(0);" title="所在地" onClick="alert('暂无信息');">所在地</a>
+	                <a style="background-color:#00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=area" title="所在地">所在地</a>
 	                <a href="/fansCount.jhtml?url=favourite" title="喜欢">喜欢</a>
 	            </div>
 	        </div>
+	        <div style="margin-top:5px;margin-left:10px;">
+			    	<select id="province" style="width:150px;">
+			    		<option value="0" selected="selected">请选择省份:</option>
+			    		<c:forEach items="${province }" var="pro">
+			    			<option value="${pro.provinceId }">${pro.provinceName }</option>
+			    		</c:forEach>
+			    	</select>
+			    	<select id="slt2" style="width:150px;disabled:true;">
+		    			<option value="0" selected="selected">请选择地市:</option>
+			    		
+			    	</select>
+
+						
+			    </div>
 	        <div id="container" style="width: auto; height: 658px; text-align: center;"></div>
 	   </div>
 	</div>
