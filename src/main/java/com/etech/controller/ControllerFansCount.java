@@ -1,27 +1,22 @@
 package com.etech.controller;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etech.dao.EtechComDao;
 import com.etech.entity.Tcity;
 import com.etech.entity.Tphoneuser;
+import com.etech.entity.Tprovince;
 import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
-import com.etech.webutil.Brower;
 
 @Controller
 public class ControllerFansCount {
@@ -33,16 +28,16 @@ public class ControllerFansCount {
 	@Resource
 	private EtechComDao etechComDao;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/fansSexCount")
 	public String fansSexCount(HttpServletRequest request){
 		
 		List<Tphoneuser> users=(List<Tphoneuser>) etechService.findObjectList(Tphoneuser.class);
 		log.debug("users:"+users);
-		List sexCount=etechOthersService.findSexCount(users);
-		request.setAttribute("manPrecent", sexCount.get(0));
-		request.setAttribute("womanPrecent", sexCount.get(1));
-		request.setAttribute("unknown", sexCount.get(2));
+		double[] sexCount=etechOthersService.findSexCount(users);
+		request.setAttribute("manPrecent", sexCount[0]);
+		request.setAttribute("womanPrecent", sexCount[1]);
+		request.setAttribute("unknown", sexCount[2]);
 		
 		return "/WEB-INF/menu/FansCount.jsp";
 	}
@@ -90,7 +85,7 @@ public class ControllerFansCount {
 		
 		String[] arr=etechOthersService.getJob(users);
 		int len=arr.length/2;
-		log.debug("len"+len);
+		log.debug("len:"+len);
 		String[] name=new String[len];
 		String[] pre=new String[len];
 		System.arraycopy(arr, 0, name, 0, len);
@@ -104,14 +99,15 @@ public class ControllerFansCount {
 		return "/WEB-INF/menu/FansCountForJob.jsp";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/fansAreaCount")
-	public String fansAreaCount(HttpServletRequest request,int id){
+	public String fansAreaCount(HttpServletRequest request,int cityId){
 		//获取tcity对象
-		Tcity city=(Tcity) etechComDao.findObject(Tcity.class, id);
-		String name=city.getCityName();
-		request.setAttribute("name", name);
+		Tcity city=(Tcity) etechComDao.findObject(Tcity.class, cityId);
+		String cityName=city.getCityName();
+		request.setAttribute("cityName", cityName);
 		
-		String[] pre=etechOthersService.getArea(id);
+		String[] pre=etechOthersService.getArea(cityId);
 		int len=pre.length/2;
 		String[] area=new String[len];
 		String[] precent=new String[len];
@@ -121,6 +117,9 @@ public class ControllerFansCount {
 		request.setAttribute("precent", precent);
 		
 		log.debug("area:1:"+area[0]+";2:"+area[1]);
+		
+		List<Tprovince> province= (List<Tprovince>) etechComDao.findObjectList(Tprovince.class);
+		request.setAttribute("province", province);
 		
 		return "/WEB-INF/menu/FansCountForArea.jsp";
 	}
@@ -140,23 +139,6 @@ public class ControllerFansCount {
 		request.setAttribute("fper", fper);
 		
 		return "/WEB-INF/menu/FansCountForFavourite.jsp";
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/shi")
-	public void shi(HttpSession session,int sheng,HttpServletResponse response){
-		Map<String, Object> message=new HashMap<String, Object>();
-		List<Tcity> citys=(List<Tcity>) etechComDao.findObjectList(Tcity.class, "provinceId", sheng);
-		session.setAttribute("citys", citys);
-		if(!StringUtils.isEmpty(sheng)){
-			message.put("property", "shi");
-			message.put("message","success");
-			Brower.outJson(message, response);
-		}else{
-			message.put("property", "shi");
-			message.put("message","error");
-			Brower.outJson(message, response);
-		}
 	}
 	
 }

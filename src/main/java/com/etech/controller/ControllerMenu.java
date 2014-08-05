@@ -23,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.etech.dao.EtechComDao;
+import com.etech.entity.Tcity;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tprovince;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopfeature;
 import com.etech.entity.Tshopuser;
@@ -43,6 +46,8 @@ import com.etech.webutil.LatitudeUtils;
 @Controller
 public class ControllerMenu {
 	private static final Log log = LogFactory.getLog(ControllerRegisterOne.class);
+	@Resource
+	private EtechComDao etechComDao;
 	@Resource
 	private EtechService etechService;
 	@Resource
@@ -311,13 +316,13 @@ public class ControllerMenu {
 		}else if (url.equals("age")) {
 			return "redirect:/fansAgeCount.jhtml";
 		}else if (url.equals("area")) {
-			return "/WEB-INF/menu/FansCountForArea.jsp";
+			return "/provinceCity.jhtml";
 		}else if (url.equals("constellation")) {
 			return "redirect:/fansConstellationCount.jhtml";
 		}else if (url.equals("favourite")) {
-			return "/WEB-INF/menu/FansCountForFavourite.jsp";
+			return "redirect:/fansFavouriteCount.jhtml";
 		}else if (url.equals("job")) {
-			return "/WEB-INF/menu/FansCountForJob.jsp";
+			return "redirect:/fansJobsCount.jhtml";
 		}else if (url.equals("CZ")) {
 			return "redirect:/fansCzCount.jhtml";
 		}else{
@@ -384,6 +389,43 @@ public class ControllerMenu {
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
 		request.setAttribute("tgoods", tgoods);
 		return "/WEB-INF/menu/goodsPreview.jsp";
+		
 	}
+	/**
+	 * for list of province and city
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/map")
+	public String mapThree(HttpServletRequest request){
+		
+		List<Tprovince> province= (List<Tprovince>) etechComDao.findObjectList(Tprovince.class);
+		request.setAttribute("province", province);
+		
+		int len=province.size();
+		log.debug("length:"+len);
+		List<List<Tcity>> allCity=new ArrayList<List<Tcity>>();
+		for(int i=0;i<len;i++){
+			int proId=province.get(i).getProvinceId();
+			List<Tcity> citysList=(List<Tcity>) etechComDao.findObjectList(Tcity.class, "provinceId", proId);
+			
+			allCity.add(citysList);
+		}
+		request.setAttribute("allCity", allCity);
+		
+		return "/WEB-INF/menu/Map.jsp";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/provinceCity")
+	public String provinceCity(HttpServletRequest request){
+		
+		List<Tprovince> province= (List<Tprovince>) etechComDao.findObjectList(Tprovince.class);
+		request.setAttribute("province", province);
+		
+		return "/WEB-INF/menu/Map.jsp";
+	}
+	
 	
 }
