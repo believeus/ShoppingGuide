@@ -49,7 +49,7 @@
 
 .pro_list {
 	width: 228px;
-	height: 395px;
+	height: auto;
 	overflow: hidden;
 	float: left;
 	/* margin-right: 40px; */
@@ -120,13 +120,12 @@
 }
 
 .p_list01 {
-	width: auto;
-/* 	width: 230px; */
+ 	width: 230px;
 	height: auto;
 	overflow: hidden;
 	margin-bottom: 25px;
 	float: left;
-	/* margin-right: 25px; */
+	margin-right: 25px;
 }
 .findPro{
 	background:url(/images/bg.png);
@@ -191,12 +190,28 @@
     opacity:0.9;
     cursor:pointer;
 }
+.tick{
+	width:60px;
+	height:60px;
+	background:url(/images/bg.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+	background-position:-361px -319px;
+	margin-left: 168px;
+	position: absolute;
+	/* left: 168px;
+    position: relative;
+    top: -154px; */
+}
 </style>
 <script type="text/javascript">
 	$().ready(function() {
 		 var pros =  $(".pro_list");
 		// alert(pros.length);
 		 pros.each(function(){
+			if($(this).find(".middle-money").attr("value") == "0"){
+				$(this).find(".tick").css("display","block");
+			}else{
+				$(this).find(".tick").css("display","none");
+			}
 			$(this).hover(function(){
 				$(this).find(".middle-money").css("display","block");
 			},function(){
@@ -205,9 +220,24 @@
 			$(this).find(".middle-money").click(function(){
 				//alert($(this).text());
 				if($(this).text() == "上架"){
+					$.ajax({
+						type: "GET",
+						url:"/updateIsOnSale.jhtml?goodsId="+$(this).attr("id"),
+						data: {isOnSale:0},
+						success:function(data){}
+					});
 					$(this).html("下架");
+					$(this).parent().find(".tick").css("display","block");
 				}else{
+					$.ajax({
+						type: "GET",
+						url:"/updateIsOnSale.jhtml?goodsId="+$(this).attr("id"),
+						data: {isOnSale:1},
+						success:function(data){}
+					});
 					$(this).html("上架");
+					//alert($(this).find(".tick").css("display"));
+					$(this).parent().find(".tick").css("display","none");
 				}
 			});
 		 });
@@ -219,8 +249,13 @@
 <body bgcolor="">
 	<!-- 引用尾部页面 -->
 	<jsp:include page="../include/header.jsp" flush="true" />
-
+	
 	<div class="s_main">
+		<p>所在位置：
+			<a href="/menu.jhtml" title="菜单">菜单</a> >
+   			<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
+			<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a>
+		</p>
 		<p
 			style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
 		<img src="/images/line.png">
@@ -236,11 +271,24 @@
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
-			<c:forEach var="tgLi1" items="${tgLi}">
+			<c:forEach var="tgLi1" items="${tgoods1}">
 				<div class="pro_list">
 					<div class="pro_img">
-						<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230" height="200">
-						<span class="middle-money" style="display:none;">上架</span>
+						<span class="tick" style="display:none;"></span>
+						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
+							<img src="/images/defaultImg.jpg" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
+								上架
+							</c:if>
+							<c:if test="${tgLi1.isOnSale =='0'}">
+								下架
+							</c:if>
+						</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -252,10 +300,120 @@
 		    			${tgLi1.introduction}
 		   			</div> 
 					<div class="pro_hit">
-						<span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span>
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
 						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
 					</div>
-					<!-- <div class="middle-money">上架</div> -->
+				</div>
+			</c:forEach>
+		</div>
+		<!-- 商品列表  第二列 -->
+		<div class="p_list01">
+			<c:forEach var="tgLi1" items="${tgoods2}">
+				<div class="pro_list">
+					<div class="pro_img">
+						<span class="tick" style="display:none;"></span>
+						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
+							<img src="/images/defaultImg.jpg" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
+								上架
+							</c:if>
+							<c:if test="${tgLi1.isOnSale =='0'}">
+								下架
+							</c:if>
+						</span>
+					</div>
+					<div class="pro_name">${tgLi1.goodsName}</div>
+					<div class="pro_spec">
+						<c:forEach var="feature" items="${tgLi1.features}">
+							<span>${feature.featureName }</span>
+						</c:forEach>
+					</div>
+					<div class="pro_dis">
+		    			${tgLi1.introduction}
+		   			</div> 
+					<div class="pro_hit">
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
+						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<!-- 商品列表  第三列 -->
+		<div class="p_list01">
+			<c:forEach var="tgLi1" items="${tgoods3}">
+				<div class="pro_list">
+					<div class="pro_img">
+						<span class="tick" style="display:none;"></span>
+						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
+							<img src="/images/defaultImg.jpg" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
+								上架
+							</c:if>
+							<c:if test="${tgLi1.isOnSale =='0'}">
+								下架
+							</c:if>
+						</span>
+					</div>
+					<div class="pro_name">${tgLi1.goodsName}</div>
+					<div class="pro_spec">
+						<c:forEach var="feature" items="${tgLi1.features}">
+							<span>${feature.featureName }</span>
+						</c:forEach>
+					</div>
+					<div class="pro_dis">
+		    			${tgLi1.introduction}
+		   			</div> 
+					<div class="pro_hit">
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
+						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<!-- 商品列表  第四列 -->
+		<div class="p_list01" style="margin-right:0;">
+			<c:forEach var="tgLi1" items="${tgoods4}">
+				<div class="pro_list">
+					<div class="pro_img">
+						<span class="tick" style="display:none;"></span>
+						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
+							<img src="/images/defaultImg.jpg" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
+								上架
+							</c:if>
+							<c:if test="${tgLi1.isOnSale =='0'}">
+								下架
+							</c:if>
+						</span>
+					</div>
+					<div class="pro_name">${tgLi1.goodsName}</div>
+					<div class="pro_spec">
+						<c:forEach var="feature" items="${tgLi1.features}">
+							<span>${feature.featureName }</span>
+						</c:forEach>
+					</div>
+					<div class="pro_dis">
+		    			${tgLi1.introduction}
+		   			</div> 
+					<div class="pro_hit">
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
+						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

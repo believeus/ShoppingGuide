@@ -110,7 +110,12 @@ public class ControllerGoodsAdd {
 				}
 			}
 			log.debug("shop image sava db url:"+shopImg);
-			tGoods.setGoodsPhotoUrl(goodsImg);
+			System.out.println(goodsImg+"=goodsImg");
+			if(goodsImg ==""){
+				tGoods.setGoodsPhotoUrl("95f220ae-8a37-45a8-8d26-0629897b9f4b.jpg");
+			}else {
+				tGoods.setGoodsPhotoUrl(goodsImg);
+			}
 			etechService.saveOrUpdate(tGoods);
 			if(!featureIds.isEmpty()){
 				for (String featureId : featureIds.split(",")) {
@@ -128,7 +133,8 @@ public class ControllerGoodsAdd {
 			request.setAttribute("tgLi", tgLi);
 			request.setAttribute("size", tgLi.size());
 			request.setAttribute("shopId", request.getParameter("shopId"));
-			response.sendRedirect("/myProducts.jhtml?shopId="+tGoods.getShopId());
+//			response.sendRedirect("/myProducts.jhtml?shopId="+tGoods.getShopId());
+			response.sendRedirect("/goodsPreview.jhtml?tgoodsId="+tGoods.getGoodsId());
 			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";
@@ -188,7 +194,8 @@ public class ControllerGoodsAdd {
 			request.setAttribute("tgLi", tgLi);
 			request.setAttribute("size", tgLi.size());
 			request.setAttribute("shopId", shopId);
-			response.sendRedirect("/myProducts.jhtml?shopId="+shopId);
+//			response.sendRedirect("/myProducts.jhtml?shopId="+shopId);
+			response.sendRedirect("/goodsPreview.jhtml?tgoodsId="+tGoods.getGoodsId());
 			return "/WEB-INF/menu/myProducts.jsp";
 		} else {
 			return "/WEB-INF/login.jsp";

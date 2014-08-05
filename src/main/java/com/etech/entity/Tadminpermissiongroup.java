@@ -15,8 +15,10 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 
 	// Fields
 
-	private Integer adminRolePermissionsOwnId;
+	private Integer adminPermissionGroupId;
 	private String adminPermissionGroupName;
+	private Short isRequired;
+	private Short isSingleSelection;
 	private String description;
 
 	// Constructors
@@ -26,27 +28,32 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tadminpermissiongroup(String adminPermissionGroupName) {
+	public Tadminpermissiongroup(String adminPermissionGroupName,
+			Short isRequired, Short isSingleSelection) {
 		this.adminPermissionGroupName = adminPermissionGroupName;
+		this.isRequired = isRequired;
+		this.isSingleSelection = isSingleSelection;
 	}
 
 	/** full constructor */
 	public Tadminpermissiongroup(String adminPermissionGroupName,
-			String description) {
+			Short isRequired, Short isSingleSelection, String description) {
 		this.adminPermissionGroupName = adminPermissionGroupName;
+		this.isRequired = isRequired;
+		this.isSingleSelection = isSingleSelection;
 		this.description = description;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "AdminRolePermissionsOwnID", unique = true, nullable = false)
-	public Integer getAdminRolePermissionsOwnId() {
-		return this.adminRolePermissionsOwnId;
+	@Column(name = "AdminPermissionGroupID", unique = true, nullable = false)
+	public Integer getAdminPermissionGroupId() {
+		return this.adminPermissionGroupId;
 	}
 
-	public void setAdminRolePermissionsOwnId(Integer adminRolePermissionsOwnId) {
-		this.adminRolePermissionsOwnId = adminRolePermissionsOwnId;
+	public void setAdminPermissionGroupId(Integer adminPermissionGroupId) {
+		this.adminPermissionGroupId = adminPermissionGroupId;
 	}
 
 	@Column(name = "AdminPermissionGroupName", nullable = false, length = 50)
@@ -56,6 +63,24 @@ public class Tadminpermissiongroup implements java.io.Serializable {
 
 	public void setAdminPermissionGroupName(String adminPermissionGroupName) {
 		this.adminPermissionGroupName = adminPermissionGroupName;
+	}
+
+	@Column(name = "IsRequired", nullable = false)
+	public Short getIsRequired() {
+		return this.isRequired;
+	}
+
+	public void setIsRequired(Short isRequired) {
+		this.isRequired = isRequired;
+	}
+
+	@Column(name = "IsSingleSelection", nullable = false)
+	public Short getIsSingleSelection() {
+		return this.isSingleSelection;
+	}
+
+	public void setIsSingleSelection(Short isSingleSelection) {
+		this.isSingleSelection = isSingleSelection;
 	}
 
 	@Column(name = "Description", length = 65535)

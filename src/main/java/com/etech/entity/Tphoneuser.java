@@ -41,6 +41,8 @@ public class Tphoneuser implements java.io.Serializable {
 	private Integer areaId;
 	private Short state;
 	private String userName;
+	private String address;
+	private String fancyIds;
 
 	// Constructors
 
@@ -70,7 +72,8 @@ public class Tphoneuser implements java.io.Serializable {
 			Integer professionId, String fancy, Timestamp addTime,
 			Timestamp lastLoginTime, Integer loginCount, String profilePhoto,
 			String openId, Double longitude, Double latitude, String sign,
-			Integer areaId, Short state, String userName) {
+			Integer areaId, Short state, String userName, String address,
+			String fancyIds) {
 		this.userType = userType;
 		this.phoneNumber = phoneNumber;
 		this.imei = imei;
@@ -95,6 +98,8 @@ public class Tphoneuser implements java.io.Serializable {
 		this.areaId = areaId;
 		this.state = state;
 		this.userName = userName;
+		this.address = address;
+		this.fancyIds = fancyIds;
 	}
 
 	// Property accessors
@@ -323,6 +328,24 @@ public class Tphoneuser implements java.io.Serializable {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	@Column(name = "Address", length = 100)
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Column(name = "FancyIDs", length = 65535)
+	public String getFancyIds() {
+		return this.fancyIds;
+	}
+
+	public void setFancyIds(String fancyIds) {
+		this.fancyIds = fancyIds;
 	}
 
 }

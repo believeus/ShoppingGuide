@@ -24,6 +24,7 @@ public class Tgoodstype implements java.io.Serializable {
 	private String goodsTypeName;
 	private Short hasChild;
 	private String remark;
+	private Short sortOrderNo;
 	private List<Tshop> shops=new ArrayList<Tshop>(0);
 	private List<Tgoods> goodses=new ArrayList<Tgoods>(0);
 
@@ -34,25 +35,28 @@ public class Tgoodstype implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tgoodstype(Integer parentId, String goodsTypeName, Short hasChild) {
+	public Tgoodstype(Integer parentId, String goodsTypeName, Short hasChild,
+			Short sortOrderNo) {
 		this.parentId = parentId;
 		this.goodsTypeName = goodsTypeName;
 		this.hasChild = hasChild;
+		this.sortOrderNo = sortOrderNo;
 	}
 
 	/** full constructor */
 	public Tgoodstype(Integer parentId, String goodsTypeName, Short hasChild,
-			String remark) {
+			String remark, Short sortOrderNo) {
 		this.parentId = parentId;
 		this.goodsTypeName = goodsTypeName;
 		this.hasChild = hasChild;
 		this.remark = remark;
+		this.sortOrderNo = sortOrderNo;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "GoodsTypeID", nullable = false)
+	@Column(name = "GoodsTypeID", unique = true, nullable = false)
 	public Integer getGoodsTypeId() {
 		return this.goodsTypeId;
 	}
@@ -115,4 +119,12 @@ public class Tgoodstype implements java.io.Serializable {
 		this.goodses = goodses;
 	}
 	
+	@Column(name = "SortOrderNo", nullable = false)
+	public Short getSortOrderNo() {
+		return this.sortOrderNo;
+	}
+
+	public void setSortOrderNo(Short sortOrderNo) {
+		this.sortOrderNo = sortOrderNo;
+	}
 }

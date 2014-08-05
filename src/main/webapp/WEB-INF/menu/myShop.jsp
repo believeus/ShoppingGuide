@@ -98,6 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <jsp:include page="../include/header.jsp" flush="true" />
     
     <div class="s_main">
+   		<p>所在位置：
+   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+   			<a href="/myShop.jhtml?shopId=${shop.shopId }" title="我的店铺">我的店铺</a>
+		</p>
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
     			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>

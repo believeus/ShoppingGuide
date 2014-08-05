@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -163,7 +164,7 @@ hr {
     	<p>${shop.shopName}</p>
     </div>
     <div>
-    	<img src="/images/shop_img.jpg" />
+    	<img src="<%=Variables.shopURL %>${shop.shopPhotoUrl}" width="640"/>
     </div>
     <div id="spn">
     	<c:forEach var="feature" items="${shop.features }">
@@ -175,11 +176,11 @@ hr {
         	<li>时尚潮流专卖店</li>
             <li>${shop.address }</li>
             <li>${shop.phoneNumber }</li>
-            <li>12312321321${shop.qq }</li>
+            <li>${shop.qq }</li>
         </ol>
         <div id="sp2_ra">
         	<p>
-            	<span>${bePraisedCount }</span>
+            	<span>${shop.bePraisedCount }</span>
             </p>
             <p style="width:195px;">
            		<span>${shop.fansCount }</span>
@@ -192,97 +193,24 @@ hr {
     <div id="shop">
     	<div>
     	<!-- 商品列表 -->
-    	<%-- <c:forEach var="" items="">
-    		
-    	</c:forEach> --%>
-        	<div>
-            	<img src="/images/img11.png" />
-                <p>潮流水彩双袋双肩包</p>
-                <div id="shop_spn">
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                </div>
-                <div>
-                	<img src="/images/zhan.png" />
-                    <span>123</span>
-                    <img src="/images/browse.png" />
-                    <span>4567</span>
-                </div>
-            </div>
-            <div>
-            	<img src="/images/img22.png" />
-                <p>潮流水彩双袋双肩包</p>
-                <div id="shop_spn">
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                </div>
-                <div>
-                	<img src="/images/zhan.png" />
-                    <span>123</span>
-                    <img src="/images/browse.png" />
-                    <span>4567</span>
-                </div>
-            </div>
-        </div>
-        <div>
-        	<div>
-            	<img src="/images/img22.png" />
-                <p>潮流水彩双袋双肩包</p>
-                <div id="shop_spn">
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                </div>
-                <div>
-                	<img src="/images/zhan.png" />
-                    <span>123</span>
-                    <img src="/images/browse.png" />
-                    <span>4567</span>
-                </div>
-            </div>
-            <div>
-            	<img src="/images/img11.png" />
-                <p>潮流水彩双袋双肩包</p>
-                <div id="shop_spn">
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>欧美简约</span>
-                    <span>潮流</span>
-                    <span>精致韩风</span>
-                </div>
-                <div>
-                	<img src="/images/zhan.png" />
-                    <span>123</span>
-                    <img src="/images/browse.png" />
-                    <span>4567</span>
-                </div>
-            </div>
-        </div>
-    </div>
+	    	<c:forEach var="goods" items="${tgoods}">
+	    		<div>
+	            	<img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" />
+	                <p>${goods.goodsName}</p>
+	                <div id="shop_spn">
+	                	<c:forEach var="feature" items="${goods.features}">
+	                    	<span>${feature.featureName}</span>
+	                    </c:forEach>
+	                </div>
+	                <div>
+	                	<img src="/images/zhan.png" />
+	                    <span>${goods.bePraisedCount}</span>
+	                    <img src="/images/browse.png" />
+	                    <span>${goods.viewCount}</span>
+	                </div>
+	            </div>
+	    	</c:forEach>
+   	 	</div>
     <div id="gengduo">
     	<div>更多</div>
     </div>

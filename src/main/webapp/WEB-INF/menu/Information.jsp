@@ -85,12 +85,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <jsp:include page="../include/header.jsp" flush="true" />
     <div>
 		<div style="width:1000px; margin:auto; padding-top:30px;">
+			<p>所在位置：
+	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a> >
+	   			<a href="/information.jhtml?newsId=${news.newsId}" title="资讯详情">资讯详情</a>
+			</p>
 	    	<div>
 	            <div>
 	                <h2>${news.title}</h2>
 	            </div>
-	            <div class="butt01"><p>确认</p></div>
-	            <div class="butt01" style="margin-right:20px;" onClick="javascript:window.history.back();"><p>取消</p></div>
+	            <div class="butt01" style="margin-right:20px;" onClick="javascript:window.history.back();"><p>返回</p></div>
 	        </div>
 	        <div id="netitl">
 	            <p>发布时间：<span>${news.addTime}</span></p>

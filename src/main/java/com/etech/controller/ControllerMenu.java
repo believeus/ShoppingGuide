@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -20,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -77,7 +79,6 @@ public class ControllerMenu {
 	public String shopView(Integer shopId,HttpServletRequest request){
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("shop", shop);
-		System.out.println(shop.getShopName()+"=name");
 		return "/WEB-INF/menu/myShop.jsp";
 	}
 	/**
@@ -89,6 +90,27 @@ public class ControllerMenu {
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
 		request.setAttribute("tgLi", tgLi);
+		List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
+		List<Tgoods> tgoods2 = new ArrayList<Tgoods>();
+		List<Tgoods> tgoods3 = new ArrayList<Tgoods>();
+		List<Tgoods> tgoods4 = new ArrayList<Tgoods>();
+		for (int i = 0; i < tgLi.size(); i+=4) {
+			tgoods1.add(tgLi.get(i));
+			if (i+1 < tgLi.size()) {
+				tgoods2.add(tgLi.get(i+1));
+			}
+			if (i+2 < tgLi.size()) {
+				tgoods3.add(tgLi.get(i+2));
+			}
+			if (i+3 < tgLi.size()) {
+				tgoods4.add(tgLi.get(i+3));
+			}
+		}
+		request.setAttribute("tgoods1", tgoods1);
+		request.setAttribute("tgoods2", tgoods2);
+		request.setAttribute("tgoods3", tgoods3);
+		request.setAttribute("tgoods4", tgoods4);
+		
 		request.setAttribute("size", tgLi.size());
 		request.setAttribute("shopId", shopId);
 		return "/WEB-INF/menu/myProducts.jsp";
@@ -262,7 +284,9 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value="/hitPraise")
-	public String hitPraise(){
+	public String hitPraise(HttpServletRequest request,Integer goodsId){
+		//查找某商品的点赞记录(谁点赞查谁)
+		
 		return "/WEB-INF/menu/hitPraise.jsp";
 	}
 	/**
@@ -301,6 +325,7 @@ public class ControllerMenu {
 			}
 		}
 		request.setAttribute("news", news);
+		request.setAttribute("size", news.size());
 		
 		return "/WEB-INF/menu/InfoList.jsp";
 	}
@@ -376,7 +401,10 @@ public class ControllerMenu {
 	@RequestMapping(value = "/shopPreview")
 	public String shopPreview(Integer shopId,HttpServletRequest request){
 		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
+		@SuppressWarnings("unchecked")
+		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
 		request.setAttribute("shop", shop);
+		request.setAttribute("tgoods", tgoods);
 		return "/WEB-INF/menu/shopPreview.jsp";
 	}
 	
@@ -384,10 +412,12 @@ public class ControllerMenu {
 	 * 商品预览
 	 * @return
 	 */
-	@RequestMapping(value = "goodsPreview")
+	@RequestMapping(value = "/goodsPreview")
 	public String goodsPreview(Integer tgoodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
+		Tshop shop = (Tshop) etechService.findObject(Tshop.class, "shopId", tgoods.getShopId());
 		request.setAttribute("tgoods", tgoods);
+		request.setAttribute("shop", shop);
 		return "/WEB-INF/menu/goodsPreview.jsp";
 		
 	}
@@ -428,4 +458,26 @@ public class ControllerMenu {
 	}
 	
 	
+	/**
+	 * 删掉预览后不保存的商品
+	 * @param goodsId
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/deletePro")
+	public void delete(Integer goodsId,HttpServletRequest request, HttpServletResponse response) throws IOException{
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", goodsId);
+		Integer shopId = tgoods.getShopId();
+		etechService.delete(tgoods);//删掉商品
+		response.sendRedirect("/myProducts.jhtml?shopId="+shopId);
+	}
+	
+	/**
+	 * update goods isOnSale
+	 * @return
+	 */
+	@RequestMapping(value="/updateIsOnSale")
+	public @ResponseBody void ajaxupdate(Integer goodsId,short isOnSale){
+		etechService.update(goodsId,isOnSale);
+	}
 }

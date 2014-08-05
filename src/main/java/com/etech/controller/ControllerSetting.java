@@ -85,7 +85,6 @@ public class ControllerSetting {
 		findpassword.setState(unprocess);
 		findpassword.setApplyTime(new Timestamp(System.currentTimeMillis()));
 		findpassword.setStateChangeTime(new Timestamp(System.currentTimeMillis()));
-		findpassword.setPhoneUserActiveCount(0);
 		etechService.saveOrUpdate(findpassword);
 		request.setAttribute("message", "等待审核中");
 		return "/WEB-INF/menu/success.jsp";

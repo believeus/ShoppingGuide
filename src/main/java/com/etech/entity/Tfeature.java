@@ -23,6 +23,7 @@ public class Tfeature implements java.io.Serializable {
 	private String featureName;
 	private Short featureType;
 	private Integer count;
+	private String objectFlag;
 	private List<Tshop> shops=new ArrayList<Tshop>();
 	private List<Tgoods> goodses=new ArrayList<Tgoods>();
 	
@@ -92,6 +93,15 @@ public class Tfeature implements java.io.Serializable {
 
 	public void setGoodses(List<Tgoods> goodses) {
 		this.goodses = goodses;
+	}
+
+	@Column(name = "ObjectFlag", nullable = false, length = 3)
+	public String getObjectFlag() {
+		return this.objectFlag;
+	}
+
+	public void setObjectFlag(String objectFlag) {
+		this.objectFlag = objectFlag;
 	}
 	
 	

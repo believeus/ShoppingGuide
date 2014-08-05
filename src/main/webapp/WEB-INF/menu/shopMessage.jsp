@@ -124,11 +124,15 @@
 </script>
 
 </head>
-<body>
+<body>   
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
 		<div id="main" style="">
+			<p style="margin:0 auto;width:1000px;">所在位置：
+	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="/shopMsg.jhtml?shopId=${tshop.shopId}" title="店铺资料">店铺资料</a>
+			</p>
 			<table class="main_table1">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
@@ -160,6 +164,13 @@
 						<c:forEach var="feature" items="${features }">
 							<p class="pp">${feature.featureName }</p>
 						</c:forEach>
+					</td>
+				</tr>
+				<tr>
+					<td style="color:red;">*</td>
+					<td style="">所在商场：</td>
+					<td id="main_table2_td" class="main_table2_td" style="">
+						${tshop.market.marketName}
 					</td>
 				</tr>
 				<tr>

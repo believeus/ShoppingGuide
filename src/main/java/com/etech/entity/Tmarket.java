@@ -71,7 +71,7 @@ public class Tmarket implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "MarketID", nullable = false)
+	@Column(name = "MarketID", unique = true, nullable = false)
 	public Integer getMarketId() {
 		return this.marketId;
 	}

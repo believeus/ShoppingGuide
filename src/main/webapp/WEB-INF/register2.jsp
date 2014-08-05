@@ -141,7 +141,6 @@
 		map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
 		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
 		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
-		
 		var gc = new BMap.Geocoder();    
 		map.addEventListener("click", function(e){        
 		    var pt = e.point;
@@ -196,6 +195,20 @@
 		    });
 		    local.search(myValue);
 		}
+		
+		$("#provinceId").change(function(){
+		  var provinceId=$("#provinceId").find("option:selected").text();	
+		  map.centerAndZoom(provinceId,12);  
+		});
+		$("#cityId").change(function(){
+			  var cityId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text();
+			  map.centerAndZoom(cityId,12);  
+		});
+		$("#areaId").change(function(){
+			  var areaId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text();	
+			  map.centerAndZoom(areaId,12);  
+		});
+		
 	});
 	
 	$().ready(function() {
@@ -253,6 +266,8 @@
 				}
 			}
 		});
+		
+		
 	});
 </script>
 <body bgcolor="#E7E8EB">
@@ -284,13 +299,32 @@
 					<input id="shopOwnerName" type="text" name="shopOwnerName" style="width:345px;height:35px;line-height:35px;">
 				</p>
 				<p>
+					<span style="font-weight:normal;">店主QQ号:</span>
+					<input id="qq" type="text" name="qq" 
+					 onkeyup="value=this.value.replace(/\D+/g,'')" maxlength="11"
+					 style="width:345px;height:35px;line-height:35px;">
+				</p>
+				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
-					<select name="marketId" style="width:345px;height:35px;line-height:35px;">
-						<option></option>
-						<c:forEach items="${marketList}" var="market">
-							<option value="${market.marketId}">${market.marketName}</option>
-						</c:forEach>
-					</select>
+					<script type="text/javascript" src="/js/cascading.js"></script>
+					<script type="text/javascript">
+					  $(function(){
+							var cascade=new Cascade();
+							cascade.initRoot("/initProvice.jhtml","provinceId","--请选择省--");
+							cascade.changeCascade("provinceId","/initCity.jhtml","cityId","--请选择市--");
+						    cascade.changeCascade("cityId", "/initArea.jhtml", "areaId","--请选择区--");
+						    cascade.changeCascade("areaId","/initMarket.jhtml","market","--请选择商场--");
+						    $("#market").click(function(){
+						    	$("#marketId").val($(this).val());
+						    });
+					  });
+					</script>
+					<select id="provinceId"></select>
+					<select id="cityId"></select>
+					<select id="areaId"></select>
+					<select id="market"></select>
+					<input type="text" style="width: 0px;border:0;" name="marketId" id="marketId"/>
+					<span></span>
 				</p>
 				<p>
 					<div id="r-result" style="height:30px;width:auto;padding-left:40px;margin-bottom:20px;">
@@ -304,12 +338,13 @@
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">经营范围：</span>
 					
-					<select id="goodsTypeId" name="goodsTypeId">
+					<c:forEach var="gli" items="${gList}">
+						<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}">${gli.goodsTypeName}</label>
+					</c:forEach>
+					<%-- <select id="goodsTypeId" name="goodsTypeId">
 						<option ></option>
-						<c:forEach var="gli" items="${gList}">
 							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
-						</c:forEach>
-					</select>
+					</select> --%>
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">价格区间：</span>
@@ -329,6 +364,7 @@
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>
+					<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span>
 					<!-- <input id="add_img" type="button" value="添加展示图片" onClick=""/> -->
 					<br> 
 					<div class="brandImg" style="margin-top:20px;float:left;">
