@@ -266,8 +266,10 @@
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
 			<span>共有<font color="#69CDCD">${size }</font>条数据</span>
-			<input type="text" name="" style="float:right;">
-			<s class="findPro" title="点击搜索商品" onClick="alert('xx');"></s>
+			<form action="/searchProduct.jhtml" method="post">
+				<input type="text" name="key" style="float:right;">
+				<input class="findPro" title="点击搜索商品" type="submit" value=""/>
+			</form>
 		</p>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
