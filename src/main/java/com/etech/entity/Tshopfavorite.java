@@ -28,6 +28,14 @@ public class Tshopfavorite implements java.io.Serializable {
 	public Tshopfavorite() {
 	}
 
+	/** minimal constructor */
+	public Tshopfavorite(Integer favoriteGroupId, Integer shopId,
+			Timestamp addTime) {
+		this.favoriteGroupId = favoriteGroupId;
+		this.shopId = shopId;
+		this.addTime = addTime;
+	}
+
 	/** full constructor */
 	public Tshopfavorite(Integer favoriteGroupId, Integer shopId,
 			String fansNickName, Timestamp addTime) {
@@ -67,7 +75,7 @@ public class Tshopfavorite implements java.io.Serializable {
 		this.shopId = shopId;
 	}
 
-	@Column(name = "FansNickName", nullable = false, length = 50)
+	@Column(name = "FansNickName", length = 50)
 	public String getFansNickName() {
 		return this.fansNickName;
 	}

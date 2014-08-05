@@ -15,8 +15,8 @@ public class Tadminrole implements java.io.Serializable {
 
 	// Fields
 
-	private Integer adminUserId;
-	private String adminUserName;
+	private Integer adminRoleId;
+	private String adminRoleName;
 	private String remark;
 
 	// Constructors
@@ -26,35 +26,35 @@ public class Tadminrole implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tadminrole(String adminUserName) {
-		this.adminUserName = adminUserName;
+	public Tadminrole(String adminRoleName) {
+		this.adminRoleName = adminRoleName;
 	}
 
 	/** full constructor */
-	public Tadminrole(String adminUserName, String remark) {
-		this.adminUserName = adminUserName;
+	public Tadminrole(String adminRoleName, String remark) {
+		this.adminRoleName = adminRoleName;
 		this.remark = remark;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "AdminUserID", unique = true, nullable = false)
-	public Integer getAdminUserId() {
-		return this.adminUserId;
+	@Column(name = "AdminRoleID", unique = true, nullable = false)
+	public Integer getAdminRoleId() {
+		return this.adminRoleId;
 	}
 
-	public void setAdminUserId(Integer adminUserId) {
-		this.adminUserId = adminUserId;
+	public void setAdminRoleId(Integer adminRoleId) {
+		this.adminRoleId = adminRoleId;
 	}
 
-	@Column(name = "AdminUserName", nullable = false, length = 50)
-	public String getAdminUserName() {
-		return this.adminUserName;
+	@Column(name = "AdminRoleName", nullable = false, length = 50)
+	public String getAdminRoleName() {
+		return this.adminRoleName;
 	}
 
-	public void setAdminUserName(String adminUserName) {
-		this.adminUserName = adminUserName;
+	public void setAdminRoleName(String adminRoleName) {
+		this.adminRoleName = adminRoleName;
 	}
 
 	@Column(name = "Remark", length = 65535)

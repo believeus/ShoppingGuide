@@ -47,6 +47,11 @@ public class Tshop implements java.io.Serializable {
 	private String shopPhotoUrl;
 	private String shopPhotoDefaultUrl;
 	private String businessLicenseNo;
+	private String referee;
+	private Integer validGoodsCount;
+	private String remark;
+	private String shopFeatureIds;
+	private String shopBusinessScopeIds;
 	private List<Tshopuser> shopusers=new ArrayList<Tshopuser>(0);
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>(0);
 	private List<Tfeature> features=new ArrayList<Tfeature>(0);
@@ -312,6 +317,76 @@ public class Tshop implements java.io.Serializable {
 
 	public void setFeatures(List<Tfeature> features) {
 		this.features = features;
+	}
+
+	/**
+	 * @return the referee
+	 */
+	public String getReferee() {
+		return referee;
+	}
+
+	/**
+	 * @param referee the referee to set
+	 */
+	public void setReferee(String referee) {
+		this.referee = referee;
+	}
+
+	/**
+	 * @return the validGoodsCount
+	 */
+	public Integer getValidGoodsCount() {
+		return validGoodsCount;
+	}
+
+	/**
+	 * @param validGoodsCount the validGoodsCount to set
+	 */
+	public void setValidGoodsCount(Integer validGoodsCount) {
+		this.validGoodsCount = validGoodsCount;
+	}
+
+	/**
+	 * @return the remark
+	 */
+	public String getRemark() {
+		return remark;
+	}
+
+	/**
+	 * @param remark the remark to set
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	/**
+	 * @return the shopFeatureIds
+	 */
+	public String getShopFeatureIds() {
+		return shopFeatureIds;
+	}
+
+	/**
+	 * @param shopFeatureIds the shopFeatureIds to set
+	 */
+	public void setShopFeatureIds(String shopFeatureIds) {
+		this.shopFeatureIds = shopFeatureIds;
+	}
+
+	/**
+	 * @return the shopBusinessScopeIds
+	 */
+	public String getShopBusinessScopeIds() {
+		return shopBusinessScopeIds;
+	}
+
+	/**
+	 * @param shopBusinessScopeIds the shopBusinessScopeIds to set
+	 */
+	public void setShopBusinessScopeIds(String shopBusinessScopeIds) {
+		this.shopBusinessScopeIds = shopBusinessScopeIds;
 	}
 	
 }

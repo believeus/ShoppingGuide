@@ -41,6 +41,8 @@ public class Tgoods implements java.io.Serializable {
 	private Integer bePraisedCount;
 	private Integer publishUserId;
 	private Short publishFlag;
+	private String remark;
+	private Short modifyState;
 	private List<Tgoodstype> goodsTypes=new ArrayList<Tgoodstype>();
 	private List<Tfeature> features=new ArrayList<Tfeature>();
 	// Constructors
@@ -48,12 +50,12 @@ public class Tgoods implements java.io.Serializable {
 	/** default constructor */
 	public Tgoods() {
 	}
-
+	
 	/** minimal constructor */
 	public Tgoods(Integer shopId, String goodsName, Short isOnSale,
 			Timestamp addTime, Short isRecommend, Short examineState,
 			Integer viewCount, Integer bePraisedCount, Integer publishUserId,
-			Short publishFlag) {
+			Short publishFlag, Short modifyState) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
 		this.isOnSale = isOnSale;
@@ -64,6 +66,7 @@ public class Tgoods implements java.io.Serializable {
 		this.bePraisedCount = bePraisedCount;
 		this.publishUserId = publishUserId;
 		this.publishFlag = publishFlag;
+		this.modifyState = modifyState;
 	}
 
 	/** full constructor */
@@ -73,7 +76,7 @@ public class Tgoods implements java.io.Serializable {
 			String goodsPhotoUrl, String goodsDefaultPhotoUrl,
 			Integer goodsDefaultPhotoWidth, Integer goodsDefaultPhotoHeight,
 			Integer viewCount, Integer bePraisedCount, Integer publishUserId,
-			Short publishFlag) {
+			Short publishFlag, String remark, Short modifyState) {
 		this.shopId = shopId;
 		this.goodsName = goodsName;
 		this.isOnSale = isOnSale;
@@ -91,8 +94,10 @@ public class Tgoods implements java.io.Serializable {
 		this.bePraisedCount = bePraisedCount;
 		this.publishUserId = publishUserId;
 		this.publishFlag = publishFlag;
+		this.remark = remark;
+		this.modifyState = modifyState;
 	}
-
+	
 	// Property accessors
 	@Id
 	@GeneratedValue
@@ -282,6 +287,24 @@ public class Tgoods implements java.io.Serializable {
 		this.features = features;
 	}
 	
+	@Column(name = "Remark", length = 65535)
+	public String getRemark() {
+		return this.remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	@Column(name = "ModifyState", nullable = false)
+	public Short getModifyState() {
+		return this.modifyState;
+	}
+
+	public void setModifyState(Short modifyState) {
+		this.modifyState = modifyState;
+	}
+
 	
 	
 }

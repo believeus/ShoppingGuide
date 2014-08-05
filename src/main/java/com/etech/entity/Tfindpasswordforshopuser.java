@@ -24,7 +24,6 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 	private String remark;
 	private Short state;
 	private Timestamp applyTime;
-	private Integer phoneUserActiveCount;
 	private Timestamp stateChangeTime;
 
 	// Constructors
@@ -41,7 +40,6 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 		this.state = state;
 		this.applyTime = applyTime;
-		this.phoneUserActiveCount = phoneUserActiveCount;
 		this.stateChangeTime = stateChangeTime;
 	}
 
@@ -56,7 +54,6 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.remark = remark;
 		this.state = state;
 		this.applyTime = applyTime;
-		this.phoneUserActiveCount = phoneUserActiveCount;
 		this.stateChangeTime = stateChangeTime;
 	}
 
@@ -126,14 +123,6 @@ public class Tfindpasswordforshopuser implements java.io.Serializable {
 		this.applyTime = applyTime;
 	}
 
-	@Column(name = "PhoneUserActiveCount", nullable = false)
-	public Integer getPhoneUserActiveCount() {
-		return this.phoneUserActiveCount;
-	}
-
-	public void setPhoneUserActiveCount(Integer phoneUserActiveCount) {
-		this.phoneUserActiveCount = phoneUserActiveCount;
-	}
 
 	@Column(name = "StateChangeTime", nullable = false, length = 19)
 	public Timestamp getStateChangeTime() {

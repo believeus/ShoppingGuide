@@ -23,6 +23,8 @@ public class Tnews implements java.io.Serializable {
 	private String originalUrl;
 	private Timestamp addTime;
 	private Integer viewCount;
+	private Timestamp publishTime;
+	private Integer publishUserId;
 
 	// Constructors
 
@@ -32,24 +34,28 @@ public class Tnews implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Tnews(String title, String content, Timestamp addTime,
-			Integer viewCount) {
+			Integer viewCount, Timestamp publishTime, Integer publishUserId) {
 		this.title = title;
 		this.content = content;
 		this.addTime = addTime;
 		this.viewCount = viewCount;
+		this.publishTime = publishTime;
+		this.publishUserId = publishUserId;
 	}
 
 	/** full constructor */
 	public Tnews(String title, String content, String newsFrom,
-			String originalUrl, Timestamp addTime, Integer viewCount) {
+			String originalUrl, Timestamp addTime, Integer viewCount,
+			Timestamp publishTime, Integer publishUserId) {
 		this.title = title;
 		this.content = content;
 		this.newsFrom = newsFrom;
 		this.originalUrl = originalUrl;
 		this.addTime = addTime;
 		this.viewCount = viewCount;
+		this.publishTime = publishTime;
+		this.publishUserId = publishUserId;
 	}
-
 	// Property accessors
 	@Id
 	@GeneratedValue
@@ -115,5 +121,21 @@ public class Tnews implements java.io.Serializable {
 	public void setViewCount(Integer viewCount) {
 		this.viewCount = viewCount;
 	}
+	@Column(name = "PublishTime", nullable = false, length = 19)
+	public Timestamp getPublishTime() {
+		return this.publishTime;
+	}
 
+	public void setPublishTime(Timestamp publishTime) {
+		this.publishTime = publishTime;
+	}
+
+	@Column(name = "PublishUserID", nullable = false)
+	public Integer getPublishUserId() {
+		return this.publishUserId;
+	}
+
+	public void setPublishUserId(Integer publishUserId) {
+		this.publishUserId = publishUserId;
+	}
 }

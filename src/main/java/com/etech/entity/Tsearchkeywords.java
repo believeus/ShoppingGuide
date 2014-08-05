@@ -17,7 +17,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private String count;
+	private Integer count;
 	private String lastTime;
 	private String index;
 	private Short range;
@@ -29,7 +29,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Tsearchkeywords(String name, String count, String lastTime,
+	public Tsearchkeywords(String name, Integer count, String lastTime,
 			Short range) {
 		this.name = name;
 		this.count = count;
@@ -38,7 +38,7 @@ public class Tsearchkeywords implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Tsearchkeywords(String name, String count, String lastTime,
+	public Tsearchkeywords(String name, Integer count, String lastTime,
 			String index, Short range) {
 		this.name = name;
 		this.count = count;
@@ -68,12 +68,12 @@ public class Tsearchkeywords implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "Count", nullable = false, length = 65535)
-	public String getCount() {
+	@Column(name = "Count", nullable = false)
+	public Integer getCount() {
 		return this.count;
 	}
 
-	public void setCount(String count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
