@@ -79,11 +79,11 @@
 		#suib td:last-of-type {
 			width:355px;	
 		}
-		#suib input {
+		/* #suib input {
 			width:340px; 
 			height:28px; 
 			padding: 0px 4px;;
-		}
+		} */
 		
 		#shopSpec{
 			padding-top:5px;
@@ -163,6 +163,9 @@
 $(function(){
 	<c:forEach var="feature" items="${shopfeatures }">
 		$("p[value='${feature.featureId}']").attr("class","current");
+	</c:forEach>
+	<c:forEach var="goodstype" items="${tgoodstypes }">
+		$("input[value='${goodstype.goodsTypeId}']").attr("checked","checked");
 	</c:forEach>
 	// 百度地图API功能
 	function G(id) {
@@ -246,12 +249,12 @@ $(function(){
 		
 		$("#add_img").click(function(){
 			var a = $(".shopShow .brandImg").size() + 1;
-			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
+			var html = "<div style='padding-left:40px;'><div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'></div>";
 			//alert($(".shopShow .brandImg").size());
 			if($(".shopShow .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
-				$(".shopShow .brandImg").parent().append(html);
+				$(".shopShow .brandImg").parent().parent().append(html);
 			}
 		});
 
@@ -461,7 +464,7 @@ $(function(){
 		                  	});
 		                  	
 		                  </script>
-		                 <td id="marketName"><span>${tshop.market.marketName}</span><a href="javascript:void(0);" id="editMarket"><font color="red">更改</font></a></td>
+		                 <td colspan="2" id="marketName"><span>${tshop.market.marketName}</span><a href="javascript:void(0);" id="editMarket"><font color="red">更改</font></a></td>
 		                 <td>
 			               <script type="text/javascript" src="/js/cascading.js"></script>
 						   <script type="text/javascript">
@@ -503,12 +506,14 @@ $(function(){
 		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>经营范围：</b></td>
 		                <td id="businessTd" colspan="3">
-		                	
-		                    <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
+		                	<c:forEach var="gli" items="${range}">
+								<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}">${gli.goodsTypeName}</label>
+							</c:forEach>
+		                   <%--  <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
 								<c:forEach var="gli" items="${range}">
 									<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 								</c:forEach>
-							</select>
+							</select> --%>
 		                </td>
 		              </tr>
 		              <tr>
@@ -542,19 +547,23 @@ $(function(){
 		              </tr>
 		              <tr>
 		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span>
+		              	<input id="add_img" type="button" value="添加商品图片" onClick=""/><br/>
+		              	<span style="font-size:13px;">(最多可上传9张图片)</span>
 		              	<!-- <input id="add_img" type="button" value="添加预览图" style="width: 85px;"> -->
 		              	</td>
 		              	<td class="shopShow" colspan="3">
+		              		<c:forEach var="path" items="${path }" varStatus="status">
 		              		<div style="padding-left:40px;">
 								<div class="brandImg" style="margin-top:20px;">
 									<span>
-										<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
+										<a onclick="file${status.index+1}.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
-									<img id="businessLicensePhoto" style="width:229px;height:179px" src="<%=Variables.shopURL %>${tshop.shopPhotoUrl }" name="businessLicensePhoto"/>
+									<img id="shopPhotoURL" style="width:229px;height:179px" src="<%=Variables.shopURL %>${path }" name="shopPhotoURL"/>
 								</div>
-								<input type="file" style="display:none" id="file1" name="shopImg" onchange="filename1.value=this.value;loadImgFast(this,1)">
-								<input type="hidden" id="filename1" name="filename1">
+								<input type="file" style="display:none" id="file${status.index+1}" name="shopImg" onchange="filename${status.index+1}.value=this.value;loadImgFast(this,${status.index+1})">
+								<input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
 							</div>
+							</c:forEach>
 		              	</td>
 		              </tr>
 		            </table>

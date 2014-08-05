@@ -278,7 +278,7 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							<img src="/images/defaultImg.jpg" width="230">
+							
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">

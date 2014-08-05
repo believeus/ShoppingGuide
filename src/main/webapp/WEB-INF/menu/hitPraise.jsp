@@ -10,7 +10,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
 <title>点赞记录</title>
 
@@ -139,7 +138,21 @@
 
 <script type="text/javascript">
 	$().ready(function(){
-		
+		$("[id=note]").click(function(){
+			$input=$(this).parent().prev();
+			$input.css("display","");
+			$input.prev().css("display","none");
+			$input.focus();
+			
+			$input.blur(function(){
+				var nickName=$input.val();
+				var phoneUserId=$(this).prev().prev().val();
+				
+				$.post("/changeNote.jhtml",{"nickName":nickName,"phoneUserId":phoneUserId});
+				var url = "/hitPraise.jhtml?goodsId="+${goodsId};
+				location.replace(url);
+			});
+		});
 	});	
 		
 </script>
@@ -161,6 +174,8 @@
 			<div class="p_main">
 				<img src="/images/line.png" style="margin-bottom:20px;">
 				
+				<c:forEach var="phoneuser" items="${tphoneusers }">
+					
 				<div class="p_list">
 					<div class="p_top">
 						<div class="p_top_img">
@@ -168,125 +183,38 @@
 						</div>
 						<div class="p_top_word">
 							<div class="p_top_word_name">
-								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-								<span class="nSex">女</span>
+								<span class="nName">
+									<c:if test="${fan.nickName == ''}">
+										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.realName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.nickName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
+									</c:if>
+									<c:if test="${fan.nickName != ''}">
+										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.nickName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.realName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
+									</c:if>
+								</span>
+								<span class="nSex">${phoneuser.gender }</span>
 							</div>
 							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
+								<span class="nTime">${phoneuser.addTime }</span>
 								<span class="nRecord">已关注</span>
 							</div>
 						</div>
 					</div>
 					<div class="p_speci">
 						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">商务休闲</p>
-						<p class="p_speci_p">青春活力</p>
-						<p class="p_speci_p">精致韩风</p>
-						<p class="p_speci_p">小清新</p>
 					</div>
 				</div>
 				
-				<div class="p_list">
-					<div class="p_top">
-						<div class="p_top_img">
-							<img src="/images/header.png" width="50" height="50">
-						</div>
-						<div class="p_top_word">
-							<div class="p_top_word_name">
-								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-								<span class="nSex">女</span>
-							</div>
-							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
-								<span class="nRecord">已关注</span>
-							</div>
-						</div>
-					</div>
-					<div class="p_speci">
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">精致韩风</p>
-						<p class="p_speci_p">商务休闲</p>
-						<p class="p_speci_p">青春活力</p>
-						<p class="p_speci_p">小清新</p>
-					</div>
-				</div>
-				
-				<div class="p_list" style="margin-right:0;">
-					<div class="p_top">
-						<div class="p_top_img">
-							<img src="/images/header.png" width="50" height="50">
-						</div>
-						<div class="p_top_word">
-							<div class="p_top_word_name">
-								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-								<span class="nSex">女</span>
-							</div>
-							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
-								<span class="nRecord">已关注</span>
-							</div>
-						</div>
-					</div>
-					<div class="p_speci">
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">精致韩风</p>
-						<p class="p_speci_p">商务休闲</p>
-						<p class="p_speci_p">青春活力</p>
-						<p class="p_speci_p">小清新</p>
-					</div>
-				</div>
-				
-				<div class="p_list">
-					<div class="p_top">
-						<div class="p_top_img">
-							<img src="/images/header.png" width="50" height="50">
-						</div>
-						<div class="p_top_word">
-							<div class="p_top_word_name">
-								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-								<span class="nSex">女</span>
-							</div>
-							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
-								<span class="nRecord">已关注</span>
-							</div>
-						</div>
-					</div>
-					<div class="p_speci">
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">精致韩风</p>
-						<p class="p_speci_p">商务休闲</p>
-						<p class="p_speci_p">青春活力</p>
-						<p class="p_speci_p">小清新</p>
-					</div>
-				</div>
-				
-				<div class="p_list">
-					<div class="p_top">
-						<div class="p_top_img">
-							<img src="/images/header.png" width="50" height="50">
-						</div>
-						<div class="p_top_word">
-							<div class="p_top_word_name">
-								<span class="nName">昵称最多六字<font color="#32A8A8">(备注四字)</font></span>
-								<span class="nSex">女</span>
-							</div>
-							<div class="p_top_word_time">
-								<span class="nTime">2014年7月16日 12：59</span>
-								<span class="nRecord">已关注</span>
-							</div>
-						</div>
-					</div>
-					<div class="p_speci">
-						<p class="p_speci_p">潮流</p>
-						<p class="p_speci_p">精致韩风</p>
-						<p class="p_speci_p">商务休闲</p>
-						<p class="p_speci_p">青春活力</p>
-						<p class="p_speci_p">小清新</p>
-					</div>
-				</div>
+				</c:forEach>
 				
 			</div>
 		</div>

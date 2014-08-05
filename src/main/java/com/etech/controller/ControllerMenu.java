@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,10 +30,13 @@ import com.etech.dao.EtechComDao;
 import com.etech.entity.Tcity;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodspraisehistory;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tprovince;
+import com.etech.entity.Tphoneuser;
+import com.etech.entity.Tphoneuserfeature;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopfeature;
 import com.etech.entity.Tshopuser;
@@ -123,6 +127,11 @@ public class ControllerMenu {
 	public String shopMsg(Integer shopId,HttpServletRequest request){
 		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("tshop", tshop);//shop msg
+		String[] path = tshop.getShopPhotoUrl().split("#");
+		for (int i = 0; i < path.length; i++) {
+			System.out.println(path[i]+"====path");
+		}
+		request.setAttribute("path", path);//shop msg
 		
 //		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
 		List<Tfeature> tfeatures = tshop.getFeatures();
@@ -141,6 +150,10 @@ public class ControllerMenu {
 		
 		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("tshop", tshop);//shop msg
+		
+		String[] path = tshop.getShopPhotoUrl().split("#");
+		request.setAttribute("path", path);//shop photo url
+		
 		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("range", range);//shop range
 		
@@ -168,10 +181,9 @@ public class ControllerMenu {
 		String shopuserId=request.getParameter("shopuserId");
 		String lisenceId=request.getParameter("lisenceId");
 		String featureIds=request.getParameter("featureIds");
-		System.out.println(featureIds);
+		Tshop shop = (Tshop) etechService.findObject(Tshop.class,"shopId", shopId);
 		// delete before relationship for shop and feature
 		etechService.delete(Tshopfeature.class,"shopId",shopId);
-		
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
 		if(!featureIds.isEmpty()){
 			for (String featureId : featureIds.split(",")) {
@@ -193,6 +205,7 @@ public class ControllerMenu {
 		String shopImg=""; 
 		for (MultipartFile file : files.values()) {
 			InputStream inputStream;
+			count++;
 			try {
 				
 				inputStream = file.getInputStream();
@@ -208,7 +221,7 @@ public class ControllerMenu {
 				}else {
 					shopImg=UUID.randomUUID()+"."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-					if(count==files.size()){
+					if(count>1){
 						appendImg+=shopImg+"#";
 					}else {
 						appendImg+=shopImg;
@@ -219,12 +232,11 @@ public class ControllerMenu {
 			}
 		}
 		log.debug("shop image sava db url:"+appendImg);
-		String goodsTypeId=request.getParameter("goodsTypeId");
-		Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+		
 		
 		// get shopName from form
 		String shopName=request.getParameter("shopName");
-		Tshop shop = (Tshop) etechService.findObject(Tshop.class,"shopId", shopId);
+		
 		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, Integer.parseInt(shopuserId));
 		String marketId=request.getParameter("marketId");
 		Tmarket market=(Tmarket)etechService.findObject(Tmarket.class, Integer.valueOf(marketId));
@@ -267,11 +279,27 @@ public class ControllerMenu {
 		shop.setFansCount(0);
 		// 这里会有八张全部都替换了
 		if(!StringUtils.isEmpty(appendImg)){
+			List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
+			List<String> newList = new ArrayList<String>(Arrays.asList(appendImg.split("#")));
+			System.out.println(oldlist+"--1");
+			oldlist.removeAll(newList);
+			for (String string : oldlist) {
+				appendImg+=string+"#"; 
+			}
+			System.out.println(newList+"--2");
+			System.out.println(oldlist+"--3");
 			shop.setShopPhotoUrl(appendImg);
 		}
+		String[] path = shop.getShopPhotoUrl().split("#");
+		request.setAttribute("path", path);
+		
 		// shop goodstype many to many goodstype,mapped by goodstype
+		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
 		shop.getGoodsTypes().removeAll(shop.getGoodsTypes());
-		shop.getGoodsTypes().add(goodstype);
+		for (String goodsTypeId : goodsTypeIds) {
+			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+			shop.getGoodsTypes().add(goodstype);
+		}
 		etechService.saveOrUpdate(shop);//更新 
 
 		session.setAttribute(Variables.sessionUser, sessionUser);
@@ -283,12 +311,35 @@ public class ControllerMenu {
 	 * hit praise
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/hitPraise")
 	public String hitPraise(HttpServletRequest request,Integer goodsId){
 		//查找某商品的点赞记录(谁点赞查谁)
-		
+		List<Tgoodspraisehistory> gphs = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
+		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		for (Tgoodspraisehistory tgoodspraisehistory : gphs) {
+			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
+			tphoneusers.add(puser);
+			List<Tphoneuserfeature> tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
+			for (Tphoneuserfeature tphoneuserfeature : tpfs) {
+				tphoneuserfeature.getFeatureId();
+			}
+		}
+		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("goodsId", goodsId);
 		return "/WEB-INF/menu/hitPraise.jsp";
 	}
+	
+	@RequestMapping("/changeNote")
+	public String toChangeNote(int phoneUserId,String nickName){
+		log.debug("phoneUserId"+":"+phoneUserId+";nickName:"+nickName);
+		Tphoneuser user=(Tphoneuser) etechComDao.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
+		user.setNickName(nickName);
+		etechComDao.saveOrUpdata(user);
+		
+		return "/showFans.jhtml";
+	}
+	
 	/**
 	 * my Fans
 	 * @return

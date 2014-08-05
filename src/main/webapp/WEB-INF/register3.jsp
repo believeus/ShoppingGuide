@@ -38,7 +38,7 @@
 }
 
 .tese {
-	width: 500px;
+	width: auto;
 	height: auto;
 	margin-top: 10px;
 	margin-bottom: 20px;
@@ -130,7 +130,7 @@
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					$("#tese").append("<a id='ta' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</a>");
+					$("#tese").append("<a id='ta' class='current' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</a>");
 					$("#textSpecial").val("");
 				 });
 			}

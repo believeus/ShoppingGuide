@@ -87,7 +87,7 @@ public class ControllerRegistTwo {
 				}else {
 					shopImg=UUID.randomUUID()+"."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-					if(count==files.size()){
+					if(count>1){
 						appendImg+=shopImg+"#";
 					}else {
 						appendImg+=shopImg;

@@ -43,7 +43,8 @@ public class ControllerRegistThree {
 			return "redirect:/register2.jhtml";
 		}
 		@SuppressWarnings("unchecked")
-		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, "featureType",new Short((short) 0));
+//		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, "featureType",new Short((short) 0));
+		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class);
 		request.setAttribute("tList", tList);
 		return "/WEB-INF/register3.jsp";
 	}

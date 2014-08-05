@@ -227,9 +227,11 @@
    				<tr style="">
 					<td colspan="2" style=""></td>
 					<td class="shopShow">
-						<div class="brandImg" style="margin-top:20px;">
-							<img style="width:229px;height:179px" src="<%=Variables.shopURL %>${tshop.shopPhotoUrl}" name="img"/>
-						</div>
+						<c:forEach var="path" items="${path }">
+							<div class="brandImg" style="margin-top:20px;">
+								<img style="width:229px;height:179px" src="<%=Variables.shopURL %>${path}" name="img"/>
+							</div>
+						</c:forEach>
 					</td>
 				</tr>
 			</table>

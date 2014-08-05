@@ -131,7 +131,7 @@ hr {
     </div>
     <div>
     	<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-			<img src="/images/defaultImg.jpg" width="645">
+			
 		</c:if>
 		<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 			<img src="<%=Variables.goodsPhotoURL %>${tgoods.goodsPhotoUrl }" width="645">
