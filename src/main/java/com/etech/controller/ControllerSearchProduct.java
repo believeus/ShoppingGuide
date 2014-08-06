@@ -16,7 +16,7 @@ public class ControllerSearchProduct {
 	@RequestMapping(value="/searchProduct")
 	public String searchProduct(String key,HttpServletRequest request){
 		Integer shopId=Integer.parseInt(request.getParameter("shopId"));
-		String hql = "from Tgoods goods where goods.goodsName like '%"+key+"%' where goods.shopId='"+shopId+"'";
+		String hql = "from Tgoods goods where goods.goodsName like '%"+key+"%' and goods.shopId='"+shopId+"'";
 		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(hql, 10);
 		request.setAttribute("tgLi", tgLi);
 		List<Tgoods> tgoods1 = new ArrayList<Tgoods>();

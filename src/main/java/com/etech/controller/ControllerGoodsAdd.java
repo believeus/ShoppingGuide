@@ -78,6 +78,7 @@ public class ControllerGoodsAdd {
 			tGoods.setIntroduction(request.getParameter("goodsDetail"));
 			tGoods.setGoodsName(request.getParameter("goodsName"));
 			tGoods.setPublishFlag((short) 0);
+			tGoods.setModifyState((short)0);
 			String goodsTypeId=request.getParameter("goodsTypeId");
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			tGoods.getGoodsTypes().removeAll(tGoods.getGoodsTypes());
