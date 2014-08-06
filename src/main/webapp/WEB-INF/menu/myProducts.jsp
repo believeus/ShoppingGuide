@@ -267,6 +267,7 @@
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
 			<span>共有<font color="#69CDCD">${size }</font>条数据</span>
 			<form action="/searchProduct.jhtml" method="post">
+				<input type="hidden" name="shopId" value="${shopId }"/>
 				<input type="text" name="key" style="float:right;">
 				<input class="findPro" title="点击搜索商品" type="submit" value=""/>
 			</form>
