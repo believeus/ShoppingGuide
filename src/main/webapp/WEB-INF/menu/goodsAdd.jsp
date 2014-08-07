@@ -208,21 +208,6 @@ function addclass(obj){
 			<table class="main_table2" style="">
 				<tr>
 					<td style="color:red;">*</td>
-					<td style="">特色：</td>
-					<td id="main_table2_td" class="main_table2_td" style="">
-						<c:forEach var="tfeatures" items="${tfeatures }">
-							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
-						</c:forEach>
-						<input type="hidden" value="" id="featureIds" name="featureIds">
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="height:35px;width:60px;" type="button" value="添加" /></td>
-				</tr>
-				<tr>
-					<td style="color:red;">*</td>
 					<td>商品名称：</td>
 					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" /></td>
 				</tr>
@@ -239,6 +224,21 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
+					<td style="color:red;">*</td>
+					<td style="">特色：</td>
+					<td id="main_table2_td" class="main_table2_td" style="">
+						<c:forEach var="tfeatures" items="${tfeatures }">
+							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
+						</c:forEach>
+						<input type="hidden" value="" id="featureIds" name="featureIds">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="height:35px;width:60px;" type="button" value="添加" /></td>
+				</tr>
+				<tr>
 					<td></td>
 					<td>商品简介：</td>
 					<td>
@@ -246,27 +246,14 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"></td>
-					<td>
-						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+					<td colspan="3">
+						<div style="float:left;color:red;">*</div>
+						上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/>
+						<span style="font-size:13px;">(最多可上传9张图片)</span>
 					</td>
 				</tr>
-			</table>
-
-
-			<div style="width:1000px;text-align:center;margin:0 auto;">
-				<img src="/images/line.png">
-			</div>
-			
-			<table class="main_table3" style="">
-     				<tr>
-					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
-				</tr>
-     				<tr style="">
-					<td colspan="2" style=""></td>
-					<td>
+   				<tr>
+					<td colspan="3">
 						<div class="brandImg" style="margin-top:20px;float:left;">
 							<span>
 								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
@@ -275,6 +262,12 @@ function addclass(obj){
 						</div>
 						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 						<input type="hidden" id="filename0" name="filename0">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
 				</tr>
 			</table>

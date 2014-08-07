@@ -60,7 +60,7 @@
            	<a href="javascript:void(0);" class="hello">${sessionUser.phoneNumber}</a>&nbsp;&nbsp;&nbsp;,你好！
            	<a href="" title="查看消息" style="color:#056f6f;">消息(q)</a>&nbsp;|&nbsp;
            	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>|
-           	<a href="/menu.jhtml" style="color:#056f6f;">菜单页</a>
+           	<a href="/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
 	           	<div class="setting">
 	           		<div style="width:103px;height:33px;line-height:33px;">${sessionUser.phoneNumber}</div>
 	           		

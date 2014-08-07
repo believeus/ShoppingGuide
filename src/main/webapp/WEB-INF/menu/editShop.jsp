@@ -529,6 +529,12 @@ $(function(){
 		                </td>
 		              </tr>
 		              <tr>
+		              	<td><font color="red">*</font>营业执照号：</td>
+		              	<td colspan="3">
+		              		<input type="text" name="lisenceId" value="${tshop.businessLicenseNo }">
+		              	</td>
+		              </tr>
+		              <tr>
 		              	<td><font color="red">*</font><span style="font-weight:normal;">营业执照：</span></td>
 		              	<td>
 		              		<div style="padding-left:40px;">

@@ -54,6 +54,7 @@ public class ControllerRegistThree {
 		Tfeature tfeature=new Tfeature();
 		tfeature.setFeatureName(feature);
 		tfeature.setFeatureType((short)1);
+		tfeature.setObjectFlag("111");
 		tfeature.setCount(0);
 		etechService.saveOrUpdate(tfeature);
 		return tfeature.getFeatureId()+"";

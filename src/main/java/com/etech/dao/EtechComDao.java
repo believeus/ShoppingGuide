@@ -27,6 +27,8 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import com.etech.entity.Tgoods;
+
 public class EtechComDao extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(EtechComDao.class);
 	@Resource
@@ -260,6 +262,32 @@ public class EtechComDao extends HibernateDaoSupport {
 			}
 			
 		});
+	}
+
+	/**
+	 * 
+	 * @param isOnSale
+	 * @param shopId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Tgoods> findList(final short isOnSale,final Integer shopId) {
+		System.out.println(isOnSale+"---"+shopId);
+		final String hql = "select goods from Tgoods goods where goods.shopId = :shopId and goods.isOnSale = :isOnSale ";
+		return (List<Tgoods>) getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
+
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = session.createQuery(hql);
+						query.setParameter("shopId",shopId);
+						query.setParameter("isOnSale", isOnSale);
+						query.setFirstResult(0);
+						List<?> list = query.list();
+						return list;
+					}
+				});
 	}
 
 

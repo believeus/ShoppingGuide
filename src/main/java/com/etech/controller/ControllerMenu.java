@@ -325,6 +325,8 @@ public class ControllerMenu {
 				tphoneuserfeature.getFeatureId();
 			}
 		}
+		
+		
 		request.setAttribute("tphoneusers", tphoneusers);
 		request.setAttribute("goodsId", goodsId);
 		return "/WEB-INF/menu/hitPraise.jsp";
@@ -454,8 +456,22 @@ public class ControllerMenu {
 		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
+		String[] paths = shop.getShopPhotoUrl().split("#");
+		request.setAttribute("paths", paths);
 		request.setAttribute("shop", shop);
 		request.setAttribute("tgoods", tgoods);
+		List<Tgoods> list1 = new ArrayList<Tgoods>();
+		List<Tgoods> list2 = new ArrayList<Tgoods>();
+		for (int i = 0; i < tgoods.size(); i+=2) {
+			list1.add(tgoods.get(i));
+			if (i+1 < tgoods.size()) {
+				list2.add(tgoods.get(i+1));
+			}
+		}
+		request.setAttribute("list1", list1);
+		request.setAttribute("list2", list2);
+		
+		
 		return "/WEB-INF/menu/shopPreview.jsp";
 	}
 	
@@ -529,6 +545,69 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/updateIsOnSale")
 	public @ResponseBody void ajaxupdate(Integer goodsId,short isOnSale){
+		System.out.println(isOnSale+"----isOnSale");
 		etechService.update(goodsId,isOnSale);
+	}
+	
+	/**
+	 * 查找上架(下架)商品
+	 * @param isOnSale
+	 * @param shopId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/isOnSale")
+	public String isOnSaleList(short isOnSale,Integer shopId,HttpServletRequest request){
+		System.out.println(isOnSale+"==<>=="+shopId);
+		if (isOnSale == (short)1) {
+			List<Tgoods> tgLi = etechService.findList(isOnSale,shopId);
+			List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods2 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods3 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods4 = new ArrayList<Tgoods>();
+			for (int i = 0; i < tgLi.size(); i+=4) {
+				tgoods1.add(tgLi.get(i));
+				if (i+1 < tgLi.size()) {
+					tgoods2.add(tgLi.get(i+1));
+				}
+				if (i+2 < tgLi.size()) {
+					tgoods3.add(tgLi.get(i+2));
+				}
+				if (i+3 < tgLi.size()) {
+					tgoods4.add(tgLi.get(i+3));
+				}
+			}
+			request.setAttribute("tgoods1", tgoods1);
+			request.setAttribute("tgoods2", tgoods2);
+			request.setAttribute("tgoods3", tgoods3);
+			request.setAttribute("tgoods4", tgoods4);
+			request.setAttribute("shopId", shopId);
+			request.setAttribute("size", tgLi.size());
+		}else if (isOnSale == (short)0) {
+			List<Tgoods> tgLi = etechService.findList(isOnSale,shopId);
+			List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods2 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods3 = new ArrayList<Tgoods>();
+			List<Tgoods> tgoods4 = new ArrayList<Tgoods>();
+			for (int i = 0; i < tgLi.size(); i+=4) {
+				tgoods1.add(tgLi.get(i));
+				if (i+1 < tgLi.size()) {
+					tgoods2.add(tgLi.get(i+1));
+				}
+				if (i+2 < tgLi.size()) {
+					tgoods3.add(tgLi.get(i+2));
+				}
+				if (i+3 < tgLi.size()) {
+					tgoods4.add(tgLi.get(i+3));
+				}
+			}
+			request.setAttribute("tgoods1", tgoods1);
+			request.setAttribute("tgoods2", tgoods2);
+			request.setAttribute("tgoods3", tgoods3);
+			request.setAttribute("tgoods4", tgoods4);
+			request.setAttribute("shopId", shopId);
+			request.setAttribute("size", tgLi.size());
+		}
+		return "/WEB-INF/menu/myProducts.jsp";
 	}
 }

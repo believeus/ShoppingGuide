@@ -111,7 +111,8 @@ public class ControllerRegistTwo {
 		Tmarket market=(Tmarket)etechService.findObject(Tmarket.class, Integer.valueOf(marketId));
 		Tshop shop=new Tshop();
 		shop.setMarket(market);
-		shop.setPriceRange(request.getParameter("businessLicenseNo"));
+		shop.setPriceRange(request.getParameter("priceRange"));
+		shop.setBusinessLicenseNo(request.getParameter("businessLicenseNo"));
 		shop.setShopName(shopName);
 		shop.setShopOwnerName(shopOwnerName);
 		shop.setAddress(address);

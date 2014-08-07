@@ -158,7 +158,7 @@
 .pageshow{
 	background: url(/images/bg.png) repeat scroll 0 -355px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 378px;
+    left: 370px;
     position: absolute;
     width: 20px;
 }
@@ -201,17 +201,83 @@
     position: relative;
     top: -154px; */
 }
+.selectPro{
+	border: 1px solid #e4e4e4;
+    height: 50px;
+    left: 408px;
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    display:none;
+    margin-top:-6px;
+}
+.selectPro a{
+	border-top: 1px dotted #ccc;
+    display: block;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+}
+.selectPro a:hover{
+	text-decoration:underline;
+}
+#allPro{
+	border:1px solid #e4e4e4;
+	margin-left: -2px;
+    padding-left: 5px;
+    padding-top: 4px;
+}
+.specigoods{
+	width: 100px; 
+	height: 30px; 
+	float: left; 
+	text-align: center; 
+	line-height: 30px;
+	cursor:pointer;
+	background:#D9F2F2;
+}
+.specigoods:hover{
+	background:#5AB5B6;
+	color:#FFFFFF;
+}
+.current{
+	background:#5AB5B6;
+	color:#FFFFFF;
+}
 </style>
 <script type="text/javascript">
 	$().ready(function() {
+		
+		$("#allPro").mouseout(function(){
+			$(".selectPro").hide();	
+		}).mouseover(function(){
+			$(".selectPro").show();	
+		});
+		$(".selectPro").mouseout(function(){
+			$(".selectPro").hide();			
+		}).mouseover(function(){
+			$(".selectPro").show();	
+		});
+		
+		//alert(window.location.href);
+		var str = window.location.href;
+		var url = str.substring(str.indexOf("?")+1,str.length);
+		//alert("url="+url);
+		if(url == "isOnSale=1&shopId=9"){
+			$("#up").addClass("current");			
+		}else if(url == "isOnSale=0&shopId=9"){
+			$("#down").addClass("current");			
+		}
+			
+		
 		 var pros =  $(".pro_list");
 		// alert(pros.length);
 		 pros.each(function(){
-			if($(this).find(".middle-money").attr("value") == "0"){
+			/* if($(this).find(".middle-money").attr("value") == "1"){
 				$(this).find(".tick").css("display","block");
 			}else{
 				$(this).find(".tick").css("display","none");
-			}
+			} */
 			$(this).hover(function(){
 				$(this).find(".middle-money").css("display","block");
 			},function(){
@@ -222,21 +288,22 @@
 				if($(this).text() == "上架"){
 					$.ajax({
 						type: "GET",
-						url:"/updateIsOnSale.jhtml?goodsId="+$(this).attr("id"),
-						data: {isOnSale:0},
-						success:function(data){}
+						url:"/updateIsOnSale.jhtml?isOnSale=0&goodsId="+$(this).attr("id"),
+						success:function(data){
+							//location.replace(window.location.href);
+						}
 					});
 					$(this).html("下架");
 					$(this).parent().find(".tick").css("display","block");
 				}else{
 					$.ajax({
 						type: "GET",
-						url:"/updateIsOnSale.jhtml?goodsId="+$(this).attr("id"),
-						data: {isOnSale:1},
-						success:function(data){}
+						url:"/updateIsOnSale.jhtml?isOnSale=1&goodsId="+$(this).attr("id"),
+						success:function(data){
+							//location.replace(window.location.href);
+						}
 					});
 					$(this).html("上架");
-					//alert($(this).find(".tick").css("display"));
 					$(this).parent().find(".tick").css("display","none");
 				}
 			});
@@ -256,22 +323,28 @@
    			<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
 			<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a>
 		</p>
-		<p
-			style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
+		<p style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
 		<img src="/images/line.png">
-		<p>
-			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;"
+		<div style="margin: 10px 0px; width: 1000px; height: 40px;">
+			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s class="addPro"></s>
-			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;"
+			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
-			<input type="button" value="每页显示" style="padding:0 15px 0 5px;"><s class="pageshow"></s>
-			<span>共有<font color="#69CDCD">${size }</font>条数据</span>
-			<form action="/searchProduct.jhtml" method="post">
+			<input type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
+			<!-- 商品上下架 -->
+			<div style="height: 30px; width: 230px; float: left;">
+				<div id="up" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?isOnSale=1&shopId=${shopId }'">上架商品</div>
+				<div id="down" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?isOnSale=0&shopId=${shopId }'">下架商品</div>
+			</div>
+			<div style="width: 100px; float: left; height: 30px; line-height: 30px;">
+				共有<font color="#69CDCD">${size }</font>条数据
+			</div>
+			<form action="/searchProduct.jhtml" method="post" style="float:right;">
 				<input type="hidden" name="shopId" value="${shopId }"/>
 				<input type="text" name="key" style="float:right;">
-				<input class="findPro" title="点击搜索商品" type="submit" value=""/>
+				<input class="findPro" title="点击搜索商品" type="submit" value="" style="border:0;"/>
 			</form>
-		</p>
+		</div>
 		<!-- 商品列表  第一列 -->
 		<div class="p_list01">
 			<c:forEach var="tgLi1" items="${tgoods1}">
@@ -285,10 +358,10 @@
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
-							<c:if test="${tgLi1.isOnSale =='1'}">
+							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
-							<c:if test="${tgLi1.isOnSale =='0'}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
 								下架
 							</c:if>
 						</span>
@@ -322,10 +395,10 @@
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
-							<c:if test="${tgLi1.isOnSale =='1'}">
+							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
-							<c:if test="${tgLi1.isOnSale =='0'}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
 								下架
 							</c:if>
 						</span>
@@ -359,10 +432,10 @@
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
-							<c:if test="${tgLi1.isOnSale =='1'}">
+							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
-							<c:if test="${tgLi1.isOnSale =='0'}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
 								下架
 							</c:if>
 						</span>
@@ -396,10 +469,10 @@
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
-							<c:if test="${tgLi1.isOnSale =='1'}">
+							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
-							<c:if test="${tgLi1.isOnSale =='0'}">
+							<c:if test="${tgLi1.isOnSale =='1'}">
 								下架
 							</c:if>
 						</span>

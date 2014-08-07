@@ -42,7 +42,7 @@ public class ControllerGoodsAdd {
 	@RequestMapping(value = "/goodsAdd")
 	public String addGoodsView(HttpServletRequest request,Integer shopId) {
 		// Tgoodstype
-		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class,"hasChild",(short)1);
 		request.setAttribute("gList", gList);
 		// Tfeature
 		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);

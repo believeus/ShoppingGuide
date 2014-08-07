@@ -215,7 +215,7 @@
 							<img style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="img"/>
 						</div>
 						<div class="main_table3_div3">
-							营业执照：${tshop.businessLicenseNo }<br/>
+							营业执照号：${tshop.businessLicenseNo }<br/>
 							注：必须上传营业执照或填写营业执照号
 						</div>
 					</td>

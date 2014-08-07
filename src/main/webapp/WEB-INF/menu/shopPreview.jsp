@@ -18,204 +18,239 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<script language="JavaScript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.promptu-menu.js"></script>
 <style>
 body {
-	margin:0px;
 	font-family: "Microsoft YaHei" ! important;
-	font-size:22px;
-	color:#999;
+	font-size:10px !important;
 }
-#div0 {
-	width:645px; 
-	margin:0px auto;
-	border:1px solid #999;
-	outline:2px solid #CCC;
+#iphone {
+	background-image:url(images/iPhone4s.png);
+	background-repeat:no-repeat;
+	padding:122px 0 0 23px;
+	width:303px;
+	height:541px;
+	margin:auto;
+}
+#div_0 {
+	width:278px; 
+	/**height:429px; **/
 }
 #div01 {
-	width:640px;
-	height:129px;
-	background-image:url(/images/shop_titl.jpg);
-	color:#fff;
-	text-align:center;
+	width: 278px;
+	height: 56px;
+	background-image: url(images/shop_titl.jpg);
+	color: #fff;
+	text-align: center;
 }
 #div01 p {
-	display:inline-block;
-	margin:60px auto 0px;
-	font-size:36px;
+	display: inline-block;
+	font-size: 16px;
+	margin: 26px 0px 0px;
 }
 #spn {
-	margin:10px 33px;	
+	margin: 5px 13px;
 }
 #spn span {
-	display:inline-block;
-	margin:5px 5px;
-	padding:3px 10px;
-	color:#fff;
-	background-color:#69cdcd;
-}
-#titi_1 {
-	clear:left;
-	float:left;
-	width:8px;
-	height:32px;
-	background-color:#69cdcd;
-}
-#titi_2 {
-	float:left;
-	color:#38A0AB;
-	font-size:24px;
-	margin-left:10px;
+	display: inline-block;
+	margin: 2px;
+	padding: 1px 5px;
+	color: #fff;
+	background-color: #0ab5d9;
 }
 hr {
-	border-color:#FCFFFF;
-	margin-left:38px;
-	margin-top:-10px;
-}
-#sp1_font {
-	margin:20px 65px;
-}
-#sp1_font p{
-	margin:10px 0px;
-}
-#sp2_rady {
-	width:645px; 
-	height:455px; 
-	color:#666;
-	background-image:url(/images/shop.jpg);
-	border-bottom:1px solid #C2C6C5; 
-	outline:1px solid #C7CBCA;
-}
-#sp2_rady ol {
-	list-style:none;
-	
-	margin:0px;
-	padding-left:160px;
-}
-#sp2_rady li {
-	font-size:26px;
-	line-height:82px;
-}
-#sp2_ra {
-	margin:40px auto auto 115px;
-}
-#sp2_ra p {
-	display:inline-block;
-	font-size:26px;
-	margin:0px;
-	width:185px;
-}
-#shop {
-	background-color:#DEE3E6; 
-	
-}
-#shop > div {
-	display:inline-block;
-	width:300px;
-	margin-top:10px;
+	border-color: #FCFFFF;
+	margin-top:-17px;
 	margin-left:14px;
 }
+#sp1_font {
+	margin: 10px 0 20px 26px;
+}
+#sp1_font p{
+	margin: 4px 0px;
+	color: #bbb;
+}
+#sp2_rady {
+	width: 278px;
+	height: 191px;
+	color: #c7c7c7;
+	background-image: url(images/shop.jpg);
+}
+#sp2_rady ol {
+	list-style: none;
+	margin: 0px;
+	padding-left: 70px;
+}
+#sp2_rady li {
+	font-size: 11px;
+	line-height: 36px;
+}
+#sp2_ra {
+	margin: 16px auto auto 55px;
+}
+#sp2_ra p {
+	display: inline-block;
+	font-size: 11px;
+	margin: 0px;
+	width: 80px;
+}
+#shop {
+	background-color: #dce5e5;	
+}
+#shop > div {
+	display: inline-block;
+	width: 126px;
+	margin-left: 8px;
+}
 #shop > div > div {
-	padding:5px;
-	background-color:#fff;
-	margin-top:15px;
-	border-bottom:1px solid #BFBFBF;
-	outline:2px solid #CCC;
+	padding: 2px;
+	background-color: #fff;
+	margin-top: 10px;
+	border-bottom: 1px solid #BFBFBF;
+	outline: 1px solid #CCC;
 }
 #shop p {
-	margin:auto 10px;
-	color:#037C91;
+	margin: 2px 4px;
+	color: #0275a5;
 }
 #shop_spn {
-	margin:0px 5px;	
+	margin: 0px 3px;
 }
 #shop_spn span {
-	display:inline-block;
-	font-size:20px;
-	margin:3px;
-	padding:0px 5px;
-	color:#fff;
-	background-color:#69cdcd;
+	display: inline-block;
+	font-size: 8px;
+	margin: 1px;
+	padding: 0px 2px;
+	color: #fff;
+	background-color: #0cb6d7;
 }
 #shop_spn + div {
-	margin:auto 10px;
+	margin: 2px 4px;
 }#shop_spn + div > span {
-	display:inline-block;
-	width:90px;
+	display: inline-block;
+	width: 30px;
+	color: #b0b0b0;
 }
 #gengduo {
-	background-color:#DEE3E6;
-	height:90px;
-	padding-top:30px;
+	background-color: #DEE3E6;
+	height: 25px;
+	padding-top: 15px;
 }
 #gengduo div {
-	text-align:center;
-	font-size:32px;
-	color:#33CCCC;
-	text-decoration:underline;
+	text-align: center;
+	font-size: 14px;
+	color: #0db6dc;
+	text-decoration: underline;
 }
 </style>
+<script type="text/javascript">
+	$().ready(function(){
+		 $("#div_0").promptumenu({
+			'columns': 3,
+			'rows': 4,
+			'direction': 'vertical',
+			'width': 'auto',
+			'height': 'auto',
+			'pages': true,
+			'showPage': true,
+			'duration': 500,
+			'inertia': 200
+		});
+		$(".promptumenu_window").css("height","435px"); 
+	});
+</script>
   </head>
   
   <body>
-  		<!-- 引用尾部页面 -->
-   		 <jsp:include page="../include/header.jsp" flush="true" />
-  	<div id="div0">
-	<div id="div01">
-    	<p>${shop.shopName}</p>
-    </div>
-    <div>
-    	<img src="<%=Variables.shopURL %>${shop.shopPhotoUrl}" width="640"/>
-    </div>
-    <div id="spn">
-    	<c:forEach var="feature" items="${shop.features }">
-    		<span>${feature.featureName }</span>
-    	</c:forEach>
-    </div>
-    <div id="sp2_rady">
-    	<ol>
-        	<li>时尚潮流专卖店</li>
-            <li>${shop.address }</li>
-            <li>${shop.phoneNumber }</li>
-            <li>${shop.qq }</li>
-        </ol>
-        <div id="sp2_ra">
-        	<p>
-            	<span>${shop.bePraisedCount }</span>
-            </p>
-            <p style="width:195px;">
-           		<span>${shop.fansCount }</span>
-            </p>
-            <p style="width:auto;">
-            	<span>${shop.viewCount }</span>
-            </p>
-        </div>
-    </div>
-    <div id="shop">
-    	<div>
-    	<!-- 商品列表 -->
-	    	<c:forEach var="goods" items="${tgoods}">
-	    		<div>
-	            	<img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" />
-	                <p>${goods.goodsName}</p>
-	                <div id="shop_spn">
-	                	<c:forEach var="feature" items="${goods.features}">
-	                    	<span>${feature.featureName}</span>
-	                    </c:forEach>
-	                </div>
-	                <div>
-	                	<img src="/images/zhan.png" />
-	                    <span>${goods.bePraisedCount}</span>
-	                    <img src="/images/browse.png" />
-	                    <span>${goods.viewCount}</span>
-	                </div>
+	<!-- 引用尾部页面 -->
+	<jsp:include page="../include/header.jsp" flush="true" />
+	
+	<div id="iphone">
+		<div id="div_0">
+	        <div id="div01">
+	            <p>${shop.shopName }</p>
+	        </div>
+	        <div>
+	        	<c:forEach var="path" items="${paths }">
+		            <img src="<%=Variables.shopURL %>${path}" width="278"/>
+	        	</c:forEach>
+	        </div>
+	        <div id="spn">
+	        	<c:forEach var="feature" items="${shop.features }" varStatus="status">
+	        		<c:if test="${status.index %2 ==1}">
+		        		<span>${feature.featureName }</span>
+	        		</c:if>
+	        		<c:if test="${status.index %2 ==0}">
+		        		<span style="background:#5fc996">${feature.featureName }</span>
+	        		</c:if>
+	        		<c:if test="${status.index %3 ==0}">
+		        		<span style="background:#e26b77">${feature.featureName }</span>
+	        		</c:if>
+	        	</c:forEach>
+	           <!--  <span>潮流</span>
+	            <span style="background:#5fc996">精致韩风</span>
+	            <span style="background:#e26b77">欧美简约</span> -->
+	        </div>
+	        <div id="sp2_rady">
+	            <ol>
+	                <li>${shop.shopName }</li>
+	                <li>${shop.address }</li>
+	                <li>${shop.phoneNumber }</li>
+	                <li>${shop.qq }</li>
+	            </ol>
+	            <div id="sp2_ra">
+	                <p>${shop.bePraisedCount }</p>
+	                <p style="width:85px;">${shop.fansCount }</p>
+	                <p style="width:auto;">${shop.viewCount }</p>
 	            </div>
-	    	</c:forEach>
-   	 	</div>
-    <div id="gengduo">
-    	<div>更多</div>
-    </div>
-</div>
- 		<!-- 引用尾部页面 -->
-   	 	<jsp:include page="../include/footer.jsp" flush="true" />
+	        </div>
+	        <div id="shop">
+	            <div>
+		            <c:forEach var="goods" items="${list1 }">
+		            	<div>
+		                    <img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" width="122"/>
+		                    <p>${goods.goodsName }</p>
+		                    <div id="shop_spn">
+		                    	<c:forEach var="feature" items="${goods.features }">
+			                        <span>${feature.featureName }</span>
+		                    	</c:forEach>
+		                    </div>
+		                    <div>
+		                        <img src="images/zhan.png" />
+		                        <span>${goods.bePraisedCount }</span>
+		                        <img src="images/browse.png" />
+		                        <span>${goods.viewCount }</span>
+		                    </div>
+		              </div>
+		            </c:forEach>
+	            </div>
+	            <div>
+	                <c:forEach var="goods" items="${list2 }">
+		            	<div>
+		                    <img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" width="122"/>
+		                    <p>${goods.goodsName }</p>
+		                    <div id="shop_spn">
+		                    	<c:forEach var="feature" items="${goods.features }">
+			                        <span>${feature.featureName }</span>
+		                    	</c:forEach>
+		                    </div>
+		                    <div>
+		                        <img src="images/zhan.png" />
+		                        <span>${goods.bePraisedCount }</span>
+		                        <img src="images/browse.png" />
+		                        <span>${goods.viewCount }</span>
+		                    </div>
+		              </div>
+		            </c:forEach>
+	            </div>
+	        </div>
+	        <div id="gengduo">
+	            <div>更多</div>
+	        </div>
+		</div>
+	</div>
+	
+	<!-- 引用尾部页面 -->
+	<jsp:include page="../include/footer.jsp" flush="true" />
   </body>
 </html>

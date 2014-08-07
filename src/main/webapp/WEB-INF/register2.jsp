@@ -9,7 +9,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
 <title>用户注册</title>
 
@@ -235,7 +234,7 @@
 				address:{
 					required : true
 				},
-				businessLicenseNo :{
+				priceRange :{
 					required : true
 				},
 				shopOwnerName:{
@@ -252,7 +251,7 @@
 				address:{
 					required : "请输入您的详细地址"
 				},
-				businessLicenseNo :{
+				priceRange :{
 					required : "请输入您的价格区间"
 				},
 				shopOwnerName:{
@@ -348,7 +347,7 @@
 				</p>
 				<p>
 					<font color="red">*</font> <span style="font-weight:normal;">价格区间：</span>
-					<input id="businessLicenseNo" type="text" name="businessLicenseNo"
+					<input id="priceRange" type="text" name="priceRange"
 						style="width:345px;height:35px;line-height:35px;">
 				</p>
 				<div style="padding-left:40px;">
@@ -361,6 +360,10 @@
 					</div>
 					<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
 					<input type="hidden" id="filename0">
+				</div>
+				<div style="padding-left:40px;margin-top:20px;">
+					<span style="font-weight:normal;">营业执照号：</span><br>
+					<input type="text" name="businessLicenseNo" style="margin-top:5px;"/> 
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>

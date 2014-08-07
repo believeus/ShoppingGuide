@@ -77,5 +77,10 @@ public class EtechService {
 		etechComDao.update(goodsId,isOnSale);
 	}
 
+	public List<Tgoods> findList(short isOnSale, Integer shopId) {
+		
+		return etechComDao.findList(isOnSale,shopId);
+	}
+
 
 }
