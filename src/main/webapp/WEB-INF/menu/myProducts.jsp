@@ -7,6 +7,7 @@
 			+ path + "/";
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -21,7 +22,9 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
 <script language="JavaScript" src="js/jquery.js"></script>
+
 <style type="text/css">
 .s_main {
 	width: 1000px;
@@ -66,6 +69,8 @@
 .pro_img {
 	width: 230px;
 	height: auto;
+	min-height:32px;
+	display:inline-block;
 }
 
 .pro_name {
@@ -97,7 +102,7 @@
 	height: auto;
 	line-height: 25px;
 	text-indent: 20px;
-	width: 230px;
+	width: 222px;
 	padding: 5px 3px;
 }
 
@@ -180,15 +185,14 @@
     font-size: 13px;
     font-weight: bold;
     height: 32px;
-    left: 0;
     line-height: 32px;
-   /*  position: relative; */
+   	position: relative;
     text-align: center;
-    top: -178px;
     width: 230px;
     margin-top:-32px;
     opacity:0.9;
     cursor:pointer;
+    display:none;
 }
 .tick{
 	width:60px;
@@ -261,11 +265,11 @@
 		
 		//alert(window.location.href);
 		var str = window.location.href;
-		var url = str.substring(str.indexOf("?")+1,str.length);
+		var url = str.substring(str.indexOf("&")+1,str.length);
 		//alert("url="+url);
-		if(url == "isOnSale=1&shopId=9"){
+		if(url == "isOnSale=1"){
 			$("#up").addClass("current");			
-		}else if(url == "isOnSale=0&shopId=9"){
+		}else if(url == "isOnSale=0"){
 			$("#down").addClass("current");			
 		}
 			
@@ -277,34 +281,39 @@
 				$(this).find(".tick").css("display","block");
 			}else{
 				$(this).find(".tick").css("display","none");
-			} */
+			}  */
 			$(this).hover(function(){
 				$(this).find(".middle-money").css("display","block");
 			},function(){
 				$(this).find(".middle-money").css("display","none");
 			});
 			$(this).find(".middle-money").click(function(){
-				//alert($(this).text());
-				if($(this).text() == "上架"){
-					$.ajax({
-						type: "GET",
-						url:"/updateIsOnSale.jhtml?isOnSale=0&goodsId="+$(this).attr("id"),
-						success:function(data){
-							//location.replace(window.location.href);
-						}
-					});
-					$(this).html("下架");
-					$(this).parent().find(".tick").css("display","block");
+				if($(this).attr("value") == 0){
+					if(confirm("确定要上架吗？")){
+						$.ajax({
+							type: "GET",
+							url:"/updateIsOnSale.jhtml?isOnSale=0&goodsId="+$(this).attr("id"),
+							success:function(data){
+								location.replace(window.location.href);
+								//$(this).attr("value") == "1";
+							}
+						});
+						$(this).html("下架");
+						$(this).parent().find(".tick").css("display","block");
+					}
 				}else{
-					$.ajax({
-						type: "GET",
-						url:"/updateIsOnSale.jhtml?isOnSale=1&goodsId="+$(this).attr("id"),
-						success:function(data){
-							//location.replace(window.location.href);
-						}
-					});
-					$(this).html("上架");
-					$(this).parent().find(".tick").css("display","none");
+					if(confirm("确定要下架吗？")){
+						$.ajax({
+							type: "GET",
+							url:"/updateIsOnSale.jhtml?isOnSale=1&goodsId="+$(this).attr("id"),
+							success:function(data){
+								location.replace(window.location.href);
+								//$(this).attr("value") == "0";
+							}
+						});
+						$(this).html("上架");
+						$(this).parent().find(".tick").css("display","none");
+					}
 				}
 			});
 		 });
@@ -333,8 +342,8 @@
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
 			<!-- 商品上下架 -->
 			<div style="height: 30px; width: 230px; float: left;">
-				<div id="up" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?isOnSale=1&shopId=${shopId }'">上架商品</div>
-				<div id="down" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?isOnSale=0&shopId=${shopId }'">下架商品</div>
+				<div id="up" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?shopId=${shopId }&isOnSale=1'">上架商品</div>
+				<div id="down" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?shopId=${shopId }&isOnSale=0'">下架商品</div>
 			</div>
 			<div style="width: 100px; float: left; height: 30px; line-height: 30px;">
 				共有<font color="#69CDCD">${size }</font>条数据
@@ -357,7 +366,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -368,12 +377,20 @@
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}">
-							<span>${feature.featureName }</span>
+						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+							<c:if test="${status.index %2 ==0 }">
+								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %2 ==1 }">
+								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %3 ==0 }">
+								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
 						</c:forEach>
 					</div>
-					<div class="pro_dis">
-		    			${tgLi1.introduction}
+					<div class="pro_dis" title="${tgLi1.introduction }">
+		    			${fn:substring(tgLi1.introduction, 0, 28)}...
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -389,12 +406,12 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							<img src="/images/defaultImg.jpg" width="230">
+							
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -405,12 +422,17 @@
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}">
-							<span>${feature.featureName }</span>
+						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+							<c:if test="${status.index %2 ==0 }">
+								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %2 ==1 }">
+								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
 						</c:forEach>
 					</div>
-					<div class="pro_dis">
-		    			${tgLi1.introduction}
+					<div class="pro_dis" title="${tgLi1.introduction }">
+		    			${fn:substring(tgLi1.introduction, 0, 28)}...
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -426,12 +448,12 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							<img src="/images/defaultImg.jpg" width="230">
+							
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -442,12 +464,20 @@
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}">
-							<span>${feature.featureName }</span>
+						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+							<c:if test="${status.index %2 ==0 }">
+								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %2 ==1 }">
+								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %3 ==0 }">
+								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
 						</c:forEach>
 					</div>
-					<div class="pro_dis">
-		    			${tgLi1.introduction}
+					<div class="pro_dis" title="${tgLi1.introduction }">
+		    			${fn:substring(tgLi1.introduction, 0, 28)}...
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -463,12 +493,12 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							<img src="/images/defaultImg.jpg" width="230">
+							
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<span class="middle-money" style="display:none;" id="${tgLi1.goodsId}" value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -479,12 +509,20 @@
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}">
-							<span>${feature.featureName }</span>
+						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+							<c:if test="${status.index %2 ==0 }">
+								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %2 ==1 }">
+								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %3 ==0 }">
+								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
 						</c:forEach>
 					</div>
-					<div class="pro_dis">
-		    			${tgLi1.introduction}
+					<div class="pro_dis" title="${tgLi1.introduction }">
+		    			${fn:substring(tgLi1.introduction, 0, 28)}...
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>

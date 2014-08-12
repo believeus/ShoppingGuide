@@ -13,6 +13,7 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.util.Version;
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -247,21 +248,38 @@ public class EtechComDao extends HibernateDaoSupport {
 	/* End Author:wuqiwei Date:2013-04-06 AddReason:使用hibernatesearch完成关键字全文搜索 */
 
 	public void update(final Integer goodsId,final short isOnSale) {
-		final String hql = "update from Tgoods as goods set goods.isOnSale=:isOnSale where goods.goodsId=:goodsId";
-		getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createQuery(hql);
-				query.setParameter("goodsId",goodsId);
-				query.setParameter("isOnSale", isOnSale);
-				log.debug(query.getQueryString());
-				query.executeUpdate();
-				return null;
-			}
-			
-		});
+		if (isOnSale == 1) {//将上架商品改为下架
+			final String hql = "update from Tgoods as goods set goods.isOnSale=0 where goods.goodsId=:goodsId";
+			getHibernateTemplate().execute(new HibernateCallback<Object>() {
+				
+				@Override
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query query = session.createQuery(hql);
+					query.setParameter("goodsId",goodsId);
+					log.debug(query.getQueryString());
+					query.executeUpdate();
+					return null;
+				}
+				
+			});
+		}else {//将下架商品改为上架
+			final String hql1 = "update from Tgoods as goods set goods.isOnSale=:isOnSale where goods.goodsId=:goodsId";
+			getHibernateTemplate().execute(new HibernateCallback<Object>() {
+				
+				@Override
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query query = session.createQuery(hql1);
+					query.setParameter("goodsId",goodsId);
+					query.setParameter("isOnSale",(short)1);
+					log.debug(query.getQueryString());
+					query.executeUpdate();
+					return null;
+				}
+				
+			});
+		}
 	}
 
 	/**
@@ -272,8 +290,7 @@ public class EtechComDao extends HibernateDaoSupport {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Tgoods> findList(final short isOnSale,final Integer shopId) {
-		System.out.println(isOnSale+"---"+shopId);
-		final String hql = "select goods from Tgoods goods where goods.shopId = :shopId and goods.isOnSale = :isOnSale ";
+		final String hql = "select goods from Tgoods goods where goods.shopId = :shopId and goods.isOnSale = :isOnSale order by id desc";
 		return (List<Tgoods>) getHibernateTemplate().execute(
 				new HibernateCallback<Object>() {
 

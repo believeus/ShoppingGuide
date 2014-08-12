@@ -42,12 +42,25 @@ public class ControllerGoodsAdd {
 	@RequestMapping(value = "/goodsAdd")
 	public String addGoodsView(HttpServletRequest request,Integer shopId) {
 		// Tgoodstype
-		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class,"hasChild",(short)1);
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
 		request.setAttribute("gList", gList);
 		// Tfeature
 		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
 		request.setAttribute("tfeatures", tfeatures);
 		request.setAttribute("shopId", shopId);
+		String featureIds = request.getParameter("featureIds");
+		List<Tgoodstype> tgoodstypes = new ArrayList<Tgoodstype>();
+		if (featureIds != null && featureIds != "") {
+			String[] features = featureIds.split(",");
+			for (int i = 0; i < features.length; i++) {
+				Tgoodstype tgoodstype = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", Integer.parseInt(features[i]));
+				tgoodstypes.add(tgoodstype);
+			}
+			request.setAttribute("tgoodstypes", tgoodstypes);
+			request.setAttribute("size", tgoodstypes.size());
+		}else {
+			request.setAttribute("size", 0);
+		}
 		
 		return "/WEB-INF/menu/goodsAdd.jsp";
 	}
@@ -79,16 +92,20 @@ public class ControllerGoodsAdd {
 			tGoods.setGoodsName(request.getParameter("goodsName"));
 			tGoods.setPublishFlag((short) 0);
 			tGoods.setModifyState((short)0);
-			String goodsTypeId=request.getParameter("goodsTypeId");
-			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
-			tGoods.getGoodsTypes().removeAll(tGoods.getGoodsTypes());
-			tGoods.getGoodsTypes().add(goodstype);
+			String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+			for (String goodsTypeId : goodsTypeIds) {
+				Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+				tGoods.getGoodsTypes().add(goodstype);
+			}
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
 			String goodsImg = "";
 			String shopImg=""; 
+			String appendImg = "";
+			int count = 0;
 			for (MultipartFile file : files.values()) {
 				InputStream inputStream;
+				count++;
 				try {
 					
 					inputStream = file.getInputStream();
@@ -96,11 +113,12 @@ public class ControllerGoodsAdd {
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
-					if(file.getName().equals("goodsImg")){
+					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
 					  goodsImg=UUID.randomUUID()+"."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					  appendImg+= goodsImg+"#";
 					}else {
 						shopImg=UUID.randomUUID()+"."+extention;
 						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
@@ -111,11 +129,11 @@ public class ControllerGoodsAdd {
 				}
 			}
 			log.debug("shop image sava db url:"+shopImg);
-			System.out.println(goodsImg+"=goodsImg");
+			log.debug("goods image sava db url:"+appendImg);
 			if(goodsImg ==""){
 				tGoods.setGoodsPhotoUrl("95f220ae-8a37-45a8-8d26-0629897b9f4b.jpg");
 			}else {
-				tGoods.setGoodsPhotoUrl(goodsImg);
+				tGoods.setGoodsPhotoUrl(appendImg);
 			}
 			etechService.saveOrUpdate(tGoods);
 			if(!featureIds.isEmpty()){
@@ -159,13 +177,16 @@ public class ControllerGoodsAdd {
 			tGoods.setPublishFlag((short) 1);
 			tGoods.setIsRecommend(Variables.unRecommend);
 			tGoods.setIntroduction(request.getParameter("goodsDetail"));
+			tGoods.setModifyState((short)0);
 			
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
 			String goodsImg = "";
 			String shopImg=""; 
+			int count=0;
 			for (MultipartFile file : files.values()) {
 				InputStream inputStream;
+				count++;
 				try {
 					
 					inputStream = file.getInputStream();
@@ -178,6 +199,9 @@ public class ControllerGoodsAdd {
 					  goodsImg=UUID.randomUUID()+"."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					  if(count>1){
+							goodsImg+="#";
+						}
 					}else {
 						shopImg=UUID.randomUUID()+"."+extention;
 						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));

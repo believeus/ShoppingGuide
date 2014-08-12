@@ -18,10 +18,14 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" type="text/css" href="/css/goodsAdd.css" />
+<link rel="stylesheet" type="text/css" href="/css/css.css" />
+<link rel="stylesheet" type="text/css" href="css/dtree.css">
 <script language="JavaScript" src="/js/jquery.js"></script>
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
 <script language="JavaScript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
+<script type="text/javascript" src="/js/drag.js"></script>
+<script language="JavaScript" src="js/dtree.js"></script>
 	<style type="text/css">
 		.inputClass{
 			background:#69CDCD;
@@ -98,8 +102,8 @@ function addclass(obj){
 	$().ready(function(){
 		
 		$("#add_img").click(function(){
-			var a = $(".main_table3 .brandImg").size();
-			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
+			var a = $(".main_table2 .brandImg").size();
+			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='goodsImg"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='goodsImg"+a+"'>";
 			//alert($(".shopShow .brandImg").size());
 			if($(".main_table3 .brandImg").size() > 8){
 				alert("最多9张图片");
@@ -152,7 +156,7 @@ function addclass(obj){
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					$("#main_table2_td").append("<p id='special' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					$("#main_table2_td").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
 					$("#textSpecial").val("");
 				 });
 			}
@@ -163,21 +167,20 @@ function addclass(obj){
 			rules : {
 				goodsName : {
 					required : true,
-					rangelength : [ 1, 10 ]
+					rangelength : [ 1, 20 ]
 				},
-				goodsTypeId : {
-					goodsTypeName : true
-				}
+				goodsTypeId : true
 			},
 			messages : {
 				goodsName : {
 					required : "店铺名称必填",
-					rangelength : "名称长度为1-10个汉字，不能含有特殊字符"
+					rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
 				}
 			}
 		});
 	});	
 </script>
+
 
 </head>
 <body>
@@ -191,19 +194,23 @@ function addclass(obj){
 				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
 				<a href="/goodsAdd.jhtml?shopId=${shopId }" title="商品添加">商品添加</a>
 			</p>
+		<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:12%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
-					<td style="width:56%;"></td>
-					<td style="width:9%;"></td>
+					<td style="width:65%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:10%;">
+						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+					</td>
+					<td style="width:10%;">
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+					</td>
 				</tr>
 			</table>
 			<div style="width:1000px;text-align:center;margin:0 auto;">
 				<img src="/images/line.png">
 			</div>
 			
-			<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
@@ -215,12 +222,19 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<select id="goodsTypeId" name="goodsTypeId" style="width:20%;">
+						<input type="button" value="选择商品类型" onClick="boxAlpha();">
+<%-- 						<input type="button" value="选择商品类型" onClick="javascript:window.location.href='/selectGoodsType.jhtml?shopId=${shopId}'"> --%>
+						<c:if test="${size != 0 }">
+							<c:forEach var='gli' items='${tgoodstypes }'>
+								<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}" checked="checked">${gli.goodsTypeName}</label>
+							</c:forEach>
+						</c:if>
+						<%-- <select id="goodsTypeId" name="goodsTypeId" style="width:20%;">
 						<option value="-2">请选择商品类型</option>
-						<c:forEach var="gli" items="${gList}">
+						<c:forEach var="gli" items="${gList}" varStatus="status">
 							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
 						</c:forEach>
-						</select>
+						</select> --%>
 					</td>
 				</tr>
 				<tr>
@@ -261,19 +275,64 @@ function addclass(obj){
 							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
 						</div>
 						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-						<input type="hidden" id="filename0" name="filename0">
+						<input type="hidden" id="filename0" name="goodsImg">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="3">
-						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+						
 					</td>
 				</tr>
 			</table>
 			</form>
 		</div>
-
+	<script type="text/javascript">
+	    $().ready(function(){
+	    	$("#submit").click(function(){
+	    		boxAlpha();
+	    		var count = 0;
+	    		var featureIds=new Array();
+				var obj = document.all.authority;
+				for(var i=0;i<obj.length;i++){
+					if(obj[i].checked){					
+						featureIds.push(obj[i].value);
+						count ++;				
+					}
+				}	
+				if(featureIds == null && featureIds == ""){
+					alert("请选择商品类型");
+				}else{
+					window.location.href="/goodsAdd.jhtml?shopId="+${shopId}+"&featureIds="+featureIds;
+				}
+	    	});
+	    });
+	</script>
+<!-- alpha div -->
+<div id="maskLayer" style="display:none">
+<iframe id="maskLayer_iframe" frameBorder=0 scrolling=no style="filter:alpha(opacity=50)"></iframe>
+<div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5"></div>
+	<div id="drag">
+		<h3 id="drag_h">
+			<b>请选择商品类型</b><span id="submit">确定</span>	
+		</h3>
+		<div id="drag_con">
+			<script type="text/javascript">
+				var d = new dTree('d');
+			
+				d.add(10,-1,'服饰');
+				<c:forEach var="gli" items="${gList}" varStatus="status" >
+					d.add(${gli.goodsTypeId},${gli.parentId},'authority','${status.index}','${gli.goodsTypeName}');
+				</c:forEach>
+				
+				document.write(d);
+				
+				d.openAll();
+			</script>
+		</div><!-- drag_con end -->
+	</div>
+</div><!-- maskLayer end -->
+<!-- alpha div end -->
+<div id="sublist" style="display:none"></div>
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
    	 	<script type="text/javascript">

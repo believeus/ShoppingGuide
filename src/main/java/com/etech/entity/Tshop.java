@@ -45,7 +45,9 @@ public class Tshop implements java.io.Serializable {
 	private Double latitude;
 	private Double longitude;
 	private String shopPhotoUrl;
-	private String shopPhotoDefaultUrl;
+	private String ShopDefaultPhotoURL;
+	private Integer ShopDefaultPhotoWidth;
+	private Integer ShopDefaultPhotoHeight;
 	private String businessLicenseNo;
 	private String referee;
 	private Integer validGoodsCount;
@@ -60,6 +62,32 @@ public class Tshop implements java.io.Serializable {
 
 	/** default constructor */
 	public Tshop() {
+	}
+	
+	/**
+	 * 店铺默认图片的宽度
+	 * @return
+	 */
+	@Column(name = "ShopDefaultPhotoWidth", nullable = false)
+	public Integer getShopDefaultPhotoWidth() {
+		return ShopDefaultPhotoWidth;
+	}
+
+	public void setShopDefaultPhotoWidth(Integer shopDefaultPhotoWidth) {
+		ShopDefaultPhotoWidth = shopDefaultPhotoWidth;
+	}
+
+	/**
+	 * 店铺默认图片的高度
+	 * @return
+	 */
+	@Column(name = "ShopDefaultPhotoHeight", nullable = false)
+	public Integer getShopDefaultPhotoHeight() {
+		return ShopDefaultPhotoHeight;
+	}
+
+	public void setShopDefaultPhotoHeight(Integer shopDefaultPhotoHeight) {
+		ShopDefaultPhotoHeight = shopDefaultPhotoHeight;
 	}
 
 	// Property accessors
@@ -254,13 +282,13 @@ public class Tshop implements java.io.Serializable {
 		this.shopPhotoUrl = shopPhotoUrl;
 	}
 
-	@Column(name = "ShopPhotoDefaultURL", length = 65535)
-	public String getShopPhotoDefaultUrl() {
-		return this.shopPhotoDefaultUrl;
+	@Column(name = "ShopDefaultPhotoURL", length = 65535)
+	public String getShopDefaultPhotoURL() {
+		return ShopDefaultPhotoURL;
 	}
 
-	public void setShopPhotoDefaultUrl(String shopPhotoDefaultUrl) {
-		this.shopPhotoDefaultUrl = shopPhotoDefaultUrl;
+	public void setShopDefaultPhotoURL(String shopDefaultPhotoURL) {
+		ShopDefaultPhotoURL = shopDefaultPhotoURL;
 	}
 
 	@Column(name = "BusinessLicenseNo", length = 50)

@@ -46,7 +46,7 @@ public class ControllerRegistTwo {
 			String url="/register.jhtml";
 			Brower.redirect(url, response);
 		}
-		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.findObjectList(Tgoodstype.class);
+		List<Tgoodstype> gList = (List<Tgoodstype>)etechService.findObjectList(Tgoodstype.class,"parentId",10);
 		request.setAttribute("gList", gList);
 		List<Tmarket> marketList=(List<Tmarket>)etechService.findObjectList(Tmarket.class);
 		request.setAttribute("marketList", marketList);
@@ -127,6 +127,8 @@ public class ControllerRegistTwo {
 		shop.setFansCount(0);
 		shop.setPhoneNumber(user.getPhoneNumber());
 		shop.setShopPhotoUrl(appendImg);
+		shop.setShopDefaultPhotoWidth(0);
+		shop.setShopDefaultPhotoHeight(0);
 		String qq = request.getParameter("qq");
 		if(qq != null){
 			shop.setQq(qq);
@@ -136,6 +138,7 @@ public class ControllerRegistTwo {
 		etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+		System.out.println(goodsTypeIds+"---");
 		for (String goodsTypeId : goodsTypeIds) {
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			shop.getGoodsTypes().add(goodstype);

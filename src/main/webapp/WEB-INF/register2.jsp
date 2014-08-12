@@ -282,9 +282,7 @@
 		</p>
 		<div
 			style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
-			<span><font color="red">*</font>为必填选项</span> <span
-				style="float:right;">已有帐号!<a href="/login.jhtml"
-				style="color:red;">直接登录</a></span>
+			<span><font color="red">*</font>为必填选项</span> 
 		</div>
 		<form id="registerForm" action="/dealRegister2.jhtml" method="post" autocomplete="off" enctype="multipart/form-data" >
 			<input type="hidden" name="shopuserId" value="${sessionUser.shopUserId}"/>
@@ -350,20 +348,23 @@
 					<input id="priceRange" type="text" name="priceRange"
 						style="width:345px;height:35px;line-height:35px;">
 				</p>
-				<div style="padding-left:40px;">
-					<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
-					<div class="brandImg" style="margin-top:20px;">
-						<span>
-							<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-						</span>
-						<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+				<div style="padding-left:40px;width:800px;height:auto;overflow:hidden;">
+					<div style="width:300px;height:auto;float:left;">
+						<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
+						<div class="brandImg" style="margin-top:20px;">
+							<span>
+								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+							</span>
+							<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+						</div>
+						<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
+						<input type="hidden" id="filename0">
 					</div>
-					<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-					<input type="hidden" id="filename0">
-				</div>
-				<div style="padding-left:40px;margin-top:20px;">
-					<span style="font-weight:normal;">营业执照号：</span><br>
-					<input type="text" name="businessLicenseNo" style="margin-top:5px;"/> 
+					<div style="padding-left:40px;margin-top:20px;width:400px;height:auto;float:left;margin-top: 170px;">
+						<span style="font-weight:normal;">营业执照号：</span>
+						<input type="text" name="businessLicenseNo" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" style="margin-top:5px;"/><br/>
+						<span>注：必须上传营业执照或填写营业执照号</span>
+					</div>
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>

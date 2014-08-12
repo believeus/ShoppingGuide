@@ -149,7 +149,7 @@
 				}
 				
 			});
-	});
+		});
 	});
 </script>
 </head>
@@ -166,9 +166,7 @@
 		</p>
 		<div
 			style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
-			<span><font color="red">*</font>为必填选项</span> <span
-				style="float:right;">已有帐号!<a href="/login.jhtml"
-				style="color:red;">直接登录</a></span>
+			<span><font color="red">*</font>为必填选项</span>
 		</div>
 		<form id="registerForm" action="/saveFeature.jhtml" method="post"
 			autocomplete="off">

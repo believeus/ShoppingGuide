@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" import="com.etech.variable.Variables" %>
 <%
 String path = request.getContextPath();
@@ -164,7 +165,18 @@ hr {
   <body>
 	<!-- 引用尾部页面 -->
 	<jsp:include page="../include/header.jsp" flush="true" />
-	
+	<div style="width:1000px;margin:0 auto;">
+		<p style="font-size: 14px;">所在位置：
+			<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
+	  		<a title="我的店铺" href="/myShop.jhtml?shopId=${shop.shopId }">我的店铺</a> &gt;
+			<a title="店铺预览" href="/shopPreview.jhtml?shopId=${shop.shopId }">店铺预览</a>
+		</p>
+		<p style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">
+			店铺预览
+			<input type="button" value="返回" onClick="window.history.back();" style="float:right;background:#5ab5b6;border: 1px solid #5ab5b6;border-radius: 4px;color: #ffffff;cursor: pointer;height: 30px;margin-right: 10px;padding: 0 13px;">	
+		</p>
+		<img src="/images/line.png">
+	</div>
 	<div id="iphone">
 		<div id="div_0">
 	        <div id="div01">
@@ -187,9 +199,6 @@ hr {
 		        		<span style="background:#e26b77">${feature.featureName }</span>
 	        		</c:if>
 	        	</c:forEach>
-	           <!--  <span>潮流</span>
-	            <span style="background:#5fc996">精致韩风</span>
-	            <span style="background:#e26b77">欧美简约</span> -->
 	        </div>
 	        <div id="sp2_rady">
 	            <ol>
@@ -215,6 +224,9 @@ hr {
 			                        <span>${feature.featureName }</span>
 		                    	</c:forEach>
 		                    </div>
+		                    <div style="color:#555555;" title="${goods.introduction }">
+		                    	${fn:substring(goods.introduction, 0, 20)}...	
+	                    	</div>
 		                    <div>
 		                        <img src="images/zhan.png" />
 		                        <span>${goods.bePraisedCount }</span>
@@ -234,6 +246,9 @@ hr {
 			                        <span>${feature.featureName }</span>
 		                    	</c:forEach>
 		                    </div>
+		                    <div style="color:#555555;" title="${goods.introduction }">
+		                    	${fn:substring(goods.introduction, 0, 20)}...	
+	                    	</div>
 		                    <div>
 		                        <img src="images/zhan.png" />
 		                        <span>${goods.bePraisedCount }</span>

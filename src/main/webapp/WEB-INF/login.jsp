@@ -96,6 +96,22 @@ body {
 				});
 			}
 		});
+		document.onkeydown = function(e){
+		    var ev = document.all ? window.event : e;
+		    if(ev.keyCode==13) {
+		    	if($("#phoneNumber").val() == "" || $("#password").val() == ""){
+		    		$("#check").css("display","block");
+		    	}else{
+		    		$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
+						if(message=="error"){
+							$("#check").css("display","block");
+						}else{
+							top.location.href=message;
+						}
+					});
+		    	}
+	     	}
+		}
 		
 	});
 </script>

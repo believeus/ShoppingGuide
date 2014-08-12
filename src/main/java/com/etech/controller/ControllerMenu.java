@@ -154,7 +154,7 @@ public class ControllerMenu {
 		String[] path = tshop.getShopPhotoUrl().split("#");
 		request.setAttribute("path", path);//shop photo url
 		
-		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
+		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class,"parentId",10);
 		request.setAttribute("range", range);//shop range
 		
 		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
@@ -277,17 +277,16 @@ public class ControllerMenu {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
+		shop.setShopDefaultPhotoWidth(0);
+		shop.setShopDefaultPhotoHeight(0);
 		// 这里会有八张全部都替换了
 		if(!StringUtils.isEmpty(appendImg)){
 			List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
 			List<String> newList = new ArrayList<String>(Arrays.asList(appendImg.split("#")));
-			System.out.println(oldlist+"--1");
 			oldlist.removeAll(newList);
 			for (String string : oldlist) {
 				appendImg+=string+"#"; 
 			}
-			System.out.println(newList+"--2");
-			System.out.println(oldlist+"--3");
 			shop.setShopPhotoUrl(appendImg);
 		}
 		String[] path = shop.getShopPhotoUrl().split("#");
@@ -482,7 +481,9 @@ public class ControllerMenu {
 	@RequestMapping(value = "/goodsPreview")
 	public String goodsPreview(Integer tgoodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
+		String[] path = tgoods.getGoodsPhotoUrl().split("#");
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, "shopId", tgoods.getShopId());
+		request.setAttribute("path", path);
 		request.setAttribute("tgoods", tgoods);
 		request.setAttribute("shop", shop);
 		return "/WEB-INF/menu/goodsPreview.jsp";
@@ -545,7 +546,6 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/updateIsOnSale")
 	public @ResponseBody void ajaxupdate(Integer goodsId,short isOnSale){
-		System.out.println(isOnSale+"----isOnSale");
 		etechService.update(goodsId,isOnSale);
 	}
 	
@@ -558,7 +558,6 @@ public class ControllerMenu {
 	 */
 	@RequestMapping(value="/isOnSale")
 	public String isOnSaleList(short isOnSale,Integer shopId,HttpServletRequest request){
-		System.out.println(isOnSale+"==<>=="+shopId);
 		if (isOnSale == (short)1) {
 			List<Tgoods> tgLi = etechService.findList(isOnSale,shopId);
 			List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
@@ -609,5 +608,15 @@ public class ControllerMenu {
 			request.setAttribute("size", tgLi.size());
 		}
 		return "/WEB-INF/menu/myProducts.jsp";
+	}
+	
+	@RequestMapping(value="/selectGoodsType")
+	public String selectGoodsType(HttpServletRequest request,Integer shopId){
+		// Tgoodstype
+		@SuppressWarnings("unchecked")
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
+		request.setAttribute("gList", gList);
+		request.setAttribute("shopId", shopId);
+		return "/WEB-INF/menu/selectGoodsType.jsp";
 	}
 }

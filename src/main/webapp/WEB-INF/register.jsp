@@ -73,25 +73,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript" src="/js/jquery.js"></script>
   <script type="text/javascript" src="/js/jquery.validate.js"></script>
   <script type="text/javascript">
+	 function timeCountDown(obj,wait){
+		if(wait == 0){
+			$(obj).removeAttr("disabled");
+			$(obj).val("免费获取验证码");
+			wait=60;
+		}else{
+			$(obj).attr("disabled","false");
+			$(obj).val("("+wait+"秒后重新获取短信信息)");
+			wait--;
+			setTimeout(function(){
+				timeCountDown(obj,wait);
+			},1000)
+		}
+	}
   $(function(){
 	  $("#validCode").click(function(){
-		  var phoneNumber=$("#phoneNumber").val();
-		  $("#numberCode").next().text("");
-		  if(phoneNumber==""){
-			  $("#phoneNumber").next().text("手机号必填!").css("color","red");
-		  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
-			  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
-		  }else{
-			  $("#validCode").attr('disabled',"false");
-			  //将手机号码发送给webserivce,获取手机验证码
-			  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
-				  if(/[0-9]{4}/.test(data.returnCode)){
-					  $("#validCode").attr('disabled',"true");
-				  }else{
-					  $("#validCode").attr('disabled',"false");
-					  $("#numberCode").next().text("获取验证码失败,请重新获取").css("color","red");
-				  }
-			  },"json");
+		  if($("#registerForm").validate().element($("#phoneNumber"))){
+			  timeCountDown(this,60);
+			  var phoneNumber=$("#phoneNumber").val();
+			  $("#numberCode").next().text("");
+			  if(phoneNumber==""){
+				  $("#phoneNumber").next().text("手机号必填!").css("color","red");
+			  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
+				  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
+			  }else{
+				  $("#validCode").attr('disabled',"false");
+				  //将手机号码发送给webserivce,获取手机验证码
+				  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
+					  if(/[0-9]{4}/.test(data.returnCode)){
+						  $("#validCode").attr('disabled',"true");
+					  }else{
+						  $("#validCode").attr('disabled',"false");
+						  $("#numberCode").next().text("获取验证码失败,请重新获取").css("color","red");
+					  }
+				  },"json");
+			  }
 		  }
 	  });
 	  $("#registerForm").validate({
@@ -120,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			messages: {
 				phoneNumber:{
 					required:"手机号必填",
-					rangelength:"手机号码不足11位",
+					rangelength:"手机号码格式不正确",
 					remote:"手机号已被注册"
 				},
 				password: {
@@ -163,7 +180,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</p>
     	<div style="width:555px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
     		<span><font color="red">*</font>为必填选项</span>
-    		<span style="float:right;">已有帐号!<a href="/login.jhtml" style="color:red;">直接登录</a></span>
     	</div>
     	<form id="registerForm" action="/dealRegister.jhtml" method="post" autocomplete="off">
     	<div class="stable">
@@ -198,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<span style="font-weight:bold;">短信验证：</span>
     			<input type="text" id="numberCode" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
     			<span></span>
-    			<input class="btn" id="validCode" type="button" value="免费获取验证码">
+    			<input class="btn" id="validCode" type="button" value="免费获取验证码" style="width:auto;">
    			</p>
    			<div class="btn_div">
    				<input type="submit" value="下一步">
