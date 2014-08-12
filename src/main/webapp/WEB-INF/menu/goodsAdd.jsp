@@ -90,6 +90,23 @@
 	.deleteProductImage:hover{
 		color:#C9033B !important;
 	}
+	.middle-money {
+	    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+	    bottom: 0;
+	    color: #ffffff;
+	    font-family: "微软雅黑";
+	    font-size: 13px;
+	    font-weight: bold;
+	    height: 32px;
+	    line-height: 32px;
+	   	position: relative;
+	    text-align: center;
+	    width: 230px;
+	    /* margin-top:-32px; */
+	    opacity:0.9;
+	    cursor:pointer;
+	    display:none;
+	}
 </style>
 <script type="text/javascript">
 function addclass(obj){
@@ -103,13 +120,43 @@ function addclass(obj){
 		
 		$("#add_img").click(function(){
 			var a = $(".main_table2 .brandImg").size();
-			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='goodsImg"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='goodsImg"+a+"'>";
+			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><span value='"+a+"' id='' class='middle-money' style='height:32px;display:none;'>设为默认</span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='goodsImg"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='goodsImg"+a+"'>";
 			//alert($(".shopShow .brandImg").size());
 			if($(".main_table3 .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
 				$(".brandImg").parent().append(html);
 			}
+			$(".middle-money").each(function(){
+				$(this).click(function(){
+					//alert($(this).attr("value")+"=this.val");
+					$("#moren").val($(this).attr("value"));
+					alert("设置成功");
+				});
+			});
+			$(".brandImg").each(function(){
+				$(this).mouseover(function(){
+					$(this).find(".middle-money").css("display","block");
+				}).mouseout(function(){
+					$(this).find(".middle-money").css("display","none");
+				});
+			}); 
+		});
+		
+		$(".brandImg").each(function(){
+			$(this).mouseover(function(){
+				$(this).find(".middle-money").css("display","block");
+			}).mouseout(function(){
+				$(this).find(".middle-money").css("display","none");
+			});
+		}); 
+		
+		$(".middle-money").each(function(){
+			$(this).click(function(){
+				//alert($(this).attr("value")+"=this.val");
+				$("#moren").val($(this).attr("value"));
+				alert("设置成功");
+			});
 		});
 		
 		var specs = $("[id=special]");
@@ -134,20 +181,6 @@ function addclass(obj){
 			});
 		});
 		
-		/* $("#addSpecial").click(function(){
-			var text=$("#textSpecial").val();
-			
-			if(text == ""){
-				alert("添加失败！");
-			}else{
-				var arr=new Array();
-				arr=text.split(" ");
-				for(var i=0;i<arr.length;i++){
-					var v=arr[i];
-					$("#main_table2_td").append("&nbsp;&nbsp;").append($("#special").clone(true).removeClass("inputClass").text(v));
-				}
-			}
-		}); */
 		//添加
 		$("#addSpecial").click(function() {
 			var feature = $("#textSpecial").val();
@@ -222,13 +255,9 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<input type="button" value="选择商品类型" onClick="boxAlpha();">
+						<input id="" type="button" value="选择商品类型" onClick="boxAlpha();">
 <%-- 						<input type="button" value="选择商品类型" onClick="javascript:window.location.href='/selectGoodsType.jhtml?shopId=${shopId}'"> --%>
-						<c:if test="${size != 0 }">
-							<c:forEach var='gli' items='${tgoodstypes }'>
-								<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}" checked="checked">${gli.goodsTypeName}</label>
-							</c:forEach>
-						</c:if>
+						<div id="selectGoodsType"></div>
 						<%-- <select id="goodsTypeId" name="goodsTypeId" style="width:20%;">
 						<option value="-2">请选择商品类型</option>
 						<c:forEach var="gli" items="${gList}" varStatus="status">
@@ -272,6 +301,7 @@ function addclass(obj){
 							<span>
 								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
 							</span>
+							<span style="height:32px;display:none;" class="middle-money" id="" value="0">设为默认</span>
 							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
 						</div>
 						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
@@ -280,7 +310,7 @@ function addclass(obj){
 				</tr>
 				<tr>
 					<td colspan="3">
-						
+						<input type="hidden" id="moren" name="moren" value="">
 					</td>
 				</tr>
 			</table>
@@ -293,16 +323,19 @@ function addclass(obj){
 	    		var count = 0;
 	    		var featureIds=new Array();
 				var obj = document.all.authority;
+				$("#selectGoodsType").html("");
 				for(var i=0;i<obj.length;i++){
 					if(obj[i].checked){					
 						featureIds.push(obj[i].value);
-						count ++;				
+						count ++;	
+						var html = "<label><input onClick='return false;' type='checkbox' name='goodsTypeId' value='"+obj[i].getAttribute("value")+"' checked='checked'>"+obj[i].getAttribute("desc")+"</label>";
+						$("#selectGoodsType").append(html);
 					}
 				}	
 				if(featureIds == null && featureIds == ""){
 					alert("请选择商品类型");
 				}else{
-					window.location.href="/goodsAdd.jhtml?shopId="+${shopId}+"&featureIds="+featureIds;
+					
 				}
 	    	});
 	    });

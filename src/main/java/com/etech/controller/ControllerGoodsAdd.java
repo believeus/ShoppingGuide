@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -63,6 +64,24 @@ public class ControllerGoodsAdd {
 		}
 		
 		return "/WEB-INF/menu/goodsAdd.jsp";
+	}
+	
+	@RequestMapping(value="/goodsType")
+	public @ResponseBody String goodsType(HttpServletRequest request,Integer shopId,String featureIds){
+		
+		List<Tgoodstype> tgoodstypes = new ArrayList<Tgoodstype>();
+		if (featureIds != null && featureIds != "") {
+			String[] features = featureIds.split(",");
+			for (int i = 0; i < features.length; i++) {
+				Tgoodstype tgoodstype = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", Integer.parseInt(features[i]));
+				tgoodstypes.add(tgoodstype);
+			}
+			request.setAttribute("tgoodstypes", tgoodstypes);
+			request.setAttribute("size", tgoodstypes.size());
+		}else {
+			request.setAttribute("size", 0);
+		}
+		return "success";
 	}
 
 	@RequestMapping(value = "/goodsAdd2")
@@ -130,6 +149,13 @@ public class ControllerGoodsAdd {
 			}
 			log.debug("shop image sava db url:"+shopImg);
 			log.debug("goods image sava db url:"+appendImg);
+			String moren = request.getParameter("moren");
+			String[] goodsImgPath = appendImg.split("#");
+			for (int i = 0; i < goodsImgPath.length; i++) {
+				if(i == Integer.parseInt(moren)){
+					tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+				}
+			}
 			if(goodsImg ==""){
 				tGoods.setGoodsPhotoUrl("95f220ae-8a37-45a8-8d26-0629897b9f4b.jpg");
 			}else {
@@ -184,6 +210,7 @@ public class ControllerGoodsAdd {
 			String goodsImg = "";
 			String shopImg=""; 
 			int count=0;
+			String appendImg = "";
 			for (MultipartFile file : files.values()) {
 				InputStream inputStream;
 				count++;
@@ -194,14 +221,12 @@ public class ControllerGoodsAdd {
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
-					if(file.getName().equals("goodsImg")){
+					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
 					  goodsImg=UUID.randomUUID()+"."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
-					  if(count>1){
-							goodsImg+="#";
-						}
+					  appendImg+= goodsImg+"#";
 					}else {
 						shopImg=UUID.randomUUID()+"."+extention;
 						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
@@ -211,8 +236,15 @@ public class ControllerGoodsAdd {
 					e.printStackTrace();
 				}
 			}
+			String moren = request.getParameter("moren");
+			String[] goodsImgPath = appendImg.split("#");
+			for (int i = 0; i < goodsImgPath.length; i++) {
+				if(i == Integer.parseInt(moren)){
+					tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+				}
+			}
 			log.debug("shop image sava db url:"+shopImg);
-			tGoods.setGoodsPhotoUrl(goodsImg);
+			tGoods.setGoodsPhotoUrl(appendImg);
 			etechService.saveOrUpdate(tGoods);
 			
 			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(shopId));

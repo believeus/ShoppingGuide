@@ -360,11 +360,14 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
@@ -378,14 +381,17 @@
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
 						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %2 ==0 }">
+							<c:if test="${status.index %4 ==0 }">
 								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %2 ==1 }">
+							<c:if test="${status.index %4 ==1 }">
 								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %3 ==0 }">
+							<c:if test="${status.index %4 ==2 }">
 								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -405,11 +411,14 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
@@ -423,11 +432,17 @@
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
 						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %2 ==0 }">
+							<c:if test="${status.index %4 ==0 }">
 								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %2 ==1 }">
+							<c:if test="${status.index %4 ==1 }">
 								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %4 ==2 }">
+								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -447,11 +462,14 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
@@ -465,14 +483,17 @@
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
 						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %2 ==0 }">
+							<c:if test="${status.index %4 ==0 }">
 								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %2 ==1 }">
+							<c:if test="${status.index %4 ==1 }">
 								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %3 ==0 }">
+							<c:if test="${status.index %4 ==2 }">
 								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -492,11 +513,14 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsPhotoUrl ==''}">
-							
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl !=''}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+						</c:if>
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
@@ -510,14 +534,17 @@
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
 						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %2 ==0 }">
+							<c:if test="${status.index %4 ==0 }">
 								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %2 ==1 }">
+							<c:if test="${status.index %4 ==1 }">
 								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
-							<c:if test="${status.index %3 ==0 }">
+							<c:if test="${status.index %4 ==2 }">
 								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
 							</c:if>
 						</c:forEach>
 					</div>

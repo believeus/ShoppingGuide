@@ -160,8 +160,9 @@ function draglayer(){
 */
 	var osl = bsl + Math.floor( ( bcw - ocw ) / 2 );
 	osl = Math.max( bsl , osl );
-	var ost = bst + Math.floor( ( bch - och ) / 2 );
-	ost = Math.max( bst , ost );
+	var ost = "135px";
+//	var ost = bst + Math.floor( ( bch - och ) / 2 );
+//	ost = Math.max( bst , ost );
 
 	$("#drag").css({"top":ost,"left":osl,"width":ocw}).show();
 	var theHandle = document.getElementById("drag_h");
