@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,6 +19,7 @@ import com.etech.entity.Tshopuser;
 import com.etech.entity.Tshopuserlogin;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
+import com.etech.webutil.CookieUtil;
 
 /**Begin Author:wuqiwei Data:2014-05-26 Email:1058633117@qq.com AddReason:用户登录业务逻辑 */
 @Controller
@@ -25,9 +27,10 @@ public class ControllerLogin {
 	private static final Log log = LogFactory.getLog(ControllerLogin.class);
 	@Resource
 	private EtechService etechService;
-	
+	@Resource
+	private CookieUtil cookieUtil;
 	@RequestMapping(value = "/ajaxLoginValid")
-	public @ResponseBody String ajaxLoginValid(Tshopuser shopuser,HttpServletRequest request) throws Exception {
+	public @ResponseBody String ajaxLoginValid(Tshopuser shopuser,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession();
 		log.debug("current user phoneNumber:"+shopuser.getPhoneNumber());
 		log.debug("current user passowrd:"+shopuser.getPassword());
@@ -53,6 +56,10 @@ public class ControllerLogin {
 						if(sessionUser.getShops().isEmpty()){
 							return "/register2.jhtml";
 						}
+						String rememberme = request.getParameter("rememberme");
+						if(!StringUtils.isEmpty(rememberme)){
+							cookieUtil.saveCookie(shopuser.getPhoneNumber(), password, response);
+						}
 						return "/menu.jhtml";
 					}
 				}else {
@@ -66,7 +73,19 @@ public class ControllerLogin {
 	}
 	
 	@RequestMapping(value="/login")
-	public String loginView(){
+	public String loginView(HttpServletRequest request,HttpServletResponse response){
+		String referer = request.getHeader("Referer");
+		if(!StringUtils.isEmpty(referer)&&referer.contains("logout.jhtml")){
+			return "/WEB-INF/login.jsp";
+		}
+		try {
+			boolean autoLogin = cookieUtil.autoLogin(request, response);
+			if (autoLogin) {
+				return "redirect:/menu.jhtml";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/WEB-INF/login.jsp";
 	}
 }

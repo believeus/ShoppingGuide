@@ -6,7 +6,7 @@
 	<!-- begin Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 
 		主页面使用index.do的请求实现MVC的效果 -->
 	<welcome-file-list>
-		<welcome-file>index</welcome-file>
+		<welcome-file>login</welcome-file>
 	</welcome-file-list>
 	<!-- end Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 主页面使用index.do的请求实现MVC的效果 -->
 
@@ -102,7 +102,7 @@
 
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
-		<url-pattern>/index</url-pattern>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<!--end Name:wuqiwei Date:2013-08-10 AddReason:添加springMVC的支持 -->
 	

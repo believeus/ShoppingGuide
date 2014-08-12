@@ -320,6 +320,17 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
 	</dependencies>
 
 	<!--Begin Name:wuqiwei Date:2013-12-20 AddReason:当多个个jar包分别有依赖不同版本的jar时，就使用该配置的jar -->
