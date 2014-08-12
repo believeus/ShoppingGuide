@@ -7,8 +7,13 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -26,20 +31,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.etech.dao.EtechComDao;
-import com.etech.entity.Tcity;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodspraisehistory;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
-import com.etech.entity.Tprovince;
 import com.etech.entity.Tphoneuser;
 import com.etech.entity.Tphoneuserfeature;
 import com.etech.entity.Tshop;
+import com.etech.entity.Tshopfavorite;
 import com.etech.entity.Tshopfeature;
 import com.etech.entity.Tshopuser;
+import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.LatitudeUtils;
@@ -53,11 +57,11 @@ import com.etech.webutil.LatitudeUtils;
 public class ControllerMenu {
 	private static final Log log = LogFactory.getLog(ControllerRegisterOne.class);
 	@Resource
-	private EtechComDao etechComDao;
-	@Resource
 	private EtechService etechService;
 	@Resource
 	private EtechService userService;
+	@Resource
+	private EtechOthersService etechOthersService;
 	
 	/**
 	 * menu
@@ -334,9 +338,9 @@ public class ControllerMenu {
 	@RequestMapping("/changeNote")
 	public String toChangeNote(int phoneUserId,String nickName){
 		log.debug("phoneUserId"+":"+phoneUserId+";nickName:"+nickName);
-		Tphoneuser user=(Tphoneuser) etechComDao.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
+		Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
 		user.setNickName(nickName);
-		etechComDao.saveOrUpdata(user);
+		etechService.saveOrUpdate(user);
 		
 		return "/showFans.jhtml";
 	}
@@ -345,8 +349,91 @@ public class ControllerMenu {
 	 * my Fans
 	 * @return
 	 */
-	@RequestMapping(value="/myFans")
-	public String myFans(HttpServletRequest request){
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/showFans")
+	public String showFans(HttpServletRequest request,Integer shopId){
+		Integer sid=shopId;
+		List<Tshopfavorite> fans=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class,"shopId",shopId);
+		log.debug("length:"+fans.size());
+		Map<Integer, Date> sortTimeMap=new HashMap<Integer, Date>();
+		int len=fans.size();
+		for(int i=0;i<len;i++){
+			sortTimeMap.put(fans.get(i).getShopFavoriteId(), fans.get(i).getAddTime());
+		}
+		log.debug("sortSize:"+sortTimeMap.size());
+		//sort by addTime
+		List<Map.Entry<Integer, Date>> newest=new ArrayList<Map.Entry<Integer, Date>>(sortTimeMap.entrySet());
+		Collections.sort(newest, new Comparator<Map.Entry<Integer, Date>>(){
+
+			@Override
+			public int compare(Entry<Integer, Date> o1, Entry<Integer, Date> o2) {
+				return o2.getValue().compareTo(o1.getValue());
+			}
+			
+		});
+		//get the list of fans by nickname
+		List<Tphoneuser> phoneFans=new ArrayList<Tphoneuser>();
+		for(int i=0;i<len;i++){
+			int sortId=newest.get(i).getKey();
+			log.debug("sortId:"+sortId);
+			for(int j=0;j<len;j++){
+				int fansid=fans.get(j).getShopFavoriteId();
+				log.debug("fansid:"+fansid);
+				if(fansid == sortId){
+					String nick=fans.get(j).getFansNickName();
+					log.debug("nick:"+nick);
+					Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nick);
+					phoneFans.add(user);
+					log.debug("id:"+user.getPhoneUserId());
+					break;
+				}
+			}
+		}
+		//divide into three part
+		log.debug("length:"+phoneFans.size());
+		List<Tphoneuser> phoneuser1=new ArrayList<Tphoneuser>();
+		List<Tphoneuser> phoneuser2=new ArrayList<Tphoneuser>();
+		List<Tphoneuser> phoneuser3=new ArrayList<Tphoneuser>();
+		for(int i=0;i<len;i++){
+			Tphoneuser user=phoneFans.get(i);
+			int yu=(i+3)%3;
+			if(yu == 0){
+				phoneuser1.add(user);
+			}else if(yu == 1){
+				phoneuser2.add(user);
+			}else{
+				phoneuser3.add(user);
+			}
+		}
+		request.setAttribute("phoneuser1", phoneuser1);
+		request.setAttribute("phoneuser2", phoneuser2);
+		request.setAttribute("phoneuser3", phoneuser3);
+		
+		List<List<String>> featurelist1=new ArrayList<List<String>>();
+		List<List<String>> featurelist2=new ArrayList<List<String>>();
+		List<List<String>> featurelist3=new ArrayList<List<String>>();
+		for(int i=0;i<len;i++){
+			int id=phoneFans.get(i).getPhoneUserId();
+			log.debug("phoneUserId:"+id);
+			List<String> feature= etechOthersService.findObject(id);
+			log.debug("length:"+feature.size());
+			
+			int yu=(i+3)%3;
+			if(yu == 0){
+				featurelist1.add(feature);
+			}else if(yu == 1){
+				featurelist2.add(feature);
+			}else{
+				featurelist3.add(feature);
+			}
+			
+			log.debug("fSize:"+featurelist1.size()+";2:"+featurelist1.size()+";3:"+featurelist3.size());
+		}
+		log.debug("shopId:"+sid);
+		request.setAttribute("shopId", sid);
+		request.setAttribute("featurelist1", featurelist1);
+		request.setAttribute("featurelist2", featurelist2);
+		request.setAttribute("featurelist3", featurelist3);
 		return "/WEB-INF/menu/myFans.jsp";
 	}
 	/**
@@ -387,21 +474,21 @@ public class ControllerMenu {
 	 * @return
 	 */
 	@RequestMapping(value = "/fansCount")
-	public String FansCount(String url){
+	public String FansCount(String url,Integer shopId){
 		if (url.equals("sex")) {
-			return "redirect:/fansSexCount.jhtml";
+			return "redirect:/fansSexCount.jhtml?shopId="+shopId;
 		}else if (url.equals("age")) {
-			return "redirect:/fansAgeCount.jhtml";
+			return "redirect:/fansAgeCount.jhtml?shopId="+shopId;
 		}else if (url.equals("area")) {
-			return "/provinceCity.jhtml";
+			return "/provinceCity.jhtml?shopId="+shopId;
 		}else if (url.equals("constellation")) {
-			return "redirect:/fansConstellationCount.jhtml";
+			return "redirect:/fansConstellationCount.jhtml?shopId="+shopId;
 		}else if (url.equals("favourite")) {
-			return "redirect:/fansFavouriteCount.jhtml";
+			return "redirect:/fansFavouriteCount.jhtml?shopId="+shopId;
 		}else if (url.equals("job")) {
-			return "redirect:/fansJobsCount.jhtml";
+			return "redirect:/fansJobsCount.jhtml?shopId="+shopId;
 		}else if (url.equals("CZ")) {
-			return "redirect:/fansCzCount.jhtml";
+			return "redirect:/fansCzCount.jhtml?shopId="+shopId;
 		}else{
 			return "/login.jhtml";
 		}
@@ -489,42 +576,13 @@ public class ControllerMenu {
 		return "/WEB-INF/menu/goodsPreview.jsp";
 		
 	}
-	/**
-	 * for list of province and city
-	 * @param request
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/map")
-	public String mapThree(HttpServletRequest request){
-		
-		List<Tprovince> province= (List<Tprovince>) etechComDao.findObjectList(Tprovince.class);
-		request.setAttribute("province", province);
-		
-		int len=province.size();
-		log.debug("length:"+len);
-		List<List<Tcity>> allCity=new ArrayList<List<Tcity>>();
-		for(int i=0;i<len;i++){
-			int proId=province.get(i).getProvinceId();
-			List<Tcity> citysList=(List<Tcity>) etechComDao.findObjectList(Tcity.class, "provinceId", proId);
-			
-			allCity.add(citysList);
-		}
-		request.setAttribute("allCity", allCity);
-		
-		return "/WEB-INF/menu/Map.jsp";
-	}
 	
-	@SuppressWarnings("unchecked")
+	
 	@RequestMapping(value="/provinceCity")
-	public String provinceCity(HttpServletRequest request){
+	public String provinceCity(HttpServletRequest request,Integer shopId){
 		
-		List<Tprovince> province= (List<Tprovince>) etechComDao.findObjectList(Tprovince.class);
-		request.setAttribute("province", province);
-		
-		return "/WEB-INF/menu/Map.jsp";
+		return "redirect:/fansAreaCount.jhtml?shopId="+shopId+"&cityId="+159;
 	}
-	
 	
 	/**
 	 * 删掉预览后不保存的商品

@@ -45,6 +45,7 @@ public class EtechAgeBirthdayService {
 				age--;
 			}
 		}
+		log.debug("age:"+age);
 		return age;
 	}
 }

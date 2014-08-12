@@ -34,6 +34,7 @@ public class ControllerProvince {
 		}
 		return proviceIdName;
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/initCity", produces = "text/plain; charset=UTF-8")
 	public @ResponseBody String getCity(String id){
 		List<Tcity> cityList = (List<Tcity>)etechService.findObjectList(Tcity.class,"provinceId",Integer.parseInt(id));
@@ -48,6 +49,7 @@ public class ControllerProvince {
 		}
 		return cityIdName;
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/initArea", produces = "text/plain; charset=UTF-8")
 	public @ResponseBody String getArea(Integer id){
 		List<Tarea> areaList = (List<Tarea>)etechService.findObjectList(Tarea.class,"cityId",id);

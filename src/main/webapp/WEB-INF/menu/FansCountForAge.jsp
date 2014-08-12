@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script language="JavaScript" src="js/highcharts.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
-		<% double[] age=(double[])request.getAttribute("ageCount"); %>
+		<% Double[] age=(Double[])request.getAttribute("ageCount"); %>
 		$('#container').highcharts({
 			chart: { 
 				type: 'bar' 
@@ -128,7 +128,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		#cleck a:hover {
 			background-color:#00AAAA;
-			color:#E63F00;
 			font-weight:bold;
 		}
 	</style>
@@ -152,16 +151,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
-	                <a href="/fansCount.jhtml?url=sex" title="性别">性别</a>
-	                <a style="background-color:#00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=age" title="年龄">年龄</a>
-	                <a href="/fansCount.jhtml?url=constellation" title="星座">星座</a>
-	                <a href="/fansCount.jhtml?url=CZ" title="生肖">生肖</a>
-	                <a href="/fansCount.jhtml?url=job" title="职业">职业</a>
-	                <a href="/fansCount.jhtml?url=area" title="所在地">所在地</a>
-	                <a href="/fansCount.jhtml?url=favourite" title="喜欢">喜欢</a>
+	                <a href="/fansCount.jhtml?url=sex&shopId=${shopId }" title="性别">性别</a>
+	                <a style="background-color:#00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=age&shopId=${shopId }" title="年龄">年龄</a>
+	                <a href="/fansCount.jhtml?url=constellation&shopId=${shopId }" title="星座">星座</a>
+	                <a href="/fansCount.jhtml?url=CZ&shopId=${shopId }" title="生肖">生肖</a>
+	                <a href="/fansCount.jhtml?url=job&shopId=${shopId }" title="职业">职业</a>
+	                <a href="/fansCount.jhtml?url=area&shopId=${shopId }" title="所在地">所在地</a>
+	                <a href="/fansCount.jhtml?url=favourite&shopId=${shopId }" title="喜欢">喜欢</a>
 	            </div>
 	        </div>
-	        <div id="container" style="width: auto; height: 658px; text-align: center;"></div>
+	        <div id="container" style="width: auto; height: 550px; text-align: center;"></div>
 	   </div>
 	</div>
    <!-- 引用尾部页面 -->

@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<div class="img2" style="background-position:-78px -311px"></div>
    				</div>
    				<div class="s_menu_list_name" onClick="javascript:window.location.href='/showFans.jhtml'">
-   					<a href="/showFans.jhtml" title="我的粉丝">我的粉丝</a>
+   					<a href="/showFans.jhtml?shopId=${shop.shopId}" title="我的粉丝">我的粉丝</a>
    				</div>
     		</div>
     		<div class="s_menu_list">

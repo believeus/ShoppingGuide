@@ -77,7 +77,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		#cleck a:hover {
 			background-color:#00AAAA;
-			color:#E63F00;
 			font-weight:bold;
 		}
 	</style>
@@ -182,8 +181,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			<option value="0" selected="selected">请选择地市:</option>
 			    		
 			    	</select>
-
-						
 			    </div>
 			    
 		    </form>
