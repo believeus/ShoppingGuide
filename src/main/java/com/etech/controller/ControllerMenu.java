@@ -383,8 +383,13 @@ public class ControllerMenu {
 					String nick=fans.get(j).getFansNickName();
 					log.debug("nick:"+nick);
 					Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nick);
-					phoneFans.add(user);
-					log.debug("id:"+user.getPhoneUserId());
+					
+					if(StringUtils.isEmpty(user)){
+						log.debug("找不到NickName为"+nick+"的用户！");
+					}else{
+						phoneFans.add(user);
+						log.debug("id:"+user.getPhoneUserId());
+					}
 					break;
 				}
 			}
@@ -394,7 +399,8 @@ public class ControllerMenu {
 		List<Tphoneuser> phoneuser1=new ArrayList<Tphoneuser>();
 		List<Tphoneuser> phoneuser2=new ArrayList<Tphoneuser>();
 		List<Tphoneuser> phoneuser3=new ArrayList<Tphoneuser>();
-		for(int i=0;i<len;i++){
+		int size=phoneFans.size();
+		for(int i=0;i<size;i++){
 			Tphoneuser user=phoneFans.get(i);
 			int yu=(i+3)%3;
 			if(yu == 0){
@@ -412,7 +418,7 @@ public class ControllerMenu {
 		List<List<String>> featurelist1=new ArrayList<List<String>>();
 		List<List<String>> featurelist2=new ArrayList<List<String>>();
 		List<List<String>> featurelist3=new ArrayList<List<String>>();
-		for(int i=0;i<len;i++){
+		for(int i=0;i<size;i++){
 			int id=phoneFans.get(i).getPhoneUserId();
 			log.debug("phoneUserId:"+id);
 			List<String> feature= etechOthersService.findObject(id);

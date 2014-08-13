@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etech.entity.TCountFavourite;
 import com.etech.entity.Tarea;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tphoneuser;
@@ -36,7 +35,6 @@ public class EtechOthersService {
 	@RequestMapping(value="/findSexCount")
 	public Double[] findSexCount(List<Tphoneuser> user){
 		int size=user.size();
-		log.debug("user:"+size+";1:"+user.get(0).getGender());
 		int[] sexCount=new int[3];
 		Double[] percent=new Double[3];
 		for(int i=0;i<size;i++){
@@ -280,7 +278,11 @@ public class EtechOthersService {
 		for(int i=0;i<leng;i++){
 			String nickName=shopFavorite.get(i).getFansNickName();
 			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+			if(StringUtils.isEmpty(user)){
+				log.debug("找不到NickName为"+nickName+"的用户！");
+			}else{
+				users.add(user);
+			}
 		}
 		int userSize=users.size();
 		log.debug("userSize:"+userSize);
@@ -356,7 +358,7 @@ public class EtechOthersService {
 	}
 	
 @SuppressWarnings("unchecked")
-public List<TCountFavourite> getFavourite(List<Tphoneuser> user){
+public List<List<String>> getFavourite(List<Tphoneuser> user){
 		
 		List<Tfeature> list= (List<Tfeature>) etechService.findObjectList(Tfeature.class);
 		
@@ -407,7 +409,7 @@ public List<TCountFavourite> getFavourite(List<Tphoneuser> user){
 							(double)num[i]/length*100));
 		}
 		
-		List<TCountFavourite> cFavourites=new ArrayList<TCountFavourite>();
+		List<List<String>> cFavourites=new ArrayList<List<String>>();
 		if(listSize>9){
 			java.util.Map<String, Double> map=new HashMap<String, Double>();
 			for(int i=0;i<listSize;i++){
@@ -424,17 +426,17 @@ public List<TCountFavourite> getFavourite(List<Tphoneuser> user){
 			});
 			
 			for(int i=0;i<9;i++){
-				TCountFavourite tc=new TCountFavourite();
-				tc.setFavouriteName(oneList.get(i).getKey());
-				tc.setPercent(oneList.get(i).getValue());
-				cFavourites.add(tc);
+				List<String> one=new ArrayList<String>();
+				one.add(oneList.get(i).getKey());
+				one.add(String.valueOf(oneList.get(i).getValue()));
+				cFavourites.add(one);
 			}
 		}else{
 			for(int i=0;i<listSize;i++){
-				TCountFavourite tc=new TCountFavourite();
-				tc.setFavouriteName(name[i]);
-				tc.setPercent(percent[i]);
-				cFavourites.add(tc);
+				List<String> one=new ArrayList<String>();
+				one.add(name[i]);
+				one.add(String.valueOf(percent[i]));
+				cFavourites.add(one);
 			}
 		}
 		return cFavourites;

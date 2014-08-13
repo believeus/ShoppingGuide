@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etech.entity.TCountFavourite;
 import com.etech.entity.Tcity;
 import com.etech.entity.Tphoneuser;
 import com.etech.entity.Tprovince;
@@ -34,15 +35,22 @@ public class ControllerFansCount {
 	public String fansSexCount(HttpServletRequest request,Integer shopId){
 		//通过一个商铺id关联商铺的phoneuser粉丝
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
-		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int len=shopFavorite.size();
-		for(int i=0;i<len;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+		Double[] sexCount=new Double[3];
+		if(!CollectionUtils.isEmpty(shopFavorite)){
+			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
+			int len=shopFavorite.size();
+			for(int i=0;i<len;i++){
+				String nickName=shopFavorite.get(i).getFansNickName();
+				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
+				if(StringUtils.isEmpty(user)){
+					log.debug("找不到NickName为"+nickName+"的用户！");
+				}else{
+					users.add(user);
+				}
+			}
+			
+			sexCount=etechOthersService.findSexCount(users);
 		}
-		
-		Double[] sexCount=etechOthersService.findSexCount(users);
 		request.setAttribute("manPrecent", sexCount[0]);
 		request.setAttribute("womanPrecent", sexCount[1]);
 		request.setAttribute("unknown", sexCount[2]);
@@ -60,7 +68,11 @@ public class ControllerFansCount {
 		for(int i=0;i<len;i++){
 			String nickName=shopFavorite.get(i).getFansNickName();
 			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+			if(StringUtils.isEmpty(user)){
+				log.debug("找不到NickName为"+nickName+"的用户！");
+			}else{
+				users.add(user);
+			}
 		}
 		
 		Double[] ageCount=etechOthersService.getAge(users);
@@ -74,14 +86,21 @@ public class ControllerFansCount {
 	@RequestMapping(value="/fansConstellationCount")
 	public String fansConstellationCount(HttpServletRequest request,Integer shopId){
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
-		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int len=shopFavorite.size();
-		for(int i=0;i<len;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+		Double[] constellat=new Double[13];
+		if(!CollectionUtils.isEmpty(shopFavorite)){
+			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
+			int len=shopFavorite.size();
+			for(int i=0;i<len;i++){
+				String nickName=shopFavorite.get(i).getFansNickName();
+				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
+				if(StringUtils.isEmpty(user)){
+					log.debug("找不到NickName为"+nickName+"的用户！");
+				}else{
+					users.add(user);
+				}
+			}
+			constellat=etechOthersService.getConstellation(users);
 		}
-		Double[] constellat=etechOthersService.getConstellation(users);
 		request.setAttribute("constellat", constellat);
 		request.setAttribute("shopId", shopId);
 		
@@ -92,14 +111,21 @@ public class ControllerFansCount {
 	@RequestMapping(value="/fansCzCount")
 	public String fansCZCount(HttpServletRequest request,Integer shopId){
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
-		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int len=shopFavorite.size();
-		for(int i=0;i<len;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+		Double[] cZPrecent=new Double[13];
+		if(!CollectionUtils.isEmpty(shopFavorite)){
+			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
+			int len=shopFavorite.size();
+			for(int i=0;i<len;i++){
+				String nickName=shopFavorite.get(i).getFansNickName();
+				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
+				if(StringUtils.isEmpty(user)){
+					log.debug("找不到NickName为"+nickName+"的用户！");
+				}else{
+					users.add(user);
+				}
+			}
+			cZPrecent=etechOthersService.getCZ(users);
 		}
-		Double[] cZPrecent=etechOthersService.getCZ(users);
 		request.setAttribute("cZPrecent", cZPrecent);
 		request.setAttribute("shopId", shopId);
 		
@@ -110,25 +136,37 @@ public class ControllerFansCount {
 	@RequestMapping(value="/fansJobsCount")
 	public String fansJobsCount(HttpServletRequest request,Integer shopId){
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
-		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int leng=shopFavorite.size();
-		for(int i=0;i<leng;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
-		}
-		String[] arr=etechOthersService.getJob(users);
-		int len=arr.length/2;
-		log.debug("len:"+len);
-		String[] name=new String[len];
-		String[] pre=new String[len];
-		System.arraycopy(arr, 0, name, 0, len);
-		System.arraycopy(arr, len, pre, 0, len);
 		
-		request.setAttribute("name", name);
-		log.debug("name:1:"+name[0]+";2:"+name[1]);
-		log.debug("pre:1:"+pre[0]+";2:"+pre[1]);
-		request.setAttribute("pre", pre);
+		if(!CollectionUtils.isEmpty(shopFavorite)){
+			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
+			int leng=shopFavorite.size();
+			for(int i=0;i<leng;i++){
+				String nickName=shopFavorite.get(i).getFansNickName();
+				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
+				if(StringUtils.isEmpty(user)){
+					log.debug("找不到NickName为"+nickName+"的用户！");
+				}else{
+					users.add(user);
+				}
+			}
+			String[] arr=etechOthersService.getJob(users);
+			int len=arr.length/2;
+			log.debug("len:"+len);
+			String[] name=new String[len];
+			String[] pre=new String[len];
+			System.arraycopy(arr, 0, name, 0, len);
+			System.arraycopy(arr, len, pre, 0, len);
+			
+			request.setAttribute("name", name);
+			request.setAttribute("pre", pre);
+		}else{
+			String[] name={""};
+			String[] pre=new String[name.length];
+			request.setAttribute("name", name);
+			request.setAttribute("pre", pre);
+		}
+		
+		
 		request.setAttribute("shopId", shopId);
 		
 		return "/WEB-INF/menu/FansCountForJob.jsp";
@@ -167,15 +205,20 @@ public class ControllerFansCount {
 	@RequestMapping(value="/fansFavouriteCount")
 	public String fansFavouriteCount(HttpServletRequest request,Integer shopId){
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
+		
 		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
 		int leng=shopFavorite.size();
 		for(int i=0;i<leng;i++){
 			String nickName=shopFavorite.get(i).getFansNickName();
 			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			users.add(user);
+			if(StringUtils.isEmpty(user)){
+				log.debug("找不到NickName为"+nickName+"的用户！");
+			}else{
+				users.add(user);
+			}
 		}
-		List<TCountFavourite> combine=etechOthersService.getFavourite(users);
-		List<TCountFavourite> result=new ArrayList<TCountFavourite>();
+		List<List<String>> combine=etechOthersService.getFavourite(users);
+		List<List<String>> result=new ArrayList<List<String>>();
 		int len=combine.size();
 		boolean[] bool=new boolean[len];
 		Random random=new Random();
@@ -192,8 +235,8 @@ public class ControllerFansCount {
 		String[] fname=new String[len];
 		Double[] fper=new Double[len];
 		for(int i=0;i<len;i++){
-			fname[i]=result.get(i).getFavouriteName();
-			fper[i]=result.get(i).getPercent();
+			fname[i]=result.get(i).get(0);
+			fper[i]=Double.parseDouble(result.get(i).get(1));
 		}
 		
 		request.setAttribute("fname", fname);
