@@ -36,12 +36,11 @@ public class ControllerLogin {
 		log.debug("current user passowrd:"+shopuser.getPassword());
 		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, Variables.phoneNumber, shopuser.getPhoneNumber());
 			if(!StringUtils.isEmpty(sessionUser)){
-				String oldPassword = DigestUtils.md5Hex(shopuser.getPassword());
 				log.debug("sessionUser phoneNumber:"+sessionUser.getPhoneNumber()+" formUser phoneNumber:"+shopuser.getPhoneNumber());
 				if(sessionUser.getPhoneNumber().equals(shopuser.getPhoneNumber())){
 					String password =DigestUtils.md5Hex(request.getParameter("password"));
 					log.debug(password);
-					if(oldPassword.equals(password)){
+					if(sessionUser.getPassword().equals(password)){
 						sessionUser.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
 						Integer loginCount = sessionUser.getLoginCount();
 						sessionUser.setLoginCount(loginCount++);
