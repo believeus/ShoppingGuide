@@ -214,26 +214,26 @@
 			</div>
 			
 			<table class="main_table3" style="">
-    				<tr>
-						<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-						<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
-					</tr>
-    				<tr style="">
-						<td colspan="2" style="">
-							<input type="hidden" id="moren" name="moren" value="">
-						</td>
-						<td>
-							<div class="brandImg" style="margin-top:20px;float:left;">
-								<span>
-									<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-								</span>
-								<span style="height:32px;display:none;" class="middle-money" id="" value="0">设为默认</span>
-								<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="goodsImg"/>
-							</div>
-							<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-							<input type="hidden" id="filename0" name="goodsImg">
-						</td>
-					</tr>
+   				<tr>
+					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
+				</tr>
+   				<tr style="">
+					<td colspan="2" style="">
+						<input type="hidden" id="moren" name="moren" value="">
+					</td>
+					<td>
+						<div class="brandImg" style="margin-top:20px;float:left;">
+							<span>
+								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
+							</span>
+							<span style="height:32px;display:none;" class="middle-money" id="" value="0">设为默认</span>
+							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="goodsImg"/>
+						</div>
+						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
+						<input type="hidden" id="filename0" name="goodsImg">
+					</td>
+				</tr>
 			</table>
 		</form>
 	</div>

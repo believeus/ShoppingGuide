@@ -44,7 +44,7 @@ public class ControllerRegistThree {
 		}
 		@SuppressWarnings("unchecked")
 //		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, "featureType",new Short((short) 0));
-		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class);
+		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class,"featureType", (short)0);
 		request.setAttribute("tList", tList);
 		return "/WEB-INF/register3.jsp";
 	}
@@ -83,8 +83,5 @@ public class ControllerRegistThree {
 			}
 		 }
 		return "success";
-		
 	}
-	
-	
 }

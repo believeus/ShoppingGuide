@@ -35,7 +35,7 @@ public class ControllerChangeNote {
 		List<String> userNick=new ArrayList<String>();
 		for(int i=0;i<len;i++){
 			userNick.add(phoneUsers.get(i).getNickName());
-			log.debug("NickName:"+phoneUsers.get(i).getNickName());
+			//log.debug("NickName:"+phoneUsers.get(i).getNickName());
 		}
 		Map<String, Object> message=new HashMap<String, Object>();
 		if(!StringUtils.isEmpty(nickName.trim())){
@@ -45,8 +45,9 @@ public class ControllerChangeNote {
 				Brower.outJson(message, response);
 			}else{
 				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
-				String nickString=user.getNickName();
+				String nickString=user.getNickName(); 
 				Tshopfavorite shopfavorite=(Tshopfavorite) etechService.findObject(Tshopfavorite.class, "fansNickName", nickString);
+				// shopfavorite 可肯能为空 报错
 				shopfavorite.setFansNickName(nickName.trim());
 				user.setNickName(nickName.trim());
 				etechService.saveOrUpdate(shopfavorite);

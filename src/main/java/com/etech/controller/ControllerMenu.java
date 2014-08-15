@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodspraisehistory;
+import com.etech.entity.Tgoodsviewhistory;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
@@ -161,7 +162,7 @@ public class ControllerMenu {
 		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class,"parentId",10);
 		request.setAttribute("range", range);//shop range
 		
-		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class, "featureType", (short)0);
 		request.setAttribute("features", tfeatures);//shop tfeatures
 		
 		List<Tfeature> shopfeatures = tshop.getFeatures();
@@ -236,6 +237,14 @@ public class ControllerMenu {
 			}
 		}
 		log.debug("shop image sava db url:"+appendImg);
+		if (!StringUtils.isEmpty(request.getParameter("moren"))) {
+			String[] shopImgPath = appendImg.split("#");
+			for (int i = 0; i < shopImgPath.length; i++) {
+				if(i == Integer.parseInt(request.getParameter("moren"))){
+					shop.setShopDefaultPhotoURL((shopImgPath[i]));
+				}
+			}
+		}
 		
 		
 		// get shopName from form
@@ -283,6 +292,16 @@ public class ControllerMenu {
 		shop.setFansCount(0);
 		shop.setShopDefaultPhotoWidth(0);
 		shop.setShopDefaultPhotoHeight(0);
+		//店铺默认图片
+		String moren = request.getParameter("moren");
+		if (!StringUtils.isEmpty(moren)) {
+			String[] shopImgPath = appendImg.split("#");
+			for (int i = 0; i < shopImgPath.length; i++) {
+				if(i == Integer.parseInt(moren)){
+					shop.setShopDefaultPhotoURL((shopImgPath[i]));
+				}
+			}
+		}
 		// 这里会有八张全部都替换了
 		if(!StringUtils.isEmpty(appendImg)){
 			List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
@@ -317,32 +336,82 @@ public class ControllerMenu {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/hitPraise")
 	public String hitPraise(HttpServletRequest request,Integer goodsId){
-		//查找某商品的点赞记录(谁点赞查谁)
+		//查找某商品的点赞记录
 		List<Tgoodspraisehistory> gphs = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
+		/*List<Tphoneuserfeature> tpfs = new ArrayList<Tphoneuserfeature>();
+		List<String> features = new ArrayList<String>();*/
+		
+		List<List<String>> featurelist1=new ArrayList<List<String>>();
+		List<List<String>> featurelist2=new ArrayList<List<String>>();
+		List<List<String>> featurelist3=new ArrayList<List<String>>();
 		for (Tgoodspraisehistory tgoodspraisehistory : gphs) {
 			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
 			tphoneusers.add(puser);
-			List<Tphoneuserfeature> tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
-			for (Tphoneuserfeature tphoneuserfeature : tpfs) {
-				tphoneuserfeature.getFeatureId();
+			for (int i = 0; i < gphs.size(); i++) {
+				int id = puser.getPhoneUserId();
+				List<String> feature= etechOthersService.findObject(id);
+				int yu=(i+3)%3;
+				if(yu == 0){
+					featurelist1.add(feature);
+				}else if(yu == 1){
+					featurelist2.add(feature);
+				}else{
+					featurelist3.add(feature);
+				}
 			}
+//			tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
 		}
-		
-		
+		/*for (Tphoneuserfeature tphoneuserfeature : tpfs) {
+			Tfeature tfeature =  (Tfeature) etechService.findObject(Tfeature.class, "featureId", tphoneuserfeature.getFeatureId());
+			tfeatures.add(tfeature);
+			features.add(tfeature.getFeatureName());
+		}*/
 		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("tfeatures", tfeatures);
+		request.setAttribute("featurelist1", featurelist1);
+		request.setAttribute("featurelist2", featurelist2);
+		request.setAttribute("featurelist3", featurelist3);
 		request.setAttribute("goodsId", goodsId);
 		return "/WEB-INF/menu/hitPraise.jsp";
 	}
 	
+	/**
+	 * hit count
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/hitCount")
+	public String hitCount(HttpServletRequest request,Integer goodsId){
+		//查找某商品的浏览记录
+		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
+		List<Tphoneuserfeature> tpfs = new ArrayList<Tphoneuserfeature>();
+		
+		List<Tgoodsviewhistory> gphs = (List<Tgoodsviewhistory>) etechService.findObjectList(Tgoodsviewhistory.class, "goodsId",goodsId);
+		for (Tgoodsviewhistory tgoodsviewhistory : gphs) {
+			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodsviewhistory.getPhoneUserId());
+			tphoneusers.add(puser);
+			tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodsviewhistory.getPhoneUserId());
+		}
+		for (Tphoneuserfeature tphoneuserfeature : tpfs) {
+			Tfeature tfeature =  (Tfeature) etechService.findObject(Tfeature.class, "featureId", tphoneuserfeature.getFeatureId());
+			tfeatures.add(tfeature);
+		}
+		request.setAttribute("tfeatures", tfeatures);
+		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("goodsId", goodsId);
+		return "/WEB-INF/menu/hitCount.jsp";
+	}
+	
 	@RequestMapping("/changeNote")
-	public String toChangeNote(int phoneUserId,String nickName){
+	public @ResponseBody String toChangeNote(int phoneUserId,String nickName){
 		log.debug("phoneUserId"+":"+phoneUserId+";nickName:"+nickName);
 		Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
 		user.setNickName(nickName);
 		etechService.saveOrUpdate(user);
-		
-		return "/showFans.jhtml";
+		return "success";
 	}
 	
 	/**
@@ -382,14 +451,16 @@ public class ControllerMenu {
 				if(fansid == sortId){
 					String nick=fans.get(j).getFansNickName();
 					log.debug("nick:"+nick);
-					Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nick);
-					
-					if(StringUtils.isEmpty(user)){
-						log.debug("找不到NickName为"+nick+"的用户！");
-					}else{
-						phoneFans.add(user);
-						log.debug("id:"+user.getPhoneUserId());
-					}
+//					Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nick);
+//					
+//					if(StringUtils.isEmpty(user)){
+//						log.debug("找不到NickName为"+nick+"的用户！");
+//					}else{
+//						phoneFans.add(user);
+//						log.debug("id:"+user.getPhoneUserId());
+//					}
+					List<Tphoneuser> user= (List<Tphoneuser>) etechService.findObjectList(Tphoneuser.class, "nickName", nick);
+					phoneFans.addAll(user);
 					break;
 				}
 			}

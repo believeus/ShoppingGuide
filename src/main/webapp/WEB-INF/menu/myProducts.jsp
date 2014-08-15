@@ -400,7 +400,7 @@
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -451,7 +451,7 @@
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -502,7 +502,7 @@
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -553,7 +553,7 @@
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
 					</div>
 				</div>
 			</c:forEach>

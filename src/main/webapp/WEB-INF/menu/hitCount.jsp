@@ -10,9 +10,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 
-<title>我的粉丝</title>
+<title>浏览记录</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -59,7 +58,7 @@
 			width:300px;
 			height:200px;
 			float:left;
-			margin-right:30px;
+			margin-right:47px;
 			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;
@@ -135,20 +134,27 @@
 		    background:#EFEFEF;
 		    color:#B3B3B3;
 		}
-		.gougou{
-			background: url("/images/bg.png") repeat scroll -41px -332px rgba(0, 0, 0, 0);
-		    height: 20px;
-		    margin-left: 6px;
-		    margin-top: 4px;
-		    position: absolute;
-		    width: 20px;
-		}
 	</style>
 
 <script type="text/javascript">
 	$().ready(function(){
-		
+		$("[id=note]").click(function(){
+			$input=$(this).parent().prev();
+			$input.css("display","");
+			$input.prev().css("display","none");
+			$input.focus();
+			
+			$input.blur(function(){
+				var nickName=$input.val();
+				var phoneUserId=$(this).prev().prev().val();
+				
+				$.post("/toChangeNote.jhtml",{"nickName":nickName,"phoneUserId":phoneUserId});
+				var url = "/hitCount.jhtml?goodsId="+${goodsId};
+				location.replace(url);
+			});
+		});
 	});	
+		
 </script>
 
 </head>
@@ -160,43 +166,55 @@
 		<div id="main" style="">
 			<table class="main_table1">
 				<tr style="">
-					<td style=""><p style="font-size:24px;color:#69CDCD;">我的粉丝</p></td>
-					<td>
-						<input type="button" value="粉丝统计" onClick="javascript:window.location.href='/fansCount.jhtml?url=sex'" style="float:right;">
-					</td>
+					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">浏览记录</p></td>
+					<td style="width:56%;"></td>
 				</tr>
 			</table>			
 			
 			<div class="p_main">
 				<img src="/images/line.png" style="margin-bottom:20px;">
 				
-				<c:forEach items="${fans }" varStatus="state" var="fan">
-				
-					<div class="p_list">
-						<div class="p_top">
-							<div class="p_top_img">
-								<img src="/images/header.png" width="50" height="50">
+				<c:forEach var="phoneuser" items="${tphoneusers }">
+					
+				<div class="p_list">
+					<div class="p_top">
+						<div class="p_top_img">
+							<img src="/images/header.png" width="50" height="50">
+						</div>
+						<div class="p_top_word">
+							<div class="p_top_word_name">
+								<span class="nName">
+									<c:if test="${fan.nickName == ''}">
+										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.realName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.nickName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
+									</c:if>
+									<c:if test="${fan.nickName != ''}">
+										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${fan.nickName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.realName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
+									</c:if>
+								</span>
+								<span class="nSex">${phoneuser.gender }</span>
 							</div>
-							<div class="p_top_word">
-								<div class="p_top_word_name">
-									<span class="nName">${fan.nickName }<font color="#32A8A8">(备注四字)</font></span>
-									<span class="nSex">${fan.gender }</span>
-								</div>
-								<div class="p_top_word_time">
-									<span class="nTime">${fan.addTime }</span>
-									<span class="nRecord">已关注</span>
-									<s class="gougou"></s>
-								</div>
+							<div class="p_top_word_time">
+								<span class="nTime">${phoneuser.addTime }</span>
+								<span class="nRecord">已关注</span>
 							</div>
 						</div>
-						
-						<div class="p_speci">
-							<c:forEach items="${featurelist}" var="feature">
-								<p class="p_speci_p">${feature}</p>
-							</c:forEach>
-						</div>
-						
 					</div>
+					<div class="p_speci">
+						<c:forEach items="${tfeatures }" var="feature">
+							<p class="p_speci_p">${feature.featureName }</p>
+						</c:forEach>
+					</div>
+				</div>
 				
 				</c:forEach>
 				

@@ -75,11 +75,11 @@ public class EtechOthersService {
 		//所有feature id
 		List<Integer> featureID=new ArrayList<Integer>();
 		int len=list.size();
-		log.debug("len:"+len);
+		//log.debug("len:"+len);
 		for(int i=0;i<len;i++){
 			int id=list.get(i).getFeatureId();
 			featureID.add(id);
-			log.debug("allId:"+id);
+			//log.debug("allId:"+id);
 		}
 		//根据粉丝id获取Tphoneuserfeature对象
 		List<Tphoneuserfeature> tfeature= (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class,"phoneUserId", phoneUserId);
@@ -88,19 +88,19 @@ public class EtechOthersService {
 		for(int i=0;i<size;i++){
 			int id=tfeature.get(i).getFeatureId();
 			allFeatureID.add(id);
-			log.debug("allUserId:"+id);
+			//log.debug("allUserId:"+id);
 		}
 		List<String> featureName=new ArrayList<String>();
 		for(int i=0;i<len;i++){
 			int fId=featureID.get(i);
-			log.debug("fId:"+fId);
+			//log.debug("fId:"+fId);
 			for(int j=0;j<size;j++){
 				int userId=allFeatureID.get(j);
-				log.debug("userId:"+userId);
+				//log.debug("userId:"+userId);
 				if(userId == fId){
 					String name=list.get(i).getFeatureName().trim();
 					featureName.add(name);
-					log.debug("name:"+name);
+				//	log.debug("name:"+name);
 					break;
 				}
 			}

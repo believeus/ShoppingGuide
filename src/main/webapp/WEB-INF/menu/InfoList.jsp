@@ -111,8 +111,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<input type="button" value="刷新" onClick="javascript:window.location.reload();" title="点击刷新">
 		    		<input type="button" value="每页显示">
 		    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>
-		    		<input type="text" name="" style="float:right;">
-		    		<s class="findPro" title="点击搜索商品" onClick="alert('sb');"></s>
 		    	</p>
 	        </div>
 	        <div>

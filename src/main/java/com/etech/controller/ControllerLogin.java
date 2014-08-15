@@ -39,7 +39,7 @@ public class ControllerLogin {
 				String oldPassword = DigestUtils.md5Hex(shopuser.getPassword());
 				log.debug("sessionUser phoneNumber:"+sessionUser.getPhoneNumber()+" formUser phoneNumber:"+shopuser.getPhoneNumber());
 				if(sessionUser.getPhoneNumber().equals(shopuser.getPhoneNumber())){
-					String password =DigestUtils.md5Hex(shopuser.getPassword());
+					String password =DigestUtils.md5Hex(request.getParameter("password"));
 					log.debug(password);
 					if(oldPassword.equals(password)){
 						sessionUser.setLastLoginTime(new Timestamp(System.currentTimeMillis()));

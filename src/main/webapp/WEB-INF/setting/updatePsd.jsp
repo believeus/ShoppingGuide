@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">确认密码：</span>
-		    			<input type="password" id="confirmPsd" name="confirmPsd"
+		    			<input type="password" id="confirmPsd" name="confirmPsd" placeholder="请再次输入新密码"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>

@@ -157,13 +157,33 @@
 			border: 1px solid #69cdcd !important;
 			color: #ffffff !important;
 		}
+		.middle-money {
+		    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+		    bottom: 0;
+		    color: #ffffff;
+		    font-family: "微软雅黑";
+		    font-size: 13px;
+		    font-weight: bold;
+		    height: 32px;
+		    line-height: 32px;
+		   	position: relative;
+		    text-align: center;
+		    width: 230px;
+		    /* margin-top:-32px; */
+		    opacity:0.9;
+		    cursor:pointer;
+		    display:none;
+		}
 	</style>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
 <script type="text/javascript">
 $(function(){
+	var features = new Array();
 	<c:forEach var="feature" items="${shopfeatures }">
 		$("p[value='${feature.featureId}']").attr("class","current");
+		features.push(${feature.featureId});
 	</c:forEach>
+		$("#featureIds").val(features);
 	<c:forEach var="goodstype" items="${tgoodstypes }">
 		$("input[value='${goodstype.goodsTypeId}']").attr("checked","checked");
 	</c:forEach>
@@ -248,14 +268,45 @@ $(function(){
 	$().ready(function(){
 		
 		$("#add_img").click(function(){
-			var a = $(".shopShow .brandImg").size() + 1;
-			var html = "<div style='padding-left:40px;'><div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'></div>";
+			var a = $(".shopShow .brandImg").size() +1;
+			var html = "<div style='padding-left:40px;'><div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><span value='"+a+"' id='' class='middle-money' style='height:32px;display:none;'>设为默认</span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'></div>";
 			//alert($(".shopShow .brandImg").size());
 			if($(".shopShow .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
 				$(".shopShow .brandImg").parent().parent().append(html);
 			}
+			
+			$(".middle-money").each(function(){
+				$(this).click(function(){
+					//alert($(this).attr("value")+"=this.val");
+					$("#moren").val($(this).attr("value"));
+					alert("设置成功");
+				});
+			});
+			$(".brandImg").each(function(){
+				$(this).mouseover(function(){
+					$(this).find(".middle-money").css("display","block");
+				}).mouseout(function(){
+					$(this).find(".middle-money").css("display","none");
+				});
+			}); 
+		});
+		
+		$(".brandImg").each(function(){
+			$(this).mouseover(function(){
+				$(this).find(".middle-money").css("display","block");
+			}).mouseout(function(){
+				$(this).find(".middle-money").css("display","none");
+			});
+		}); 
+		
+		$(".middle-money").each(function(){
+			$(this).click(function(){
+				//alert($(this).attr("value")+"=this.val");
+				$("#moren").val($(this).attr("value"));
+				alert("设置成功");
+			});
 		});
 
 		$("#shopName").blur(function(){
@@ -436,7 +487,7 @@ $(function(){
 							<c:forEach var="features" items="${features }">
 								<p id="special" name="special" value="${features.featureId}" style="">${features.featureName }</p>
 							</c:forEach>
-							 <input type="hidden" name="featureIds" id="featureIds"/>
+							 <input type="hidden" name="featureIds" id="featureIds" value=""/>
 		                </td>
 		               
 		              </tr>
@@ -555,7 +606,7 @@ $(function(){
 		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span>
 		              	<input id="add_img" type="button" value="添加商品图片" onClick=""/><br/>
 		              	<span style="font-size:13px;">(最多可上传9张图片)</span>
-		              	<!-- <input id="add_img" type="button" value="添加预览图" style="width: 85px;"> -->
+		              	<input type="hidden" id="moren" name="moren" value="">
 		              	</td>
 		              	<td class="shopShow" colspan="3">
 		              		<c:forEach var="path" items="${path }" varStatus="status">
@@ -564,6 +615,7 @@ $(function(){
 									<span>
 										<a onclick="file${status.index+1}.click()" href="javascript:return false;">点击上传图片</a>
 									</span>
+									<span style="height:32px;display:none;" class="middle-money" id="" value="${status.index}">设为默认</span>
 									<img id="shopPhotoURL" style="width:229px;height:179px" src="<%=Variables.shopURL %>${path }" name="shopPhotoURL"/>
 								</div>
 								<input type="file" style="display:none" id="file${status.index+1}" name="shopImg" onchange="filename${status.index+1}.value=this.value;loadImgFast(this,${status.index+1})">

@@ -110,6 +110,16 @@ public class ControllerRegistTwo {
 		String shopOwnerName=request.getParameter("shopOwnerName");
 		Tmarket market=(Tmarket)etechService.findObject(Tmarket.class, Integer.valueOf(marketId));
 		Tshop shop=new Tshop();
+		//店铺默认图片
+		String moren = request.getParameter("moren");
+		if (!StringUtils.isEmpty(moren)) {
+			String[] shopImgPath = appendImg.split("#");
+			for (int i = 0; i < shopImgPath.length; i++) {
+				if(i == Integer.parseInt(moren)){
+					shop.setShopDefaultPhotoURL((shopImgPath[i]));
+				}
+			}
+		}
 		shop.setMarket(market);
 		shop.setPriceRange(request.getParameter("priceRange"));
 		shop.setBusinessLicenseNo(request.getParameter("businessLicenseNo"));
@@ -138,7 +148,6 @@ public class ControllerRegistTwo {
 		etechService.saveOrUpdate(shop);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
-		System.out.println(goodsTypeIds+"---");
 		for (String goodsTypeId : goodsTypeIds) {
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			shop.getGoodsTypes().add(goodstype);
@@ -148,9 +157,9 @@ public class ControllerRegistTwo {
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
 		
-		@SuppressWarnings("unchecked")
-		List<Tshop> shops = (List<Tshop>) etechService.findObjectList(Tshop.class, Integer.parseInt(shopuserId));
-		session.setAttribute("shops", shops);
+		/*@SuppressWarnings("unchecked")
+		List<Tshop> shops = (List<Tshop>) etechService.findObjectList(Tshop.class,"phoneNumber", Integer.valueOf(user.getPhoneNumber()));
+		session.setAttribute("shops", shops);*/
 		
 		session.setAttribute(Variables.sessionUser, currentUser);
 		Brower.redirect("/register3.jhtml", response);

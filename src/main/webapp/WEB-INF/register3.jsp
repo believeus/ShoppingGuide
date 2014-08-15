@@ -51,7 +51,9 @@
 	border-radius: 3px;
 	margin-right: 5px;
 	padding: 5px;
-	line-height: 40px;
+	/* line-height: 40px; */
+	display:inline-block;
+	margin-buttom:5px;
 	cursor: pointer;
 }
 

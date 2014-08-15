@@ -12,8 +12,8 @@
 	
 	var settings = $.extend({
 		'columns': 3,
-		'rows': 4,
-		'direction': 'horizontal',
+		'rows': 40,
+		'direction': 'vertical',  
 		'width': 'auto',
 		'height': 'auto',
 		'duration': 500,

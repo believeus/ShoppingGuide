@@ -255,15 +255,8 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<input id="" type="button" value="选择商品类型" onClick="boxAlpha();">
-<%-- 						<input type="button" value="选择商品类型" onClick="javascript:window.location.href='/selectGoodsType.jhtml?shopId=${shopId}'"> --%>
+						<input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
 						<div id="selectGoodsType"></div>
-						<%-- <select id="goodsTypeId" name="goodsTypeId" style="width:20%;">
-						<option value="-2">请选择商品类型</option>
-						<c:forEach var="gli" items="${gList}" varStatus="status">
-							<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
-						</c:forEach>
-						</select> --%>
 					</td>
 				</tr>
 				<tr>
@@ -279,7 +272,7 @@ function addclass(obj){
 				<tr>
 					<td></td>
 					<td></td>
-					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="height:35px;width:60px;" type="button" value="添加" /></td>
+					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" type="button" value="添加" /></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -291,7 +284,7 @@ function addclass(obj){
 				<tr>
 					<td colspan="3">
 						<div style="float:left;color:red;">*</div>
-						上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/>
+						上传图片：<input id="add_img" type="button" value="添加商品图片" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;"/>
 						<span style="font-size:13px;">(最多可上传9张图片)</span>
 					</td>
 				</tr>

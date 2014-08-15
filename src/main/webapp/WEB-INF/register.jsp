@@ -77,10 +77,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(wait == 0){
 			$(obj).removeAttr("disabled");
 			$(obj).val("免费获取验证码");
+			$(obj).css("background","#69CDCD");
 			wait=60;
 		}else{
 			$(obj).attr("disabled","false");
 			$(obj).val("("+wait+"秒后重新获取短信信息)");
+			$(obj).css("background","#E7E8EB");
 			wait--;
 			setTimeout(function(){
 				timeCountDown(obj,wait);
@@ -186,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">手机号码：</span>
-    			<input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入手机号"
+    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入手机号'" onfocus="if(this.value == '请输入手机号') this.value = ''" value="请输入手机号"
     				   style="width:345px;height:35px;line-height:35px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>
@@ -194,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">用户密码：</span>
-    			<input type="password" id="password" name="password" placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="password" name="password"  placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>

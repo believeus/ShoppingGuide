@@ -131,6 +131,7 @@
 		<div id="main" style="">
 			<p style="margin:0 auto;width:1000px;">所在位置：
 	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="myShop.jhtml?shopId=${tshop.shopId }" title="我的店铺">我的店铺</a> >
 	   			<a href="/shopMsg.jhtml?shopId=${tshop.shopId}" title="店铺资料">店铺资料</a>
 			</p>
 			<table class="main_table1">

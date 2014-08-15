@@ -148,7 +148,7 @@ hr {
 	$().ready(function(){
 		  $("#div_0").promptumenu({
 			'columns': 3,
-			'rows': 4,
+			'rows': 40,
 			'direction': 'vertical',
 			'width': 'auto',
 			'height': 'auto',
@@ -217,20 +217,20 @@ hr {
         </div>
             <div>
             	<div id="banner">
-				<div id="banner_bg"></div> 
-				<div id="banner_info"></div> 
-				<ul>
-				<c:forEach items="${path }" var="path" varStatus="status">
-					<li <c:if test="${status.index ==0 }"> class="on" </c:if> >${status.index+1}</li>
-				</c:forEach>
-				</ul>
-				<div id="banner_list">
-					<c:forEach items="${path }" var="path">
-						<a href="javascript:void(0);" title="">
-							<img src="<%=Variables.goodsPhotoURL %>${path }" title="" alt="" width="278" />
-						</a>
-					</c:forEach>
-				</div>
+					<div id="banner_bg"></div> 
+					<div id="banner_info"></div> 
+					<ul>
+						<c:forEach items="${path }" var="path" varStatus="status">
+							<li <c:if test="${status.index ==0 }"> class="on" </c:if> >${status.index+1}</li>
+						</c:forEach>
+					</ul>
+					<div id="banner_list">
+						<c:forEach items="${path }" var="path">
+							<a href="javascript:void(0);" title="">
+								<img src="<%=Variables.goodsPhotoURL %>${path }" title="" alt="" width="278" />
+							</a>
+						</c:forEach>
+					</div>
 				</div>
                 <%-- <img src="<%=Variables.goodsPhotoURL %>${tgoods.goodsPhotoUrl }" width="278"> --%>
             </div>

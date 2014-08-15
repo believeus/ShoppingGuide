@@ -112,9 +112,11 @@ public class ControllerGoodsAdd {
 			tGoods.setPublishFlag((short) 0);
 			tGoods.setModifyState((short)0);
 			String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
-			for (String goodsTypeId : goodsTypeIds) {
-				Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
-				tGoods.getGoodsTypes().add(goodstype);
+			if (!StringUtils.isEmpty(goodsTypeIds)) {
+				for (String goodsTypeId : goodsTypeIds) {
+					Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+					tGoods.getGoodsTypes().add(goodstype);
+				}
 			}
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
@@ -150,10 +152,12 @@ public class ControllerGoodsAdd {
 			log.debug("shop image sava db url:"+shopImg);
 			log.debug("goods image sava db url:"+appendImg);
 			String moren = request.getParameter("moren");
-			String[] goodsImgPath = appendImg.split("#");
-			for (int i = 0; i < goodsImgPath.length; i++) {
-				if(i == Integer.parseInt(moren)){
-					tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+			if (!StringUtils.isEmpty(moren)) {
+				String[] goodsImgPath = appendImg.split("#");
+				for (int i = 0; i < goodsImgPath.length; i++) {
+					if(i == Integer.parseInt(moren)){
+						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+					}
 				}
 			}
 			if(goodsImg ==""){
@@ -237,10 +241,12 @@ public class ControllerGoodsAdd {
 				}
 			}
 			String moren = request.getParameter("moren");
-			String[] goodsImgPath = appendImg.split("#");
-			for (int i = 0; i < goodsImgPath.length; i++) {
-				if(i == Integer.parseInt(moren)){
-					tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+			if (!StringUtils.isEmpty(moren)) {
+				String[] goodsImgPath = appendImg.split("#");
+				for (int i = 0; i < goodsImgPath.length; i++) {
+					if(i == Integer.parseInt(moren)){
+						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+					}
 				}
 			}
 			log.debug("shop image sava db url:"+shopImg);
