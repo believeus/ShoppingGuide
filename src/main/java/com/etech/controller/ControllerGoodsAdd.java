@@ -1,6 +1,8 @@
 package com.etech.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -12,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,7 +39,10 @@ import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
+import com.sun.image.codec.jpeg.JPEGCodec;  
+import com.sun.image.codec.jpeg.JPEGImageEncoder; 
 
+@SuppressWarnings("restriction")
 @Controller
 public class ControllerGoodsAdd {
 	private static final Log log = LogFactory.getLog(ControllerLogin.class);
@@ -242,33 +248,44 @@ public class ControllerGoodsAdd {
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
 			String goodsImg = "";
 			String shopImg=""; 
-			int count=0;
 			String appendImg = "";
 			for (MultipartFile file : files.values()) {
 				InputStream inputStream;
-				count++;
 				try {
-					
 					inputStream = file.getInputStream();
+					FileOutputStream out = null;  
 					if(inputStream.available()==0)continue;
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
 					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
-					  goodsImg=UUID.randomUUID()+"."+extention;
+					  UUID randomUUID = UUID.randomUUID(); 
+					  goodsImg=randomUUID+"."+extention;
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
 					  appendImg+= goodsImg+"#";
-					}else {
-						shopImg=UUID.randomUUID()+"."+extention;
-						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-						shopImg+="#";
+			          //读入文件    
+		              File imgSmall = new File(Variables.goodsPhotoImgPath+goodsImg);    
+		              // 构造Image对象    
+		              BufferedImage src = ImageIO.read(imgSmall);
+		              int width = src.getWidth();    
+		              int height = src.getHeight();   
+		              BufferedImage tag = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);    
+		              //绘制自定义的图片  
+		              tag.getGraphics().drawImage(src, 0, 0, Variables.imagewidth, height , null);    
+		              out = new FileOutputStream(goodsImgSmall);    
+		              JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
+		              encoder.encode(tag);
+		              
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
+			log.debug("All path:"+appendImg);
 			String moren = request.getParameter("moren");
 			if (!StringUtils.isEmpty(moren)) {
 				String[] goodsImgPath = appendImg.split("#");

@@ -57,59 +57,42 @@
 		    cursor:pointer;
 		    display:none;
 		}
+		.brandImg{
+			float:left;
+			border: 1px solid;
+			text-align: center;
+			width: 229px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+		}
 	</style>
-<style type="text/css">
-	.brandImg span{
-		display:block;
-		position:absolute;
-		top:0px;left:0px;
-		width:229px;
-		height:179px;
-	}
-	
-	.brandImg{
-		border-color: #B8B8B8 #DCDCDC #DCDCDC #B8B8B8;
-	    border-radius: 2px 2px 2px 2px;
-	    border-style: solid;
-	    border-width: 1px;
-	    background-color: #666666;
-	    width:229px;
-	    height:179px;
-	    position:relative;
-	    margin-right:15px;
-	}
-	
-	.brandImg span:hover{
-		background-color:#FFFFFF;
-	    opacity: 0.7;
-	    filter:alpha(opacity=50);
-	    -moz-opacity:0.5;
-	    -khtml-opacity: 0.5;
-	}
-	
-	.brandImg span a{
-		display:block;
-		position:absolute;
-		top:80px;
-		left:65px;
-		color:#d5d5d5;
-	}
-	
-	.deleteProductImage:hover{
-		color:#C9033B !important;
-	}
-</style>
 <script type="text/javascript">
 	$(function(){
+		var a =2;
 		$("#add_img").click(function(){
-			var a = $(".main_table3 .brandImg").size();
-			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><span value='"+a+"' id='' class='middle-money' style='height:32px;display:none;'>设为默认</span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='goodsImg"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='goodsImg"+a+"'>";
-			//alert($(".shopShow .brandImg").size());
+			var html='<div class="brandImg">'
+			 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
+				 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
+				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>'
+				 		+'</div>'    
+				 	+'</div> '   
+			+'<div> '   
+				+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 227px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+				+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
+			+'</div>'    
+				+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
+			+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+			+'</div>';
+			
+			//alert($(".main_table3 .brandImg").size());
 			if($(".main_table3 .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
 				$(".brandImg").parent().append(html);
 			}
+			
+			a++;
+			
 			$(".middle-money").each(function(){
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
@@ -147,9 +130,8 @@
 			var imgs = $("[id^='filename']");
 			imgs.each(function(){
 				if($(this).val() != "" || dis != ""){
-					$.post("/addSimpleGoods.jhtml",$("#main_form").serialize(),function(){
-						//window.location.href = "/myProducts.jhtml";
-					});
+					$("#main_form").submit();
+					return false;
 				}else{
 					alert("请填写商品介绍或者选择商品图片");
 					return  false;
@@ -160,6 +142,76 @@
 		
 </script>
 
+<script type="text/javascript">    
+		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
+		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
+		        alert('图片格式无效！');     
+		        return false;     
+		    }     
+		         
+		    
+		    var objPreview = document.getElementById( preview );     
+		    var objPreviewFake = document.getElementById( preview_fake );     
+		    var objPreviewSizeFake = document.getElementById( preview_size_fake );    
+		         
+		    if( sender.files &&  sender.files[0] ){  
+		        var reader = new FileReader();
+				reader.onload = function(evt){objPreview.src = evt.target.result;};
+		        reader.readAsDataURL(sender.files[0]);	   
+		        
+		    }else if( objPreviewFake.filters ){    
+		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
+		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
+		             
+		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
+		        sender.select();     
+		        var imgSrc = document.selection.createRange().text;     
+		        
+		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        autoSizePreview( objPreviewFake,offsetWidth,offsetHeight );     
+		        objPreview.style.display = 'none';     
+		    }     
+		}     
+		    
+		function onPreviewLoad(sender,offsetWidth,offsetHeight){    
+		    autoSizePreview( sender, offsetWidth, offsetHeight );     
+		}     
+		    
+		function autoSizePreview( objPre, originalWidth, originalHeight ){     
+		    var zoomParam = clacImgZoomParam( originalWidth, originalHeight, originalWidth, originalHeight );     
+		    objPre.style.width = zoomParam.width + 'px';     
+		    objPre.style.height = zoomParam.height + 'px';     
+		}     
+		    
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){     
+		    var param = { width:width, height:height, top:0, left:0 };     
+		         
+		    if( width>maxWidth || height>maxHeight ){     
+		        rateWidth = width / maxWidth;     
+		        rateHeight = height / maxHeight;     
+		             
+		        if( rateWidth > rateHeight ){     
+		            param.width =  maxWidth;     
+		            param.height = height / rateWidth;     
+		        }else{     
+		            param.width = width / rateHeight;     
+		            param.height = maxHeight;     
+		        }     
+		    }     
+		         
+		    param.left = (maxWidth - param.width) / 2;     
+		    param.top = (maxHeight - param.height) / 2;     
+		         
+		    return param;     
+		}      
+	</script>  
+	
+	<script type="text/javascript">
+		function delete_pic(object){		
+			$(object).closest("div").parent().remove();
+		}
+	</script>
 </head>
 <body>
 	
@@ -173,7 +225,6 @@
 				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
 				<a href="/goodsAdd2.jhtml?shopId=${shopId }" title="商品添加">商品添加</a>
 			</p>
-		<form id="main_form" method="post" action="/addSimpleGoods.jhtml" enctype="multipart/form-data">
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
@@ -190,13 +241,13 @@
 				<img src="/images/line.png">
 			</div>
 			
-			<input type="hidden" name="shopId" value="${shopId}">
+		
 			<table class="main_table2" style="">
 				<tr>
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea id="goodsDetail" name="goodsDetail">请输入商品简介</textarea>
+						<textarea name="goodsDetailTextArea"  onchange="goodsDetail.value=this.value">请输入商品简介</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -212,26 +263,32 @@
 			<div style="width:1000px;text-align:center;margin:0 auto;">
 				<img src="/images/line.png">
 			</div>
-			
-			<table class="main_table3" style="">
+		<form id="main_form" method="post" action="/addSimpleGoods.jhtml" encType="multipart/form-data">
+			<input type="hidden" name="shopId" value="${shopId}">
+			<input type="hidden" name="goodsDetail" id="goodsDetail" >
+			<table class="main_table3">
    				<tr>
-					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
+					<td style="width:1%;"><div class="main_table3_div1" ></div></td>
 					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
 				</tr>
-   				<tr style="">
-					<td colspan="2" style="">
-						<input type="hidden" id="moren" name="moren" value="">
+   				<tr>
+					<td colspan="2" >
+						<input type="hidden" id="moren" name="moren">
 					</td>
 					<td>
-						<div class="brandImg" style="margin-top:20px;float:left;">
-							<span>
-								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<span style="height:32px;display:none;" class="middle-money" id="" value="0">设为默认</span>
-							<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="goodsImg"/>
-						</div>
-						<input type="file" style="display:none" id="file0" name="goodsImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-						<input type="hidden" id="filename0" name="goodsImg">
+							<div class="brandImg">
+								 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+								        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+								            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+								        </div>    
+								    </div>    
+								    <div>    
+								    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+								    <input type="hidden" id="filename1" name="filename1">
+								    </div>    
+								    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+							</div>
 					</td>
 				</tr>
 			</table>
@@ -241,18 +298,5 @@
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
-   	 	<script type="text/javascript">
-			function loadImgFast(img,i){
-				if (img.files && img.files[0]){
-					var reader = new FileReader();
-					reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
-		            reader.readAsDataURL(img.files[0]);	
-				}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
-				   	file.select(); 
-		   			path = document.selection.createRange().text;
-		   			$(".brandImg:eq("+i+") img")[0].src = path;
-		   		} 
-			}
-		</script>
 </body>
 </html>
