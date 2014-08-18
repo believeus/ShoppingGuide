@@ -88,7 +88,7 @@
 			if($(".main_table3 .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
-				$(".brandImg").parent().append(html);
+				$("#Imgs").append(html);
 			}
 			
 			a++;
@@ -269,13 +269,13 @@
 			<table class="main_table3">
    				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" ></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;"></div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
 				</tr>
    				<tr>
 					<td colspan="2" >
 						<input type="hidden" id="moren" name="moren">
 					</td>
-					<td>
+					<td id="Imgs">
 							<div class="brandImg">
 								 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 								        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  

@@ -158,27 +158,38 @@ public class ControllerGoodsAdd {
 			String goodsImg = "";
 			String shopImg=""; 
 			String appendImg = "";
-			int count = 0;
 			for (MultipartFile file : files.values()) {
 				InputStream inputStream;
-				count++;
 				try {
-					
 					inputStream = file.getInputStream();
+					FileOutputStream out = null;  
 					if(inputStream.available()==0)continue;
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
 					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
-					  goodsImg=UUID.randomUUID()+"."+extention;
+					  UUID randomUUID = UUID.randomUUID(); 
+					  goodsImg=randomUUID+"."+extention;
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
 					  appendImg+= goodsImg+"#";
-					}else {
-						shopImg=UUID.randomUUID()+"."+extention;
-						FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-						shopImg+="#";
+					  
+					  //读入文件    
+		              File imgSmall = new File(Variables.goodsPhotoImgPath+goodsImg);    
+		              // 构造Image对象    
+		              BufferedImage src = ImageIO.read(imgSmall);
+		              int width = src.getWidth();    
+		              int height = src.getHeight();   
+		              BufferedImage tag = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);    
+		              //绘制自定义的图片  
+		              tag.getGraphics().drawImage(src, 0, 0, Variables.imagewidth, height , null);    
+		              out = new FileOutputStream(goodsImgSmall);    
+		              JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
+		              encoder.encode(tag);
+		              
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
