@@ -107,6 +107,16 @@
 	    cursor:pointer;
 	    display:none;
 	}
+	#sid {
+		 width: auto; 
+		 height: auto; 
+		 overflow: hidden; 
+		 /* padding: 10px 0px; */
+	}
+	#sid label {
+	    display: inline-block;
+	    line-height: 30px;
+	}
 </style>
 <script type="text/javascript">
 function addclass(obj){
@@ -117,6 +127,51 @@ function addclass(obj){
 	}
 }
 	$().ready(function(){
+		
+		$("#pid").change(function(){
+			//alert($(this).val());
+			$.ajax({
+				type : "post",
+				url : "/findChildGoodsType.jhtml",
+				dataType : "json",
+				data :{"cId":$(this).val()} ,
+				success : function(msg) {
+					var list = msg.data;
+					//alert(list);
+					$("#cid").html("<option value=''>请选择..</option>");
+					for(var i=0;i<list.length;i++){
+						//alert(list[i].goodsTypeName);
+						var html = "<option value='"+list[i].goodsTypeId+"'>"+list[i].goodsTypeName+"</option>";
+						//html += html;
+						$("#cid").append(html);
+					}
+					if(msg.message == "success"){
+						
+					}
+				}
+			});
+		});
+		$("#cid").change(function(){
+			//alert($(this).val());
+			$.ajax({
+				type : "post",
+				url : "/findChildGoodsType.jhtml",
+				dataType : "json",
+				data :{"cId":$(this).val()} ,
+				success : function(msg) {
+					var list = msg.data;
+					//alert(list);
+					$("#sid").html("");
+					for(var i=0;i<list.length;i++){
+						//alert(list[i].goodsTypeName);
+						//var html = "<option value='"+list[i].goodsTypeId+"'>"+list[i].goodsTypeName+"</option>";
+						var html = "<label><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"'>"+list[i].goodsTypeName+"<label>";
+						//html += html;
+						$("#sid").append(html);
+					}
+				}
+			});
+		});
 		
 		$("#add_img").click(function(){
 			var a = $(".main_table2 .brandImg").size();
@@ -255,8 +310,20 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
-						<div id="selectGoodsType"></div>
+						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
+						<div id="selectGoodsType"></div> -->
+						<select name="" id="pid">
+							<option value="">请选择..</option>
+							<c:forEach items="${gList }" var="pGoodsType">
+								<option value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</option>
+							</c:forEach>
+						</select>
+						<select name="" id="cid">
+							<option value="">请选择..</option>
+						</select>
+						<div id="sid">
+							
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -342,9 +409,8 @@ function addclass(obj){
 			<b>请选择商品类型</b><span id="submit">确定</span>	
 		</h3>
 		<div id="drag_con">
-			<script type="text/javascript">
+			<!-- <script type="text/javascript">
 				var d = new dTree('d');
-			
 				d.add(10,-1,'服饰');
 				<c:forEach var="gli" items="${gList}" varStatus="status" >
 					d.add(${gli.goodsTypeId},${gli.parentId},'authority','${status.index}','${gli.goodsTypeName}');
@@ -353,7 +419,7 @@ function addclass(obj){
 				document.write(d);
 				
 				d.openAll();
-			</script>
+			</script> -->
 		</div><!-- drag_con end -->
 	</div>
 </div><!-- maskLayer end -->

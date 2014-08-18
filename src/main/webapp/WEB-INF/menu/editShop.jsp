@@ -255,15 +255,15 @@ $(function(){
 	$("#provinceId").change(function(){
 		  var provinceId=$("#provinceId").find("option:selected").text();	
 		  map.centerAndZoom(provinceId,12);  
-		});
-		$("#cityId").change(function(){
-			  var cityId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text();
-			  map.centerAndZoom(cityId,12);  
-		});
-		$("#areaId").change(function(){
-			  var areaId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text();	
-			  map.centerAndZoom(areaId,12);  
-		});
+	});
+	$("#cityId").change(function(){
+		  var cityId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text();
+		  map.centerAndZoom(cityId,12);  
+	});
+	$("#areaId").change(function(){
+		  var areaId=$("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text();	
+		  map.centerAndZoom(areaId,12);  
+	});
 });
 	$().ready(function(){
 		

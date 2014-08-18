@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,6 +15,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -43,10 +47,10 @@ public class ControllerGoodsAdd {
 	@RequestMapping(value = "/goodsAdd")
 	public String addGoodsView(HttpServletRequest request,Integer shopId) {
 		// Tgoodstype
-		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class);
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 10);
 		request.setAttribute("gList", gList);
 		// Tfeature
-		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0);
 		request.setAttribute("tfeatures", tfeatures);
 		request.setAttribute("shopId", shopId);
 		String featureIds = request.getParameter("featureIds");
@@ -64,6 +68,31 @@ public class ControllerGoodsAdd {
 		}
 		
 		return "/WEB-INF/menu/goodsAdd.jsp";
+	}
+	
+	/**
+	 * 查找商品类别
+	 * @param cId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/findChildGoodsType")
+	public @ResponseBody Map<String, Object> findChildGoodsType(Integer cId){
+		System.out.println(cId);
+		List<Tgoodstype> tgoodstypes = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", cId);
+		
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		//此处是亮点，只要将所需忽略字段加到数组中即可，
+		//在上述案例中，所要忽略的是“shops”，“goodses”,那么将其添到数组中即可，在实际测试中，我发现在所返回数组中，存在大量无用属性,会导致死循环报错
+		jsonConfig.setExcludes(new String[]{"shops"}); 
+		jsonConfig.setExcludes(new String[]{"goodses"}); 
+		
+		JSONArray jsonArray = JSONArray.fromObject(tgoodstypes,jsonConfig); 
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", jsonArray);
+		map.put("message", "success");
+		return map;
 	}
 	
 	@RequestMapping(value="/goodsType")

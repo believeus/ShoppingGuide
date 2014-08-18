@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:70px;
 			height:30px;
 			border:1px solid #CCCCCC;
-			background:#CCCCCC;
+			background:#69CDCD;
 			color:#FFFFFF;
 			border-radius:4px;
 			cursor:pointer;
