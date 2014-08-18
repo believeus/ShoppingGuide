@@ -272,7 +272,7 @@ hr {
 	            <div>
 		            <c:forEach var="goods" items="${list1 }">
 		            	<div>
-		                    <img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" width="122"/>
+		                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsPhotoUrl}" width="122"/>
 		                    <p>${goods.goodsName }</p>
 		                    <div id="shop_spn">
 		                    	<c:forEach var="feature" items="${goods.features }">
@@ -294,7 +294,7 @@ hr {
 	            <div>
 	                <c:forEach var="goods" items="${list2 }">
 		            	<div>
-		                    <img src="<%=Variables.goodsPhotoURL %>${goods.goodsPhotoUrl}" width="122"/>
+		                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsPhotoUrl}" width="122"/>
 		                    <p>${goods.goodsName }</p>
 		                    <div id="shop_spn">
 		                    	<c:forEach var="feature" items="${goods.features }">

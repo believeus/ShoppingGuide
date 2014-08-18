@@ -56,12 +56,13 @@
 		}
 		.p_list{
 			width:300px;
-			height:200px;
+			height:auto;
 			float:left;
 			margin-right:47px;
 			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;
+			margin-top:20px;
 		}
 		.p_top{
 			width:300px;
@@ -118,9 +119,10 @@
 			margin-right:15px;
 		}
 		.p_speci{
-			height:135px;
-			width:300px;
+			height:auto;
+			width:281px;
 			padding:10px;
+			overflow:hidden;
 		}
 		.p_speci_p{
 		    cursor: pointer;
@@ -138,7 +140,7 @@
 
 <script type="text/javascript">
 	$().ready(function(){
-		$("[id=note]").click(function(){
+		/* $("[id=note]").click(function(){
 			$input=$(this).parent().prev();
 			$input.css("display","");
 			$input.prev().css("display","none");
@@ -148,9 +150,30 @@
 				var nickName=$input.val();
 				var phoneUserId=$(this).prev().prev().val();
 				
-				$.post("/toChangeNote.jhtml",{"nickName":nickName,"phoneUserId":phoneUserId});
+				$.post("/changeNote.jhtml",{"nickName":nickName,"phoneUserId":phoneUserId});
 				var url = "/hitCount.jhtml?goodsId="+${goodsId};
 				location.replace(url);
+			});
+		}); */
+		
+		$("[id=note]").click(function(){
+			$input=$(this).parent().prev();
+			$input.css("display","");
+			$input.prev().css("display","none");
+			var fo=$input.val();
+			$input.val("").focus().val(fo);
+			
+			$input.blur(function(){
+				var nickName=$(this).val();
+				var phoneUserId=$(this).prev().prev().val();
+				$.post(	"/changeNote.jhtml",
+						{"nickName":nickName,"phoneUserId":phoneUserId},
+						function(data){
+							//$("#changeNick").html(data.user.nickName);
+							var url = "/hitCount.jhtml?goodsId="+${goodsId};
+							location.replace(url);
+						},
+						"json");
 			});
 		});
 	});	
@@ -171,54 +194,160 @@
 				</tr>
 			</table>			
 			
-			<div class="p_main">
-				<img src="/images/line.png" style="margin-bottom:20px;">
-				
-				<c:forEach var="phoneuser" items="${tphoneusers }">
-					
-				<div class="p_list">
-					<div class="p_top">
-						<div class="p_top_img">
-							<img src="/images/header.png" width="50" height="50">
-						</div>
-						<div class="p_top_word">
-							<div class="p_top_word_name">
-								<span class="nName">
-									<c:if test="${fan.nickName == ''}">
-										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+			<div class="p_main" style="">
+			<img src="/images/line.png">
+				<c:forEach items="${tphoneusers }" varStatus="state" var="puser">
+					<div class="p_list" style="">
+						<div class="p_top">
+							<div class="p_top_img">
+								<img src="/images/header.png" width="50" height="50">
+							</div>
+							<div class="p_top_word">
+								<div class="p_top_word_name">
+									<span class="nName">
+									<c:if test="${puser.nickName == ''}">
+										<input type="hidden" value="${puser.phoneUserId }" />
 										<span id="nickName">
-											<a id="changeNick">${fan.realName }</a>
+											<a id="changeNick">${puser.userName }</a>
 										</span>
-										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.nickName }' />
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${puser.userName }' />
 										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
 									</c:if>
-									<c:if test="${fan.nickName != ''}">
-										<input name="phoneUserId" type="hidden" value="${fan.phoneUserId }" />
+									<c:if test="${puser.nickName != ''}">
+										<input type="hidden" value="${puser.phoneUserId }" />
 										<span id="nickName">
-											<a id="changeNick">${fan.nickName }</a>
+											<a id="changeNick">${puser.nickName }</a>
 										</span>
-										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${fan.realName }' />
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${puser.nickName }' />
 										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
 									</c:if>
-								</span>
-								<span class="nSex">${phoneuser.gender }</span>
-							</div>
-							<div class="p_top_word_time">
-								<span class="nTime">${phoneuser.addTime }</span>
-								<span class="nRecord">已关注</span>
+									</span>
+									<span class="nSex">${puser.gender }</span>
+								</div>
+								<div class="p_top_word_time">
+									<span class="nTime">${puser.addTime }</span>
+									<span class="nRecord"></span>
+								</div>
 							</div>
 						</div>
+						
+						<div class="p_speci">
+							<c:forEach items="${featurelist1}" var="feature" begin="${state.index }" end="${state.index }" >
+									<c:forEach items="${feature}" var="fe" varStatus="status">
+										<c:if test="${status.index %4 ==0 }">
+											<p class="p_speci_p" style="background:#0BB5D9;color:#FFFFFF;">${fe}</p>
+										</c:if>
+										<c:if test="${status.index %4 ==1 }">
+											<p class="p_speci_p" style="background:#49BF85;color:#FFFFFF;">${fe}</p>
+										</c:if>
+										<c:if test="${status.index %4 ==2 }">
+											<p class="p_speci_p" style="background:#E36B77;color:#FFFFFF;">${fe}</p>
+										</c:if>
+										<c:if test="${status.index %4 ==3 }">
+											<p class="p_speci_p" style="background:#F8B95A;color:#FFFFFF;">${fe}</p>
+										</c:if>
+									</c:forEach>
+							</c:forEach>
+						</div>
 					</div>
-					<div class="p_speci">
-						<c:forEach items="${tfeatures }" var="feature">
-							<p class="p_speci_p">${feature.featureName }</p>
-						</c:forEach>
-					</div>
-				</div>
-				
 				</c:forEach>
-				
 			</div>
+			
+			<div class="p_main" style="float:left;padding:10px 15px;">
+				<c:forEach items="${phoneuser2 }" varStatus="state" var="phuser">
+					<div class="p_list" style="clear:both;">
+						<div class="p_top">
+							<div class="p_top_img">
+								<img src="/images/header.png" width="50" height="50">
+							</div>
+							<div class="p_top_word">
+								<div class="p_top_word_name">
+									<span class="nName">
+									<c:if test="${phuser.nickName == ''}">
+										<input type="hidden" value="${phuser.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${phuser.userName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${phuser.userName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
+									</c:if>
+									<c:if test="${phuser.nickName != ''}">
+										<input type="hidden" value="${phuser.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${phuser.nickName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${phuser.nickName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
+									</c:if>
+									</span>
+									<span class="nSex">${phuser.gender }</span>
+								</div>
+								<div class="p_top_word_time">
+									<span class="nTime">${phuser.addTime }</span>
+									<span class="nRecord"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="p_speci">
+							<c:forEach items="${featurelist2}" var="feature" begin="${state.index }" end="${state.index }" >
+									<c:forEach items="${feature}" var="fe">
+										<p class="p_speci_p">${fe}</p>
+									</c:forEach>
+							</c:forEach>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			<div class="p_main" style="float:left;padding:10px 15px;">
+				<c:forEach items="${phoneuser3 }" varStatus="state" var="phouser">
+					<div class="p_list" style="clear:both;">
+						<div class="p_top">
+							<div class="p_top_img">
+								<img src="/images/header.png" width="50" height="50">
+							</div>
+							<div class="p_top_word">
+								<div class="p_top_word_name">
+									<span class="nName">
+									<c:if test="${phouser.nickName == ''}">
+										<input type="hidden" value="${phouser.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${phouser.userName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${phouser.userName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(添加备注)</a></font>
+									</c:if>
+									<c:if test="${phouser.nickName != ''}">
+										<input type="hidden" value="${phouser.phoneUserId }" />
+										<span id="nickName">
+											<a id="changeNick">${phouser.nickName }</a>
+										</span>
+										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${phouser.nickName }' />
+										<font color="#32A8A8"><a id="note" style="cursor: pointer;">(修改备注)</a></font>
+									</c:if>
+									</span>
+									<span class="nSex">${phouser.gender }</span>
+								</div>
+								<div class="p_top_word_time">
+									<span class="nTime">${phouser.addTime }</span>
+									<span class="nRecord"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="p_speci">
+							<c:forEach items="${featurelist3}" var="feature" begin="${state.index }" end="${state.index }" >
+									<c:forEach items="${feature}" var="fe" varStatus="status">
+										<p class="p_speci_p">${fe}</p>
+									</c:forEach>
+							</c:forEach>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			
 		</div>
 
 		

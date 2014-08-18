@@ -227,7 +227,7 @@ hr {
 					<div id="banner_list">
 						<c:forEach items="${path }" var="path">
 							<a href="javascript:void(0);" title="">
-								<img src="<%=Variables.goodsPhotoURL %>${path }" title="" alt="" width="278" />
+								<img src="<%=Variables.goodsPhotoURL %>${tgoods.shopId}/${path }" title="" alt="" width="278" />
 							</a>
 						</c:forEach>
 					</div>

@@ -174,7 +174,7 @@ public class ControllerGoodsAdd {
 					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
-					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+"#";
 					  
 					  //读入文件    
@@ -276,7 +276,7 @@ public class ControllerGoodsAdd {
 					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
-					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+goodsImg));
+					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+"#";
 			          //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+goodsImg);    

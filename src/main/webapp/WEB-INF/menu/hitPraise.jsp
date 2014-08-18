@@ -156,6 +156,7 @@
 				location.replace(url);
 			});
 		}); */
+		
 		$("[id=note]").click(function(){
 			$input=$(this).parent().prev();
 			$input.css("display","");
@@ -166,9 +167,10 @@
 			$input.blur(function(){
 				var nickName=$(this).val();
 				var phoneUserId=$(this).prev().prev().val();
-				$.post(	"toChangeNote.jhtml",
+				$.post(	"/changeNote.jhtml",
 						{"nickName":nickName,"phoneUserId":phoneUserId},
-						function(){
+						function(data){
+							//$("#changeNick").html(data.user.nickName);
 							var url = "/hitPraise.jhtml?goodsId="+${goodsId};
 							location.replace(url);
 						},
@@ -234,16 +236,16 @@
 							<c:forEach items="${featurelist1}" var="feature" begin="${state.index }" end="${state.index }" >
 									<c:forEach items="${feature}" var="fe" varStatus="status">
 										<c:if test="${status.index %4 ==0 }">
-											<p class="p_speci_p" style="background:#0BB5D9">${fe}</p>
+											<p class="p_speci_p" style="background:#0BB5D9;color:#FFFFFF;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==1 }">
-											<p class="p_speci_p" style="background:#49BF85">${fe}</p>
+											<p class="p_speci_p" style="background:#49BF85;color:#FFFFFF;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==2 }">
-											<p class="p_speci_p" style="background:#E36B77">${fe}</p>
+											<p class="p_speci_p" style="background:#E36B77;color:#FFFFFF;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==3 }">
-											<p class="p_speci_p" style="background:#F8B95A">${fe}</p>
+											<p class="p_speci_p" style="background:#F8B95A;color:#FFFFFF;">${fe}</p>
 										</c:if>
 									</c:forEach>
 							</c:forEach>

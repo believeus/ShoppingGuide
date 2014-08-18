@@ -39,7 +39,6 @@ import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
 import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tphoneuser;
-import com.etech.entity.Tphoneuserfeature;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopfavorite;
 import com.etech.entity.Tshopfeature;
@@ -340,8 +339,6 @@ public class ControllerMenu {
 		List<Tgoodspraisehistory> gphs = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
-		/*List<Tphoneuserfeature> tpfs = new ArrayList<Tphoneuserfeature>();
-		List<String> features = new ArrayList<String>();*/
 		
 		List<List<String>> featurelist1=new ArrayList<List<String>>();
 		List<List<String>> featurelist2=new ArrayList<List<String>>();
@@ -361,13 +358,7 @@ public class ControllerMenu {
 					featurelist3.add(feature);
 				}
 			}
-//			tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
 		}
-		/*for (Tphoneuserfeature tphoneuserfeature : tpfs) {
-			Tfeature tfeature =  (Tfeature) etechService.findObject(Tfeature.class, "featureId", tphoneuserfeature.getFeatureId());
-			tfeatures.add(tfeature);
-			features.add(tfeature.getFeatureName());
-		}*/
 		request.setAttribute("tphoneusers", tphoneusers);
 		request.setAttribute("tfeatures", tfeatures);
 		request.setAttribute("featurelist1", featurelist1);
@@ -385,33 +376,48 @@ public class ControllerMenu {
 	@RequestMapping(value="/hitCount")
 	public String hitCount(HttpServletRequest request,Integer goodsId){
 		//查找某商品的浏览记录
+		List<Tgoodsviewhistory> gphs = (List<Tgoodsviewhistory>) etechService.findObjectList(Tgoodsviewhistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
-		List<Tphoneuserfeature> tpfs = new ArrayList<Tphoneuserfeature>();
 		
-		List<Tgoodsviewhistory> gphs = (List<Tgoodsviewhistory>) etechService.findObjectList(Tgoodsviewhistory.class, "goodsId",goodsId);
+		List<List<String>> featurelist1=new ArrayList<List<String>>();
+		List<List<String>> featurelist2=new ArrayList<List<String>>();
+		List<List<String>> featurelist3=new ArrayList<List<String>>();
 		for (Tgoodsviewhistory tgoodsviewhistory : gphs) {
 			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodsviewhistory.getPhoneUserId());
 			tphoneusers.add(puser);
-			tpfs = (List<Tphoneuserfeature>) etechService.findObjectList(Tphoneuserfeature.class, "phoneUserId", tgoodsviewhistory.getPhoneUserId());
+			for (int i = 0; i < gphs.size(); i++) {
+				int id = puser.getPhoneUserId();
+				List<String> feature= etechOthersService.findObject(id);
+				int yu=(i+3)%3;
+				if(yu == 0){
+					featurelist1.add(feature);
+				}else if(yu == 1){
+					featurelist2.add(feature);
+				}else{
+					featurelist3.add(feature);
+				}
+			}
 		}
-		for (Tphoneuserfeature tphoneuserfeature : tpfs) {
-			Tfeature tfeature =  (Tfeature) etechService.findObject(Tfeature.class, "featureId", tphoneuserfeature.getFeatureId());
-			tfeatures.add(tfeature);
-		}
-		request.setAttribute("tfeatures", tfeatures);
 		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("tfeatures", tfeatures);
+		request.setAttribute("featurelist1", featurelist1);
+		request.setAttribute("featurelist2", featurelist2);
+		request.setAttribute("featurelist3", featurelist3);
 		request.setAttribute("goodsId", goodsId);
 		return "/WEB-INF/menu/hitCount.jsp";
 	}
 	
 	@RequestMapping("/changeNote")
-	public @ResponseBody String toChangeNote(int phoneUserId,String nickName){
+	public @ResponseBody Map<String, Object> toChangeNote(int phoneUserId,String nickName){
 		log.debug("phoneUserId"+":"+phoneUserId+";nickName:"+nickName);
 		Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
 		user.setNickName(nickName);
 		etechService.saveOrUpdate(user);
-		return "success";
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("message", "success");
+		data.put("user", user);
+		return data;
 	}
 	
 	/**

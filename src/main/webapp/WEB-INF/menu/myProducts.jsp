@@ -361,10 +361,10 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
 							
@@ -412,10 +412,10 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
 							
@@ -463,10 +463,10 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
 							
@@ -514,10 +514,10 @@
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsDefaultPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
-							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.goodsPhotoUrl }" width="230">
+							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
 							
