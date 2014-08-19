@@ -2,7 +2,6 @@ package com.etech.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -32,11 +31,9 @@ import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
+import com.etech.webutil.ImageUtil;
 import com.etech.webutil.LatitudeUtils;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
-@SuppressWarnings("restriction")
 @Controller
 public class ControllerRegistTwo {
 	private static final Log log = LogFactory.getLog(ControllerRegisterOne.class);
@@ -81,7 +78,6 @@ public class ControllerRegistTwo {
 			count++;
 			try {
 				inputStream = file.getInputStream();
-				FileOutputStream out = null;  
 				if(inputStream.available()==0)continue;
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
@@ -111,19 +107,11 @@ public class ControllerRegistTwo {
 				}
 				 log.debug("upload path:"+path);
 				 
-				  //读入文件    
+	              //读入文件    
 				  File imgSmall= new File(path);    
 	              // 构造Image对象    
 	              BufferedImage src = ImageIO.read(imgSmall);
-	              int width = src.getWidth();    
-	              int height = src.getHeight();   
-	              BufferedImage tag = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);    
-	              //绘制自定义的图片  
-	              tag.getGraphics().drawImage(src, 0, 0, Variables.imagewidth, height , null);    
-	              out = new FileOutputStream(smallPath);   
-	              log.debug("upload small path:"+smallPath);
-	              JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
-	              encoder.encode(tag);
+	              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
 	              
 			} catch (IOException e) {
 				e.printStackTrace();

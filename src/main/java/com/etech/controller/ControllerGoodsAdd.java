@@ -2,7 +2,6 @@ package com.etech.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -39,10 +38,8 @@ import com.etech.entity.Tgoodstype;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
-import com.sun.image.codec.jpeg.JPEGCodec;  
-import com.sun.image.codec.jpeg.JPEGImageEncoder; 
+import com.etech.webutil.ImageUtil;
 
-@SuppressWarnings("restriction")
 @Controller
 public class ControllerGoodsAdd {
 	private static final Log log = LogFactory.getLog(ControllerLogin.class);
@@ -162,7 +159,6 @@ public class ControllerGoodsAdd {
 				InputStream inputStream;
 				try {
 					inputStream = file.getInputStream();
-					FileOutputStream out = null;  
 					if(inputStream.available()==0)continue;
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
@@ -171,24 +167,17 @@ public class ControllerGoodsAdd {
 					  // get the goods save path
 					  UUID randomUUID = UUID.randomUUID(); 
 					  goodsImg=randomUUID+"."+extention;
-					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
-					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+randomUUID+"_small."+extention;
+					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+"#";
-					  
-					  //读入文件    
-		              File imgSmall = new File(Variables.goodsPhotoImgPath+goodsImg);    
+					 
+		              //读入文件    
+		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall);
-		              int width = src.getWidth();    
-		              int height = src.getHeight();   
-		              BufferedImage tag = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);    
-		              //绘制自定义的图片  
-		              tag.getGraphics().drawImage(src, 0, 0, Variables.imagewidth, height , null);    
-		              out = new FileOutputStream(goodsImgSmall);    
-		              JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
-		              encoder.encode(tag);
+		              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 		              
 					}
 				} catch (IOException e) {
@@ -264,7 +253,6 @@ public class ControllerGoodsAdd {
 				InputStream inputStream;
 				try {
 					inputStream = file.getInputStream();
-					FileOutputStream out = null;  
 					if(inputStream.available()==0)continue;
 					String originName=file.getOriginalFilename();
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
@@ -273,24 +261,16 @@ public class ControllerGoodsAdd {
 					  // get the goods save path
 					  UUID randomUUID = UUID.randomUUID(); 
 					  goodsImg=randomUUID+"."+extention;
-					  String goodsImgSmall=Variables.goodsPhotoImgPath+randomUUID+"_small."+extention;
-					  log.debug("upload path:"+Variables.goodsPhotoImgPath+goodsImg);
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+randomUUID+"_small."+extention;
+					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+"#";
 			          //读入文件    
-		              File imgSmall = new File(Variables.goodsPhotoImgPath+goodsImg);    
+		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall);
-		              int width = src.getWidth();    
-		              int height = src.getHeight();   
-		              BufferedImage tag = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);    
-		              //绘制自定义的图片  
-		              tag.getGraphics().drawImage(src, 0, 0, Variables.imagewidth, height , null);    
-		              out = new FileOutputStream(goodsImgSmall);    
-		              JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
-		              encoder.encode(tag);
-		              
+		              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -322,4 +302,5 @@ public class ControllerGoodsAdd {
 		}
 
 	}
+	
 }
