@@ -202,6 +202,7 @@ public class ControllerGoodsAdd {
 			}
 			etechService.saveOrUpdate(tGoods);
 			if(!featureIds.isEmpty()){
+				tGoods.setGoodsFeature(featureIds);
 				for (String featureId : featureIds.split(",")) {
 					Tgoodsfeature goodsfeature=new Tgoodsfeature();
 					goodsfeature.setFeatureId(Integer.parseInt(featureId));

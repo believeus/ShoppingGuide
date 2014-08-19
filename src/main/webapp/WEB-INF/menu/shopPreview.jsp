@@ -143,6 +143,7 @@ hr {
 	color: #0db6dc;
 	text-decoration: underline;
 }
+
 </style>
 <style type="text/css">
 	#banner {position:relative; width:278px; height:auto; border:1px solid #666; overflow:hidden;}
@@ -171,7 +172,7 @@ hr {
 			'duration': 500,
 			'inertia': 200
 		});
-		$(".promptumenu_window").css("height","435px"); 
+		$(".promptumenu_window").css("height","415px"); 
 	});
 </script>
 <script type="text/javascript">
@@ -275,8 +276,19 @@ hr {
 		                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsPhotoUrl}" width="122"/>
 		                    <p>${goods.goodsName }</p>
 		                    <div id="shop_spn">
-		                    	<c:forEach var="feature" items="${goods.features }">
-			                        <span>${feature.featureName }</span>
+		                    	<c:forEach var="feature" items="${goods.features }" varStatus="status">
+			                        <c:if test="${status.index %4 ==0 }">
+										<span style="background:#0BB5D9;color:#FFFFFF;">${feature.featureName }</span>
+									</c:if>
+									<c:if test="${status.index %4 ==1 }">
+										<span class="p_speci_p" style="background:#49BF85;color:#FFFFFF;">${feature.featureName }</span>
+									</c:if>
+									<c:if test="${status.index %4 ==2 }">
+										<span class="p_speci_p" style="background:#E36B77;color:#FFFFFF;">${feature.featureName }</span>
+									</c:if>
+									<c:if test="${status.index %4 ==3 }">
+										<span class="p_speci_p" style="background:#F8B95A;color:#FFFFFF;">${feature.featureName }</span>
+									</c:if>
 		                    	</c:forEach>
 		                    </div>
 		                    <div style="color:#555555;" title="${goods.introduction }">
