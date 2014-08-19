@@ -1,6 +1,7 @@
 package com.etech.controller;
 
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,6 +48,7 @@ import com.etech.entity.Tshopuser;
 import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
+import com.etech.webutil.ImageUtil;
 import com.etech.webutil.LatitudeUtils;
 /**
  * menu
@@ -185,6 +188,7 @@ public class ControllerMenu {
 		String shopuserId=request.getParameter("shopuserId");
 		String lisenceId=request.getParameter("lisenceId");
 		String featureIds=request.getParameter("featureIds");
+		String deleteImgs = request.getParameter("deleteImgs");
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class,"shopId", shopId);
 		// delete before relationship for shop and feature
 		etechService.delete(Tshopfeature.class,"shopId",shopId);
@@ -208,29 +212,46 @@ public class ControllerMenu {
 		String appendImg="";
 		String shopImg=""; 
 		for (MultipartFile file : files.values()) {
+			UUID randomUUID = UUID.randomUUID(); 
 			InputStream inputStream;
 			count++;
 			try {
-				
 				inputStream = file.getInputStream();
 				if(inputStream.available()==0)continue;
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				log.debug("upload file name:"+file.getName());
-				if(file.getName().equals("shopLicenseImg")){
+				String path="";
+				String smallPath="";
+				if(file.getName().equals("businessLicensePhoto")){
 				  // get the license save path
-				  licenseImg=UUID.randomUUID()+"."+extention;
-				  log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
+				  licenseImg=randomUUID+"."+extention;
+				  path=Variables.shopLicenseImgPath+licenseImg;
+				  // 缩略图
+				  smallPath=Variables.shopLicenseImgPath+randomUUID+"_small."+extention;
 				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
+				  
 				}else {
-					shopImg=UUID.randomUUID()+"."+extention;
+					shopImg=randomUUID+"."+extention;
+					path=Variables.shopImgPath+shopImg;
+					// 缩略图
+					smallPath=Variables.shopImgPath+randomUUID+"_small."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
+					
 					if(count>1){
 						appendImg+=shopImg+"#";
 					}else {
 						appendImg+=shopImg;
 					}
 				}
+				 log.debug("upload path:"+path);
+				 
+	              //读入文件    
+				  File imgSmall= new File(path);    
+	              // 构造Image对象    
+	              BufferedImage src = ImageIO.read(imgSmall);
+	              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+	              
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -301,16 +322,20 @@ public class ControllerMenu {
 				}
 			}
 		}
+		
 		// 这里会有八张全部都替换了
-		if(!StringUtils.isEmpty(appendImg)){
-			List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
-			List<String> newList = new ArrayList<String>(Arrays.asList(appendImg.split("#")));
-			oldlist.removeAll(newList);
-			for (String string : oldlist) {
-				appendImg+=string+"#"; 
-			}
-			shop.setShopPhotoUrl(appendImg);
+		List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
+		log.debug("shop.getShopPhotoUrl()--list:"+oldlist);
+		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split("#")));
+		log.debug("deleteList:"+deleteList);
+		oldlist.removeAll(deleteList);
+		for (String string : oldlist) {
+			appendImg+=string+"#"; 
 		}
+		log.debug("shop.getShopPhotoUrl()--list:"+appendImg);
+		shop.setShopPhotoUrl(appendImg);
+		
+		
 		String[] path = shop.getShopPhotoUrl().split("#");
 		request.setAttribute("path", path);
 		
