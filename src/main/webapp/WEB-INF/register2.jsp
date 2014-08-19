@@ -81,45 +81,15 @@
 }
 </style>
 <style type="text/css">
-	.brandImg span{
-		display:block;
-		position:absolute;
-		top:0px;left:0px;
-		width:229px;
-		height:179px;
-	}
-	
+
 	.brandImg{
-		border-color: #B8B8B8 #DCDCDC #DCDCDC #B8B8B8;
-	    border-radius: 2px 2px 2px 2px;
-	    border-style: solid;
-	    border-width: 1px;
-	    background-color: #666666;
-	    width:229px;
-	    height:179px;
-	    position:relative;
-	    margin-right:15px;
+			float:left;
+			border: 1px solid;
+			text-align: center;
+			width: 229px;
+			margin: 10px 10px 10px 0;
 	}
 	
-	.brandImg span:hover{
-		background-color:#FFFFFF;
-	    opacity: 0.7;
-	    filter:alpha(opacity=50);
-	    -moz-opacity:0.5;
-	    -khtml-opacity: 0.5;
-	}
-	
-	.brandImg span a{
-		display:block;
-		position:absolute;
-		top:80px;
-		left:65px;
-		color:#d5d5d5;
-	}
-	
-	.deleteProductImage:hover{
-		color:#C9033B !important;
-	}
 	.middle-money {
 	    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
 	    bottom: 0;
@@ -229,15 +199,29 @@
 	
 	$().ready(function() {
 		
+		var a =3;
 		$("#add_img").click(function(){
-			var a = $(".shopShow .brandImg").size() +1;
-			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><span value='"+a+"' id='' class='middle-money' style='height:32px;display:none;'>设为默认</span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
-			//alert($(".shopShow .brandImg").size());
-			if($(".shopShow .brandImg").size() > 8){
+			var html='<div class="brandImg">'
+				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
+					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>'
+					 		+'</div>'    
+					 	+'</div> '   
+				+'<div> '   
+					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 227px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
+				+'</div>'    
+					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
+				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+				+'</div>';
+			//alert($("#Imgs .brandImg").size());
+			if($("#Imgs .brandImg").size() > 8){
 				alert("最多9张图片");
 			}else{
-				$(".shopShow").append(html);
+				$("#Imgs").append(html);
 			}
+			
+			a++;
 			
 			$(".middle-money").each(function(){
 				$(this).click(function(){
@@ -317,6 +301,78 @@
 		
 	});
 </script>
+
+<script type="text/javascript">    
+		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
+		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
+		        alert('图片格式无效！');     
+		        return false;     
+		    }     
+		         
+		    
+		    var objPreview = document.getElementById( preview );     
+		    var objPreviewFake = document.getElementById( preview_fake );     
+		    var objPreviewSizeFake = document.getElementById( preview_size_fake );    
+		         
+		    if( sender.files &&  sender.files[0] ){  
+		        var reader = new FileReader();
+				reader.onload = function(evt){objPreview.src = evt.target.result;};
+		        reader.readAsDataURL(sender.files[0]);	   
+		        
+		    }else if( objPreviewFake.filters ){    
+		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
+		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
+		             
+		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
+		        sender.select();     
+		        var imgSrc = document.selection.createRange().text;     
+		        
+		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        autoSizePreview( objPreviewFake,offsetWidth,offsetHeight );     
+		        objPreview.style.display = 'none';     
+		    }     
+		}     
+		    
+		function onPreviewLoad(sender,offsetWidth,offsetHeight){    
+		    autoSizePreview( sender, offsetWidth, offsetHeight );     
+		}     
+		    
+		function autoSizePreview( objPre, originalWidth, originalHeight ){     
+		    var zoomParam = clacImgZoomParam( originalWidth, originalHeight, originalWidth, originalHeight );     
+		    objPre.style.width = zoomParam.width + 'px';     
+		    objPre.style.height = zoomParam.height + 'px';     
+		}     
+		    
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){     
+		    var param = { width:width, height:height, top:0, left:0 };     
+		         
+		    if( width>maxWidth || height>maxHeight ){     
+		        rateWidth = width / maxWidth;     
+		        rateHeight = height / maxHeight;     
+		             
+		        if( rateWidth > rateHeight ){     
+		            param.width =  maxWidth;     
+		            param.height = height / rateWidth;     
+		        }else{     
+		            param.width = width / rateHeight;     
+		            param.height = maxHeight;     
+		        }     
+		    }     
+		         
+		    param.left = (maxWidth - param.width) / 2;     
+		    param.top = (maxHeight - param.height) / 2;     
+		         
+		    return param;     
+		}      
+	</script>  
+	
+	<script type="text/javascript">
+		function delete_pic(object){		
+			$(object).closest("div").parent().remove();
+		}
+	</script>
+	
 <body bgcolor="#E7E8EB">
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/header.jsp" flush="true" />
@@ -399,14 +455,18 @@
 				<div style="padding-left:40px;width:800px;height:auto;overflow:hidden;">
 					<div style="width:300px;height:auto;float:left;">
 						<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
-						<div class="brandImg" style="margin-top:20px;">
-							<span>
-								<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-							</span>
-							<img id="businessLicensePhoto" style="width:229px;height:179px" src="" name="businessLicensePhoto"/>
+						<div class="brandImg">
+							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+							        </div>    
+							    </div>    
+							    <div>    
+							    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+							    <input type="hidden" id="filename1" name="filename1">
+							    </div>    
+							    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 						</div>
-						<input type="file" style="display:none" id="file0" name="shopLicenseImg" onchange="filename0.value=this.value;loadImgFast(this,0)">
-						<input type="hidden" id="filename0">
 					</div>
 					<div style="padding-left:40px;margin-top:20px;width:400px;height:auto;float:left;margin-top: 170px;">
 						<span style="font-weight:normal;">营业执照号：</span>
@@ -420,16 +480,21 @@
 					<span style="font-size:13px;">(最多可上传9张图片)</span>
 					<input type="hidden" id="moren" name="moren" value="">
 					<br> 
-					<div class="brandImg" style="margin-top:20px;float:left;">
-						<span>
-							<a onclick="file1.click()" href="javascript:return false;">点击上传图片</a>
-						</span>
-						<span style="height:32px;display:none;" class="middle-money" id="" value="0">设为默认</span>
-						<img id="shopPhotoURL" style="width:229px;height:179px" src="" name="shopPhotoURL"/>
+					<div id="Imgs">
+					<div class="brandImg">
+						 <div id="preview_wrapper2" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+						        <div id="preview_fake2" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+						            <img id="preview2"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+						        </div>    
+						    </div>    
+						    <div>    
+						    <input id="goodsImg2" type="file" name="goodsImg2" style="width: 227px;" onchange="filename2.value=this.value;onUploadImgChange(this,227,179,'preview2','preview_fake2','preview_size_fake2');"/>  
+						    <input type="hidden" id="filename2" name="filename2">
+						    </div>    
+						    <img id="preview_size_fake2" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
 					</div>
-					<input type="file" style="display:none" id="file1" name="file1" onchange="filename1.value=this.value;loadImgFast(this,1)">
-					<input type="hidden" id="filename1" name="filename1">
-				</div>
+					</div>
 				<div class="btn_div" style="margin-top:20px;">
 					<input type="button" value="上一步" onClick="javascript:window.location.href='/register.jhtml'" style="background:#69CDCD;border :1px solid #69CDCD;"> 
 						<input type="submit" value="下一步">
