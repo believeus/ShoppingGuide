@@ -251,7 +251,36 @@
 </style>
 <script type="text/javascript">
 	$().ready(function() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		var IE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !userAgent.indexOf("Opera") > -1;
+		var FF = userAgent.indexOf("Firefox") > -1;
+		var isChrome = navigator.userAgent.toLowerCase().match(/chrome/) != null;//判断是否是谷歌浏览器
 		
+		var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");//判断操作系统
+		if(isWin){
+			//alert("你好,windows");
+			if(FF){
+				//alert("我是FF浏览器");
+				$(".addPro").css("left","180px");
+				$(".reload").css("left","255px");
+				$(".pageshow").css("left","385px");
+				$(".findPro").css("right","175px");
+			}
+			if(isChrome){
+			   	//alert("我是谷歌浏览器");
+			   	$(".addPro").css("left","180px");
+				$(".reload").css("left","250px");
+				$(".pageshow").css("left","375px");
+				$(".findPro").css("right","175px");
+			}
+			if(IE){
+			   	//alert("我是IE浏览器");
+			   	$(".addPro").css("left","180px");
+				$(".reload").css("left","250px");
+				$(".pageshow").css("left","370px");
+				$(".findPro").css("right","175px");
+			}
+		}
 		$("#allPro").mouseout(function(){
 			$(".selectPro").hide();	
 		}).mouseover(function(){
@@ -320,6 +349,7 @@
 		 
 	});
 </script>
+
 </head>
 
 <body bgcolor="">
@@ -336,7 +366,7 @@
 		<img src="/images/line.png">
 		<div style="margin: 10px 0px; width: 1000px; height: 40px;">
 			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;float:left;"
-				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s class="addPro"></s>
+				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s id="addPro" class="addPro"></s>
 			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
 			<input type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
@@ -563,5 +593,56 @@
 
 		<!-- 引用尾部页面 -->
 		<jsp:include page="../include/footer.jsp" flush="true" />
+		
+		<!-- <script type="text/javascript">
+			function detectOS() { 
+				var sUserAgent = navigator.userAgent; 
+				
+				var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows"); 
+				var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel"); 
+				if (isMac) return "Mac"; 
+				var isUnix = (navigator.platform == "X11") && !isWin && !isMac; 
+				if (isUnix) return "Unix"; 
+				var isLinux = (String(navigator.platfovar userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+var isOpera = userAgent.indexOf("Opera") > -1;
+
+if (isOpera){return "Opera"}; //判断是否Opera浏览器
+if (userAgent.indexOf("Firefox") > -1){return "FF";} //判断是否Firefox浏览器
+if (userAgent.indexOf("Safari") > -1){return "Safari";} //判断是否Safari浏览器
+if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera){return "IE";} ; //判断是否IE浏览器
+}rm).indexOf("Linux") > -1); 
+				
+				var bIsAndroid = sUserAgent.toLowerCase().match(/android/i) == "android";
+				if (isLinux) {
+					if(bIsAndroid) return "Android";
+				else return "Linux"; 
+				}
+			if (isWin) {
+				alert("nimei");
+				/* var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1; 
+				if (isWin2K) return "Win2000"; 
+				var isWinXP = sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1; 
+				if (isWinXP) return "WinXP"; 
+				var isWin2003 = sUserAgent.indexOf("Windows NT 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1; 
+				if (isWin2003) return "Win2003"; 
+				var isWinVista= sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1; 
+				if (isWinVista) return "WinVista"; 
+				var isWin7 = sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1; 
+				if (isWin7) return "Win7";  */
+				
+				//$(".addPro").css("left","180px");
+				alert(document.getElementById("addPro").offsetLeft);
+				document.getElementById("addPro").offsetLeft = document.getElementById("addPro").offsetLeft + "30px" ;
+				alert(document.getElementById("addPro").offsetLeft);
+				$(".reload").css("left","255px");
+				$(".pageshow").css("left","385px");
+				$(".findPro").css("right","175px");
+				
+				}
+				return "other"; 
+			} 
+			//document.writeln("您的操作系统是：" + detectOS()); 
+			alert(detectOS());
+			</script> -->
 </body>
 </html>

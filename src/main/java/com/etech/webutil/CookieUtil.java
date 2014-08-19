@@ -35,6 +35,7 @@ public class CookieUtil {
 	// 保存Cookie到客户端-------------------------------------------------------------------------
 	// 在CheckLogonServlet.java中被调用
 	// 传递进来的user对象中封装了在登陆时填写的用户名与密码
+	@SuppressWarnings("restriction")
 	public void saveCookie(String username, String password,HttpServletResponse response) {
 		// cookie的有效期
 		long validTime = System.currentTimeMillis() + (cookieMaxAge);

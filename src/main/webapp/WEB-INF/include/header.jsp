@@ -58,6 +58,14 @@
 		}).mouseover(function(){
 			$(".setting").show();	
 		});
+		
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		var IE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !userAgent.indexOf("Opera") > -1;
+		if(IE){
+		   	//alert("我是IE浏览器");
+			$("img").css("border","0");
+		}
+		
 	});
 </script>
 <div style="height:135px;width:100%;background:#69CDCD;">
