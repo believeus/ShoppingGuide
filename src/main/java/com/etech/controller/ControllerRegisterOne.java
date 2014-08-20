@@ -57,10 +57,10 @@ public class ControllerRegisterOne {
 	public @ResponseBody String validateNumberCode(String numberCode,HttpSession session){
 		String sessionCode = (String)session.getAttribute(Variables.validCode);
 		log.debug("input valid code:"+numberCode+" session Valid code:"+sessionCode);
-		if(!sessionCode.equals(numberCode)){
-			return "true";
-		}
 		// 验证码不匹配
+		if(!sessionCode.equals(numberCode)){
+			return "false";
+		}
 		return "true";
 	}
 	/**End Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
