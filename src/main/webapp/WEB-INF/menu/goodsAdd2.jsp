@@ -42,7 +42,7 @@
 		}
 		.middle-money {
 		    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-		    bottom: 0;
+		    bottom: 33px;
 		    color: #ffffff;
 		    font-family: "微软雅黑";
 		    font-size: 13px;
@@ -51,7 +51,7 @@
 		    line-height: 32px;
 		   	position: relative;
 		    text-align: center;
-		    width: 230px;
+		    width: 227px;
 		    /* margin-top:-32px; */
 		    opacity:0.9;
 		    cursor:pointer;
@@ -73,7 +73,7 @@
 			var html='<div class="brandImg">'
 			 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 				 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>'
+				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money">设为默认</span>'
 				 		+'</div>'    
 				 	+'</div> '   
 			+'<div> '   
@@ -276,19 +276,20 @@
 						<input type="hidden" id="moren" name="moren">
 					</td>
 					<td id="Imgs">
-							<div class="brandImg">
-								 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-								        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-								            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-								        </div>    
-								    </div>    
-								    <div>    
-								    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-								    <input type="hidden" id="filename1" name="filename1">
-								    </div>    
-								    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
-							</div>
+						<div class="brandImg">
+							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+							        	<span class="middle-money">设为默认</span>
+							        </div>    
+							    </div>    
+							    <div>    
+							    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+							    <input type="hidden" id="filename1" name="filename1">
+							    </div>    
+							    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+						</div>
 					</td>
 				</tr>
 			</table>

@@ -13,6 +13,7 @@
 <title>商品添加</title>
 
 <meta http-equiv="pragma" content="no-cache">
+
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
@@ -63,7 +64,7 @@
 	
 	.middle-money {
 	    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-	    bottom: 0;
+	    bottom: 33px;
 	    color: #ffffff;
 	    font-family: "微软雅黑";
 	    font-size: 13px;
@@ -72,7 +73,7 @@
 	    line-height: 32px;
 	   	position: relative;
 	    text-align: center;
-	    width: 230px;
+	    width: 227px;
 	    /* margin-top:-32px; */
 	    opacity:0.9;
 	    cursor:pointer;
@@ -149,7 +150,7 @@ function addclass(obj){
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div> '   
@@ -235,7 +236,7 @@ function addclass(obj){
 					$("#textSpecial").val("");
 				 });
 			}
-			location.reload();
+			//location.reload();
 		});
 		
 		$("#main_form").validate({
@@ -277,7 +278,7 @@ function addclass(obj){
 		        
 		    }else if( objPreviewFake.filters ){    
 		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
-		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
+		        //（相同环境有时请输入商品简介能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
 		        sender.select();     
@@ -417,18 +418,21 @@ function addclass(obj){
    				<tr>
 					<td colspan="3" id="Imgs">
 						<div class="brandImg">
-								 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-								        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-								            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-								        </div>    
-								    </div>    
-								    <div>    
-								    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-								    <input type="hidden" id="filename1" name="filename1">
-								    </div>    
-								    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+							<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+						        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+						        	<span class="middle-money">设为默认</span>
+						        </div>    
+						    </div>    
+						    <div>    
+							    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+							    <input type="hidden" id="filename1" name="filename1">
+						    </div>    
+						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
+								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
 							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>

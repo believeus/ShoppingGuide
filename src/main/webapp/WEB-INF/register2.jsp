@@ -92,7 +92,7 @@
 	
 	.middle-money {
 	    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-	    bottom: 0;
+	    bottom: 33px;
 	    color: #ffffff;
 	    font-family: "微软雅黑";
 	    font-size: 13px;
@@ -101,7 +101,7 @@
 	    line-height: 32px;
 	   	position: relative;
 	    text-align: center;
-	    width: 230px;
+	    width: 227px;
 	    /* margin-top:-32px; */
 	    opacity:0.9;
 	    cursor:pointer;
@@ -204,7 +204,7 @@
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div> '   
@@ -485,6 +485,7 @@
 						 <div id="preview_wrapper2" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 						        <div id="preview_fake2" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 						            <img id="preview2"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+						        	<span class="middle-money">设为默认</span>
 						        </div>    
 						    </div>    
 						    <div>    

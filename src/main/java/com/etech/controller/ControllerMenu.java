@@ -189,6 +189,9 @@ public class ControllerMenu {
 		String lisenceId=request.getParameter("lisenceId");
 		String featureIds=request.getParameter("featureIds");
 		String deleteImgs = request.getParameter("deleteImgs");
+		if (StringUtils.isEmpty(deleteImgs)) {
+			deleteImgs="";
+		}
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class,"shopId", shopId);
 		// delete before relationship for shop and feature
 		etechService.delete(Tshopfeature.class,"shopId",shopId);

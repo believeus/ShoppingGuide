@@ -49,7 +49,7 @@
 	border: 1px solid #e4e4e4;
 	color: #555555;
 	border-radius: 3px;
-	margin 5px;
+	margin:5px;
 	padding: 5px;
 	/* line-height: 40px; */
 	display:inline-block;

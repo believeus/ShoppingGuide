@@ -149,21 +149,21 @@
 .addPro{
 	background: url(/images/bg.png) repeat scroll 0 -324px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 150px;
+    left: 153px;
     position: absolute;
     width: 20px;
 }
 .reload{
 	background: url(/images/bg.png) repeat scroll -40px -355px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 230px;
+    left: 233px;
     position: absolute;
     width: 20px;
 }
 .pageshow{
 	background: url(/images/bg.png) repeat scroll 0 -355px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 370px;
+    left: 373px;
     position: absolute;
     width: 20px;
 }
