@@ -1,6 +1,7 @@
 package com.etech.controller;
 
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +29,7 @@ import com.etech.entity.Tshop;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
+import com.etech.webutil.ImageUtil;
 /**
  * 设置
  * @author ztx
@@ -56,6 +59,7 @@ public class ControllerSetting {
 	public String findPsdJsp(){
 		return "/WEB-INF/setting/findPsd.jsp";
 	}
+	
 	@RequestMapping(value="findPsdLogic")
 	public String findPsdLogic(HttpServletRequest request){
 		Tfindpasswordforshopuser findpassword=new Tfindpasswordforshopuser();
@@ -70,9 +74,18 @@ public class ControllerSetting {
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				 // get the license save path
-				licenseImg=UUID.randomUUID()+"."+extention;
+				UUID randomUUID = UUID.randomUUID(); 
+				licenseImg=randomUUID+"."+extention;
+				String licenseSmallImg=Variables.shopLicenseImgPath+randomUUID+"_small."+extention;
 				log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
+				log.debug("upload small path:"+licenseSmallImg);
 				FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
+				//读入文件    
+				File imgSmall= new File(Variables.shopLicenseImgPath+licenseImg);    
+		        // 构造Image对象    
+		        BufferedImage src = ImageIO.read(imgSmall);
+		        ImageUtil.scaleImg(Variables.shopLicenseImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
+		        
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

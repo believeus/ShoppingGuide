@@ -507,18 +507,6 @@
 
 	<!-- 引用尾部页面 -->
 	<jsp:include page="include/footer.jsp" flush="true" />
-	<script type="text/javascript">
-		function loadImgFast(img,i){
-			if (img.files && img.files[0]){
-				var reader = new FileReader();
-				reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
-	            reader.readAsDataURL(img.files[0]);	
-			}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
-			   	file.select(); 
-	   			path = document.selection.createRange().text;
-	   			$(".brandImg:eq("+i+") img")[0].src = path;
-	   		} 
-		}
-	</script>
+	
 </body>
 </html>

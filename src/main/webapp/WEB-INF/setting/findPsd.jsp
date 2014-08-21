@@ -85,13 +85,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		</style>
 		<style type="text/css">
-			.brandImg span{
-				display:block;
-				position:absolute;
-				top:0px;left:0px;
-				width:229px;
-				height:179px;
-			}
 			
 			.brandImg{
 				border-color: #B8B8B8 #DCDCDC #DCDCDC #B8B8B8;
@@ -99,28 +92,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    border-style: solid;
 			    border-width: 1px;
 			    background-color: #666666;
-			    width:229px;
+			    width:227px;
 			    height:179px;
 			    position:relative;
 			    float:left;
 			    margin-right:15px;
+			    margin-left:200px;
 			}
 			
-			.brandImg span:hover{
-				background-color:#FFFFFF;
-			    opacity: 0.7;
-			    filter:alpha(opacity=50);
-			    -moz-opacity:0.5;
-			    -khtml-opacity: 0.5;
-			}
-			
-			.brandImg span a{
-				display:block;
-				position:absolute;
-				top:80px;
-				left:65px;
-				color:#d5d5d5;
-			}
 			.btn_div{
 				width:800px;
 				height:auto;
@@ -209,6 +188,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
   </script>
+  
+  <script type="text/javascript">    
+		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
+		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
+		        alert('图片格式无效！');     
+		        return false;     
+		    }     
+		         
+		    
+		    var objPreview = document.getElementById( preview );     
+		    var objPreviewFake = document.getElementById( preview_fake );     
+		    var objPreviewSizeFake = document.getElementById( preview_size_fake );    
+		         
+		    if( sender.files &&  sender.files[0] ){  
+		        var reader = new FileReader();
+				reader.onload = function(evt){objPreview.src = evt.target.result;};
+		        reader.readAsDataURL(sender.files[0]);	   
+		        
+		    }else if( objPreviewFake.filters ){    
+		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
+		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
+		             
+		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
+		        sender.select();     
+		        var imgSrc = document.selection.createRange().text;     
+		        
+		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
+		        autoSizePreview( objPreviewFake,offsetWidth,offsetHeight );     
+		        objPreview.style.display = 'none';     
+		    }     
+		}     
+		    
+		function onPreviewLoad(sender,offsetWidth,offsetHeight){    
+		    autoSizePreview( sender, offsetWidth, offsetHeight );     
+		}     
+		    
+		function autoSizePreview( objPre, originalWidth, originalHeight ){     
+		    var zoomParam = clacImgZoomParam( originalWidth, originalHeight, originalWidth, originalHeight );     
+		    objPre.style.width = zoomParam.width + 'px';     
+		    objPre.style.height = zoomParam.height + 'px';     
+		}     
+		    
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){     
+		    var param = { width:width, height:height, top:0, left:0 };     
+		         
+		    if( width>maxWidth || height>maxHeight ){     
+		        rateWidth = width / maxWidth;     
+		        rateHeight = height / maxHeight;     
+		             
+		        if( rateWidth > rateHeight ){     
+		            param.width =  maxWidth;     
+		            param.height = height / rateWidth;     
+		        }else{     
+		            param.width = width / rateHeight;     
+		            param.height = maxHeight;     
+		        }     
+		    }     
+		         
+		    param.left = (maxWidth - param.width) / 2;     
+		    param.top = (maxHeight - param.height) / 2;     
+		         
+		    return param;     
+		}      
+	</script>
+	
   <body>
   	<jsp:include page="/WEB-INF/include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
@@ -226,17 +271,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        </div>
 		    	</div>
 		    	<p><font color="red" style="margin-left:150px;">*</font>营业执照</p>
-		    	<div>
-		    		<div class="brandImg" style="margin-left:200px;">
-						<span>
-							<a onclick="file0.click()" href="javascript:return false;">点击上传图片</a>
-						</span>
-						<img style="width:229px;height:179px" src="" name="img" id="licenseImg"/>
-					</div>
-					<input type="file" style="display:none" id="file0" name="file0" onchange="filename.value=this.value;loadImgFast(this,0)">
-					<input readonly="readonly" type="text" id="filename" name="filename" style="width: 250px"/>
-					<span></span>
-		    	</div>
+		    	<div class="brandImg">
+					 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+					        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+					            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+					        </div>    
+					    </div>    
+					    <div>    
+					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+					    <input type="hidden" id="filename1" name="filename1">
+					    </div>    
+					    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+				</div>
 				<p style="clear:both;">
 					<font color="red" style="margin-left:150px;">*&nbsp;</font>
 	    			<span style="font-weight:bold;">手机号码：</span>
@@ -256,18 +302,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 	<jsp:include page="../include/footer.jsp"/>
-	<script type="text/javascript">
-			function loadImgFast(img,i){
-				if (img.files && img.files[0]){
-					var reader = new FileReader();
-					reader.onload = function(evt){$(".brandImg:eq("+i+") img")[0].src = evt.target.result;}
-		            reader.readAsDataURL(img.files[0]);
-				}else if(window.navigator.userAgent.indexOf("MSIE")>=1){
-				   	file.select();
-		   			path = document.selection.createRange().text;
-		   			$(".brandImg:eq("+i+") img")[0].src = path;
-		   		}
-			}
-		</script>
   </body>
 </html>
