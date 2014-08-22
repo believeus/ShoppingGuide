@@ -146,11 +146,12 @@ function addclass(obj){
 		});
 		
 		var a =2;
+		var b =1;
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money">设为默认</span>'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div> '   
@@ -169,6 +170,7 @@ function addclass(obj){
 			}
 			
 			a++;
+			b++;
 			
 			$(".middle-money").each(function(){
 				$(this).click(function(){
@@ -346,7 +348,7 @@ function addclass(obj){
 			<table class="main_table1" style="">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:65%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:12px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:65%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:16px;color:#69CDCD;">快速发布商品</a></div></td>
 					<td style="width:10%;">
 						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
 					</td>
@@ -421,7 +423,7 @@ function addclass(obj){
 							<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 						        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-						        	<span class="middle-money">设为默认</span>
+						        	<span class="middle-money" value="0">设为默认</span>
 						        </div>    
 						    </div>    
 						    <div>    
@@ -437,7 +439,7 @@ function addclass(obj){
 				</tr>
 				<tr>
 					<td colspan="3">
-						<input type="hidden" id="moren" name="moren" value="">
+						<input type="hidden" id="moren" name="moren">
 					</td>
 				</tr>
 			</table>

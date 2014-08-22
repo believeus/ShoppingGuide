@@ -1,6 +1,7 @@
 package com.etech.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class ControllerRegistThree {
 		}
 		@SuppressWarnings("unchecked")
 //		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class, "featureType",new Short((short) 0));
-		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class,"featureType", (short)0);
+//		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class,"featureType", (short)0);
+		List<Tfeature> tList = (List<Tfeature>)etechService.findObjectList(Tfeature.class,"featureType", (short)0,"objectFlag","111");
 		request.setAttribute("tList", tList);
 		return "/WEB-INF/register3.jsp";
 	}
@@ -70,8 +72,10 @@ public class ControllerRegistThree {
 		  }
 		  Tshopuser shopuser=(Tshopuser)etechService.findObject(Tshopuser.class, Integer.parseInt(userId));
 		  List<Tshop> shops = shopuser.getShops();
+		  List<Tfeature> tfeatures = new ArrayList<Tfeature>();
 		 for (String featureId : featureIds.split(",")) {
 			Tfeature feature=(Tfeature)etechService.findObject(Tfeature.class, Integer.valueOf(featureId));
+			tfeatures.add(feature);
 			log.debug("feature.name:"+feature.getFeatureName());
 			for (Iterator<Tshop> iterator = shops.iterator(); iterator.hasNext();) {
 				Tshop tshop = (Tshop) iterator.next();
@@ -80,6 +84,17 @@ public class ControllerRegistThree {
 				shopfeature.setShopId(tshop.getShopId());
 				shopfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
 				etechService.merge(shopfeature);
+				String shopFeature = "";
+				for (int i = 0; i < tfeatures.size(); i++) {
+					if (i==tfeatures.size()-1) {
+						shopFeature += tfeatures.get(i).getFeatureName();
+					}else {
+						shopFeature += tfeatures.get(i).getFeatureName()+",";
+					}
+				}
+				tshop.setShopFeature(shopFeature);
+				tshop.setShopFeatureIds(featureIds);
+				etechService.saveOrUpdate(tshop);
 			}
 		 }
 		return "success";

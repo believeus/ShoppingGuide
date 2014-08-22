@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="s_main">
     	<p>所在位置：<a href="/menu.jhtml" title="菜单">菜单</a></p>
-    	<div style="width: auto; height: auto; overflow: hidden;">
+    	<div style="width: 650px; height: auto; overflow: hidden;margin:0 auto;">
     	
     	<c:forEach var="shop" items="${shops}">
     		

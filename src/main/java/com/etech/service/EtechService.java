@@ -33,6 +33,10 @@ public class EtechService {
 	public List<?> findObjectList(Class<?> clazz, Object property,Object value) {
 		return etechComDao.findObjectList(clazz, property, value);
 	}
+	
+	public List<?> findObjectList(Class<?> clazz, Object property,Object value,Object property2,Object value2) {
+		return etechComDao.findObjectList(clazz, property, value, property2, value2);
+	}
 
 	/** 根据id删除对象 */
 	public void delete(Class<?> clazz, Integer id) {
@@ -81,6 +85,5 @@ public class EtechService {
 		
 		return etechComDao.findList(isOnSale,shopId);
 	}
-
 
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -58,7 +59,7 @@ public class ControllerRegistTwo {
 	
 	
 	@RequestMapping(value="/dealRegister2")
-	public void dealRegister2(Tshopuser shopuser,HttpServletRequest request,ServletResponse response){
+	public void dealRegister2(Tshopuser shopuser,HttpServletRequest request,ServletResponse response) throws IOException{
 		String shopuserId=request.getParameter("shopuserId");
 		Tshopuser user = (Tshopuser) etechService.findObject(Tshopuser.class, "shopUserId", Integer.parseInt(shopuserId));
 		if(StringUtils.isEmpty(shopuserId)){
@@ -100,7 +101,7 @@ public class ControllerRegistTwo {
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
 					
 					if(count>1){
-						appendImg+=shopImg+"#";
+						appendImg+=shopImg+",";
 					}else {
 						appendImg+=shopImg;
 					}
@@ -133,12 +134,33 @@ public class ControllerRegistTwo {
 		//店铺默认图片
 		String moren = request.getParameter("moren");
 		if (!StringUtils.isEmpty(moren)) {
-			String[] shopImgPath = appendImg.split("#");
+			String[] shopImgPath = appendImg.split(",");
 			for (int i = 0; i < shopImgPath.length; i++) {
 				if(i == Integer.parseInt(moren)){
 					shop.setShopDefaultPhotoURL((shopImgPath[i]));
+					String defaultPhoto = Variables.shopImgPath+shopImgPath[i];
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);    
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					if (width == null) {
+						shop.setShopDefaultPhotoHeight(0);
+					}else {
+						shop.setShopDefaultPhotoHeight(height);
+					}
+					if (height == null) {
+						shop.setShopDefaultPhotoWidth(0);
+					}else {
+						shop.setShopDefaultPhotoWidth(width);
+					}
 				}
 			}
+		}else {
+			shop.setShopDefaultPhotoHeight(0);
+			shop.setShopDefaultPhotoWidth(0);
 		}
 		shop.setMarket(market);
 		shop.setPriceRange(request.getParameter("priceRange"));
@@ -157,8 +179,6 @@ public class ControllerRegistTwo {
 		shop.setFansCount(0);
 		shop.setPhoneNumber(user.getPhoneNumber());
 		shop.setShopPhotoUrl(appendImg);
-		shop.setShopDefaultPhotoWidth(0);
-		shop.setShopDefaultPhotoHeight(0);
 		String qq = request.getParameter("qq");
 		if(qq != null){
 			shop.setQq(qq);
@@ -166,16 +186,43 @@ public class ControllerRegistTwo {
 			shop.setQq("10000");
 		}
 		etechService.saveOrUpdate(shop);
+		user.setDefaultShopId(shop.getShopId());
+		etechService.saveOrUpdate(user);
 		// shop goodstype many to many goodstype,mapped by goodstype
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+		String shopBusinessScopeIds = "";
+		for (int i = 0; i < goodsTypeIds.length; i++) {
+			if (i==goodsTypeIds.length-1) {
+				shopBusinessScopeIds += goodsTypeIds[i];
+			}else {
+				shopBusinessScopeIds += goodsTypeIds[i] +",";
+			}
+		}
+		shop.setShopBusinessScopeIds(shopBusinessScopeIds);
 		for (String goodsTypeId : goodsTypeIds) {
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			shop.getGoodsTypes().add(goodstype);
 		}
+		List<String> bs = new ArrayList<String>();
+		List<Tgoodstype> goodsTypes = shop.getGoodsTypes();
+		for (Tgoodstype tgoodstype : goodsTypes) {
+			String tgoodsTypeName = tgoodstype.getGoodsTypeName();
+			bs.add(tgoodsTypeName);
+		}
+		String shopBusinessScope = "";
+		for (int i = 0; i < bs.size(); i++) {
+			if (i==bs.size()-1) {
+				shopBusinessScope += bs.get(i);
+			}else {
+				shopBusinessScope += bs.get(i) +",";
+			}
+		}
+ 		shop.setShopBusinessScope(shopBusinessScope);
 		// shop shopusers many to many Tshopuser mapped by shopusers
 		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", Integer.valueOf(shopuserId));
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
+		
 		
 		/*@SuppressWarnings("unchecked")
 		List<Tshop> shops = (List<Tshop>) etechService.findObjectList(Tshop.class,"phoneNumber", Integer.valueOf(user.getPhoneNumber()));

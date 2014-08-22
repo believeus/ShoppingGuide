@@ -28,6 +28,7 @@ public class Tgoods implements java.io.Serializable {
 	private String goodsName;
 	private Short isOnSale;
 	private String goodsFeature;
+	private String goodsFeatureIDs;
 	private String introduction;
 	private Timestamp addTime;
 	private Timestamp stateChangeTime;
@@ -71,7 +72,7 @@ public class Tgoods implements java.io.Serializable {
 
 	/** full constructor */
 	public Tgoods(Integer shopId, String goodsName, Short isOnSale,
-			String goodsFeature, String introduction, Timestamp addTime,
+			String goodsFeature,String goodsFeatureIDs, String introduction, Timestamp addTime,
 			Timestamp stateChangeTime, Short isRecommend, Short examineState,
 			String goodsPhotoUrl, String goodsDefaultPhotoUrl,
 			Integer goodsDefaultPhotoWidth, Integer goodsDefaultPhotoHeight,
@@ -81,6 +82,7 @@ public class Tgoods implements java.io.Serializable {
 		this.goodsName = goodsName;
 		this.isOnSale = isOnSale;
 		this.goodsFeature = goodsFeature;
+		this.goodsFeatureIDs = goodsFeatureIDs;
 		this.introduction = introduction;
 		this.addTime = addTime;
 		this.stateChangeTime = stateChangeTime;
@@ -144,6 +146,15 @@ public class Tgoods implements java.io.Serializable {
 
 	public void setGoodsFeature(String goodsFeature) {
 		this.goodsFeature = goodsFeature;
+	}
+	
+	@Column(name = "GoodsFeatureIDs", length = 65535)
+	public String getGoodsFeatureIDs() {
+		return goodsFeatureIDs;
+	}
+
+	public void setGoodsFeatureIDs(String goodsFeatureIDs) {
+		this.goodsFeatureIDs = goodsFeatureIDs;
 	}
 
 	@Column(name = "Introduction", length = 65535)

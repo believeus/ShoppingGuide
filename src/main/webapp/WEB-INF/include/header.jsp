@@ -47,6 +47,9 @@
 		color:white;
 		cursor:pointer;
 	}
+	input[type='text']{
+		width:340px;
+	}
 </style>
 <script type="text/javascript">
 	$().ready(function(){

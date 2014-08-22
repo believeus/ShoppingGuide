@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.btn_div input{
 			width:70px;
 			height:30px;
-			border:1px solid #CCCCCC;
+			border:1px solid #69CDCD;
 			background:#69CDCD;
 			color:#FFFFFF;
 			border-radius:4px;
@@ -151,7 +151,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <span>修改密码</span>&nbsp;&nbsp;
 		                    <span style="color:#AEAEAE; text-transform:uppercase;">password change</span>
 		                </div>
-		                <div style="width:700px;" class="btn_div"><input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> <input onClick="javascript:window.history.back();" type="button" value="取消" /></div>
+		                <div style="width:700px;" class="btn_div">
+		                	<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
+		                	<input style="width:70px;height:30px;" onClick="javascript:window.history.back();" type="button" value="取消" /></div>
 		            </div>
 		            <img src="/images/line.png" />
 		        </div>

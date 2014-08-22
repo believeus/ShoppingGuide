@@ -234,11 +234,12 @@ $(function(){
 });
 	$().ready(function(){
 		var a=100;
+		var b = $(".shopShow .brandImg").size();
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money">设为默认</span>'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div> '   
@@ -256,6 +257,7 @@ $(function(){
 			}
 			
 			a++;
+			b++;
 			
 			$(".middle-money").each(function(){
 				$(this).click(function(){
@@ -685,7 +687,7 @@ $(function(){
 								 <div id="preview_wrapper${status.index+1}" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 								        <div id="preview_fake${status.index+1}" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 								            <img id="preview${status.index+1}"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.shopURL %>${path }"/>
-								        	<span class="middle-money">设为默认</span>
+								        	<span class="middle-money" value="${status.index}">设为默认</span>
 								        </div>    
 								    </div>    
 								    <div>    

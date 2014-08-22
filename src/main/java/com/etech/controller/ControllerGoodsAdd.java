@@ -53,7 +53,7 @@ public class ControllerGoodsAdd {
 		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 10);
 		request.setAttribute("gList", gList);
 		// Tfeature
-		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0);
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0,"objectFlag","111");
 		request.setAttribute("tfeatures", tfeatures);
 		request.setAttribute("shopId", shopId);
 		String featureIds = request.getParameter("featureIds");
@@ -133,6 +133,7 @@ public class ControllerGoodsAdd {
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setPublishUserId(sessionUser.getShopUserId());
 			tGoods.setAddTime(new Timestamp(System.currentTimeMillis()));
+			tGoods.setStateChangeTime(new Timestamp(System.currentTimeMillis()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
 			tGoods.setShopId(Integer.parseInt(request.getParameter("shopId")));
@@ -171,7 +172,7 @@ public class ControllerGoodsAdd {
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
-					  appendImg+= goodsImg+"#";
+					  appendImg+= goodsImg+",";
 					 
 		              //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
@@ -188,10 +189,20 @@ public class ControllerGoodsAdd {
 			log.debug("goods image sava db url:"+appendImg);
 			String moren = request.getParameter("moren");
 			if (!StringUtils.isEmpty(moren)) {
-				String[] goodsImgPath = appendImg.split("#");
+				String[] goodsImgPath = appendImg.split(",");
 				for (int i = 0; i < goodsImgPath.length; i++) {
 					if(i == Integer.parseInt(moren)){
 						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+						String defaultPhoto = Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImgPath[i];
+						//读入文件    
+						File imgSmall= new File(defaultPhoto);    
+						// 构造Image对象    
+						BufferedImage src = ImageIO.read(imgSmall);
+						//获取默认图片宽高
+						Integer width = src.getWidth();
+						Integer height = src.getHeight();
+						tGoods.setGoodsDefaultPhotoHeight(height);
+						tGoods.setGoodsDefaultPhotoWidth(width);
 					}
 				}
 			}
@@ -202,7 +213,7 @@ public class ControllerGoodsAdd {
 			}
 			etechService.saveOrUpdate(tGoods);
 			if(!featureIds.isEmpty()){
-				tGoods.setGoodsFeature(featureIds);
+				tGoods.setGoodsFeatureIDs(featureIds);
 				for (String featureId : featureIds.split(",")) {
 					Tgoodsfeature goodsfeature=new Tgoodsfeature();
 					goodsfeature.setFeatureId(Integer.parseInt(featureId));
@@ -213,6 +224,16 @@ public class ControllerGoodsAdd {
 					tfeatures.add(tfeature);
 				} 
 			}
+			String goodsFeatureName = "";
+			for (int i = 0; i < tfeatures.size(); i++) {
+				if (i==tfeatures.size()-1) {
+					goodsFeatureName += tfeatures.get(i).getFeatureName();
+				}else {
+					goodsFeatureName += tfeatures.get(i).getFeatureName() +",";
+				}
+			}
+			tGoods.setGoodsFeature(goodsFeatureName);
+			etechService.saveOrUpdate(tGoods);
 			//tGoods.setFeatures(tfeatures);
 			List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class, "shopId",Integer.parseInt(request.getParameter("shopId")));
 			request.setAttribute("tgLi", tgLi);
@@ -244,7 +265,8 @@ public class ControllerGoodsAdd {
 			tGoods.setIsRecommend(Variables.unRecommend);
 			tGoods.setIntroduction(request.getParameter("goodsDetail"));
 			tGoods.setModifyState((short)0);
-			
+			tGoods.setGoodsDefaultPhotoHeight(0);
+			tGoods.setGoodsDefaultPhotoWidth(0);
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> files = multipartRequest.getFileMap();
 			String goodsImg = "";
@@ -266,7 +288,7 @@ public class ControllerGoodsAdd {
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
-					  appendImg+= goodsImg+"#";
+					  appendImg+= goodsImg+",";
 			          //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
@@ -280,7 +302,7 @@ public class ControllerGoodsAdd {
 			log.debug("All path:"+appendImg);
 			String moren = request.getParameter("moren");
 			if (!StringUtils.isEmpty(moren)) {
-				String[] goodsImgPath = appendImg.split("#");
+				String[] goodsImgPath = appendImg.split(",");
 				for (int i = 0; i < goodsImgPath.length; i++) {
 					if(i == Integer.parseInt(moren)){
 						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);

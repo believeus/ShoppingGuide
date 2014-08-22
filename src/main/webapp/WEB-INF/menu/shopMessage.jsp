@@ -211,9 +211,13 @@
    				<tr style="">
 					<td colspan="2" style=""></td>
 					<td>
-					
 						<div class="brandImg">
-							<img style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="img"/>
+							<c:if test="${tshop.businessLicensePhotoUrl == ''}">
+								<img src="" width="229" height="179">
+							</c:if>
+							<c:if test="${tshop.businessLicensePhotoUrl != ''}">
+								<img style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="img"/>
+							</c:if>
 						</div>
 						<div class="main_table3_div3">
 							营业执照号：${tshop.businessLicenseNo }<br/>

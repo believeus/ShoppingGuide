@@ -13,7 +13,6 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.util.Version;
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -127,6 +126,24 @@ public class EtechComDao extends HibernateDaoSupport {
 					}
 				});
 	}
+	
+	public List<?> findObjectList(Class<?> clazz, final Object property,
+			final Object value1, final Object property2, final Object value2) {
+		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value1 and entity." + property2 + " =:value2 order by id desc";
+		return (List<?>) this.getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
+
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = session.createQuery(hql);
+						query.setParameter("value1", value1);
+						query.setParameter("value2", value2);
+						return query.list();
+					}
+				});
+	}
+	
 	public List<?> findObjectList(final Class<?> clazz){
 		
 		return (List<?>)getHibernateTemplate().execute(new HibernateCallback<Object>() {

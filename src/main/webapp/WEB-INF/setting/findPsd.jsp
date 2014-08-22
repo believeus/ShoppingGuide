@@ -91,9 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    border-radius: 2px 2px 2px 2px;
 			    border-style: solid;
 			    border-width: 1px;
-			    background-color: #666666;
+			   /* background-color: #666666; */
 			    width:227px;
-			    height:179px;
+			    height:auto;
 			    position:relative;
 			    float:left;
 			    margin-right:15px;
@@ -112,8 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			.btn_div input{
 				width:70px;
 				height:30px;
-				border:1px solid #CCCCCC;
-				background:#CCCCCC;
+				border:1px solid #69CDCD;
+				background:#69CDCD;
 				color:#FFFFFF;
 				border-radius:4px;
 				cursor:pointer;
@@ -127,8 +127,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <script type="text/javascript">
   	$(function(){
+  		
+  		function timeCountDown(obj,wait){
+  			if(wait == 0){
+  				$(obj).removeAttr("disabled");
+  				$(obj).val("免费获取验证码");
+  				$(obj).css("background","#69CDCD");
+  				wait=60;
+  			}else{
+  				$(obj).attr("disabled","false");
+  				$(obj).val("("+wait+"秒后重新获取短信信息)");
+  				$(obj).css("background","#E7E8EB");
+  				wait--;
+  				setTimeout(function(){
+  					timeCountDown(obj,wait);
+  				},1000)
+  			}
+  		}
+  		
   		$("#validCode").click(function(){
-  			
+			if($("#findPsdForm").validate().element($("#telphoneNum"))){
+  			  	timeCountDown(this,60);
   			 var phoneNumber=$("#telphoneNum").val();
   			  $("#telphoneNum").next().text("");
   			  if(phoneNumber==""){
@@ -147,9 +166,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					  }
   				  },"json");
   			  }
-  			
-  			
+			}
   		});
+  		
   		$("#findPsdForm").validate({
   			rules:{
   				telphoneNum:{
@@ -257,6 +276,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<jsp:include page="/WEB-INF/include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
+	    	<p style="margin:0 auto;width:1000px;">所在位置：
+				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
+   				<a title="找回密码" href="/findPsd.jhtml">找回密码</a>
+			</p>
 	    	<form id="findPsdForm" method="post" action="/findPsdLogic.jhtml" enctype="multipart/form-data">
 		    	<div>
 		    		<div style="padding-top:30px;">
@@ -265,7 +288,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <span>找回密码</span>&nbsp;&nbsp;
 							    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
 							</div>
-							<div style="width:700px;" class="btn_div"><input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> <input type="button" value="取消" /></div>
+							<div style="width:700px;" class="btn_div">
+								<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
+								<input style="width:70px;height:30px;" type="button" value="取消" />
+							</div>
 						</div>
 			            <img src="/images/line.png" />
 			        </div>

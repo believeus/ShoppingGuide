@@ -134,10 +134,8 @@ public class ControllerMenu {
 	public String shopMsg(Integer shopId,HttpServletRequest request){
 		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("tshop", tshop);//shop msg
-		String[] path = tshop.getShopPhotoUrl().split("#");
-		for (int i = 0; i < path.length; i++) {
-			System.out.println(path[i]+"====path");
-		}
+		String[] path = tshop.getShopPhotoUrl().split(",");
+		
 		request.setAttribute("path", path);//shop msg
 		
 //		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
@@ -158,13 +156,13 @@ public class ControllerMenu {
 		Tshop tshop = (Tshop) etechService.findObject(Tshop.class, shopId);
 		request.setAttribute("tshop", tshop);//shop msg
 		
-		String[] path = tshop.getShopPhotoUrl().split("#");
+		String[] path = tshop.getShopPhotoUrl().split(",");
 		request.setAttribute("path", path);//shop photo url
 		
 		List<Tgoodstype> range=(List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class,"parentId",10);
 		request.setAttribute("range", range);//shop range
 		
-		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class, "featureType", (short)0);
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class, "featureType", (short)0,"objectFlag","111");
 		request.setAttribute("features", tfeatures);//shop tfeatures
 		
 		List<Tfeature> shopfeatures = tshop.getFeatures();
@@ -182,9 +180,10 @@ public class ControllerMenu {
 	/**
 	 * update shop
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value="/updateShop")
-	public String updateShop(Integer shopId, HttpServletRequest request){
+	public String updateShop(Integer shopId, HttpServletRequest request) throws IOException{
 		String shopuserId=request.getParameter("shopuserId");
 		String lisenceId=request.getParameter("lisenceId");
 		String featureIds=request.getParameter("featureIds");
@@ -242,7 +241,7 @@ public class ControllerMenu {
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
 					
 					if(count>1){
-						appendImg+=shopImg+"#";
+						appendImg+=shopImg+",";
 					}else {
 						appendImg+=shopImg;
 					}
@@ -260,15 +259,26 @@ public class ControllerMenu {
 			}
 		}
 		log.debug("shop image sava db url:"+appendImg);
-		if (!StringUtils.isEmpty(request.getParameter("moren"))) {
-			String[] shopImgPath = appendImg.split("#");
+		//店铺默认图片
+		String moren = request.getParameter("moren");
+		if (!StringUtils.isEmpty(moren)) {
+			String[] shopImgPath = appendImg.split(",");
 			for (int i = 0; i < shopImgPath.length; i++) {
-				if(i == Integer.parseInt(request.getParameter("moren"))){
+				if(i == Integer.parseInt(moren)){
 					shop.setShopDefaultPhotoURL((shopImgPath[i]));
+					String defaultPhoto = Variables.shopImgPath+shopImgPath[i];
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);    
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					shop.setShopDefaultPhotoHeight(height);
+					shop.setShopDefaultPhotoWidth(width);
 				}
 			}
 		}
-		
 		
 		// get shopName from form
 		String shopName=request.getParameter("shopName");
@@ -313,33 +323,21 @@ public class ControllerMenu {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
-		shop.setShopDefaultPhotoWidth(0);
-		shop.setShopDefaultPhotoHeight(0);
-		//店铺默认图片
-		String moren = request.getParameter("moren");
-		if (!StringUtils.isEmpty(moren)) {
-			String[] shopImgPath = appendImg.split("#");
-			for (int i = 0; i < shopImgPath.length; i++) {
-				if(i == Integer.parseInt(moren)){
-					shop.setShopDefaultPhotoURL((shopImgPath[i]));
-				}
-			}
-		}
 		
 		// 这里会有八张全部都替换了
-		List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split("#")));
+		List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split(",")));
 		log.debug("shop.getShopPhotoUrl()--list:"+oldlist);
-		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split("#")));
+		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split(",")));
 		log.debug("deleteList:"+deleteList);
 		oldlist.removeAll(deleteList);
 		for (String string : oldlist) {
-			appendImg+=string+"#"; 
+			appendImg+=string+","; 
 		}
 		log.debug("shop.getShopPhotoUrl()--list:"+appendImg);
 		shop.setShopPhotoUrl(appendImg);
 		
 		
-		String[] path = shop.getShopPhotoUrl().split("#");
+		String[] path = shop.getShopPhotoUrl().split(",");
 		request.setAttribute("path", path);
 		
 		// shop goodstype many to many goodstype,mapped by goodstype
@@ -653,7 +651,7 @@ public class ControllerMenu {
 		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
 		@SuppressWarnings("unchecked")
 		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
-		String[] paths = shop.getShopPhotoUrl().split("#");
+		String[] paths = shop.getShopPhotoUrl().split(",");
 		request.setAttribute("paths", paths);
 		request.setAttribute("shop", shop);
 		request.setAttribute("tgoods", tgoods);
@@ -679,7 +677,7 @@ public class ControllerMenu {
 	@RequestMapping(value = "/goodsPreview")
 	public String goodsPreview(Integer tgoodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
-		String[] path = tgoods.getGoodsPhotoUrl().split("#");
+		String[] path = tgoods.getGoodsPhotoUrl().split(",");
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, "shopId", tgoods.getShopId());
 		request.setAttribute("path", path);
 		request.setAttribute("tgoods", tgoods);

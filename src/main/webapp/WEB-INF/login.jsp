@@ -136,7 +136,7 @@ body {
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
             		<b>手机号：</b>
-            		<input name="phoneNumber" id="phoneNumber" type="text" placeholder="请输入注册手机号" value=""/>
+            		<input name="phoneNumber" id="phoneNumber" type="text" placeholder="请输入手机号或帐号" value=""/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密&nbsp;&nbsp;&nbsp;码：</b>
