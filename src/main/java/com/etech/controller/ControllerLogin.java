@@ -32,15 +32,14 @@ public class ControllerLogin {
 	@RequestMapping(value = "/ajaxLoginValid")
 	public @ResponseBody String ajaxLoginValid(Tshopuser shopuser,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession();
-		String userName = request.getParameter("phoneNumber");
-		log.debug("current user phoneNumber:"+shopuser.getPhoneNumber());
+		String userName = request.getParameter("userName");
+		log.debug("current user phoneNumber:"+shopuser.getUserName());
 		log.debug("current user passowrd:"+shopuser.getPassword());
-		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, Variables.phoneNumber, userName);
-		Tshopuser sessionUser2 = (Tshopuser) etechService.findObject(Tshopuser.class, Variables.username, userName);
+		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, Variables.username, userName);
 		
 			if(!StringUtils.isEmpty(sessionUser)){
-				log.debug("sessionUser phoneNumber:"+sessionUser.getPhoneNumber()+" formUser phoneNumber:"+shopuser.getPhoneNumber());
-				if(sessionUser.getPhoneNumber().equals(userName)){
+				log.debug("sessionUser phoneNumber:"+sessionUser.getUserName()+" formUser phoneNumber:"+shopuser.getUserName());
+				if(sessionUser.getUserName().equals(userName)){
 					String password =DigestUtils.md5Hex(request.getParameter("password"));
 					log.debug(password);
 					if(sessionUser.getPassword().equals(password)){
@@ -62,41 +61,17 @@ public class ControllerLogin {
 						if(!StringUtils.isEmpty(rememberme)){
 							cookieUtil.saveCookie(userName, password, response);
 						}
+						sessionUser.setLoginCount(sessionUser.getLoginCount()+1);
+						etechService.saveOrUpdate(sessionUser);
 						return "/menu.jhtml";
 					}
 				}else {
 					return "error";
 				}
-			}else if(!StringUtils.isEmpty(sessionUser2)){
-				String password =DigestUtils.md5Hex(request.getParameter("password"));
-				if (sessionUser2.getUserName().equals(userName)) {
-					if(sessionUser2.getPassword().equals(password)){
-						sessionUser2.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
-						Integer loginCount = sessionUser2.getLoginCount();
-						sessionUser2.setLoginCount(loginCount++);
-						Tshopuserlogin userLogin=new Tshopuserlogin();
-						userLogin.setLoginTime(new Timestamp(System.currentTimeMillis()));
-						userLogin.setLoginType(Variables.webLogin);
-						String remoteIp = request.getHeader("X-Real-IP");
-						userLogin.setIpaddress(remoteIp);
-						userLogin.setShopuser(sessionUser2);
-						etechService.saveOrUpdate(userLogin);
-						session.setAttribute(Variables.sessionUser,sessionUser2);
-						if(sessionUser2.getShops().isEmpty()){
-							return "/register2.jhtml";
-						}
-						String rememberme = request.getParameter("rememberme");
-						if(!StringUtils.isEmpty(rememberme)){
-							cookieUtil.saveCookie(userName, password, response);
-						}
-						return "/menu.jhtml";
-					}
-				}
 			}else {
 				return "error";
 			}
 			return "error";
-		
 	}
 	
 	@RequestMapping(value="/login")

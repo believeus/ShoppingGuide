@@ -158,6 +158,8 @@ hr {
 			'inertia': 200
 		});
 		$(".promptumenu_window").css("height","417px");
+		$(".promptumenu_window").css("cursor","url(/images/hand.ico),move");
+		$(".promptumenu_window img").css("cursor","url(/images/hand.ico),move");
 		//alert($("#div_0").css("height"));
 	});
 	</script>

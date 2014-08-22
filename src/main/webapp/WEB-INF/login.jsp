@@ -85,7 +85,7 @@ body {
 <script type="text/javascript">
 	$().ready(function() {
 		$("#login").click(function() {
-			if($("#phoneNumber").val() == "" || $("#password").val() == ""){
+			if($("#userName").val() == "" || $("#password").val() == ""){
 				$("#check").css("display","block");
 			}else{
 				$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
@@ -100,7 +100,7 @@ body {
 		document.onkeydown = function(e){
 		    var ev = document.all ? window.event : e;
 		    if(ev.keyCode==13) {
-		    	if($("#phoneNumber").val() == "" || $("#password").val() == ""){
+		    	if($("#userName").val() == "" || $("#password").val() == ""){
 		    		$("#check").css("display","block");
 		    	}else{
 		    		$.post("/ajaxLoginValid.jhtml",$("#loginForm").serialize(),function(message){
@@ -136,7 +136,7 @@ body {
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
             		<b>手机号：</b>
-            		<input name="phoneNumber" id="phoneNumber" type="text" placeholder="请输入手机号或帐号" value=""/>
+            		<input name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value=""/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密&nbsp;&nbsp;&nbsp;码：</b>

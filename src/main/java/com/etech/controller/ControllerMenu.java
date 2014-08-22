@@ -74,7 +74,7 @@ public class ControllerMenu {
 	public String menuView(String phoneNumber,HttpServletRequest request,HttpSession session){
 		
 		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
-		sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "phoneNumber", sessionUser.getPhoneNumber());
+		sessionUser = (Tshopuser) userService.findObject(Tshopuser.class, "userName", sessionUser.getUserName());
 		if (sessionUser != null) {
 			List<Tshop> shops = sessionUser.getShops();
 			request.setAttribute("shops", shops);
@@ -347,6 +347,7 @@ public class ControllerMenu {
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			shop.getGoodsTypes().add(goodstype);
 		}
+		shop.setState((short)0);
 		etechService.saveOrUpdate(shop);//更新 
 
 		session.setAttribute(Variables.sessionUser, sessionUser);

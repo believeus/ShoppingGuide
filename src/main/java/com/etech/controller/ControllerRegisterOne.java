@@ -76,6 +76,7 @@ public class ControllerRegisterOne {
 		shopuser.setScore(0);
 		shopuser.setGrade((short)1);
 		shopuser.setGender(Variables.man);
+		shopuser.setPhoneNumber(shopuser.getPhoneNumber());
 		// 创建时间
 		shopuser.setAddTime(new Timestamp(System.currentTimeMillis()));
 		shopuser.setState((short)Variables.reviewing);
