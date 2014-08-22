@@ -205,6 +205,10 @@ public class ControllerGoodsAdd {
 						tGoods.setGoodsDefaultPhotoWidth(width);
 					}
 				}
+			}else {
+				tGoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
+				tGoods.setGoodsDefaultPhotoHeight(0);
+				tGoods.setGoodsDefaultPhotoWidth(0);
 			}
 			if(goodsImg ==""){
 				tGoods.setGoodsPhotoUrl("95f220ae-8a37-45a8-8d26-0629897b9f4b.jpg");
@@ -308,6 +312,10 @@ public class ControllerGoodsAdd {
 						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
 					}
 				}
+			}else {
+				tGoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
+				tGoods.setGoodsDefaultPhotoHeight(0);
+				tGoods.setGoodsDefaultPhotoWidth(0);
 			}
 			log.debug("shop image sava db url:"+shopImg);
 			tGoods.setGoodsPhotoUrl(appendImg);
