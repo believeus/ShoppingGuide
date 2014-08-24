@@ -35,4 +35,9 @@ public class WebServiceValidCode {
 		}
 		return validCode;
 	}
+	
+	public static void main(String[] args) {
+		String str = "湖北省武汉市洪山区街道口未来城E座2401";
+		System.out.println(str.substring(str.indexOf("区")+1));
+	}
 }

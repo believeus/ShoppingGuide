@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			},
 	  			numberCode:{
 	  				required: true,
-	  				remote:"/validateNumberCode.jhtml"
+	  				//remote:"/validateNumberCode.jhtml"
 	  			}
 			},
 			messages: {

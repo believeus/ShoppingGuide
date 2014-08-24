@@ -371,7 +371,32 @@
 		    return param;     
 		}      
 	</script>  
-	
+	<script type="text/javascript">
+		$().ready(function(){
+			
+			$("#market").change(function(){
+				var str = $("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text()+$("#market").find("option:selected").text();
+				$(".markert").append("<input type='hidden' name='area' value='"+str+"'>");
+			});
+			/* $("#priceRange").blur(function(){
+				var str = $("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text()+$("#market").find("option:selected").text();
+				var area = $("#suggestId").val();
+				//alert(area.substring(area.indexOf("区")+1));
+				//alert(str.substring(str.indexOf("区")+1));
+				alert(area.substring(area.indexOf(str)));
+				var isture = area.indexOf(str);
+				alert(isture);
+				if(isture == -1){
+					$("#suggestId").val("其他");
+				}else{
+					var a = area.substring(area.indexOf("区")+1);
+					alert(a);
+					$("#suggestId").val(a);
+				}
+			}); */
+		});
+		
+	</script>
 	<script type="text/javascript">
 		function delete_pic(object){		
 			$(object).closest("div").parent().remove();
@@ -410,7 +435,7 @@
 					 onkeyup="value=this.value.replace(/\D+/g,'')" maxlength="11"
 					 style="width:345px;height:35px;line-height:35px;">
 				</p>
-				<p>
+				<p class="markert">
 					<font color="red">*</font> <span style="font-weight:normal;">所在商场:</span>
 					<script type="text/javascript" src="/js/cascading.js"></script>
 					<script type="text/javascript">
@@ -425,10 +450,10 @@
 						    });
 					  });
 					</script>
-					<select id="provinceId"></select>
-					<select id="cityId"></select>
-					<select id="areaId"></select>
-					<select id="market"></select>
+					<select id="provinceId" name="provinceId"></select>
+					<select id="cityId" name="cityId"></select>
+					<select id="areaId" name="areaId"></select>
+					<select id="market" name="market"></select>
 					<input type="text" style="width: 0px;border:0;" name="marketId" id="marketId"/>
 					<span></span>
 				</p>

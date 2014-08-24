@@ -34,6 +34,7 @@ import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
 import com.etech.webutil.ImageUtil;
 import com.etech.webutil.LatitudeUtils;
+import com.etech.webutil.WebServiceQRCode;
 
 @Controller
 public class ControllerRegistTwo {
@@ -167,7 +168,16 @@ public class ControllerRegistTwo {
 		shop.setBusinessLicenseNo(request.getParameter("businessLicenseNo"));
 		shop.setShopName(shopName);
 		shop.setShopOwnerName(shopOwnerName);
-		shop.setAddress(address);
+		String addressNew = request.getParameter("area");
+		String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
+		String str2 = address.substring(0,address.indexOf("区")+1);
+		String are = "其他";
+		if(str1 == str2){
+			are = addressNew.substring(addressNew.indexOf("区")+1);
+			shop.setAddress(are);
+		}else{
+			shop.setAddress(are);
+		}
 		shop.setBusinessLicensePhotoUrl(licenseImg);
 		shop.setIsRecommend(Variables.unRecommend);
 		shop.setLatitude(Double.valueOf(lat));
@@ -222,7 +232,9 @@ public class ControllerRegistTwo {
 		Tshopuser currentUser=(Tshopuser) etechService.findObject(Tshopuser.class,"shopUserId", Integer.valueOf(shopuserId));
 		shop.getShopusers().add(currentUser);
 		etechService.saveOrUpdate(shop);
-		
+		String qrCode = WebServiceQRCode.getQRCode(shop.getShopId()+"");
+		shop.setQrcode(qrCode);
+		etechService.saveOrUpdate(shop);
 		
 		/*@SuppressWarnings("unchecked")
 		List<Tshop> shops = (List<Tshop>) etechService.findObjectList(Tshop.class,"phoneNumber", Integer.valueOf(user.getPhoneNumber()));
