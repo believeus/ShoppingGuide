@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.etech.dao.Page;
+import com.etech.dao.Pageable;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodspraisehistory;
@@ -51,6 +53,7 @@ import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.ImageUtil;
 import com.etech.webutil.LatitudeUtils;
+import com.etech.webutil.PaginationUtil;
 /**
  * menu
  * @author ztx
@@ -97,10 +100,19 @@ public class ControllerMenu {
 	 * my goods
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/myProducts")
 	public String productView(HttpServletRequest request,Integer shopId){
-		@SuppressWarnings("unchecked")
-		List<Tgoods> tgLi = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
+		String pageNumber = request.getParameter("pageNumber");
+		// 如果为空，则设置为1
+		if (StringUtils.isEmpty(pageNumber)) {
+			pageNumber="1";
+		}
+		Pageable pageable=new Pageable(Integer.valueOf(pageNumber),3);
+		String hql = "from Tgoods as entity where entity.shopId ="+shopId+" order by id desc";
+		Page<?> page = etechService.findObjectList(hql, pageable);
+		
+		List<Tgoods> tgLi = (List<Tgoods>) page.getContent();
 		request.setAttribute("tgLi", tgLi);
 		List<Tgoods> tgoods1 = new ArrayList<Tgoods>();
 		List<Tgoods> tgoods2 = new ArrayList<Tgoods>();
@@ -123,8 +135,10 @@ public class ControllerMenu {
 		request.setAttribute("tgoods3", tgoods3);
 		request.setAttribute("tgoods4", tgoods4);
 		
-		request.setAttribute("size", tgLi.size());
+		request.setAttribute("size",page.getTotal());
 		request.setAttribute("shopId", shopId);
+		// 分页
+		PaginationUtil.pagination(request, page.getPageNumber(),page.getTotalPages(), 0);
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
 	/**

@@ -19,11 +19,11 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 
 <script language="JavaScript" src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="css/pagination.css">
+<script type="text/javascript" src="js/pagination.js"></script>
 
 <style type="text/css">
 .s_main {
@@ -248,6 +248,8 @@
 	background:#5AB5B6;
 	color:#FFFFFF;
 }
+
+
 </style>
 <script type="text/javascript">
 	$().ready(function() {
@@ -590,7 +592,12 @@
 		</div>
 		
 	</div>
-
+	<div>
+		<form action="myProducts.jhtml" id="listForm">
+			<input type="hidden" name="shopId" value="${shopId }">
+			<jsp:include page="../include/pagination.jsp" flush="true" />
+	</form>
+	</div>
 		<!-- 引用尾部页面 -->
 		<jsp:include page="../include/footer.jsp" flush="true" />
 		

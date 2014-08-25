@@ -201,7 +201,7 @@ public class EtechComDao extends HibernateDaoSupport {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Query query = session.createQuery(hql);
-				double total = (Double) query.uniqueResult();
+				long total = query.list().size();
 				query = session.createQuery(hql);
 				int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 				if (totalPages < pageable.getPageNumber()) {
