@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -166,9 +167,10 @@ public class ControllerGoodsAdd {
 					log.debug("upload file name:"+file.getName());
 					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
-					  UUID randomUUID = UUID.randomUUID(); 
-					  goodsImg=randomUUID+"."+extention;
-					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+randomUUID+"_small."+extention;
+//					  UUID randomUUID = UUID.randomUUID(); 
+					  String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
+					  goodsImg=GUID+"."+extention;
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+GUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
@@ -286,9 +288,10 @@ public class ControllerGoodsAdd {
 					log.debug("upload file name:"+file.getName());
 					if(file.getName().contains("goodsImg")){
 					  // get the goods save path
-					  UUID randomUUID = UUID.randomUUID(); 
-					  goodsImg=randomUUID+"."+extention;
-					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+randomUUID+"_small."+extention;
+//					  UUID randomUUID = UUID.randomUUID(); 
+					  String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
+					  goodsImg=GUID+"."+extention;
+					  String goodsImgSmall=Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+GUID+"_small."+extention;
 					  log.debug("upload path:"+Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));

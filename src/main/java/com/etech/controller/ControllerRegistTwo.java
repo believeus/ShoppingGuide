@@ -5,10 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -75,7 +76,8 @@ public class ControllerRegistTwo {
 		String appendImg="";
 		int count=0;
 		for (MultipartFile file : files.values()) {
-			UUID randomUUID = UUID.randomUUID(); 
+//			UUID randomUUID = UUID.randomUUID();
+			String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
 			InputStream inputStream;
 			count++;
 			try {
@@ -88,17 +90,17 @@ public class ControllerRegistTwo {
 				String smallPath="";
 				if(file.getName().equals("shopLicenseImg")){
 				  // get the license save path
-				  licenseImg=randomUUID+"."+extention;
+				  licenseImg=GUID+"."+extention;
 				  path=Variables.shopLicenseImgPath+licenseImg;
 				  // 缩略图
-				  smallPath=Variables.shopLicenseImgPath+randomUUID+"_small."+extention;
+				  smallPath=Variables.shopLicenseImgPath+GUID+"_small."+extention;
 				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
 				  
 				}else {
-					shopImg=randomUUID+"."+extention;
+					shopImg=GUID+"."+extention;
 					path=Variables.shopImgPath+shopImg;
 					// 缩略图
-					smallPath=Variables.shopImgPath+randomUUID+"_small."+extention;
+					smallPath=Variables.shopImgPath+GUID+"_small."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
 					
 					if(count>1){

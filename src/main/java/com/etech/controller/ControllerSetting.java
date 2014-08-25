@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -74,9 +76,10 @@ public class ControllerSetting {
 				String originName=file.getOriginalFilename();
 				String extention = originName.substring(originName.lastIndexOf(".") + 1);
 				 // get the license save path
-				UUID randomUUID = UUID.randomUUID(); 
-				licenseImg=randomUUID+"."+extention;
-				String licenseSmallImg=Variables.shopLicenseImgPath+randomUUID+"_small."+extention;
+//				UUID randomUUID = UUID.randomUUID(); 
+				String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
+				licenseImg=GUID+"."+extention;
+				String licenseSmallImg=Variables.shopLicenseImgPath+GUID+"_small."+extention;
 				log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
 				log.debug("upload small path:"+licenseSmallImg);
 				FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));

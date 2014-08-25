@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -37,9 +40,7 @@ public class WebServiceQRCode {
 		}
 		return QRCode;
 	}
-public static void main(String[] args) {
-//	String str1 = "湖北省武汉市洪山区乐天城";
-//	String str2 = "湖北省武汉市洪山区乐天城一楼";
-	
-}
+	public static void main(String[] args) {
+		System.out.println(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000));
+	}
 }

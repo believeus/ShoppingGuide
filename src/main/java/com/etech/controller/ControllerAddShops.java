@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -69,13 +71,13 @@ public class ControllerAddShops {
 				log.debug("upload file name:"+file.getName());
 				if(file.getName().equals("shopLicenseImg")){
 				  // get the license save path
-				  licenseImg=UUID.randomUUID()+"."+extention;
+				  licenseImg=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000)+"."+extention;
 				  log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
 				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
 				}else {
-					shopImg=UUID.randomUUID()+"."+extention;
+					shopImg=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000)+"."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
-					shopImg+="#";
+					shopImg+=",";
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
