@@ -1,5 +1,6 @@
 package com.etech.webutil;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -7,7 +8,9 @@ import java.net.URL;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+
 import com.etech.variable.Variables;
 
 public class WebServiceQRCode {
@@ -28,6 +31,7 @@ public class WebServiceQRCode {
 			 JSONObject json = JSONObject.fromObject(QRCode);
 			 QRCode=json.getString("data");
 			 QRCode=(String)JSONObject.fromObject(JSONArray.fromObject(QRCode).get(0)).get("Result");
+			 FileUtils.copyInputStreamToFile(in,new File(Variables.shopQRCodePath+QRCode));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

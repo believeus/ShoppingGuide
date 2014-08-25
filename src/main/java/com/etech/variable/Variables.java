@@ -56,6 +56,8 @@ public class Variables {
 	public static final String shopImgPath=PropertiesUtils.findValue("shopping.properties", "ShopImgPath");
 	// the goods image save path
 	public static final String goodsPhotoImgPath=PropertiesUtils.findValue("shopping.properties", "GoodsPhotoImgPath");
+	// the shop QRCode
+	public static final String shopQRCodePath=PropertiesUtils.findValue("shopping.properties", "ShopQRCodePath");
 	// the shop licence save path
 	public static final String shopLicenseImgPath=PropertiesUtils.findValue("shopping.properties", "ShopLicenseImgPath");
 	// the shop logo save path

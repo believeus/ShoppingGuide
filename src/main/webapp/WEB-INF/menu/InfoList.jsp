@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		table td:first-of-type p:nth-child(2) {
 			width:650px;
 			color:#666;
+			line-height:25px;
 		}
 		table td:nth-child(2) p {
 			width:200px;
@@ -94,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>
 	    <div style="width:1000px; margin:0px auto; background-color:#fff; border:1px solid #ccc;">
 	    	<p>所在位置：
-	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="/menu.jhtml" title="菜单">菜单</a> &gt;
 	   			<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a>
 			</p>
 	    	<div style="padding-top:30px;">
@@ -122,7 +123,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    		<a href="/information.jhtml?newsId=${news.newsId}" title="${news.title}">${news.title}</a>
 	                    		</p>
 		                    	<p title="${news.content}">
-		                    		${fn:substring(news.content, 0, 40)}...
+		                    		<%-- ${fn:substring(news.content, 0, 400)} --%>
+		                    		${news.content}
 		                    	</p>
 		                    </td>
 		                    <td>
@@ -133,9 +135,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </c:forEach>
 	            </table>
 	        </div>
-	        <!-- <div style="width:800px; margin:auto;">
-	        	<p style="text-align:right;">上一页《 1 2 3 4 5 》 下一页</p>
-	        </div> -->
 	   </div>
 	</div>
     <jsp:include page="../include/footer.jsp"/>
