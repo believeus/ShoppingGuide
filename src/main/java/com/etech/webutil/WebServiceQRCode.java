@@ -38,9 +38,8 @@ public class WebServiceQRCode {
 		return QRCode;
 	}
 public static void main(String[] args) {
-	String str2 = "湖北省武汉市洪山区乐天城一楼";
-	int a = str2.indexOf("区");
-	String area = str2.substring(0,a+1);
-	System.out.println(area);
+//	String str1 = "湖北省武汉市洪山区乐天城";
+//	String str2 = "湖北省武汉市洪山区乐天城一楼";
+	
 }
 }

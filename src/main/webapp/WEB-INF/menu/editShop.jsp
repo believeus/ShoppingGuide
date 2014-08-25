@@ -233,6 +233,12 @@ $(function(){
 	});
 });
 	$().ready(function(){
+		//
+		$("#market").change(function(){
+			var str = $("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text()+$("#market").find("option:selected").text();
+			$("#marketName").append("<input type='hidden' name='area' value='"+str+"'>");
+		});
+		
 		var a=100;
 		var b = $(".shopShow .brandImg").size();
 		$("#add_img").click(function(){

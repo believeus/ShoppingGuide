@@ -298,14 +298,20 @@ public class ControllerMenu {
 			String lng=latitude.get("lng");
 			shop.setLatitude(Double.valueOf(lat));
 			shop.setLongitude(Double.valueOf(lng));
-			shop.setAddress(address);
+			//shop.setAddress(address);
 		}else {
 			Map<String, String> latitude = LatitudeUtils.getLatitude(address);
 			String lat=latitude.get("lat");
 			String lng=latitude.get("lng");
 			shop.setLatitude(Double.valueOf(lat));
 			shop.setLongitude(Double.valueOf(lng));
+			//shop.setAddress(address);
+		}
+		String addressNew = request.getParameter("area");
+		if (addressNew.equals(address)) {
 			shop.setAddress(address);
+		}else {
+			shop.setAddress("其他");
 		}
 		String priceRange = request.getParameter("priceRange");
 		shop.setPriceRange(priceRange);
