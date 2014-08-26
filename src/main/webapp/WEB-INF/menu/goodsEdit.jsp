@@ -102,7 +102,7 @@
 	    cursor:pointer;
 	}
 	#drag_con tr {
-	    line-height: 	34px;
+	    line-height: 34px;
 	}
 	.tab1 {
 	    width: 900px;
@@ -132,12 +132,12 @@ function addclass(obj){
 	}
 }
 	$().ready(function(){
-		
+		var features = new Array();
 		<c:forEach var="feature" items="${tgoodsFeatures }">
 			$("p[value='${feature.featureId}']").attr("class","inputClass");
-			//features.push(${feature.featureId});
+			features.push(${feature.featureId});
 		</c:forEach>
-		
+		$("#featureIds").val(features);
 		
 		$("#pid").change(function(){
 			//alert($(this).val());
@@ -412,7 +412,7 @@ function addclass(obj){
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品编辑</p></td>
 					<td style="width:65%;"></td>
 					<td style="width:10%;">
-						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="保存" />
 					</td>
 					<td style="width:10%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
@@ -434,12 +434,12 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<div id="selectGoodsType" style="float:left;">
+						<div id="selectGoodsType" style="float:left;height:32px;line-height:32px;">
 							<c:forEach items="${goodsTypes }" var="goodsType">
-								<label><input type="checkbox" checked="checked">${goodsType.goodsTypeName }</label>
+								<label><input type="checkbox" onClick="return false;" checked="checked">${goodsType.goodsTypeName }</label>
 							</c:forEach>
 						</div> 
-						<a href="javascript:void(0);" style="color:red;" onClick="boxAlpha();">修改</a>
+						<input type="button" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" onclick="boxAlpha();" value="修改商品类型" id="">
 						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
 						-->
 					</td>
@@ -503,7 +503,7 @@ function addclass(obj){
 				</tr>
 				<tr style="">
 					<td colspan="3" style="text-align:right;">
-						<input type="submit" style="margin-right:30px;border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+						<input type="submit" style="margin-right:30px;border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="保存" />
 						<input style="margin-right:30px;border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
 				</tr>
@@ -547,7 +547,7 @@ function addclass(obj){
 						var list = msg.data;
 						$("#sublist").html("");
 						for(var i=0;i<list.length;i++){
-							var html = "<label style='width:220px;height:25px;overflow:hidden;float:left;'><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"' desc='"+list[i].goodsTypeName+"'>"+list[i].goodsTypeName+"</label>";
+							var html = "<label style='width:150px;height:25px;overflow:hidden;float:left;'><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"' desc='"+list[i].goodsTypeName+"'>"+list[i].goodsTypeName+"</label>";
 							$("#sublist").append(html);
 							$("#sublist").css({
 								top:e.pageY-129,
@@ -645,7 +645,7 @@ function addclass(obj){
 				</c:forEach>
 			</tr>
 		</table>
-		<div id="sublist" class="" style="width:440px;display:none;"></div>
+		<div id="sublist" class="" style="width:300px;display:none;"></div>
 			
 			<%-- <select name="pid" id="pid">
 				<option value="">请选择..</option>

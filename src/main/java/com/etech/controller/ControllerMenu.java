@@ -37,6 +37,7 @@ import com.etech.dao.Page;
 import com.etech.dao.Pageable;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tgoodspraisehistory;
 import com.etech.entity.Tgoodsviewhistory;
 import com.etech.entity.Tmarket;
@@ -183,6 +184,8 @@ public class ControllerMenu {
 		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
 		
 		//-商品2级分类----------------------------
+		//id等于10的是一级分类
+		//select * from Tgoodstype where parentId=10; 找出parentId等于10的二级分类
 		List<Tgoodstype> gt1 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 31);
 		request.setAttribute("gt1", gt1);
 		List<Tgoodstype> gt2 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 32);
@@ -210,10 +213,22 @@ public class ControllerMenu {
 	 * @param goodsId
 	 * @param request
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value="/updateGoods")
-	public String updateGoods(Integer goodsId,HttpServletRequest request){
+	public String updateGoods(Integer goodsId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		tgoods.setGoodsName(request.getParameter("goodsName"));
+		tgoods.setIntroduction(request.getParameter("goodsDetail"));
+		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+		if (!StringUtils.isEmpty(goodsTypeIds)) {
+			for (String goodsTypeId : goodsTypeIds) {
+				Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
+				tgoods.getGoodsTypes().add(goodstype);
+			}
+		}
+		String featureIds=request.getParameter("featureIds");
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
 		String deleteImgs = request.getParameter("deleteImgs");
 		if (StringUtils.isEmpty(deleteImgs)) {
 			deleteImgs="";
@@ -221,7 +236,7 @@ public class ControllerMenu {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
 		String goodsImg = "";
-		String appendImg = "";
+		String appendImg = ""; 
 		for (MultipartFile file : files.values()) {
 			InputStream inputStream;
 			try {
@@ -249,6 +264,35 @@ public class ControllerMenu {
 			}
 		}
 		log.debug("All path:"+appendImg);
+		String moren = request.getParameter("moren");
+		if (!StringUtils.isEmpty(moren)) {
+			String[] goodsImgPath = appendImg.split(",");
+			for (int i = 0; i < goodsImgPath.length; i++) {
+				if(i == Integer.parseInt(moren)){
+					tgoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+					String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImgPath[i];
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);    
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					tgoods.setGoodsDefaultPhotoHeight(height);
+					tgoods.setGoodsDefaultPhotoWidth(width);
+				}
+			}
+		}else { 
+			String imgPath ="";
+			if (appendImg == "") {
+				imgPath = tgoods.getGoodsPhotoUrl().split(",")[0];
+				tgoods.setGoodsDefaultPhotoUrl(imgPath);
+			}else {
+				tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
+			}
+			tgoods.setGoodsDefaultPhotoHeight(0);
+			tgoods.setGoodsDefaultPhotoWidth(0);
+		}
 		
 		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));
 		log.debug("tgoods.getGoodsPhotoUrl()--list:"+oldlist);
@@ -261,8 +305,34 @@ public class ControllerMenu {
 		log.debug("tgoods.getGoodsPhotoUrl()--list:"+appendImg);
 		// 设置图片。
 		tgoods.setGoodsPhotoUrl(appendImg);
+		tgoods.getFeatures().removeAll(tgoods.getFeatures());
 		etechService.saveOrUpdate(tgoods);
+		if(!featureIds.isEmpty()){
+			tgoods.setGoodsFeatureIDs(featureIds);
+			for (String featureId : featureIds.split(",")) {
+				Tgoodsfeature goodsfeature=new Tgoodsfeature();
+				goodsfeature.setFeatureId(Integer.parseInt(featureId));
+				goodsfeature.setGoodsId(tgoods.getGoodsId());
+				goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+				etechService.merge(goodsfeature);
+				Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", Integer.parseInt(featureId));
+				tfeatures.add(tfeature);
+			} 
+		}
+		String goodsFeatureName = "";
+		for (int i = 0; i < tfeatures.size(); i++) {
+			if (i==tfeatures.size()-1) {
+				goodsFeatureName += tfeatures.get(i).getFeatureName();
+			}else {
+				goodsFeatureName += tfeatures.get(i).getFeatureName() +",";
+			}
+		}
+		tgoods.setGoodsFeature(goodsFeatureName);
+		etechService.saveOrUpdate(tgoods);
+//		response.sendRedirect("/goodsPreview.jhtml?tgoodsId="+tgoods.getGoodsId());
+//		return "/WEB-INF/menu/goodsPreview.jsp";
 		return "redirect:/goodsMsg.jhtml?goodsId="+tgoods.getGoodsId();
+//		return "/WEB-INF/menu/myProducts.jsp";
 	}
 	
 	/**
@@ -458,7 +528,7 @@ public class ControllerMenu {
 			}
 		} 
 		String addressNew = request.getParameter("area");
-		if (addressNew != null) {
+		/*if (addressNew != null) {
 			if (addressNew.equals(address)) {
 				shop.setAddress(address);
 			}else {
@@ -466,6 +536,15 @@ public class ControllerMenu {
 			}
 		}else {
 			shop.setAddress("其他");
+		}*/
+		String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
+		String str2 = address.substring(0,address.indexOf("区")+1);
+		String are = "其他";
+		if(str1.equals(str2)){
+			are = address.substring(address.indexOf("区")+1);
+			shop.setAddress(are);
+		}else{
+			shop.setAddress(are);
 		}
 		String priceRange = request.getParameter("priceRange");
 		shop.setPriceRange(priceRange);
