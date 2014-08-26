@@ -114,7 +114,8 @@
 }
 
 .pro_hit_span {
-	background: #58B3B4;
+	background: url(/images/bg.png);
+	background-position:-360px -417px;
 	color: #FFFFFF;
 	border-radius: 2px;
 	padding: 0 4px;
@@ -122,6 +123,8 @@
 	line-height: 25px;
 	cursor: pointer;
 	margin-right:3px;
+	width:70px;
+	text-align:center;
 }
 
 .p_list01 {
@@ -171,9 +174,9 @@
 	float:left;
 	background:url(/images/bg.png);
 	background-position:-358px -387px;
-	width:75px;
+	width:80px;
 	height:25px;
-	text-align:right;
+	text-align: center;
 	color:#FFFFFF;
 	line-height:25px;
 }
@@ -452,8 +455,8 @@
 		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
-						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -481,7 +484,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -504,8 +507,8 @@
 		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
-						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -533,7 +536,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -556,8 +559,8 @@
 		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
-						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
 					</div>
 				</div>
 			</c:forEach>
@@ -585,7 +588,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -608,8 +611,8 @@
 		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
-						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
-						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}点击</span></a>
+						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
+						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
 					</div>
 				</div>
 			</c:forEach>

@@ -120,7 +120,15 @@ var Drag = {
 	}
 };
 
+
 var masked=false;
+
+$("#cancel").click(function(){
+	$("#maskLayer").hide();
+	masked=false;
+	$("#drag").hide();
+});
+
 // 全屏遮罩层
 function boxAlpha (){
 	if (masked==false){

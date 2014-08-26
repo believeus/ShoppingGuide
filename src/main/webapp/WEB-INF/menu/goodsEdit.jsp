@@ -26,7 +26,6 @@
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
 <script language="JavaScript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
-<script type="text/javascript" src="/js/drag.js"></script>
 <script language="JavaScript" src="js/dtree.js"></script>
 	<style type="text/css">
 		.inputClass{
@@ -101,6 +100,27 @@
 	    text-align: center;
 	    width: 230px;
 	    cursor:pointer;
+	}
+	#drag_con tr {
+	    line-height: 	34px;
+	}
+	.tab1 {
+	    width: 900px;
+	}
+	.tab1 tr {
+	    line-height: 32px !important;
+	}
+	.tab1 td {
+	    font-size: 13px;
+	    text-align:center;
+	}
+	.tab_ td {
+	    color: #69CDCD;
+	    font-weight: bold;
+	}
+	.td1:hover{
+		background:#69CDCD;
+		color:#FFFFFF;
 	}
 </style>
 <script type="text/javascript">
@@ -502,7 +522,38 @@ function addclass(obj){
 					
 				}
 	    	});
+	    
+	    
+	    $(".td1").each(function(){
+	    	$(this).click(function(e){
+	    		//alert($(this).attr("value"));
+	    		$.ajax({
+		    		type : "post",
+					url : "/findChildGoodsType.jhtml",
+					dataType : "json",
+					data :{"cId":$(this).attr("value")},
+					success : function(msg) {
+						var list = msg.data;
+						$("#sublist").html("");
+						for(var i=0;i<list.length;i++){
+							var html = "<label style='width:220px;height:25px;overflow:hidden;float:left;'><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"' desc='"+list[i].goodsTypeName+"'>"+list[i].goodsTypeName+"</label>";
+							$("#sublist").append(html);
+							$("#sublist").css({
+								top:e.pageY-129,
+								left:e.pageX-124,
+								border:"1px solid #69CDCD"
+								}).hover(function(){
+									$(this).show()
+									},function(){
+										$(this).hide();
+							});
+							$("#sublist").show();
+						}
+					}
+		    	});
+	    	});
 	    });
+    });
 	</script>
 <!-- alpha div -->
 <div id="maskLayer" style="display:none">
@@ -510,10 +561,82 @@ function addclass(obj){
 <div id="alphadiv" style="filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5"></div>
 	<div id="drag">
 		<h3 id="drag_h">
-			<b>请选择商品类型</b><span id="submit">确定</span>	
+			<b>请选择商品类型</b><span id="cancel" style="margin-left:20px;">取消</span><span id="submit">确定</span>	
 		</h3>
 		<div id="drag_con">
-			<select name="pid" id="pid">
+		<table class="tab_" style="float:left;margin-right:20px;">
+			<c:forEach items="${gList }" var="pGoodsType" varStatus="status">
+				<tr>
+					<td class="" value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</td>
+				</tr>
+			</c:forEach>
+		</table>
+		<table class="tab1" style="float:left;">
+			<tr>
+				<c:forEach items="${gt1 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;">
+			<tr>
+				<c:forEach items="${gt2 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;">
+			<tr>
+				<c:forEach items="${gt3 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;width:700px;">
+			<tr>
+				<c:forEach items="${gt4 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;">
+			<tr>
+				<c:forEach items="${gt5 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;width: 500px;">
+			<tr>
+				<c:forEach items="${gt6 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;width: 420px;">
+			<tr>
+				<c:forEach items="${gt7 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;">
+			<tr>
+				<c:forEach items="${gt8 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<table class="tab1" style="float:left;width: 500px;">
+			<tr>
+				<c:forEach items="${gt9 }" var="pGoodsType">
+					<td class="td1" value="${pGoodsType.goodsTypeId }" >${pGoodsType.goodsTypeName }</td>
+				</c:forEach>
+			</tr>
+		</table>
+		<div id="sublist" class="" style="width:440px;display:none;"></div>
+			
+			<%-- <select name="pid" id="pid">
 				<option value="">请选择..</option>
 				<c:forEach items="${gList }" var="pGoodsType">
 					<option value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</option>
@@ -524,7 +647,7 @@ function addclass(obj){
 			</select>
 			<div id="sid">
 				
-			</div>
+			</div> --%>
 			<!-- <script type="text/javascript">
 				var d = new dTree('d');
 				d.add(10,-1,'服饰');
@@ -543,5 +666,6 @@ function addclass(obj){
 <div id="sublist" style="display:none"></div>
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
+   	 	<script type="text/javascript" src="/js/drag.js"></script>
 </body>
 </html>

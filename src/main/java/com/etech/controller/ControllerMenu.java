@@ -182,6 +182,26 @@ public class ControllerMenu {
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
 		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
 		
+		//-商品2级分类----------------------------
+		List<Tgoodstype> gt1 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 31);
+		request.setAttribute("gt1", gt1);
+		List<Tgoodstype> gt2 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 32);
+		request.setAttribute("gt2", gt2);
+		List<Tgoodstype> gt3 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 33);
+		request.setAttribute("gt3", gt3);
+		List<Tgoodstype> gt4 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 34);
+		request.setAttribute("gt4", gt4);
+		List<Tgoodstype> gt5 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 35);
+		request.setAttribute("gt5", gt5);
+		List<Tgoodstype> gt6 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 36);
+		request.setAttribute("gt6", gt6);
+		List<Tgoodstype> gt7 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 37);
+		request.setAttribute("gt7", gt7);
+		List<Tgoodstype> gt8 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 38);
+		request.setAttribute("gt8", gt8);
+		List<Tgoodstype> gt9 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 39);
+		request.setAttribute("gt9", gt9);
+		
 		return "/WEB-INF/menu/goodsEdit.jsp";
 	}
 	
