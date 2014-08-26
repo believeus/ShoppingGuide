@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -108,7 +107,7 @@ public class ControllerMenu {
 		if (StringUtils.isEmpty(pageNumber)) {
 			pageNumber="1";
 		}
-		Pageable pageable=new Pageable(Integer.valueOf(pageNumber),3);
+		Pageable pageable=new Pageable(Integer.valueOf(pageNumber),20);
 		String hql = "from Tgoods as entity where entity.shopId ="+shopId+" order by id desc";
 		Page<?> page = etechService.findObjectList(hql, pageable);
 		
@@ -141,6 +140,70 @@ public class ControllerMenu {
 		PaginationUtil.pagination(request, page.getPageNumber(),page.getTotalPages(), 0);
 		return "/WEB-INF/menu/myProducts.jsp";
 	}
+	
+	/**
+	 * 商品信息
+	 * @param goodsId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/goodsMsg")
+	public String goodsMsg(Integer goodsId,HttpServletRequest request){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		request.setAttribute("tgoods", tgoods);
+		request.setAttribute("features", tgoods.getFeatures());
+		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
+		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
+		request.setAttribute("paths", paths);
+		request.setAttribute("shopId", tgoods.getShopId());
+		return "/WEB-INF/menu/goodsMsg.jsp";
+	}
+	
+	/**
+	 * 编辑商品
+	 * @param goodsId
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/editGoods")
+	public String editGoods(Integer goodsId,HttpServletRequest request){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		request.setAttribute("tgoods", tgoods);
+		request.setAttribute("shopId", tgoods.getShopId());
+		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
+		request.setAttribute("paths", paths);
+		// Tgoodstype
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 10);
+		request.setAttribute("gList", gList);
+		// Tfeature
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0,"objectFlag","111");
+		request.setAttribute("tfeatures", tfeatures);
+		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
+		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
+		
+		return "/WEB-INF/menu/goodsEdit.jsp";
+	}
+	
+	/**
+	 * 修改商品
+	 * @param goodsId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/updateGoods")
+	public String updateGoods(Integer goodsId,HttpServletRequest request){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		request.setAttribute("tgoods", tgoods);
+		request.setAttribute("shopId", tgoods.getShopId());
+		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
+		request.setAttribute("paths", paths);
+		etechService.saveOrUpdate(tgoods);
+		request.setAttribute("features", tgoods.getFeatures());
+		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
+		return "/WEB-INF/menu/goodsMsg.jsp";
+	}
+	
 	/**
 	 * shop msg
 	 * @return
@@ -310,22 +373,36 @@ public class ControllerMenu {
 		if (address.equals("")) {
 			address = shop.getAddress();
 			Map<String, String> latitude = LatitudeUtils.getLatitude(address);
-			String lat=latitude.get("lat");
-			String lng=latitude.get("lng");
-			shop.setLatitude(Double.valueOf(lat));
-			shop.setLongitude(Double.valueOf(lng));
-			//shop.setAddress(address);
+			if (latitude == null) {
+				shop.setLatitude(0d);
+				shop.setLongitude(0d);
+			}else {
+				String lat=latitude.get("lat");
+				String lng=latitude.get("lng");
+				shop.setLatitude(Double.valueOf(lat));
+				shop.setLongitude(Double.valueOf(lng));
+				//shop.setAddress(address);
+			}
 		}else {
 			Map<String, String> latitude = LatitudeUtils.getLatitude(address);
-			String lat=latitude.get("lat");
-			String lng=latitude.get("lng");
-			shop.setLatitude(Double.valueOf(lat));
-			shop.setLongitude(Double.valueOf(lng));
-			//shop.setAddress(address);
-		}
+			if (latitude == null) {
+				shop.setLatitude(0d);
+				shop.setLongitude(0d);
+			}else {
+				String lat=latitude.get("lat");
+				String lng=latitude.get("lng");
+				shop.setLatitude(Double.valueOf(lat));
+				shop.setLongitude(Double.valueOf(lng));
+				//shop.setAddress(address);
+			}
+		} 
 		String addressNew = request.getParameter("area");
-		if (addressNew.equals(address)) {
-			shop.setAddress(address);
+		if (addressNew != null) {
+			if (addressNew.equals(address)) {
+				shop.setAddress(address);
+			}else {
+				shop.setAddress("其他");
+			}
 		}else {
 			shop.setAddress("其他");
 		}
@@ -591,9 +668,10 @@ public class ControllerMenu {
 		
 		for (Tnews tnews : news) {
 			String content = tnews.getContent();
-			if (content.length() >30) {
-				content = content.substring(0,news.size()) +"...";
-			}
+			String content2 = content.replaceAll("<[^>]+>", "");
+			tnews.setContent(content2);
+//			etechService.saveOrUpdate(tnews);
+//			news.add(tnews);
 		}
 		request.setAttribute("news", news);
 		request.setAttribute("size", news.size());

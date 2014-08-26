@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>用户注册</title>
+    <title>商户注册</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -90,6 +90,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
   $(function(){
+	  
+	 /*  $("#phoneNumber").blur(function(){
+			var phoneNum =$(this).val();
+			var regPartton=/^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/; //验证手机号
+			if(!regPartton.test(phoneNum)){
+				alert("手机格式不正确！");
+			}
+		}); */
+	  
 	  $("#validCode").click(function(){
 		  if($("#registerForm").validate().element($("#phoneNumber"))){
 			  timeCountDown(this,60);
@@ -128,12 +137,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				required: true,
 	  				equalTo:"#password"
 	  			},
-	  			nickName:{
-	  				required: true
-	  			},
 	  			numberCode:{
 	  				required: true,
-	  				//remote:"/validateNumberCode.jhtml"
+	  				remote:"/validateNumberCode.jhtml"
 	  			}
 			},
 			messages: {
@@ -143,15 +149,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					remote:"手机号已被注册"
 				},
 				password: {
-					required:"用户密码必填",
+					required:"商户密码必填",
 					rangelength:"密码长度在6-11位之间",
 				},
 				comfirmPwd:{
 					required:"确认密码必填",
-					equalTo:"与用户密码不一致!"
-				},
-				nickName:{
-					required:"昵称必填"
+					equalTo:"与商户密码不一致!"
 				},
 				numberCode:{
 					required:"验证码必填",
@@ -187,15 +190,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="stable">
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">手机号码：</span>
-    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入手机号'" onfocus="if(this.value == '请输入手机号') this.value = ''" value="请输入手机号"
+    			<span style="font-weight:bold;">商户帐号：</span>
+    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入帐号'" onfocus="if(this.value == '请输入帐号') this.value = ''" value="请输入帐号"
     				   style="width:345px;height:35px;line-height:35px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户密码：</span>
+    			<span style="font-weight:bold;">商户密码：</span>
     			<input type="password" id="password" name="password"  placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
@@ -203,12 +206,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<font color="red">*</font>
     			<span style="font-weight:bold;">确定密码：</span>
     			<input type="password" id="comfirmPwd" name="comfirmPwd" placeholder="请输入确认密码" style="width:345px;height:35px;line-height:35px;">
-    			<span></span>
-   			</p>
-    		<p>
-    			<font color="red">*</font>
-    			<span style="font-weight:bold;">用户昵称：</span>
-    			<input type="text" id="nickName" name="nickName" placeholder="请输入昵称" style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>

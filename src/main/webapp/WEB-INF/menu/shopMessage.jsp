@@ -50,7 +50,6 @@
 			background:#EAFCFC;
 		}
 		.pp{
-			border: 1px solid gray;
 		    border-radius: 0.2em;
 		    display: block;
 		    float: left;
@@ -60,9 +59,7 @@
 		    margin: 5px;
 		    padding: 3px 15px;
 		    width: auto;
-		    background:#cccccc;
 		    color:#666666;
-		    border:1px solid #cccccc;
 		}
 	</style>
 	<style type="text/css">
@@ -162,8 +159,19 @@
 					<td>店铺特色：</td>
 					<td>
 						<%-- ${tshop.shopBusinessScope } --%>
-						<c:forEach var="feature" items="${features }">
-							<p class="pp">${feature.featureName }</p>
+						<c:forEach var="feature" items="${features }" varStatus="status">
+							<c:if test="${status.index %4 ==0 }">
+								<p class="pp" style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==1 }">
+								<p class="pp" style="background:#49BF85;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==2 }">
+								<p class="pp" style="background:#E36B77;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<p class="pp" style="background:#F8B95A;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
 						</c:forEach>
 					</td>
 				</tr>
@@ -221,7 +229,7 @@
 						</div>
 						<div class="main_table3_div3">
 							营业执照号：${tshop.businessLicenseNo }<br/>
-							注：必须上传营业执照或填写营业执照号
+							<span style="font-size:12px;color:#666666;">注：必须上传营业执照或填写营业执照号</span>
 						</div>
 					</td>
 				</tr>

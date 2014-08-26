@@ -6,11 +6,12 @@
 			+ path + "/";
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 
-<title>商品添加</title>
+<title>商品编辑</title>
 
 <meta http-equiv="pragma" content="no-cache">
 
@@ -112,6 +113,12 @@ function addclass(obj){
 }
 	$().ready(function(){
 		
+		<c:forEach var="feature" items="${tgoodsFeatures }">
+			$("p[value='${feature.featureId}']").attr("class","inputClass");
+			//features.push(${feature.featureId});
+		</c:forEach>
+		
+		
 		$("#pid").change(function(){
 			//alert($(this).val());
 			$.ajax({
@@ -149,7 +156,7 @@ function addclass(obj){
 					for(var i=0;i<list.length;i++){
 						//alert(list[i].goodsTypeName);
 						//var html = "<option value='"+list[i].goodsTypeId+"'>"+list[i].goodsTypeName+"</option>";
-						var html = "<label><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"'>"+list[i].goodsTypeName+"</label>";
+						var html = "<label><input name='goodsTypeId' type='checkbox' value='"+list[i].goodsTypeId+"' desc='"+list[i].goodsTypeName+"'>"+list[i].goodsTypeName+"</label>";
 						//html += html;
 						$("#sid").append(html);
 					}
@@ -367,13 +374,14 @@ function addclass(obj){
 				<a href="/menu.jhtml" title="菜单">菜单</a> >
    				<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
 				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
-				<a href="/goodsAdd.jhtml?shopId=${shopId }" title="商品添加">商品添加</a>
+				<a href="/editGoods.jhtml?goodsId=${tgoods.goodsId }" title="商品编辑">商品编辑</a>
 			</p>
-		<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
+		<form id="main_form" method="post" action="/updateGoods.jhtml" enctype="multipart/form-data">
+			<input type="hidden" name="goodsId" value="${tgoods.goodsId }">
 			<table class="main_table1" style="">
 				<tr style="">
-					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:65%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:16px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品编辑</p></td>
+					<td style="width:65%;"></td>
 					<td style="width:10%;">
 						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
 					</td>
@@ -391,26 +399,20 @@ function addclass(obj){
 				<tr>
 					<td style="color:red;">*</td>
 					<td>商品名称：</td>
-					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" /></td>
+					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" value="${tgoods.goodsName }"/></td>
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
-						<div id="selectGoodsType"></div> -->
-						<select name="pid" id="pid">
-							<option value="">请选择..</option>
-							<c:forEach items="${gList }" var="pGoodsType">
-								<option value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</option>
+						<div id="selectGoodsType" style="float:left;">
+							<c:forEach items="${goodsTypes }" var="goodsType">
+								<label><input type="checkbox" checked="checked">${goodsType.goodsTypeName }</label>
 							</c:forEach>
-						</select>
-						<select name="cid" id="cid">
-							<option value="">请选择..</option>
-						</select>
-						<div id="sid">
-							
-						</div>
+						</div> 
+						<a href="javascript:void(0);" style="color:red;" onClick="boxAlpha();">修改</a>
+						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
+						-->
 					</td>
 				</tr>
 				<tr>
@@ -432,7 +434,7 @@ function addclass(obj){
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea id="goodsDetail" name="goodsDetail"  style="width: 642px; height: 134px;resize:none;"></textarea>
+						<textarea id="goodsDetail" name="goodsDetail"  style="width: 642px; height: 134px;resize:none;">${tgoods.introduction }</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -445,22 +447,22 @@ function addclass(obj){
    				<tr>
 					<td colspan="3" id="Imgs">
 						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
-						<div class="brandImg">
-							<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-						        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-						        	<span class="middle-money" value="0">设为默认</span>
-						        </div>    
-						    </div>    
-						    <div>    
-							    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-							    <input type="hidden" id="filename1" name="filename1">
-						    </div>    
-						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
-								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
+						<c:forEach var="path" items="${paths}" varStatus="status">
+							<div class="brandImg">
+								 <div id="preview_wrapper${status.index+1}" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+							        <div id="preview_fake${status.index+1}" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview${status.index+1}"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.goodsPhotoURL %>${shopId}/${path }"/>
+							        	<span class="middle-money" value="${status.index}">设为默认</span>
+							        </div>    
+							    </div>    
+							    <div>    
+							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
+							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
+							    </div>    
+							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
 							</div>
-						</div>
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>
@@ -480,10 +482,11 @@ function addclass(obj){
 	<script type="text/javascript">
 	    $().ready(function(){
 	    	$("#submit").click(function(){
+	    		$("#selectGoodsType").html("");
 	    		boxAlpha();
 	    		var count = 0;
 	    		var featureIds=new Array();
-				var obj = document.all.authority;
+				var obj = $("input[name=goodsTypeId]:checkbox");
 				$("#selectGoodsType").html("");
 				for(var i=0;i<obj.length;i++){
 					if(obj[i].checked){					
@@ -510,6 +513,18 @@ function addclass(obj){
 			<b>请选择商品类型</b><span id="submit">确定</span>	
 		</h3>
 		<div id="drag_con">
+			<select name="pid" id="pid">
+				<option value="">请选择..</option>
+				<c:forEach items="${gList }" var="pGoodsType">
+					<option value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</option>
+				</c:forEach>
+			</select>
+			<select name="cid" id="cid">
+				<option value="">请选择..</option>
+			</select>
+			<div id="sid">
+				
+			</div>
 			<!-- <script type="text/javascript">
 				var d = new dTree('d');
 				d.add(10,-1,'服饰');

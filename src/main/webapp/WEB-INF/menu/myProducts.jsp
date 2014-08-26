@@ -69,7 +69,7 @@
 .pro_img {
 	width: 230px;
 	height: auto;
-	min-height:32px;
+	/* min-height:32px; */
 	display:inline-block;
 }
 
@@ -188,11 +188,29 @@
     line-height: 32px;
    	position: relative;
     text-align: center;
-    width: 230px;
+    width: 115px;
     margin-top:-32px;
     opacity:0.9;
     cursor:pointer;
     display:none;
+}
+.middle-money-2{
+    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    color: #ffffff;
+    font-family: "微软雅黑";
+    font-size: 13px;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+   	position: relative;
+    text-align: center;
+    width: 115px;
+    margin-top:-32px;
+    opacity:0.9;
+    cursor:pointer;
+    display: none;
+    left:115px;
 }
 .tick{
 	width:60px;
@@ -315,8 +333,10 @@
 			}  */
 			$(this).hover(function(){
 				$(this).find(".middle-money").css("display","block");
+				$(this).find(".middle-money-2").css("display","block");
 			},function(){
 				$(this).find(".middle-money").css("display","none");
+				$(this).find(".middle-money-2").css("display","none");
 			});
 			$(this).find(".middle-money").click(function(){
 				if($(this).attr("value") == 0){
@@ -392,16 +412,16 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !='' }">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsName !=''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -409,6 +429,7 @@
 								下架
 							</c:if>
 						</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -428,7 +449,7 @@
 						</c:forEach>
 					</div>
 					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}...
+		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -443,13 +464,13 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !='' }">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
@@ -460,6 +481,7 @@
 								下架
 							</c:if>
 						</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -479,7 +501,7 @@
 						</c:forEach>
 					</div>
 					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}...
+		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -494,13 +516,13 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !='' }">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
@@ -511,6 +533,7 @@
 								下架
 							</c:if>
 						</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -530,7 +553,7 @@
 						</c:forEach>
 					</div>
 					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}...
+		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>
@@ -545,13 +568,13 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=null}">
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !='' }">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsPhotoUrl }" width="230">
 						</c:if>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl ==null}">
+						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
 						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
@@ -562,6 +585,7 @@
 								下架
 							</c:if>
 						</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if>>查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -581,7 +605,7 @@
 						</c:forEach>
 					</div>
 					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}...
+		    			${fn:substring(tgLi1.introduction, 0, 28)}
 		   			</div> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}赞</span></a>

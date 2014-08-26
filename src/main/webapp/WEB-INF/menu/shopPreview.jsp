@@ -245,15 +245,18 @@ hr {
 	        </div>
 	        <div id="spn">
 	        	<c:forEach var="feature" items="${shop.features }" varStatus="status">
-	        		<c:if test="${status.index %2 ==1}">
-		        		<span>${feature.featureName }</span>
-	        		</c:if>
-	        		<c:if test="${status.index %2 ==0}">
-		        		<span style="background:#5fc996">${feature.featureName }</span>
-	        		</c:if>
-	        		<c:if test="${status.index %3 ==0}">
-		        		<span style="background:#e26b77">${feature.featureName }</span>
-	        		</c:if>
+	        		<c:if test="${status.index %4 ==0 }">
+						<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==1 }">
+						<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==2 }">
+						<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==3 }">
+						<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
 	        	</c:forEach>
 	        </div>
 	        <div id="sp2_rady">

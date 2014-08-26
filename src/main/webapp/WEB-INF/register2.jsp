@@ -110,6 +110,18 @@
 	    cursor:pointer;
 	    display:none;
 	}
+	.add_img{
+		border: 1px solid #69cdcd;
+	    color: #69cdcd;
+	    float: left;
+	    font-size: 65px;
+	    height: 231px;
+	    line-height: 231px;
+	    margin: 10px 10px 10px 0;
+	    text-align: center;
+	    width: 230px;
+	    cursor:pointer;
+	}
 </style>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
@@ -127,7 +139,7 @@
 		}
 
 		var map = new BMap.Map("l-map");
-		map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+		map.centerAndZoom("武汉",12);                   // 初始化地图,设置城市和地图级别。
 		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
 		map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
 		var gc = new BMap.Geocoder();    
@@ -271,13 +283,13 @@
 				address:{
 					required : true
 				},
-				priceRange :{
-					required : true
-				},
 				shopOwnerName:{
 					required : true
 				},
 				marketId:{
+					required : true
+				},
+				goodsImg2:{
 					required : true
 				}
 			},
@@ -288,9 +300,6 @@
 				address:{
 					required : "请输入您的详细地址"
 				},
-				priceRange :{
-					required : "请输入您的价格区间"
-				},
 				shopOwnerName:{
 					required : "店主姓名必填"
 				},
@@ -299,6 +308,9 @@
 				},
 				goodsTypeId:{
 					required:"商品类型必填"
+				},
+				goodsImg2:{
+					required : "店铺展示图片必填"
 				}
 			}
 		});
@@ -450,8 +462,12 @@
 						    });
 					  });
 					</script>
-					<select id="provinceId" name="provinceId"></select>
-					<select id="cityId" name="cityId"></select>
+					<select id="provinceId" name="provinceId">
+						<!-- <option value="17">湖北省</option> -->
+					</select>
+					<select id="cityId" name="cityId">
+						<!-- <option value="159">武汉市</option> -->
+					</select>
 					<select id="areaId" name="areaId"></select>
 					<select id="market" name="market"></select>
 					<input type="text" style="width: 0px;border:0;" name="marketId" id="marketId"/>
@@ -478,13 +494,13 @@
 					</select> --%>
 				</p>
 				<p>
-					<font color="red">*</font> <span style="font-weight:normal;">价格区间：</span>
+					<span style="font-weight:normal;">价格区间：</span>
 					<input id="priceRange" type="text" name="priceRange"
 						style="width:345px;height:35px;line-height:35px;">
 				</p>
 				<div style="padding-left:40px;width:800px;height:auto;overflow:hidden;">
 					<div style="width:300px;height:auto;float:left;">
-						<font color="red">*</font><span style="font-weight:normal;">营业执照：</span><br> 
+						<span style="font-weight:normal;">营业执照：</span><br> 
 						<div class="brandImg">
 							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
@@ -506,25 +522,25 @@
 				</div>
 				<div class="shopShow" style="">
 					<font color="red">*</font><span style="font-weight:normal;">店铺展示：</span>
-					<input id="add_img" type="button" value="添加店铺图片" onClick=""/>
 					<span style="font-size:13px;">(最多可上传9张图片)</span>
 					<input type="hidden" id="moren" name="moren" value="">
 					<br> 
 					<div id="Imgs">
-					<div class="brandImg">
-						 <div id="preview_wrapper2" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-						        <div id="preview_fake2" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-						            <img id="preview2"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-						        	<span class="middle-money" value="0">设为默认</span>
-						        </div>    
-						    </div>    
-						    <div>    
-						    <input id="goodsImg2" type="file" name="goodsImg2" style="width: 227px;" onchange="filename2.value=this.value;onUploadImgChange(this,227,179,'preview2','preview_fake2','preview_size_fake2');"/>  
-						    <input type="hidden" id="filename2" name="filename2">
-						    </div>    
-						    <img id="preview_size_fake2" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
-					</div>
+						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
+						<div class="brandImg">
+							 <div id="preview_wrapper2" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+							        <div id="preview_fake2" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview2"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+							        	<span class="middle-money" value="0">设为默认</span>
+							        </div>    
+							    </div>    
+							    <div>    
+							    <input id="goodsImg2" type="file" name="goodsImg2" style="width: 227px;" onchange="filename2.value=this.value;onUploadImgChange(this,227,179,'preview2','preview_fake2','preview_size_fake2');"/>  
+							    <input type="hidden" id="filename2" name="filename2">
+							    </div>    
+							    <img id="preview_size_fake2" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+						</div>
 					</div>
 				<div class="btn_div" style="margin-top:20px;">
 					<input type="button" value="上一步" onClick="javascript:window.location.href='/register.jhtml'" style="background:#69CDCD;border :1px solid #69CDCD;"> 

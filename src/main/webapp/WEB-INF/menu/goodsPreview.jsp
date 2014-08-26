@@ -237,8 +237,19 @@ hr {
                 <%-- <img src="<%=Variables.goodsPhotoURL %>${tgoods.goodsPhotoUrl }" width="278"> --%>
             </div>
             <div id="spn">
-            	<c:forEach var="feature" items="${tgoods.features }">
-			    	<span>${feature.featureName }</span>
+            	<c:forEach var="feature" items="${tgoods.features }" varStatus="status">
+			    	<c:if test="${status.index %4 ==0 }">
+						<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==1 }">
+						<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==2 }">
+						<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
+					<c:if test="${status.index %4 ==3 }">
+						<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+					</c:if>
 			    </c:forEach>
             </div>
             <div class="titi_">
@@ -273,10 +284,10 @@ hr {
 		            </p>
                 </div>
             </div>
-            <div id="butt">
+            <%-- <div id="butt">
 		       	<p style="margin-right:20px;" title="提交" onClick="javascript:window.location.href='/myProducts.jhtml?shopId=${shop.shopId}'">提交</p>    
 				<p title="取消" onClick="javascript:window.location.href='/deletePro.jhtml?goodsId=${tgoods.goodsId}'">取消</p>  
-		    </div>
+		    </div> --%>
         </div>
 </div>
 	<!-- 引用尾部页面 -->

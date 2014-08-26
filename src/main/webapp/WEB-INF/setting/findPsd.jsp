@@ -290,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div style="width:700px;" class="btn_div">
 								<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
-								<input style="width:70px;height:30px;" type="button" value="取消" />
+								<input style="width:70px;height:30px;" type="button" value="取消" onClick="javascript:window.history.back();"/>
 							</div>
 						</div>
 			            <img src="/images/line.png" />

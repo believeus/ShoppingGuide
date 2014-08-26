@@ -1,3 +1,4 @@
+<%@page import="com.etech.variable.Variables"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -10,7 +11,7 @@
 <html>
 <head>
 
-<title>商品添加</title>
+<title>商品信息</title>
 
 <meta http-equiv="pragma" content="no-cache">
 
@@ -42,7 +43,6 @@
 			border-radius:.2em;
 			margin:5px;
 			width:auto;
-			border:1px solid gray;
 			height:20px;
 			line-height:20px;
 			float:left;
@@ -367,18 +367,17 @@ function addclass(obj){
 				<a href="/menu.jhtml" title="菜单">菜单</a> >
    				<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
 				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
-				<a href="/goodsAdd.jhtml?shopId=${shopId }" title="商品添加">商品添加</a>
+				<a href="/goodsAdd.jhtml?shopId=${tgoods.goodsId }" title="商品信息">商品信息</a>
 			</p>
-		<form id="main_form" method="post" action="/addDetailedGoods.jhtml" enctype="multipart/form-data">
 			<table class="main_table1" style="">
 				<tr style="">
-					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品添加</p></td>
-					<td style="width:65%;"><div style=""><a href="/goodsAdd2.jhtml?shopId=${shopId}" style="font-size:16px;color:#69CDCD;">快速发布商品</a></div></td>
+					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品信息</p></td>
+					<td style="width:65%;"></td>
 					<td style="width:10%;">
-						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
+						<input type="button" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="编辑" onClick="javascript:window.location.href='/editGoods.jhtml?goodsId=${tgoods.goodsId}'"/>
 					</td>
 					<td style="width:10%;">
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="返回" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
 				</tr>
 			</table>
@@ -389,93 +388,63 @@ function addclass(obj){
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
-					<td style="color:red;">*</td>
+					<td style="color:red;"></td>
 					<td>商品名称：</td>
-					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" /></td>
+					<td style="width:85%;">${tgoods.goodsName }</td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
+					<td style="color:red;"></td>
 					<td>商品类型：</td>
 					<td>
-						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
-						<div id="selectGoodsType"></div> -->
-						<select name="pid" id="pid">
-							<option value="">请选择..</option>
-							<c:forEach items="${gList }" var="pGoodsType">
-								<option value="${pGoodsType.goodsTypeId }">${pGoodsType.goodsTypeName }</option>
-							</c:forEach>
-						</select>
-						<select name="cid" id="cid">
-							<option value="">请选择..</option>
-						</select>
-						<div id="sid">
-							
-						</div>
+						<c:forEach items="${goodsTypes }" var="goodsType">
+							<span>${goodsType.goodsTypeName }</span>
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td style="color:red;"></td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						<c:forEach var="tfeatures" items="${tfeatures }">
-							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
+						<c:forEach var="feature" items="${features }" varStatus="status">
+							<c:if test="${status.index %4 ==0 }">
+								<p style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==1 }">
+								<p style="background:#49BF85;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==2 }">
+								<p style="background:#E36B77;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
+							<c:if test="${status.index %4 ==3 }">
+								<p style="background:#F8B95A;color:#ffffff;">${feature.featureName }</p>
+							</c:if>
 						</c:forEach>
-						<input type="hidden" value="" id="featureIds" name="featureIds">
 					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" type="button" value="添加" /></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea id="goodsDetail" name="goodsDetail"  style="width: 642px; height: 134px;resize:none;"></textarea>
+						${tgoods.introduction }
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
+					<td style="color:red;"></td>
 					<td colspan="3">
-						上传图片：
-						<span style="font-size:13px;">(最多可上传9张图片)</span>
+						图片展示：
 					</td>
 				</tr>
    				<tr>
-					<td colspan="3" id="Imgs">
-						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
-						<div class="brandImg">
-							<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-						        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-						        	<span class="middle-money" value="0">设为默认</span>
-						        </div>    
-						    </div>    
-						    <div>    
-							    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-							    <input type="hidden" id="filename1" name="filename1">
-						    </div>    
-						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
-								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
+   					<td  colspan="2"></td>
+					<td id="Imgs">
+						<c:forEach items="${paths }" var="path">
+							<div class="brandImg">
+							    <img src="<%=Variables.goodsPhotoURL %>${shopId}/${path }" width="229" height="179"/> 
 							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3">
-						<input type="hidden" id="moren" name="moren">
-					</td>
-				</tr>
-				<tr style="">
-					<td colspan="3" style="text-align:right;">
-						<input type="submit" style="margin-right:30px;border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="预览" />
-						<input style="margin-right:30px;border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+						</c:forEach>
 					</td>
 				</tr>
 			</table>
-			</form>
 		</div>
 	<script type="text/javascript">
 	    $().ready(function(){

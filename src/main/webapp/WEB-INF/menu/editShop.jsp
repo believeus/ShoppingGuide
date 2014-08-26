@@ -141,6 +141,18 @@
 		    cursor:pointer;
 		    display:none;
 		}
+		.add_img{
+			border: 1px solid #69cdcd;
+		    color: #69cdcd;
+		    float: left;
+		    font-size: 65px;
+		    height: 231px;
+		    line-height: 231px;
+		    margin: 10px 10px 10px 0;
+		    text-align: center;
+		    width: 230px;
+		    cursor:pointer;
+		}
 	</style>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
 <script type="text/javascript">
@@ -233,6 +245,7 @@ $(function(){
 	});
 });
 	$().ready(function(){
+		
 		//
 		$("#market").change(function(){
 			var str = $("#provinceId").find("option:selected").text()+$("#cityId").find("option:selected").text()+$("#areaId").find("option:selected").text()+$("#market").find("option:selected").text();
@@ -297,7 +310,7 @@ $(function(){
 			});
 		});
 
-		$("#shopName").blur(function(){
+		/* $("#shopName").blur(function(){
 			var shopName=$("#shopName").val();
 			$.ajax({
 				type : "post",
@@ -320,9 +333,9 @@ $(function(){
 					}
 				}
 			});
-		});	
+		});	 */
 		
-		$("#phoneNum").blur(function(){
+		/* $("#phoneNum").blur(function(){
 			var phoneNum=$("#phoneNum").val();
 			$.ajax({
 				type : "post",
@@ -342,9 +355,9 @@ $(function(){
 					}
 				}
 			});
-		});
+		}); */
 		
-		$("#qqNum").blur(function(){
+		/* $("#qqNum").blur(function(){
 			var qqNum=$("#qqNum").val();
 			$.ajax({
 				type : "post",
@@ -361,7 +374,7 @@ $(function(){
 					}
 				}
 			});
-		});
+		}); */
 		
 		$("#shopSpec p").click(function(){
 			if($(this).hasClass("current")){
@@ -403,9 +416,6 @@ $(function(){
 				goodsTypeId : {
 					required : true
 				},
-				businessLicense :{
-					required : true
-				},
 				marketId:{
 					required : true
 				},
@@ -415,10 +425,7 @@ $(function(){
 			},
 			messages : {
 				shopName : {
-					required : "店铺名称必填",
-				},
-				businessLicense :{
-					required : "请输入营业执照"
+					required : "店铺名称必填"
 				},
 				marketId:{
 					required:"商场必填"
@@ -442,7 +449,6 @@ $(function(){
 		        alert('图片格式无效！');     
 		        return false;     
 		    }     
-		         
 		    
 		    var objPreview = document.getElementById( preview );     
 		    var objPreviewFake = document.getElementById( preview_fake );     
@@ -540,7 +546,7 @@ $(function(){
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">店铺资料</p></td>
 					<td style="width:56%;"></td>
-					<td style="width:9%;"><input type="submit" value="保存" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" /></td>
+					<td style="width:9%;"><input id="baocun" type="submit" value="保存" style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" /></td>
 					<td style="width:8%;"><input type="button" value="返回" onClick="javascript:window.history.back();" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 					<td style="width:8%;"><input type="button" value="修改用户密码" onClick="javascript:window.location.href='/updatePsd.jhtml'" style="border:none;width:120px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" /></td>
 				</tr>
@@ -635,11 +641,6 @@ $(function(){
 		                	<c:forEach var="gli" items="${range}">
 								<label><input type="checkbox" name="goodsTypeId" value="${gli.goodsTypeId}">${gli.goodsTypeName}</label>
 							</c:forEach>
-		                   <%--  <select id="goodsTypeId" name="goodsTypeId" style="width:340px;text-align:center;margin-bottom:10px;">
-								<c:forEach var="gli" items="${range}">
-									<option value="${gli.goodsTypeId}">${gli.goodsTypeName}</option>
-								</c:forEach>
-							</select> --%>
 		                </td>
 		              </tr>
 		              <tr>
@@ -655,13 +656,13 @@ $(function(){
 		                </td>
 		              </tr>
 		              <tr>
-		              	<td><font color="red">*</font>营业执照号：</td>
+		              	<td>营业执照号：</td>
 		              	<td colspan="3">
 		              		<input type="text" name="lisenceId" value="${tshop.businessLicenseNo }">
 		              	</td>
 		              </tr>
 		              <tr>
-		              	<td><font color="red">*</font><span style="font-weight:normal;">营业执照：</span></td>
+		              	<td><span style="font-weight:normal;">营业执照：</span></td>
 		              	<td>
 						<div class="brandImg">
 							 <div id="preview_wrapper" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
@@ -681,27 +682,27 @@ $(function(){
 		              	<td></td>
 		              </tr>
 		              <tr>
-		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span>
-		              	<input id="add_img" type="button" value="添加商品图片" onClick=""/><br/>
+		              	<td><font color="red">*</font><span style="font-weight:normal;">店铺预览：</span><br/>
 		              	<span style="font-size:13px;">(最多可上传9张图片)</span>
 		              	<input type="hidden" id="moren" name="moren" value="">
 		              	</td>
 		              	<td class="shopShow" colspan="3">
 						<div id="Imgs">
+						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
 						<c:forEach var="path" items="${path}" varStatus="status">
 							<div class="brandImg">
 								 <div id="preview_wrapper${status.index+1}" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-								        <div id="preview_fake${status.index+1}" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-								            <img id="preview${status.index+1}"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.shopURL %>${path }"/>
-								        	<span class="middle-money" value="${status.index}">设为默认</span>
-								        </div>    
-								    </div>    
-								    <div>    
-								    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
-								    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
-								    </div>    
-								    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-									<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
+							        <div id="preview_fake${status.index+1}" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview${status.index+1}"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.shopURL %>${path }"/>
+							        	<span class="middle-money" value="${status.index}">设为默认</span>
+							        </div>    
+							    </div>    
+							    <div>    
+							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
+							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
+							    </div>    
+							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
 							</div>
 						</c:forEach>
 						</div>

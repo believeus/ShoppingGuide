@@ -65,6 +65,18 @@
 			margin-right: 20px;
 			margin-bottom: 20px;
 		}
+		.add_img{
+			border: 1px solid #69cdcd;
+		    color: #69cdcd;
+		    float: left;
+		    font-size: 65px;
+		    height: 231px;
+		    line-height: 231px;
+		    margin: 0 15px 10px 0;
+		    text-align: center;
+		    width: 230px;
+		    cursor:pointer;
+		}
 	</style>
 <script type="text/javascript">
 	$(function(){
@@ -249,14 +261,7 @@
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea name="goodsDetailTextArea"  onchange="goodsDetail.value=this.value">请输入商品简介</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td>
-						
+						<textarea name="goodsDetailTextArea"  onchange="goodsDetail.value=this.value" onfocus="if(this.value == '请输入商品简介') this.value = ''" onblur="if(this.value =='') this.value = '请输入商品简介'">请输入商品简介</textarea>
 					</td>
 				</tr>
 			</table>
@@ -271,13 +276,12 @@
 			<table class="main_table3">
    				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" ></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;"></div>上传图片：<input id="add_img" type="button" value="添加商品图片" onClick=""/><span style="font-size:13px;">(最多可上传9张图片)</span></td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;"></div>上传图片：<span style="font-size:13px;">(最多可上传9张图片)</span></td>
 				</tr>
    				<tr>
-					<td colspan="2" >
+					<td id="Imgs" colspan="3">
 						<input type="hidden" id="moren" name="moren">
-					</td>
-					<td id="Imgs">
+						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
 						<div class="brandImg">
 							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  

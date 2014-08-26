@@ -41,6 +41,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			line-height:76px;
 			border:1px solid #D5F1F0;
 			background:#EAFCFC;
+			
+			float:left;
+			margin-right: 60px;
 		}
 		.s_menu_list:hover{
 			background:#69CDCD;
@@ -103,11 +106,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<a href="/menu.jhtml" title="菜单">菜单</a> >
    			<a href="/myShop.jhtml?shopId=${shop.shopId }" title="我的店铺">我的店铺</a>
 		</p>
-    	<div class="s_menu">
-    		<div class="s_menu_list" style="background:#2CB8AD;">
+    	<!-- <div class="s_menu"> -->
+    		<%-- <div class="s_menu_list" style="background:#2CB8AD;">
     			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
    				<span style="margin-left:20px;font-size:20px;color:#FFFFFF;">${shop.shopName}</span>
-   			</div>
+   			</div> --%>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">
    					<div class="img1" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -253px;margin-top:10px;margin-left:15px;"></div>
@@ -124,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<a href="/shopMsg.jhtml?shopId=${shop.shopId}" title="店铺信息">店铺信息</a>
    				</div>
     		</div>
-    		<div class="s_menu_list">
+    		<div class="s_menu_list" style="margin-right: 0">
     			<div class="s_menu_list_img">
    					<div class="img3" style="background:url(/images/bg.png);width:65px;height:60px;background-position:-222px -386px;margin-top:10px;margin-left:15px;"></div>
    				</div>
@@ -132,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<a href="/shopPreview.jhtml?shopId=${shop.shopId}" title="店铺预览">店铺预览</a>
    				</div>
     		</div>
-    	</div>
+    	<!-- </div> -->
     </div>
     
     <!-- 引用尾部页面 -->

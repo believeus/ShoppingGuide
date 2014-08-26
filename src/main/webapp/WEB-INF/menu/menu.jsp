@@ -151,9 +151,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</div>
     	</c:forEach>
     	<div class="s_menu"
-    		style="border:2px dotted #E4E4E4;height:386px;line-height:386px;text-align:center;margin-right:0;cursor:pointer;"
-    		onClick="alert('暂无信息');">
-    		<a href="javascript:void(0);" title="点击添加新店铺" onClick="alert('暂无信息');"><font size="10" color="#E4E4E4">+</font></a>
+    		style="font-size:50px;color:#e4e4e4;border:2px dotted #E4E4E4;height:386px;line-height:386px;text-align:center;margin-right:0;cursor:pointer;"
+    		onClick="alert('暂无信息');">+
     		<!-- href="/addShop.jhtml" -->
     	</div>
    		</div>
