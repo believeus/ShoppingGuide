@@ -438,9 +438,11 @@ function addclass(obj){
    					<td  colspan="2"></td>
 					<td id="Imgs">
 						<c:forEach items="${paths }" var="path">
-							<div class="brandImg">
-							    <img src="<%=Variables.goodsPhotoURL %>${shopId}/${path }" width="229" height="179"/> 
-							</div>
+							<c:if test="${path!='' }">
+								<div class="brandImg">
+								    <img src="<%=Variables.goodsPhotoURL %>${shopId}/${path }" width="229" height="179"/> 
+								</div>
+							</c:if>
 						</c:forEach>
 					</td>
 				</tr>

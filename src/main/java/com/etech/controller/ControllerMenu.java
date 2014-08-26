@@ -214,14 +214,55 @@ public class ControllerMenu {
 	@RequestMapping(value="/updateGoods")
 	public String updateGoods(Integer goodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
-		request.setAttribute("tgoods", tgoods);
-		request.setAttribute("shopId", tgoods.getShopId());
-		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
-		request.setAttribute("paths", paths);
+		String deleteImgs = request.getParameter("deleteImgs");
+		if (StringUtils.isEmpty(deleteImgs)) {
+			deleteImgs="";
+		}
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> files = multipartRequest.getFileMap();
+		String goodsImg = "";
+		String appendImg = "";
+		for (MultipartFile file : files.values()) {
+			InputStream inputStream;
+			try {
+			 inputStream = file.getInputStream();
+			 if(inputStream.available()==0)continue;
+			 String originName=file.getOriginalFilename();
+			 String extention = originName.substring(originName.lastIndexOf(".") + 1);
+			 log.debug("upload file name:"+file.getName());
+		     // get the goods save path
+			 // UUID randomUUID = UUID.randomUUID(); 
+			  String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
+			  goodsImg=GUID+"."+extention;
+			  String goodsImgSmall=Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+GUID+"_small."+extention;
+			  log.debug("upload path:"+Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg);
+			  log.debug("upload small path :"+goodsImgSmall);
+			  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg));
+			  appendImg+= goodsImg+",";
+	          //读入文件    
+              File imgSmall = new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg);    
+              // 构造Image对象    
+              BufferedImage src = ImageIO.read(imgSmall);
+              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		log.debug("All path:"+appendImg);
+		
+		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));
+		log.debug("tgoods.getGoodsPhotoUrl()--list:"+oldlist);
+		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split(",")));
+		log.debug("deleteList:"+deleteList);
+		oldlist.removeAll(deleteList);
+		for (String string : oldlist) {
+			appendImg+=string+","; 
+		}
+		log.debug("tgoods.getGoodsPhotoUrl()--list:"+appendImg);
+		// 设置图片。
+		tgoods.setGoodsPhotoUrl(appendImg);
 		etechService.saveOrUpdate(tgoods);
-		request.setAttribute("features", tgoods.getFeatures());
-		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
-		return "/WEB-INF/menu/goodsMsg.jsp";
+		return "redirect:/goodsMsg.jhtml?goodsId="+tgoods.getGoodsId();
 	}
 	
 	/**

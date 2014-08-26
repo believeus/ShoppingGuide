@@ -292,9 +292,6 @@ function addclass(obj){
 				},
 				cid:{
 					required : true
-				},
-				goodsImg1:{
-					required : true
 				}
 			},
 			messages : {
@@ -304,9 +301,6 @@ function addclass(obj){
 				},
 				cid:{
 					required : "商品类型必填"
-				},
-				goodsImg1:{
-					required : "商品图片必填"
 				}
 			}
 		});
@@ -319,7 +313,6 @@ function addclass(obj){
 		        alert('图片格式无效！');     
 		        return false;     
 		    }     
-		         
 		    
 		    var objPreview = document.getElementById( preview );     
 		    var objPreviewFake = document.getElementById( preview_fake );     
@@ -332,7 +325,7 @@ function addclass(obj){
 		        
 		    }else if( objPreviewFake.filters ){    
 		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
-		        //（相同环境有时请输入商品简介能显示，有时不显示），因此只能用滤镜来解决     
+		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
 		        sender.select();     
@@ -379,11 +372,27 @@ function addclass(obj){
 	</script>  
 	
 	<script type="text/javascript">
-		function delete_pic(object){		
+		function delete_pic(object,path){		
+			if(path!=""){
+				Img(path);
+			}
 			$(object).closest("div").parent().remove();
 		}
+		
+		function Img(path){
+			var deleteImgs = $("#deleteImgs");
+			
+			if (deleteImgs.length > 0) { 
+		     	//对象存在的处理逻辑
+	            $("#deleteImgs").val(deleteImgs.val()+","+path);
+		    } else {
+		      	//对象不存在的处理逻辑
+		      	var html='<input id="deleteImgs" type="hidden" name="deleteImgs" value="'+path+'"/>';
+				$("#main_form").append(html);
+		   }	
+			
+		}
 	</script>
-
 </head>
 <body>
 		 <!-- 引用尾部页面 -->
@@ -466,8 +475,9 @@ function addclass(obj){
 				</tr>
    				<tr>
 					<td colspan="3" id="Imgs">
-						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
+						<div id="add_img" class="add_img" title="添加商品图片">+</div>
 						<c:forEach var="path" items="${paths}" varStatus="status">
+						 <c:if test="${path!='' }">
 							<div class="brandImg">
 								 <div id="preview_wrapper${status.index+1}" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 							        <div id="preview_fake${status.index+1}" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
@@ -482,6 +492,7 @@ function addclass(obj){
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
 							</div>
+						 </c:if>
 						</c:forEach>
 					</td>
 				</tr>
