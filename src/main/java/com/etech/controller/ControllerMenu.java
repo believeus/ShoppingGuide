@@ -39,6 +39,7 @@ import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tgoodspraisehistory;
+import com.etech.entity.Tgoodstypefeature;
 import com.etech.entity.Tgoodsviewhistory;
 import com.etech.entity.Tmarket;
 import com.etech.entity.Tnews;
@@ -179,7 +180,17 @@ public class ControllerMenu {
 		request.setAttribute("gList", gList);
 		// Tfeature
 		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0,"objectFlag","111");
-		request.setAttribute("tfeatures", tfeatures);
+		List<Tfeature> tfeatures2 = new ArrayList<Tfeature>();
+		if (tgoods.getGoodsTypes().size() !=0) {
+			Tgoodstype tgoodstype = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", tgoods.getGoodsTypes().get(0).getParentId());
+			List<Tgoodstypefeature> tgf = (List<Tgoodstypefeature>) etechService.findObjectList(Tgoodstypefeature.class, "goodsTypeId", tgoodstype.getParentId());
+			for (Tgoodstypefeature tgoodstypefeature : tgf) {
+				Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", tgoodstypefeature.getFeatureId());
+				tfeatures2.add(tfeature);
+			}
+			
+		}
+		request.setAttribute("tfeatures", tfeatures2);
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
 		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
 		

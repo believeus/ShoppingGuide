@@ -86,7 +86,7 @@
 
 	<!-- 配置session的过期时间为30分钟 -->
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>10</session-timeout>
 	</session-config>
 
 	<!--Begin Name:wuqiwei Date:2013-08-10 AddReason:添加springMVC的支持 -->

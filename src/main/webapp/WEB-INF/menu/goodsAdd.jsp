@@ -130,6 +130,12 @@ function addclass(obj){
 	}else{
 		obj.className = "inputClass";
 	}
+	var featureIds=new Array();
+	$("#special.inputClass").each(function(){
+		featureIds.push($(this).attr("value"));
+	});
+	$("#featureIds").val();
+	$("#featureIds").val(featureIds);
 }
 	$().ready(function(){
 		
@@ -441,8 +447,8 @@ function addclass(obj){
 						<%-- <c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 						</c:forEach> --%>
-						<input type="hidden" value="" id="featureIds" name="featureIds">
 					</td>
+						<input type="hidden" value="" id="featureIds" name="featureIds">
 				</tr>
 				<tr>
 					<td></td>
@@ -533,8 +539,9 @@ function addclass(obj){
 						data :{"id":$(this).attr("value")},
 						success : function(msg) {
 							var list = msg.data;
+							$("#main_table2_td").html("");
 							for(var i=0;i<list.length;i++){
-								var html = "<p value='"+list[i].featureId+"' name='special' id='special'>"+list[i].featureName+"</p>";
+								var html = "<p value='"+list[i].featureId+"' name='special' id='special' onclick='addclass(this);'>"+list[i].featureName+"</p>";
 								$("#main_table2_td").append(html);
 							}
 						}
@@ -543,7 +550,7 @@ function addclass(obj){
 		    	}); 
 	    		
 	    		
-		    	$(this).click(function(e){
+		    	 $(this).click(function(e){
 		    		//alert($(this).attr("value"));
 		    		$.ajax({
 			    		type : "post",
@@ -551,7 +558,6 @@ function addclass(obj){
 						dataType : "json",
 						data :{"cId":$(this).attr("value")},
 						success : function(msg) {
-							alert("d1="+msg.data);
 							var list = msg.data;
 							$("#sublist").html("");
 							for(var i=0;i<list.length;i++){
@@ -570,7 +576,7 @@ function addclass(obj){
 							}
 						}
 			    	});
-		    	});
+		    	}); 
 		    	
 		    });
 	    });

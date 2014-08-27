@@ -250,11 +250,11 @@ function addclass(obj){
 				if($(this).hasClass("inputClass")){
 					$(this).removeClass("inputClass");
 				}else{
-					if($("#main_table2_td .inputClass").length >= 5){
+					/* if($("#main_table2_td .inputClass").length >= 5){
 						alert("最多选择5个");
 					}else{
+					} */
 						$(this).addClass("inputClass");		
-					}
 				}
 				var featureIds=new Array();
 				$("#special.inputClass").each(function(){
@@ -439,7 +439,7 @@ function addclass(obj){
 								<label><input type="checkbox" onClick="return false;" checked="checked">${goodsType.goodsTypeName }</label>
 							</c:forEach>
 						</div> 
-						<input type="button" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" onclick="boxAlpha();" value="修改商品类型" id="">
+						<input type="button" style="float:right;border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" onclick="boxAlpha();" value="修改商品类型" id="">
 						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
 						-->
 					</td>

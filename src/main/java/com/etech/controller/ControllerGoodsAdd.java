@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -20,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
+import net.sf.json.util.PropertyFilter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -131,7 +131,7 @@ public class ControllerGoodsAdd {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/findGoodsTypes")
-	public Map<String, Object> findGoodsTypes(Integer id){
+	public @ResponseBody Map<String, Object> findGoodsTypes(Integer id){
 		Tgoodstype goodsType = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", id);
 		Integer parentId = goodsType.getParentId();
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
@@ -140,18 +140,22 @@ public class ControllerGoodsAdd {
 			Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", tgoodstypefeature.getFeatureId());
 			tfeatures.add(tfeature);
 		}
-		for (Tfeature tfeature : tfeatures) {
-			tfeature.getShops().clear();
-			tfeature.getGoodses().clear();
-		}
-		JsonConfig jConfig = new JsonConfig();  //建立配置文件
-		jConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
-		
-		jConfig.setExcludes(new String[]{"shops"}); 
-		jConfig.setExcludes(new String[]{"goodses"}); 
-		
-		JSONArray jsonArray = JSONArray.fromObject(tfeatures,jConfig);
-		
+		JsonConfig jsonConfig = new JsonConfig();  //建立配置文件
+		/*jsonConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		jsonConfig.setExcludes(new String[]{"shops"}); 
+		jsonConfig.setExcludes(new String[]{"goodses"}); */
+		jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+            public boolean apply(Object source, String name, Object value) {
+                if (name.equals("shops") || name.equals("goodses")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+		JSONArray jsonArray = JSONArray.fromObject(tfeatures,jsonConfig);
+		 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", jsonArray);
 		map.put("message", "success");

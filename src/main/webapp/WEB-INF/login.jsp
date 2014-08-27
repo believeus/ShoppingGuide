@@ -82,7 +82,6 @@ body {
 <meta http-equiv="description" content="This is my page">
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
-<script language="JavaScript" src="/js/common.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
 		
