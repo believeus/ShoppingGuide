@@ -13,12 +13,12 @@
 	<filter>
 		<filter-name>accessFilter</filter-name>
 		<filter-class>com.etech.filter.AccessFilter</filter-class>
-		<init-param>
+		<!-- <init-param>
 			<param-name>allowAccessURL</param-name>
 			<param-value>
 			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml,/findPsd.jhtml
 			</param-value>
-		</init-param>
+		</init-param> -->
 	</filter>
 	<!--Begin 这是Spring中的一个编码过滤器 设置每次请求的request请求解码的类型为UTF-8 -->
 	<filter>
@@ -62,7 +62,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	
+	<filter-mapping>
+		<filter-name>accessFilter</filter-name>
+		<url-pattern>*.jhtml</url-pattern>
+	</filter-mapping>
 	
 
 	
@@ -82,7 +85,7 @@
 
 	<!-- 配置session的过期时间为30分钟 -->
 	<session-config>
-		<session-timeout>30</session-timeout>
+		<session-timeout>1</session-timeout>
 	</session-config>
 
 	<!--Begin Name:wuqiwei Date:2013-08-10 AddReason:添加springMVC的支持 -->

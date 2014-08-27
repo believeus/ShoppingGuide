@@ -81,14 +81,13 @@ public class ControllerLogin {
 			return "/WEB-INF/login.jsp";
 		}
 		try {
-			boolean autoLogin = cookieUtil.autoLogin(request, response);
-			if (autoLogin) {
-				return "redirect:/menu.jhtml";
-			}
+			String username = cookieUtil.getLoginName(request, response);
+			request.setAttribute("username", username);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "/WEB-INF/login.jsp";
 	}
+
 }
 /**End Author:wuqiwei Data:2014-05-26 Email:1058633117@qq.com AddReason:用户登录业务逻辑 */

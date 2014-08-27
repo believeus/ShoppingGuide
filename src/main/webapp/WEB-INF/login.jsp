@@ -136,10 +136,15 @@ body {
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
             		<b>手机号：</b>
-            		<input name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value=""/>
+            		<input name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value="${username}"/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密&nbsp;&nbsp;&nbsp;码：</b>
+            		<script>
+            			$(function(){
+            				$("#password").val("");
+            			});
+            		</script>
             		<input type="password" name="password" id="password" placeholder="请输入密码" value=""/>
            		</p>
                 <p id="check" style="display: none; width:auto;">

@@ -16,42 +16,42 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.util.StringUtils;
 
 import com.etech.entity.Tshopuser;
 import com.etech.variable.Variables;
 
 public class AccessFilter implements Filter {
-	private  Log log = LogFactory.getLog(AccessFilter.class);
+	private Log log = LogFactory.getLog(AccessFilter.class);
 	private List<String> allowAccessURLs;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		allowAccessURLs=Arrays.asList(config.getInitParameter("allowAccessURL").split(","));
+		// allowAccessURLs=Arrays.asList(config.getInitParameter("allowAccessURL").split(","));
 	}
 
-
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httprequest = (HttpServletRequest) request;
 		HttpSession session = httprequest.getSession();
-		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
+		Tshopuser sessionUser = (Tshopuser) session
+				.getAttribute(Variables.sessionUser);
 		HttpServletResponse httpresponse = (HttpServletResponse) response;
 		String requestURI = httprequest.getRequestURI();
 		log.debug("current access uri:" + requestURI);
-		if (allowAccessURLs.contains(requestURI)) {
+		if (!StringUtils.isEmpty(requestURI)&& requestURI.equals("/ajaxLoginValid.jhtml")) {
 			chain.doFilter(request, response);
 			return;
-		}else {
-			if(sessionUser==null){
-				httpresponse.sendRedirect("/login.jhtml");
-				return;
-			}else {
-				chain.doFilter(request, response);
-			}
+		}
+		// session 过期返回登陆页面
+		if (sessionUser == null) {
+			httpresponse.sendRedirect("/");
+			return;
 		}
 		chain.doFilter(request, response);
 	}
-	
+
 	@Override
 	public void destroy() {
 
