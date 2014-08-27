@@ -30,7 +30,7 @@
 		position: absolute;
 	    text-align: center;
 	    top: 52px;
-	    right:370px;
+	    right:315px;
 	    z-index:999;
 	    border:1px solid #e4e4e4;
 	    padding:0 5px;
@@ -78,14 +78,14 @@
         </div>
         <c:if test="${sessionUser != null }">
 	       	<div class="msg" style="">
-	           	<a href="javascript:void(0);" class="hello" title="${sessionUser.nickName}">
-	           		${fn:substring(sessionUser.nickName, 0, 6)}
-	       		</a>&nbsp;&nbsp;&nbsp;,你好！
+	           	<a href="javascript:void(0);" class="hello" title="设置">
+	           		设置
+	       		</a>&nbsp;
 	           	<a href="" title="查看消息" style="color:#056f6f;">消息(q)</a>&nbsp;|&nbsp;
 	           	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>|
 	           	<a href="/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
 		           	<div class="setting">
-		           		<div style="width:103px;height:33px;line-height:33px;" title="${sessionUser.nickName}">${fn:substring(sessionUser.nickName, 0, 6)}</div>
+		           		<div style="width:103px;height:33px;line-height:33px;" title="设置">设置</div>
 		           		
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
 		           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>

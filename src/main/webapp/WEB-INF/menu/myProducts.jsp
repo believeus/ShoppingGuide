@@ -424,7 +424,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsName !=''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>

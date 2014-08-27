@@ -24,8 +24,8 @@ public class Tfeature implements java.io.Serializable {
 	private Short featureType;
 	private Integer count;
 	private String objectFlag;
-	private List<Tshop> shops=new ArrayList<Tshop>();
-	private List<Tgoods> goodses=new ArrayList<Tgoods>();
+	private List<Tshop> shops=new ArrayList<Tshop>(0);
+	private List<Tgoods> goodses=new ArrayList<Tgoods>(0);
 	
 
 	// Constructors

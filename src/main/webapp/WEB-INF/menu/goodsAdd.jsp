@@ -438,9 +438,9 @@ function addclass(obj){
 					<td style="color:red;"></td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						<c:forEach var="tfeatures" items="${tfeatures }">
+						<%-- <c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
-						</c:forEach>
+						</c:forEach> --%>
 						<input type="hidden" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
@@ -524,6 +524,25 @@ function addclass(obj){
 	    	});
 	    	
 	    	$(".td1").each(function(){
+	    		
+	    		 $(this).click(function(){
+		    		$.ajax({
+			    		type : "post",
+						url : "/findGoodsTypes.jhtml",
+						dataType : "json",
+						data :{"id":$(this).attr("value")},
+						success : function(msg) {
+							var list = msg.data;
+							for(var i=0;i<list.length;i++){
+								var html = "<p value='"+list[i].featureId+"' name='special' id='special'>"+list[i].featureName+"</p>";
+								$("#main_table2_td").append(html);
+							}
+						}
+			    	});
+		    		
+		    	}); 
+	    		
+	    		
 		    	$(this).click(function(e){
 		    		//alert($(this).attr("value"));
 		    		$.ajax({
@@ -532,6 +551,7 @@ function addclass(obj){
 						dataType : "json",
 						data :{"cId":$(this).attr("value")},
 						success : function(msg) {
+							alert("d1="+msg.data);
 							var list = msg.data;
 							$("#sublist").html("");
 							for(var i=0;i<list.length;i++){
@@ -551,6 +571,7 @@ function addclass(obj){
 						}
 			    	});
 		    	});
+		    	
 		    });
 	    });
 	</script>

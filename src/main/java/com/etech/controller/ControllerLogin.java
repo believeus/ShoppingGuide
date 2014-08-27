@@ -57,10 +57,10 @@ public class ControllerLogin {
 						if(sessionUser.getShops().isEmpty()){
 							return "/register2.jhtml";
 						}
-						String rememberme = request.getParameter("rememberme");
+						/*String rememberme = request.getParameter("rememberme");
 						if(!StringUtils.isEmpty(rememberme)){
 							cookieUtil.saveCookie(userName, password, response);
-						}
+						}*/
 						sessionUser.setLoginCount(sessionUser.getLoginCount()+1);
 						etechService.saveOrUpdate(sessionUser);
 						return "/menu.jhtml";

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import org.apache.commons.io.FileUtils;
@@ -36,6 +37,7 @@ import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tgoodstypefeature;
 import com.etech.entity.Tshopuser;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
@@ -115,7 +117,41 @@ public class ControllerGoodsAdd {
 		jsonConfig.setExcludes(new String[]{"shops"}); 
 		jsonConfig.setExcludes(new String[]{"goodses"}); 
 		
-		JSONArray jsonArray = JSONArray.fromObject(tgoodstypes,jsonConfig); 
+		JSONArray jsonArray = JSONArray.fromObject(tgoodstypes,jsonConfig);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("data", jsonArray);
+		map.put("message", "success");
+		return map;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/findGoodsTypes")
+	public Map<String, Object> findGoodsTypes(Integer id){
+		Tgoodstype goodsType = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", id);
+		Integer parentId = goodsType.getParentId();
+		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
+		List<Tgoodstypefeature> tgoodstypefeatures = (List<Tgoodstypefeature>) etechService.findObjectList(Tgoodstypefeature.class, "goodsTypeId", parentId);
+		for (Tgoodstypefeature tgoodstypefeature : tgoodstypefeatures) {
+			Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", tgoodstypefeature.getFeatureId());
+			tfeatures.add(tfeature);
+		}
+		for (Tfeature tfeature : tfeatures) {
+			tfeature.getShops().clear();
+			tfeature.getGoodses().clear();
+		}
+		JsonConfig jConfig = new JsonConfig();  //建立配置文件
+		jConfig.setIgnoreDefaultExcludes(false);  //设置默认忽略
+		
+		jConfig.setExcludes(new String[]{"shops"}); 
+		jConfig.setExcludes(new String[]{"goodses"}); 
+		
+		JSONArray jsonArray = JSONArray.fromObject(tfeatures,jConfig);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", jsonArray);
 		map.put("message", "success");

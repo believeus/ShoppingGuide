@@ -809,7 +809,8 @@ public class ControllerMenu {
 		for (Tnews tnews : news) {
 			String content = tnews.getContent();
 			String content2 = content.replaceAll("<[^>]+>", "");
-			tnews.setContent(content2);
+			String content3 = content2.replaceAll("&nbsp;", "");
+			tnews.setContent(content3);
 //			etechService.saveOrUpdate(tnews);
 //			news.add(tnews);
 		}

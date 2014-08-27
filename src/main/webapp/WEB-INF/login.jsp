@@ -82,8 +82,10 @@ body {
 <meta http-equiv="description" content="This is my page">
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
+<script language="JavaScript" src="/js/common.js"></script>
 <script type="text/javascript">
 	$().ready(function() {
+		
 		$("#login").click(function() {
 			if($("#userName").val() == "" || $("#password").val() == ""){
 				$("#check").css("display","block");
@@ -154,7 +156,7 @@ body {
             	
 				<p id="check">
 					<span>
-						<label><input type="checkbox" name="rememberme" value="rememberme">记住帐号</label>
+						<label><input type="checkbox" name="rememberme" value="rememberme" id="rememberme">记住帐号</label>
 					</span>
                     <span style="margin-left: 90px;">
                     	<a href="/findPsd.jhtml" title="找回密码">找回密码</a>
