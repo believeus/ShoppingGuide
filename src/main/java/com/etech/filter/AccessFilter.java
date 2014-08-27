@@ -23,11 +23,11 @@ import com.etech.variable.Variables;
 
 public class AccessFilter implements Filter {
 	private Log log = LogFactory.getLog(AccessFilter.class);
-	private List<String> allowAccessURLs;
+	private List<String> allowPassURLs;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		// allowAccessURLs=Arrays.asList(config.getInitParameter("allowAccessURL").split(","));
+		 allowPassURLs=Arrays.asList(config.getInitParameter("allowPassURL").split(","));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class AccessFilter implements Filter {
 		HttpServletResponse httpresponse = (HttpServletResponse) response;
 		String requestURI = httprequest.getRequestURI();
 		log.debug("current access uri:" + requestURI);
-		if (!StringUtils.isEmpty(requestURI)&& requestURI.equals("/ajaxLoginValid.jhtml")) {
+		if (!StringUtils.isEmpty(requestURI)&&allowPassURLs.contains(requestURI)) {
 			chain.doFilter(request, response);
 			return;
 		}
