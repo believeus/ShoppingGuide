@@ -130,8 +130,23 @@ function addclass(obj){
 	}else{
 		obj.className = "inputClass";
 	}
+	var featureIds=new Array();
+	$("#special.inputClass").each(function(){
+		featureIds.push($(this).attr("value"));
+	});
+	$("#featureIds").val();
+	$("#featureIds").val(featureIds);
 }
 	$().ready(function(){
+		
+		//
+		$("input[type=submit]").click(function(){
+			if($(".brandImg").size() ==0){
+				alert("请上传商品图片");
+				return false;
+			}
+		});
+		
 		var features = new Array();
 		<c:forEach var="feature" items="${tgoodsFeatures }">
 			$("p[value='${feature.featureId}']").attr("class","inputClass");
@@ -184,7 +199,7 @@ function addclass(obj){
 			});
 		});
 		
-		var a =2;
+		var a = $(".brandImg").size()+1;
 		var b =1;
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
@@ -280,30 +295,54 @@ function addclass(obj){
 			//location.reload();
 		});
 		
-		$("#main_form").validate({
-			rules : {
-				goodsName : {
-					required : true,
-					rangelength : [ 1, 20 ]
-				},
-				goodsTypeId : {
-					required : true,
-					checked : true
-				},
-				cid:{
-					required : true
-				}
-			},
-			messages : {
-				goodsName : {
-					required : "店铺名称必填",
-					rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
-				},
-				cid:{
-					required : "商品类型必填"
-				}
+		//判断商品发布的状态
+		//1,标准发布有必填字段，则验证必填项   flag=0
+		//2,快速发布五必填字段，则不用验证     flag=1
+		var flag = ${flag};
+		//alert(flag);
+		if(flag == 0){
+			if($(".brandImg").size() ==0){
+				$("#main_form").validate({
+					rules : {
+						goodsName : {
+							required : true,
+							rangelength : [ 1, 20 ]
+						},
+						goodsTypeId : {
+							required : true,
+							checked : true
+						},
+						goodsImg1:{
+							required : true
+						}
+					},
+					messages : {
+						goodsName : {
+							required : "店铺名称必填",
+							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
+						},
+						goodsImg1:{
+							required : "商品图片必填"
+						}
+					}
+				}); 
+			}else{
+				$("#main_form").validate({
+					rules : {
+						goodsName : {
+							required : true,
+							rangelength : [ 1, 20 ]
+						}
+					},
+					messages : {
+						goodsName : {
+							required : "店铺名称必填",
+							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
+						}
+					}
+				}); 
 			}
-		});
+		}
 	});	
 </script>
 
@@ -415,7 +454,7 @@ function addclass(obj){
 						<input type="submit" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="保存" />
 					</td>
 					<td style="width:10%;">
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="返回" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
 				</tr>
 			</table>
@@ -426,18 +465,21 @@ function addclass(obj){
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
 				<tr>
-					<td style="color:red;">*</td>
+					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
+					<c:if test="${flag == 1 }"><td style="color:red;"></td></c:if>
 					<td>商品名称：</td>
 					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" value="${tgoods.goodsName }"/></td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
+					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
+					<c:if test="${flag == 1 }"><td style="color:red;"></td></c:if>
 					<td>商品类型：</td>
 					<td>
-						<div id="selectGoodsType" style="float:left;height:32px;line-height:32px;">
+						<div id="selectGoodsType" style="float:left;height:auto;line-height:32px;width:710px;">
 							<c:forEach items="${goodsTypes }" var="goodsType">
-								<label><input type="checkbox" onClick="return false;" checked="checked">${goodsType.goodsTypeName }</label>
+								<label><input style="display:inline-block;" type="checkbox" onClick="return false;" checked="checked">${goodsType.goodsTypeName }</label>
 							</c:forEach>
+							<label id="psed" class="error" style="display:none;">请选择商品类型</label>
 						</div> 
 						<input type="button" style="float:right;border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" onclick="boxAlpha();" value="修改商品类型" id="">
 						<!-- <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
@@ -445,13 +487,14 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;"></td>
+					<td style="color:red;">
+						<input type="hidden" value="" id="featureIds" name="featureIds">
+					</td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
 						<c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 						</c:forEach>
-						<input type="hidden" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
 				<tr>
@@ -467,7 +510,8 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
+					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
+					<c:if test="${flag == 1 }"><td style="color:red;"></td></c:if>
 					<td colspan="3">
 						上传图片：
 						<span style="font-size:13px;">(最多可上传9张图片)</span>
@@ -487,7 +531,7 @@ function addclass(obj){
 							    </div>    
 							    <div>    
 							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
-							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
+							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}"">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
@@ -504,7 +548,7 @@ function addclass(obj){
 				<tr style="">
 					<td colspan="3" style="text-align:right;">
 						<input type="submit" style="margin-right:30px;border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="保存" />
-						<input style="margin-right:30px;border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="取消" onClick="javascript:window.history.back();" title="点击取消"/>
+						<input style="margin-right:30px;border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="返回" onClick="javascript:window.history.back();" title="点击取消"/>
 					</td>
 				</tr>
 			</table>
@@ -526,16 +570,45 @@ function addclass(obj){
 						var html = "<label><input onClick='return false;' type='checkbox' name='goodsTypeId' value='"+obj[i].getAttribute("value")+"' checked='checked'>"+obj[i].getAttribute("desc")+"</label>";
 						$("#selectGoodsType").append(html);
 					}
-				}	
-				if(featureIds == null && featureIds == ""){
-					alert("请选择商品类型");
-				}else{
-					
 				}
+				/* if($("#selectGoodsType").html("")){
+					var html = "<c:forEach items='${goodsTypes }' var='goodsType'><label><input type='checkbox' onClick='return false;' checked='checked'>${goodsType.goodsTypeName }</label></c:forEach>";
+					$("#selectGoodsType").append(html);
+				} */
+	    	});
+	    	
+	    	$("input[type=submit]").click(function(){
+	    		var goodsType = $("#selectGoodsType").text();
+	    		//alert(goodsType);
+	    		if(goodsType == ''){
+	    			alert("请选择商品类型");
+	    			return false;
+	    		}
 	    	});
 	    
 	    
+	    	
 	    $(".td1").each(function(){
+	    	
+	    	$(this).click(function(){
+	    		$.ajax({
+		    		type : "post",
+					url : "/findGoodsTypes.jhtml",
+					dataType : "json",
+					data :{"id":$(this).attr("value")},
+					success : function(msg) {
+						var list = msg.data;
+						$("#main_table2_td").html("");
+						for(var i=0;i<list.length;i++){
+							var html = "<p value='"+list[i].featureId+"' name='special' id='special' onclick='addclass(this);'>"+list[i].featureName+"</p>";
+							$("#main_table2_td").append(html);
+						}
+					}
+		    	});
+	    		
+	    	}); 
+	    	
+	    	
 	    	$(this).click(function(e){
 	    		//alert($(this).attr("value"));
 	    		$.ajax({
@@ -564,6 +637,8 @@ function addclass(obj){
 		    	});
 	    	});
 	    });
+	    
+	    
     });
 	</script>
 <!-- alpha div -->

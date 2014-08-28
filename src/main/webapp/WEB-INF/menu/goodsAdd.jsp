@@ -295,6 +295,9 @@ function addclass(obj){
 				},
 				goodsImg1:{
 					required : true
+				},
+				addGoodsTypes:{
+					required : true
 				}
 			},
 			messages : {
@@ -307,6 +310,9 @@ function addclass(obj){
 				},
 				goodsImg1:{
 					required : "商品图片必填"
+				},
+				addGoodsTypes:{
+					required : "商品类型必填"
 				}
 			}
 		});
@@ -424,8 +430,8 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						 <input id="" type="button" value="选择商品类型" onClick="boxAlpha();" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;">
-						<div id="selectGoodsType"></div>
+						 <input id="addGoodsTypes" name="addGoodsTypes" type="text" title="" value=""  onClick="boxAlpha();" style="min-width:340px;height:32px;cursor:pointer;">
+						 <div id="selectGoodsType" style="display:none;"></div>
 						<%-- <select name="pid" id="pid">
 							<option value="">请选择..</option>
 							<c:forEach items="${gList }" var="pGoodsType">
@@ -511,6 +517,7 @@ function addclass(obj){
 	    		boxAlpha();
 	    		var count = 0;
 	    		var featureIds=new Array();
+	    		var goodsType=new Array();
 				//var obj = document.all.authority;
 				var obj = $("input[name=goodsTypeId]:checkbox");
 				$("#selectGoodsType").html("");
@@ -520,8 +527,13 @@ function addclass(obj){
 						count ++;	
 						var html = "<label><input onClick='return false;' type='checkbox' name='goodsTypeId' value='"+obj[i].getAttribute("value")+"' checked='checked'>"+obj[i].getAttribute("desc")+"</label>";
 						$("#selectGoodsType").append(html);
+						goodsType.push(obj[i].getAttribute("desc"));
+						//$("#addGoodsTypes").attr("value",obj[i].getAttribute("desc"));
 					}
-				}	
+				}
+				//alert(goodsType);
+				$("#addGoodsTypes").attr("value",goodsType);
+				$("#addGoodsTypes").attr("title",goodsType);
 				if(featureIds == null && featureIds == ""){
 					alert("请选择商品类型");
 				}else{

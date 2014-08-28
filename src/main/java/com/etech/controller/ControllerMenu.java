@@ -193,6 +193,7 @@ public class ControllerMenu {
 		request.setAttribute("tfeatures", tfeatures2);
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
 		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
+		request.setAttribute("flag", tgoods.getPublishFlag());
 		
 		//-商品2级分类----------------------------
 		//id等于10的是一级分类
@@ -233,6 +234,7 @@ public class ControllerMenu {
 		tgoods.setIntroduction(request.getParameter("goodsDetail"));
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
 		if (!StringUtils.isEmpty(goodsTypeIds)) {
+			tgoods.getGoodsTypes().removeAll(tgoods.getGoodsTypes());
 			for (String goodsTypeId : goodsTypeIds) {
 				Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 				tgoods.getGoodsTypes().add(goodstype);

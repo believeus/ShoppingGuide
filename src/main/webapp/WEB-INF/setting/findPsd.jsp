@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			numberCode:{
 	  				required: true
 	  			},
-	  			filename:{
+	  			shopLicenseImg:{
 	  				required: true
 	  			}
   			},
@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				numberCode:{
 					required:"验证码必填"
 				},
-				filename:{
+				shopLicenseImg:{
 					required:"图片必须上传"
 				},
   			},
@@ -298,16 +298,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<p><font color="red" style="margin-left:150px;">*</font>营业执照</p>
 		    	<div class="brandImg">
-					 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-					        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-					            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-					        </div>    
-					    </div>    
-					    <div>    
-					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-					    <input type="hidden" id="filename1" name="filename1">
-					    </div>    
-					    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+					<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+				        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+				            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+				        </div>    
+				    </div>    
+				    <div style="text-align:center;">    
+					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+					    <input type="hidden" id="filename" name="filename"/>
+						<label class="error" for="shopLicenseImg" style="color:red;"></label>
+				    </div>    
+				    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 				</div>
 				<p style="clear:both;">
 					<font color="red" style="margin-left:150px;">*&nbsp;</font>

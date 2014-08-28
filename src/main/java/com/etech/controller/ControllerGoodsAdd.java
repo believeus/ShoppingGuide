@@ -319,11 +319,12 @@ public class ControllerGoodsAdd {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/addSimpleGoods")
 	public String addSimpleGoods(Tgoods tGoods, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
-		//Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
+		Tshopuser sessionUser = (Tshopuser) session.getAttribute(Variables.sessionUser);
 		String shopId = request.getParameter("shopId");
 		if (!StringUtils.isEmpty(tGoods)) {
 			tGoods.setGoodsName("");
-			tGoods.setPublishUserId(2);
+			//tGoods.setPublishUserId(2);
+			tGoods.setPublishUserId(sessionUser.getShopUserId());
 			tGoods.setAddTime(new Timestamp(new Date().getTime()));
 			tGoods.setBePraisedCount(0);
 			tGoods.setViewCount(0);
