@@ -387,6 +387,7 @@ function addclass(obj){
 			
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
+			<c:if test="${flag ==0 }">
 				<tr>
 					<td style="color:red;"></td>
 					<td>商品名称：</td>
@@ -421,6 +422,7 @@ function addclass(obj){
 						</c:forEach>
 					</td>
 				</tr>
+				</c:if>
 				<tr>
 					<td></td>
 					<td>商品简介：</td>

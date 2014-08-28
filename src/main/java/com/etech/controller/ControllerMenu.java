@@ -158,6 +158,7 @@ public class ControllerMenu {
 		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
 		request.setAttribute("paths", paths);
 		request.setAttribute("shopId", tgoods.getShopId());
+		request.setAttribute("flag", tgoods.getPublishFlag());
 		return "/WEB-INF/menu/goodsMsg.jsp";
 	}
 	

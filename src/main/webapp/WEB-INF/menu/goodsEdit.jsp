@@ -464,6 +464,7 @@ function addclass(obj){
 			
 			<input type="hidden" name="shopId" value="${shopId}">
 			<table class="main_table2" style="">
+			<c:if test="${flag ==0 }">
 				<tr>
 					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
 					<c:if test="${flag == 1 }"><td style="color:red;"></td></c:if>
@@ -502,6 +503,7 @@ function addclass(obj){
 					<td></td>
 					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" type="button" value="添加" /></td>
 				</tr>
+			</c:if>
 				<tr>
 					<td></td>
 					<td>商品简介：</td>
