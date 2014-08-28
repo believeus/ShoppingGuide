@@ -176,7 +176,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					rangelength:[11,11]
   				},
 	  			numberCode:{
-	  				required: true
+	  				required: true,
+	  				remote:"/validateNumberCode.jhtml"
 	  			},
 	  			shopLicenseImg:{
 	  				required: true
@@ -188,7 +189,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					rangelength:"手机号码不足11位",
   				},
 				numberCode:{
-					required:"验证码必填"
+					required:"验证码必填",
+					remote:"验证码不匹配"
 				},
 				shopLicenseImg:{
 					required:"图片必须上传"

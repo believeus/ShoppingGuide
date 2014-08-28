@@ -141,10 +141,14 @@ function addclass(obj){
 		
 		//如果图片为空
 		$("input[type=submit]").click(function(){
-			if($(".brandImg").size() ==0){
-				alert("请上传商品图片");
-				return false;
+			var fg = ${flag};
+			if(fg!=1){
+				if($(".brandImg").size() ==0){
+					alert("请上传商品图片");
+					return false;
+				}
 			}
+			
 		});
 		
 		var features = new Array();
@@ -580,11 +584,14 @@ function addclass(obj){
 	    	});
 	    	
 	    	$("input[type=submit]").click(function(){
-	    		var goodsType = $("#selectGoodsType").text();
-	    		//alert(goodsType);
-	    		if(goodsType == ''){
-	    			alert("请选择商品类型");
-	    			return false;
+	    		var fg = ${flag};
+	    		if(fg !=1){
+		    		var goodsType = $("#selectGoodsType").text();
+		    		//alert(goodsType);
+		    		if(goodsType == ''){
+		    			alert("请选择商品类型");
+		    			return false;
+		    		}
 	    		}
 	    	});
 	    

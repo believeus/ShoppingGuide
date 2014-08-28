@@ -10,7 +10,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>添加店铺</title>
+<title>审核页面</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -19,7 +19,7 @@
 <meta http-equiv="description" content="This is my page">
 <body>
 	<h1>${message}</h1>
-	<a href="/menu.jhtml">返回菜单页面</a>
+	<a href="/login.jhtml">返回登录页面</a>
 
 </body>
 </html>

@@ -176,14 +176,18 @@ public class ControllerRegistTwo {
 		}else {
 			shop.setAddress("其他");
 		}*/
-		String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
-		String str2 = address.substring(0,address.indexOf("区")+1);
-		String are = "其他";
-		if(str1.equals(str2)){
-			are = address.substring(address.indexOf("区")+1);
-			shop.setAddress(are);
-		}else{
-			shop.setAddress(are);
+		if (addressNew !=null) {
+			String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
+			String str2 = address.substring(0,address.indexOf("区")+1);
+			String are = "其他";
+			if(str1.equals(str2)){
+				are = address.substring(address.indexOf("区")+1);
+				shop.setAddress(are);
+			}else{
+				shop.setAddress(are);
+			}
+		}else {
+			shop.setAddress(address);
 		}
 		shop.setBusinessLicensePhotoUrl(licenseImg);
 		shop.setIsRecommend(Variables.unRecommend);

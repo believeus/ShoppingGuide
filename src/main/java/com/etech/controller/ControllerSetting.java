@@ -82,12 +82,12 @@ public class ControllerSetting {
 				String licenseSmallImg=Variables.shopLicenseImgPath+GUID+"_small."+extention;
 				log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
 				log.debug("upload small path:"+licenseSmallImg);
-				FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
+				FileUtils.copyInputStreamToFile(inputStream, new File(Variables.findPasswordImgPath+licenseImg));
 				//读入文件    
-				File imgSmall= new File(Variables.shopLicenseImgPath+licenseImg);    
+				File imgSmall= new File(Variables.findPasswordImgPath+licenseImg);    
 		        // 构造Image对象    
 		        BufferedImage src = ImageIO.read(imgSmall);
-		        ImageUtil.scaleImg(Variables.shopLicenseImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
+		        ImageUtil.scaleImg(Variables.findPasswordImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
 		        
 			} catch (IOException e) {
 				e.printStackTrace();

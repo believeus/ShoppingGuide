@@ -231,7 +231,11 @@ public class ControllerMenu {
 	@RequestMapping(value="/updateGoods")
 	public String updateGoods(Integer goodsId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
-		tgoods.setGoodsName(request.getParameter("goodsName"));
+		String goodsName = request.getParameter("goodsName");
+		if (goodsName == null) {
+			goodsName = "";
+		}
+		tgoods.setGoodsName(goodsName);
 		tgoods.setIntroduction(request.getParameter("goodsDetail"));
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
 		if (!StringUtils.isEmpty(goodsTypeIds)) {
@@ -321,17 +325,19 @@ public class ControllerMenu {
 		tgoods.setGoodsPhotoUrl(appendImg);
 		tgoods.getFeatures().removeAll(tgoods.getFeatures());
 		etechService.saveOrUpdate(tgoods);
-		if(!featureIds.isEmpty()){
-			tgoods.setGoodsFeatureIDs(featureIds);
-			for (String featureId : featureIds.split(",")) {
-				Tgoodsfeature goodsfeature=new Tgoodsfeature();
-				goodsfeature.setFeatureId(Integer.parseInt(featureId));
-				goodsfeature.setGoodsId(tgoods.getGoodsId());
-				goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
-				etechService.merge(goodsfeature);
-				Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", Integer.parseInt(featureId));
-				tfeatures.add(tfeature);
-			} 
+		if (featureIds != null) {
+			if(!featureIds.isEmpty()){
+				tgoods.setGoodsFeatureIDs(featureIds);
+				for (String featureId : featureIds.split(",")) {
+					Tgoodsfeature goodsfeature=new Tgoodsfeature();
+					goodsfeature.setFeatureId(Integer.parseInt(featureId));
+					goodsfeature.setGoodsId(tgoods.getGoodsId());
+					goodsfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+					etechService.merge(goodsfeature);
+					Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", Integer.parseInt(featureId));
+					tfeatures.add(tfeature);
+				} 
+			}
 		}
 		String goodsFeatureName = "";
 		for (int i = 0; i < tfeatures.size(); i++) {
@@ -551,14 +557,18 @@ public class ControllerMenu {
 		}else {
 			shop.setAddress("其他");
 		}*/
-		String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
-		String str2 = address.substring(0,address.indexOf("区")+1);
-		String are = "其他";
-		if(str1.equals(str2)){
-			are = address.substring(address.indexOf("区")+1);
-			shop.setAddress(are);
-		}else{
-			shop.setAddress(are);
+		if (addressNew !=null) {
+			String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
+			String str2 = address.substring(0,address.indexOf("区")+1);
+			String are = "其他";
+			if(str1.equals(str2)){
+				are = address.substring(address.indexOf("区")+1);
+				shop.setAddress(are);
+			}else{
+				shop.setAddress(are);
+			}
+		}else {
+			shop.setAddress(address);
 		}
 		String priceRange = request.getParameter("priceRange");
 		shop.setPriceRange(priceRange);
