@@ -139,7 +139,7 @@ function addclass(obj){
 }
 	$().ready(function(){
 		
-		//
+		//如果图片为空
 		$("input[type=submit]").click(function(){
 			if($(".brandImg").size() ==0){
 				alert("请上传商品图片");

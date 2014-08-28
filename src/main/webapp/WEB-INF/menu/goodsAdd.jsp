@@ -184,7 +184,7 @@ function addclass(obj){
 			});
 		});
 		
-		var a =2;
+		var a =$(".brandImg").size()+1;
 		var b =1;
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
@@ -280,40 +280,76 @@ function addclass(obj){
 			//location.reload();
 		});
 		
-		$("#main_form").validate({
-			rules : {
-				goodsName : {
-					required : true,
-					rangelength : [ 1, 20 ]
+		function imgValidate(){
+			//alert("nihao");
+			$("#main_form").validate({
+				rules : {
+					goodsName : {
+						required : true,
+						rangelength : [ 1, 20 ]
+					},
+					goodsTypeId : {
+						required : true,
+						checked : true
+					},
+					cid:{
+						required : true
+					},
+					goodsImg1:{
+						required : true
+					},
+					goodsImg2:{
+						required : true
+					},
+					goodsImg3:{
+						required : true
+					},
+					goodsImg4:{
+						required : true
+					},
+					goodsImg5:{
+						required : true
+					},
+					addGoodsTypes:{
+						required : true
+					}
 				},
-				goodsTypeId : {
-					required : true,
-					checked : true
-				},
-				cid:{
-					required : true
-				},
-				goodsImg1:{
-					required : true
-				},
-				addGoodsTypes:{
-					required : true
+				messages : {
+					goodsName : {
+						required : "店铺名称必填",
+						rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
+					},
+					cid:{
+						required : "商品类型必填"
+					},
+					goodsImg1:{
+						required : "商品图片必填"
+					},
+					goodsImg2:{
+						required : "商品图片必填"
+					},
+					goodsImg3:{
+						required : "商品图片必填"
+					},
+					goodsImg4:{
+						required : "商品图片必填"
+					},
+					goodsImg5:{
+						required : "商品图片必填"
+					},
+					addGoodsTypes:{
+						required : "商品类型必填"
+					}
 				}
-			},
-			messages : {
-				goodsName : {
-					required : "店铺名称必填",
-					rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
-				},
-				cid:{
-					required : "商品类型必填"
-				},
-				goodsImg1:{
-					required : "商品图片必填"
-				},
-				addGoodsTypes:{
-					required : "商品类型必填"
-				}
+			});
+		}
+		//如果图片为空
+		$("input[type=submit]").click(function(){
+			if($(".brandImg").size() ==0){
+				alert("请上传商品图片");
+				return false;
+			}else{
+				imgValidate();
 			}
 		});
 	});	
