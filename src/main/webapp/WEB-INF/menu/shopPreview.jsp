@@ -161,7 +161,7 @@ hr {
 </style>
 <script type="text/javascript">
 	$().ready(function(){
-		 $("#div_0").promptumenu({
+		$("#div_0").promptumenu({
 			'columns': 2,
 			'rows': 20,
 			'direction': 'vertical',
@@ -173,6 +173,10 @@ hr {
 			'inertia': 200
 		});
 		$(".promptumenu_window").css("height","415px"); 
+		$(".promptumenu_window").css("cursor","url(/images/hand.ico),move");
+		$(".promptumenu_window img").css("cursor","url(/images/hand.ico),move");
+		$(".promptumenu_window").css("overflow-x","hidden"); 
+		$(".promptumenu_window").css("overflow-y","scroll"); 
 	});
 </script>
 <script type="text/javascript">
@@ -276,7 +280,12 @@ hr {
 	            <div>
 		            <c:forEach var="goods" items="${list1 }">
 		            	<div>
-		                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsPhotoUrl}" width="122"/>
+		            		<c:if test="${goods.goodsDefaultPhotoUrl == ''}">
+		            			
+		            		</c:if>
+		            		<c:if test="${goods.goodsDefaultPhotoUrl != ''}">
+			                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsDefaultPhotoUrl}" width="122"/>
+		            		</c:if>
 		                    <p>${goods.goodsName }</p>
 		                    <div id="shop_spn">
 		                    	<c:forEach var="feature" items="${goods.features }" varStatus="status">
@@ -295,7 +304,7 @@ hr {
 		                    	</c:forEach>
 		                    </div>
 		                    <div style="color:#555555;" title="${goods.introduction }">
-		                    	${fn:substring(goods.introduction, 0, 20)}...	
+		                    	${fn:substring(goods.introduction, 0, 20)}
 	                    	</div>
 		                    <div>
 		                        <img src="images/zhan.png" />
@@ -309,7 +318,12 @@ hr {
 	            <div>
 	                <c:forEach var="goods" items="${list2 }">
 		            	<div>
-		                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsPhotoUrl}" width="122"/>
+		            		<c:if test="${goods.goodsDefaultPhotoUrl == ''}">
+		            			
+		            		</c:if>
+		            		<c:if test="${goods.goodsDefaultPhotoUrl != ''}">
+			                    <img src="<%=Variables.goodsPhotoURL %>${goods.shopId}/${goods.goodsDefaultPhotoUrl}" width="122"/>
+		            		</c:if>
 		                    <p>${goods.goodsName }</p>
 		                    <div id="shop_spn">
 		                    	<c:forEach var="feature" items="${goods.features }">

@@ -188,23 +188,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</div>
     	<form id="registerForm" action="/dealRegister.jhtml" method="post" autocomplete="off">
     	<div class="stable">
-    		<p>
+    		<p style="padding-left: 70px;">
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">商户帐号：</span>
+    			<span style="font-weight:bold;">帐号：</span>
     			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入帐号'" onfocus="if(this.value == '请输入帐号') this.value = ''" value="请输入帐号"
     				   style="width:345px;height:35px;line-height:35px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>
    			</p>
-    		<p>
+    		<p style="padding-left: 70px;">
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">商户密码：</span>
+    			<span style="font-weight:bold;">密码：</span>
     			<input type="password" id="password" name="password"  placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
-    			<span style="font-weight:bold;">确定密码：</span>
+    			<span style="font-weight:bold;">重复密码：</span>
     			<input type="password" id="comfirmPwd" name="comfirmPwd" placeholder="请输入确认密码" style="width:345px;height:35px;line-height:35px;">
     			<span></span>
    			</p>

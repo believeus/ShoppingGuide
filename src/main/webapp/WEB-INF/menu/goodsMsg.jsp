@@ -377,7 +377,7 @@ function addclass(obj){
 						<input type="button" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="编辑" onClick="javascript:window.location.href='/editGoods.jhtml?goodsId=${tgoods.goodsId}'"/>
 					</td>
 					<td style="width:10%;">
-						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="返回" onClick="javascript:window.history.back();" title="点击取消"/>
+						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="确认" onClick="javascript:window.location.href='/myProducts.jhtml?shopId=${tgoods.shopId}';" title="确认"/>
 					</td>
 				</tr>
 			</table>

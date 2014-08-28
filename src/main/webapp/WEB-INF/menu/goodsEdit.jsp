@@ -204,7 +204,7 @@ function addclass(obj){
 		});
 		
 		var a = $(".brandImg").size()+1;
-		var b =1;
+		var b = $(".brandImg").size();
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  

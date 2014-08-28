@@ -214,7 +214,12 @@ public class ControllerFansCount {
 			if(StringUtils.isEmpty(user)){
 				log.debug("找不到NickName为"+nickName+"的用户！");
 			}else{
-				users.add(user);
+				//System.out.println(users.size());
+				if (users.size() > 10) {
+					continue;
+				}else {
+					users.add(user);
+				}
 			}
 		}
 		List<List<String>> combine=etechOthersService.getFavourite(users);

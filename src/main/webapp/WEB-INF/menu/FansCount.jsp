@@ -107,6 +107,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		#cleck a:hover {
 			background-color:#00AAAA;
 			font-weight:bold;
+			border:1px solid #00AAAA;
+			color:#FFFFFF;
 		}
 	</style>
   </head>
@@ -129,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	        <div style="border-bottom:1px solid #ccc;">
 	            <div id="cleck">
-	                <a style="background-color:#00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=sex&shopId=${shopId }" title="性别">性别</a>
+	                <a style="background-color:#00AAAA;border:1px solid #00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=sex&shopId=${shopId }" title="性别">性别</a>
 	                <a href="/fansCount.jhtml?url=age&shopId=${shopId }" title="年龄">年龄</a>
 	                <a href="/fansCount.jhtml?url=constellation&shopId=${shopId }" title="星座">星座</a>
 	                <a href="/fansCount.jhtml?url=CZ&shopId=${shopId }" title="生肖">生肖</a>

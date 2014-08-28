@@ -284,7 +284,15 @@ public class ControllerMenu {
 		log.debug("All path:"+appendImg);
 		String moren = request.getParameter("moren");
 		if (!StringUtils.isEmpty(moren)) {
-			String[] goodsImgPath = appendImg.split(",");
+			String imagePath = "";
+			String[] goodsImgPath = null;
+			if (appendImg == "") { 
+				imagePath = tgoods.getGoodsPhotoUrl();
+				goodsImgPath = imagePath.split(",");
+			}else {    
+				imagePath =  tgoods.getGoodsPhotoUrl() + appendImg;
+				goodsImgPath = imagePath.split(",");
+			}
 			for (int i = 0; i < goodsImgPath.length; i++) {
 				if(i == Integer.parseInt(moren)){
 					tgoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);

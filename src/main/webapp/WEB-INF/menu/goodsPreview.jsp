@@ -160,6 +160,8 @@ hr {
 		$(".promptumenu_window").css("height","417px");
 		$(".promptumenu_window").css("cursor","url(/images/hand.ico),move");
 		$(".promptumenu_window img").css("cursor","url(/images/hand.ico),move");
+		$(".promptumenu_window").css("overflow-x","hidden"); 
+		$(".promptumenu_window").css("overflow-y","scroll"); 
 		//alert($("#div_0").css("height"));
 	});
 	</script>
