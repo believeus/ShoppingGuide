@@ -272,8 +272,16 @@ public class ControllerGoodsAdd {
 				}
 			}else {
 				tGoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
-				tGoods.setGoodsDefaultPhotoHeight(0);
-				tGoods.setGoodsDefaultPhotoWidth(0);
+				String defaultPhoto = Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+appendImg.split(",")[0];
+				//读入文件    
+				File imgSmall= new File(defaultPhoto);    
+				// 构造Image对象    
+				BufferedImage src = ImageIO.read(imgSmall);
+				//获取默认图片宽高
+				Integer width = src.getWidth();
+				Integer height = src.getHeight();
+				tGoods.setGoodsDefaultPhotoHeight(height);
+				tGoods.setGoodsDefaultPhotoWidth(width);
 			}
 			if(goodsImg ==""){
 				tGoods.setGoodsPhotoUrl("95f220ae-8a37-45a8-8d26-0629897b9f4b.jpg");
@@ -377,12 +385,30 @@ public class ControllerGoodsAdd {
 				for (int i = 0; i < goodsImgPath.length; i++) {
 					if(i == Integer.parseInt(moren)){
 						tGoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
+						String defaultPhoto = Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImgPath[i];
+						//读入文件    
+						File imgSmall= new File(defaultPhoto);    
+						// 构造Image对象    
+						BufferedImage src = ImageIO.read(imgSmall);
+						//获取默认图片宽高
+						Integer width = src.getWidth();
+						Integer height = src.getHeight();
+						tGoods.setGoodsDefaultPhotoHeight(height);
+						tGoods.setGoodsDefaultPhotoWidth(width);
 					}
 				}
 			}else {
 				tGoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
-				tGoods.setGoodsDefaultPhotoHeight(0);
-				tGoods.setGoodsDefaultPhotoWidth(0);
+				String defaultPhoto = Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+appendImg.split(",")[0];
+				//读入文件    
+				File imgSmall= new File(defaultPhoto);    
+				// 构造Image对象    
+				BufferedImage src = ImageIO.read(imgSmall);
+				//获取默认图片宽高
+				Integer width = src.getWidth();
+				Integer height = src.getHeight();
+				tGoods.setGoodsDefaultPhotoHeight(height);
+				tGoods.setGoodsDefaultPhotoWidth(width);
 			}
 			log.debug("shop image sava db url:"+shopImg);
 			tGoods.setGoodsPhotoUrl(appendImg);

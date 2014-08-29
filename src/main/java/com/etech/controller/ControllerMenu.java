@@ -313,11 +313,29 @@ public class ControllerMenu {
 			if (appendImg == "") {
 				imgPath = tgoods.getGoodsPhotoUrl().split(",")[0];
 				tgoods.setGoodsDefaultPhotoUrl(imgPath);
+				String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+imgPath;
+				//读入文件    
+				File imgSmall= new File(defaultPhoto);    
+				// 构造Image对象    
+				BufferedImage src = ImageIO.read(imgSmall);
+				//获取默认图片宽高
+				Integer width = src.getWidth();
+				Integer height = src.getHeight();
+				tgoods.setGoodsDefaultPhotoHeight(height);
+				tgoods.setGoodsDefaultPhotoWidth(width);
 			}else {
 				tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
 			}
-			tgoods.setGoodsDefaultPhotoHeight(0);
-			tgoods.setGoodsDefaultPhotoWidth(0);
+			String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[0];
+			//读入文件    
+			File imgSmall= new File(defaultPhoto);    
+			// 构造Image对象    
+			BufferedImage src = ImageIO.read(imgSmall);
+			//获取默认图片宽高
+			Integer width = src.getWidth();
+			Integer height = src.getHeight();
+			tgoods.setGoodsDefaultPhotoHeight(height);
+			tgoods.setGoodsDefaultPhotoWidth(width);
 		}
 		
 		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));

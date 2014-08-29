@@ -81,7 +81,7 @@
 	           	<a href="javascript:void(0);" class="hello" title="设置">
 	           		设置
 	       		</a>&nbsp;
-	           	<a href="" title="查看消息" style="color:#056f6f;">消息(q)</a>&nbsp;|&nbsp;
+	           	<a href="" title="查看消息" style="color:#056f6f;">消息(0)</a>&nbsp;|&nbsp;
 	           	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>|
 	           	<a href="/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
 		           	<div class="setting">
