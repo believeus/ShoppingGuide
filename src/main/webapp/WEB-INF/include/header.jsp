@@ -23,14 +23,14 @@
 		text-decoration:underline;
 	}
 	.setting{
-		width:auto;
-		height:100px;
+		width:100px;
+		height:70px;
 		background:#FFFFFF;
 		display:none;
-		position: absolute;
+		position: relative;
 	    text-align: center;
-	    top: 52px;
-	    right:315px;
+	    top: 10px;
+	    right:35px;
 	    z-index:999;
 	    border:1px solid #e4e4e4;
 	    padding:0 5px;
@@ -54,7 +54,9 @@
 <script type="text/javascript">
 	$().ready(function(){
 		$(".hello").hover(function(){
-			$(".setting").show();	
+			$(".setting").show();
+		},function(){
+			$(".setting").hide();
 		});
 		$(".setting").mouseout(function(){
 			$(".setting").hide();			
@@ -85,7 +87,7 @@
 	           	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>|
 	           	<a href="/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
 		           	<div class="setting">
-		           		<div style="width:103px;height:33px;line-height:33px;" title="设置">设置</div>
+		           		<!-- <div style="width:103px;height:33px;line-height:33px;" title="设置">设置</div> -->
 		           		
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
 		           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>

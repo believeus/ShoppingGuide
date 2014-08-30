@@ -126,8 +126,12 @@ public class ControllerRegistTwo {
 		// get shop address from form
 		String address=request.getParameter("address");
 		Map<String, String> latitude = LatitudeUtils.getLatitude(address);
-		String lat=latitude.get("lat");
-		String lng=latitude.get("lng");
+		String lat = "0";
+		String lng = "0";
+		if (latitude != null) {
+			lat=latitude.get("lat");
+			lng=latitude.get("lng");
+		}
 		// get shopName from form
 		String shopName=request.getParameter("shopName");
 		String marketId=request.getParameter("marketId");

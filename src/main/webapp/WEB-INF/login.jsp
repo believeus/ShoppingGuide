@@ -83,7 +83,54 @@ body {
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript">
+//添加Cookie
+function addCookie(name, value, options) {
+	if (arguments.length > 1 && name != null) {
+		if (options == null) {
+			options = {};
+		}
+		if (value == null) {
+			options.expires = -1;
+		}
+		if (typeof options.expires == "number") {
+			var time = options.expires;
+			var expires = options.expires = new Date();
+			expires.setTime(expires.getTime() + time * 1000);
+		}
+		document.cookie = encodeURIComponent(String(name)) + "=" + encodeURIComponent(String(value)) + (options.expires ? "; expires=" + options.expires.toUTCString() : "") + (options.path ? "; path=" + options.path : "") + (options.domain ? "; domain=" + options.domain : ""), (options.secure ? "; secure" : "");
+	}
+}
+
+// 获取Cookie
+function getCookie(name) {
+	if (name != null) {
+		var value = new RegExp("(?:^|; )" + encodeURIComponent(String(name)) + "=([^;]*)").exec(document.cookie);
+		return value ? decodeURIComponent(value[1]) : null;
+	}
+}
+
+// 移除Cookie
+function removeCookie(name, options) {
+	addCookie(name, null, options);
+}
+
 	$().ready(function() {
+		
+		// 记住用户名
+		if (getCookie("rememberme") != null) {
+			$("#rememberme").prop("checked", true);
+			$("#username").val(getCookie("rememberme"));
+			$("#password").focus();
+		} else {
+			$("#rememberme").prop("checked", false);
+			$("#username").focus();
+		}
+		
+		if ($("#rememberme").prop("checked")) {
+			addCookie("memberUsername", $("#username").val(), {expires: 7 * 24 * 60 * 60});
+		} else {
+			removeCookie("memberUsername");
+		}
 		
 		$("#login").click(function() {
 			if($("#userName").val() == "" || $("#password").val() == ""){
@@ -136,11 +183,11 @@ body {
         	<div id="landdiv">
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
-            		<b>手机号：</b>
+            		<b>帐号：</b>
             		<input name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value="${username}"/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
-            		<b>密&nbsp;&nbsp;&nbsp;码：</b>
+            		<b>密码：</b>
             		<script>
             			$(function(){
             				$("#password").val("");

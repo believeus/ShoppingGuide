@@ -282,7 +282,7 @@ $(function(){
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					alert("设置成功");
+					//alert("设置成功");
 				});
 			});
 			$(".brandImg").each(function(){
@@ -421,6 +421,9 @@ $(function(){
 				},
 				filename0:{
 					required : true
+				},
+				shopOwnerName:{
+					required : true
 				}
 			},
 			messages : {
@@ -435,6 +438,9 @@ $(function(){
 				},
 				filename0:{
 					required : "请上传营业执照"
+				},
+				shopOwnerName:{
+					required : "店主姓名必填"
 				}
 			}
 			
@@ -520,7 +526,7 @@ $(function(){
 			
 			if (deleteImgs.length > 0) { 
 		     	//对象存在的处理逻辑
-	            $("#deleteImgs").val(deleteImgs.val()+"#"+path);
+	            $("#deleteImgs").val(deleteImgs.val()+","+path);
 		    } else {
 		      	//对象不存在的处理逻辑
 		      	var html='<input id="deleteImgs" type="hidden" name="deleteImgs" value="'+path+'"/>';
@@ -562,6 +568,20 @@ $(function(){
 		                    <input id="shopName" type="text" name="shopName" value="${tshop.shopName }">
 		                </td>
 		              </tr>
+		              
+	                <tr>
+						<td><b><span style="color:red;">*&nbsp;&nbsp;</span>店主姓名：</b></td>
+						<td colspan="3">
+							<input type="text" name="shopOwnerName" value="${tshop.shopOwnerName }">
+						</td>
+					</tr>
+					<tr>
+						<td><b><span style="color:red;">&nbsp;&nbsp;</span>店主QQ号：</b></td>
+						<td colspan="3">
+							<input type="text" name="qq" value="${tshop.qq }" onkeyup="value=this.value.replace(/\D+/g,'')">
+						</td>
+					</tr>
+		              
 		              <tr>
 		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺特色：</b></td>
 		                <td colspan="3" id="shopSpec">

@@ -144,12 +144,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			},
 			messages: {
 				phoneNumber:{
-					required:"手机号必填",
-					rangelength:"手机号码格式不正确",
-					remote:"手机号已被注册"
+					required:"帐号必填",
+					rangelength:"帐号格式不正确",
+					remote:"帐号已被注册"
 				},
 				password: {
-					required:"商户密码必填",
+					required:"密码必填",
 					rangelength:"密码长度在6-11位之间",
 				},
 				comfirmPwd:{
@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p style="padding-left: 70px;">
     			<font color="red">*</font>
     			<span style="font-weight:bold;">帐号：</span>
-    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入帐号'" onfocus="if(this.value == '请输入帐号') this.value = ''" value="请输入帐号"
+    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入手机号'" onfocus="if(this.value == '请输入手机号') this.value = ''" value="请输入手机号"
     				   style="width:345px;height:35px;line-height:35px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>

@@ -29,7 +29,7 @@ public class ControllerRegisterOne {
 	public @ResponseBody String validateMobile(String phoneNumber){
 		log.debug("current register phoneNumber:"+phoneNumber);
 		// 根据手机号查找该用户是否被注册
-		Tshopuser shopuser = (Tshopuser)etechService.findObject(Tshopuser.class, Variables.phoneNumber, phoneNumber);
+		Tshopuser shopuser = (Tshopuser)etechService.findObject(Tshopuser.class, Variables.username, phoneNumber);
 		// 该手机号被注册
 		if(!StringUtils.isEmpty(shopuser)){
 			return "false";

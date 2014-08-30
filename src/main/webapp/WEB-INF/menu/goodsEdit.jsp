@@ -292,7 +292,7 @@ function addclass(obj){
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					$("#main_table2_td").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
 					$("#textSpecial").val("");
 				 });
 			}
@@ -316,7 +316,22 @@ function addclass(obj){
 							required : true,
 							checked : true
 						},
+						featureIds:{
+							required : true
+						},
 						goodsImg1:{
+							required : true
+						},
+						goodsImg2:{
+							required : true
+						},
+						goodsImg3:{
+							required : true
+						},
+						goodsImg4:{
+							required : true
+						},
+						goodsImg5:{
 							required : true
 						}
 					},
@@ -325,7 +340,22 @@ function addclass(obj){
 							required : "店铺名称必填",
 							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
 						},
+						featureIds:{
+							required : "商品特色必填"
+						},
 						goodsImg1:{
+							required : "商品图片必填"
+						},
+						goodsImg2:{
+							required : "商品图片必填"
+						},
+						goodsImg3:{
+							required : "商品图片必填"
+						},
+						goodsImg4:{
+							required : "商品图片必填"
+						},
+						goodsImg5:{
 							required : "商品图片必填"
 						}
 					}
@@ -492,14 +522,16 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;">
-						<input type="hidden" value="" id="featureIds" name="featureIds">
+					<td style="color:red;">*	
 					</td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						<c:forEach var="tfeatures" items="${tfeatures }">
-							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
-						</c:forEach>
+						<div id="main_table2_td_div" style="height: auto; overflow: hidden; width: 840px;">
+							<c:forEach var="tfeatures" items="${tfeatures }">
+								<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
+							</c:forEach>
+						</div>
+						<input style="width:0;border:0;" type="text" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
 				<tr>
@@ -599,6 +631,11 @@ function addclass(obj){
 	    	
 	    $(".td1").each(function(){
 	    	
+	    	var goodsTypeId = ${goodsTypesId};
+	    	if($(this).attr("value") == goodsTypeId){
+	    		$(this).css({"color":"#FF5900","font-weight":"bold"});
+	    	}
+	    	
 	    	$(this).click(function(){
 	    		$.ajax({
 		    		type : "post",
@@ -607,10 +644,10 @@ function addclass(obj){
 					data :{"id":$(this).attr("value")},
 					success : function(msg) {
 						var list = msg.data;
-						$("#main_table2_td").html("");
+						$("#main_table2_td_div").html("");
 						for(var i=0;i<list.length;i++){
 							var html = "<p value='"+list[i].featureId+"' name='special' id='special' onclick='addclass(this);'>"+list[i].featureName+"</p>";
-							$("#main_table2_td").append(html);
+							$("#main_table2_td_div").append(html);
 						}
 					}
 		    	});

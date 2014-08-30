@@ -156,6 +156,20 @@
 				</tr>
 				<tr>
 					<td style="color:red;">*</td>
+					<td>店主姓名：</td>
+					<td style="width:85%;">
+						${tshop.shopOwnerName }
+					</td>
+				</tr>
+				<tr>
+					<td style="color:red;"></td>
+					<td>店主QQ号：</td>
+					<td style="width:85%;">
+						${tshop.qq }
+					</td>
+				</tr>
+				<tr>
+					<td style="color:red;"></td>
 					<td>店铺特色：</td>
 					<td>
 						<%-- ${tshop.shopBusinessScope } --%>
@@ -193,14 +207,20 @@
 					<td style="color:red;">*</td>
 					<td style="">经营范围：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
-						
 						<c:forEach var="goodsTypes" items="${tshop.goodsTypes }">
 							${goodsTypes.goodsTypeName}
 						</c:forEach>
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;">*</td>
+					<td style="color:red;"></td>
+					<td>价格区间：</td>
+					<td id="main_table2_td" class="main_table2_td" style="">
+						${tshop.priceRange }
+					</td>
+				</tr>
+				<tr>
+					<td style="color:red;"></td>
 					<td style="">联系电话：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
 						${tshop.phoneNumber }
@@ -208,20 +228,21 @@
 				</tr>
 			</table>
 
-
-			<hr style="width:85%;border:1px solid #E8E8E8;" />
+			<div style="margin:0 auto;width:1000px;">
+				<img src="/images/line.png">
+			</div>
 			
 			<table class="main_table3" style="">
 				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" style=""></div></td>
-					<td style="width:90%;" colspan="2"><div style="float:left;color:red;">*</div>营业执照:</td>
+					<td style="width:90%;" colspan="2"><div style="float:left;color:red;"></div>营业执照:</td>
 				</tr>
    				<tr style="">
 					<td colspan="2" style=""></td>
 					<td>
 						<div class="brandImg">
-							<c:if test="${tshop.businessLicensePhotoUrl == ''}">
-								<img src="" width="229" height="179">
+							<c:if test="${tshop.businessLicensePhotoUrl == '' || tshop.businessLicensePhotoUrl == null}">
+								
 							</c:if>
 							<c:if test="${tshop.businessLicensePhotoUrl != ''}">
 								<img style="width:229px;height:179px" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }" name="img"/>

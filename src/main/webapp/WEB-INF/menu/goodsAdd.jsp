@@ -243,7 +243,7 @@ function addclass(obj){
 			});
 		});
 		
-		var specs = $("[id=special]");
+		/* var specs = $("[id=special]");
 		
 		specs.each(function(){
 			$(this).click(function(){
@@ -263,7 +263,7 @@ function addclass(obj){
 				$("#featureIds").val();
 				$("#featureIds").val(featureIds);
 			});
-		});
+		}); */
 		
 		//添加
 		$("#addSpecial").click(function() {
@@ -273,7 +273,7 @@ function addclass(obj){
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					$("#main_table2_td").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
 					$("#textSpecial").val("");
 				 });
 			}
@@ -291,6 +291,9 @@ function addclass(obj){
 					goodsTypeId : {
 						required : true,
 						checked : true
+					},
+					featureIds:{
+						required : true
 					},
 					cid:{
 						required : true
@@ -321,6 +324,9 @@ function addclass(obj){
 					},
 					cid:{
 						required : "商品类型必填"
+					},
+					featureIds:{
+						required : "商品特色必填"
 					},
 					goodsImg1:{
 						required : "商品图片必填"
@@ -483,14 +489,15 @@ function addclass(obj){
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;"></td>
+					<td style="color:red;">*</td>
 					<td style="">特色：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
+						<div id="main_table2_td_div" style="height: auto; overflow: hidden; width: 840px;"></div>
 						<%-- <c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 						</c:forEach> --%>
+						<input style="width:0;border:0;" type="text" value="" id="featureIds" name="featureIds">
 					</td>
-						<input type="hidden" value="" id="featureIds" name="featureIds">
 				</tr>
 				<tr>
 					<td></td>
@@ -587,10 +594,10 @@ function addclass(obj){
 						data :{"id":$(this).attr("value")},
 						success : function(msg) {
 							var list = msg.data;
-							$("#main_table2_td").html("");
+							$("#main_table2_td_div").html("");
 							for(var i=0;i<list.length;i++){
 								var html = "<p value='"+list[i].featureId+"' name='special' id='special' onclick='addclass(this);'>"+list[i].featureName+"</p>";
-								$("#main_table2_td").append(html);
+								$("#main_table2_td_div").append(html);
 							}
 						}
 			    	});

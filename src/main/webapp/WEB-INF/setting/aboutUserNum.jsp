@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -157,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <span>关联账号</span>&nbsp;&nbsp;
 		                    <span style="color:#AEAEAE; text-transform:uppercase;">user associate</span>
 		                </div>
-		                <div style="width:700px;" class="btn_div">
+		                <div style="width:500px;float:right;" class="btn_div">
 		                	<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
 	                		<input style="width:70px;height:30px;" onClick="javascript:window.history.back();" type="button" value="取消" />
                 		</div>

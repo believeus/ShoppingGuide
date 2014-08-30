@@ -46,11 +46,13 @@ public class ControllerChangeNote {
 			}else{
 				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
 				String nickString=user.getNickName(); 
-				Tshopfavorite shopfavorite=(Tshopfavorite) etechService.findObject(Tshopfavorite.class, "fansNickName", nickString);
+				List<Tshopfavorite> shopfavorites=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "fansNickName", nickString);
 				// shopfavorite 可肯能为空 报错
-				shopfavorite.setFansNickName(nickName.trim());
-				user.setNickName(nickName.trim());
-				etechService.saveOrUpdate(shopfavorite);
+				for (Tshopfavorite shopfavorite : shopfavorites) {
+					shopfavorite.setFansNickName(nickName.trim());
+					user.setNickName(nickName.trim());
+					etechService.saveOrUpdate(shopfavorite);
+				}
 				etechService.saveOrUpdate(user);
 				
 				message.put("property", "toChangeNote");

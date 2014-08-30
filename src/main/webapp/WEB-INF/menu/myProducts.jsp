@@ -16,6 +16,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -140,8 +141,8 @@
 	background-position:-356px -455px;
 	width:32px;
 	height:30px;
-	position:absolute;
-	right:150px;
+	position: relative;
+	right:-338px;
 	cursor:pointer;
 }
 .findPro:hover{
@@ -152,23 +153,26 @@
 .addPro{
 	background: url(/images/bg.png) repeat scroll 0 -324px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 153px;
-    position: absolute;
+    right: 578px;
+    position: relative;
     width: 20px;
+    display: inline-block;
 }
 .reload{
 	background: url(/images/bg.png) repeat scroll -40px -355px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 233px;
-    position: absolute;
+    right: 525px;
+    position: relative;
     width: 20px;
+    display: inline-block;
 }
 .pageshow{
 	background: url(/images/bg.png) repeat scroll 0 -355px rgba(0, 0, 0, 0);
     height: 25px;
-    left: 373px;
-    position: absolute;
+    right: 405px;
+    position: relative;
     width: 20px;
+    display: inline-block;
 }
 .pro_hit_1{
 	float:left;
@@ -284,24 +288,35 @@
 			//alert("你好,windows");
 			if(FF){
 				//alert("我是FF浏览器");
-				$(".addPro").css("left","180px");
-				$(".reload").css("left","255px");
-				$(".pageshow").css("left","385px");
-				$(".findPro").css("right","175px");
+				$(".addPro").css("right","565px");
+				$(".reload").css("right","515px");
+				$(".pageshow").css("right","410px");
+				//$(".findPro").css("right","175px");
 			}
 			if(isChrome){
 			   	//alert("我是谷歌浏览器");
-			   	$(".addPro").css("left","180px");
-				$(".reload").css("left","250px");
-				$(".pageshow").css("left","375px");
+			   	$(".addPro").css("right","550px");
+				$(".reload").css("right","505px");
+				$(".pageshow").css("right","375px");
 				$(".findPro").css("right","175px");
+				$("form").css("top","0");
 			}
 			if(IE){
+				$("form").css("top","0");
 			   	//alert("我是IE浏览器");
-			   	$(".addPro").css("left","180px");
+			   /* 	$(".addPro").css("left","180px");
 				$(".reload").css("left","250px");
 				$(".pageshow").css("left","370px");
-				$(".findPro").css("right","175px");
+				$(".findPro").css("right","175px"); */
+			}
+		}else{
+			if(isChrome){
+			   	//alert("我是谷歌浏览器");
+			   	$(".addPro").css("right","550px");
+				$(".reload").css("right","505px");
+				$(".pageshow").css("right","403px");
+				$(".findPro").css("right","-338px");
+				$("form").css("top","0");
 			}
 		}
 		$("#allPro").mouseout(function(){
@@ -389,7 +404,7 @@
 		</p>
 		<p style="color: #69CDCD; font-size: 20px; padding-left: 25px;margin:0;line-height:40px;">商品列表</p>
 		<img src="/images/line.png">
-		<div style="margin: 10px 0px; width: 1000px; height: 40px;">
+		<div style="margin: 10px 0px; width: 1000px; height: 40px;display: inline-block;">
 			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s id="addPro" class="addPro"></s>
 			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
@@ -403,7 +418,7 @@
 			<div style="width: 100px; float: left; height: 30px; line-height: 30px;">
 				共有<font color="#69CDCD">${size }</font>条数据
 			</div>
-			<form action="/searchProduct.jhtml" method="post" style="float:right;">
+			<form action="/searchProduct.jhtml" method="post" style="float: right; position: relative; margin-bottom: 0px; top: -30px;">
 				<input type="hidden" name="shopId" value="${shopId }"/>
 				<input type="text" name="key" style="float:right;">
 				<input class="findPro" title="点击搜索商品" type="submit" value="" style="border:0;"/>
@@ -415,7 +430,7 @@
 				<div class="pro_list">
 					<div class="pro_img">
 						<span class="tick" style="display:none;"></span>
-						<c:if test="${tgLi1.goodsDefaultPhotoUrl !='' }">
+						<c:if test="${tgLi1.goodsDefaultPhotoUrl !=''}">
 							<img src="<%=Variables.goodsPhotoURL %>${tgLi1.shopId}/${tgLi1.goodsDefaultPhotoUrl }" width="230">
 						</c:if>
 						<c:if test="${tgLi1.goodsPhotoUrl != '' && tgLi1.goodsDefaultPhotoUrl ==''}">
@@ -424,7 +439,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -432,7 +447,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -476,7 +491,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -484,7 +499,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -528,7 +543,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -536,7 +551,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">
@@ -580,7 +595,7 @@
 						<c:if test="${tgLi1.goodsPhotoUrl == '' && tgLi1.goodsDefaultPhotoUrl ==''}">
 							
 						</c:if>
-						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
+						<span class="middle-money" id="${tgLi1.goodsId}" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> value="${tgLi1.isOnSale}">
 							<c:if test="${tgLi1.isOnSale =='0'}">
 								上架
 							</c:if>
@@ -588,7 +603,7 @@
 								下架
 							</c:if>
 						</span>
-						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
+						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
 					<div class="pro_name">${tgLi1.goodsName}</div>
 					<div class="pro_spec">

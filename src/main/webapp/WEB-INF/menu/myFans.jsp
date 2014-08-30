@@ -163,7 +163,12 @@
 				<tr style="">
 					<td style=""><p style="font-size:24px;color:#69CDCD;">我的粉丝</p></td>
 					<td>
-						<input type="button" value="粉丝统计" onClick="javascript:window.location.href='/fansCount.jhtml?url=sex&shopId=${shopId}'" style="float:right;">
+						<c:if test="${size !=0 }">
+							<input type="button" value="粉丝统计" onClick="javascript:window.location.href='/fansCount.jhtml?url=sex&shopId=${shopId}'" style="float:right;">
+						</c:if>
+						<c:if test="${size ==0 }">
+							<input type="button" value="粉丝统计" onClick="alert('没有粉丝，无法进行统计！');" style="float:right;">
+						</c:if>
 					</td>
 				</tr>
 			</table>			

@@ -88,6 +88,15 @@ public class ControllerLogin {
 		}
 		return "/WEB-INF/login.jsp";
 	}
+	
+	/**
+	 * 错误页面跳转
+	 * @return
+	 */
+	@RequestMapping(value="/error")
+	public String error(){
+		return "/WEB-INF/error.jsp";
+	}
 
 }
 /**End Author:wuqiwei Data:2014-05-26 Email:1058633117@qq.com AddReason:用户登录业务逻辑 */

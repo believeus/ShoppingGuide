@@ -193,6 +193,11 @@ public class ControllerMenu {
 		}
 		request.setAttribute("tfeatures", tfeatures2);
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
+		if (tgoods.getGoodsTypes().size() != 0) {
+			request.setAttribute("goodsTypesId", tgoods.getGoodsTypes().get(0).getParentId());
+		}else {
+			request.setAttribute("goodsTypesId", "-3");
+		}
 		request.setAttribute("tgoodsFeatures", tgoods.getFeatures());
 		request.setAttribute("flag", tgoods.getPublishFlag());
 		
@@ -309,11 +314,36 @@ public class ControllerMenu {
 				}
 			}
 		}else { 
-			String imgPath ="";
+			//String imgPath ="";
 			if (appendImg == "") {
-				imgPath = tgoods.getGoodsPhotoUrl().split(",")[0];
-				tgoods.setGoodsDefaultPhotoUrl(imgPath);
+				tgoods.setGoodsDefaultPhotoUrl("");
+				tgoods.setGoodsDefaultPhotoHeight(0);
+				tgoods.setGoodsDefaultPhotoWidth(0);
+				/*imgPath = tgoods.getGoodsPhotoUrl().split(",")[0];
+				if (tgoods.getGoodsDefaultPhotoUrl() !="" && tgoods.getGoodsDefaultPhotoUrl() !=null) {
+					tgoods.setGoodsDefaultPhotoUrl(tgoods.getGoodsDefaultPhotoUrl());
+				}else {
+					tgoods.setGoodsDefaultPhotoUrl(imgPath);
+				}
 				String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+imgPath;
+				if (imgPath == null || imgPath == "") {
+					tgoods.setGoodsDefaultPhotoUrl("");
+					tgoods.setGoodsDefaultPhotoHeight(0);
+					tgoods.setGoodsDefaultPhotoWidth(0);
+				}else {
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					tgoods.setGoodsDefaultPhotoHeight(height);
+					tgoods.setGoodsDefaultPhotoWidth(width);
+				}*/
+			}else {
+				tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
+				String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[0];
 				//读入文件    
 				File imgSmall= new File(defaultPhoto);    
 				// 构造Image对象    
@@ -323,19 +353,7 @@ public class ControllerMenu {
 				Integer height = src.getHeight();
 				tgoods.setGoodsDefaultPhotoHeight(height);
 				tgoods.setGoodsDefaultPhotoWidth(width);
-			}else {
-				tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
 			}
-			String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[0];
-			//读入文件    
-			File imgSmall= new File(defaultPhoto);    
-			// 构造Image对象    
-			BufferedImage src = ImageIO.read(imgSmall);
-			//获取默认图片宽高
-			Integer width = src.getWidth();
-			Integer height = src.getHeight();
-			tgoods.setGoodsDefaultPhotoHeight(height);
-			tgoods.setGoodsDefaultPhotoWidth(width);
 		}
 		
 		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));
@@ -443,6 +461,8 @@ public class ControllerMenu {
 		String lisenceId=request.getParameter("lisenceId");
 		String featureIds=request.getParameter("featureIds");
 		String deleteImgs = request.getParameter("deleteImgs");
+		String shopOwnerName = request.getParameter("shopOwnerName");
+		String qq = request.getParameter("qq");
 		if (StringUtils.isEmpty(deleteImgs)) {
 			deleteImgs="";
 		}
@@ -612,6 +632,8 @@ public class ControllerMenu {
 		shop.setViewCount(0);
 		shop.setBePraisedCount(0);
 		shop.setFansCount(0);
+		shop.setShopOwnerName(shopOwnerName);
+		shop.setQq(qq);
 		
 		// 这里会有八张全部都替换了
 		List<String> oldlist = new ArrayList<String>(Arrays.asList(shop.getShopPhotoUrl().split(",")));
@@ -833,6 +855,9 @@ public class ControllerMenu {
 		request.setAttribute("featurelist1", featurelist1);
 		request.setAttribute("featurelist2", featurelist2);
 		request.setAttribute("featurelist3", featurelist3);
+		
+		System.out.println(phoneFans.size());
+		request.setAttribute("size", phoneFans.size());
 		return "/WEB-INF/menu/myFans.jsp";
 	}
 	/**

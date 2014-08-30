@@ -380,7 +380,7 @@ public class ControllerGoodsAdd {
 			}
 			log.debug("All path:"+appendImg);
 			String moren = request.getParameter("moren");
-			if (!StringUtils.isEmpty(moren)) {
+			if (!StringUtils.isEmpty(moren) && appendImg !="") {
 				String[] goodsImgPath = appendImg.split(",");
 				for (int i = 0; i < goodsImgPath.length; i++) {
 					if(i == Integer.parseInt(moren)){
@@ -401,14 +401,22 @@ public class ControllerGoodsAdd {
 				tGoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
 				String defaultPhoto = Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+appendImg.split(",")[0];
 				//读入文件    
-				File imgSmall= new File(defaultPhoto);    
-				// 构造Image对象    
-				BufferedImage src = ImageIO.read(imgSmall);
-				//获取默认图片宽高
-				Integer width = src.getWidth();
-				Integer height = src.getHeight();
-				tGoods.setGoodsDefaultPhotoHeight(height);
-				tGoods.setGoodsDefaultPhotoWidth(width);
+				File imgSmall= new File(defaultPhoto);   
+				if (appendImg !="") {
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					tGoods.setGoodsDefaultPhotoHeight(height);
+					tGoods.setGoodsDefaultPhotoWidth(width);
+				}else {
+					tGoods.setGoodsDefaultPhotoUrl("");
+					tGoods.setGoodsDefaultPhotoHeight(0);
+					tGoods.setGoodsDefaultPhotoWidth(0);
+				}
+				
+				
 			}
 			log.debug("shop image sava db url:"+shopImg);
 			tGoods.setGoodsPhotoUrl(appendImg);

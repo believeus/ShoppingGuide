@@ -120,6 +120,6 @@
 	</servlet-mapping>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/login.jhtml</location>
+		<location>/error.jhtml</location>
 	</error-page>
 </web-app>
