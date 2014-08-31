@@ -57,10 +57,10 @@ public class ControllerLogin {
 						if(sessionUser.getShops().isEmpty()){
 							return "/register2.jhtml";
 						}
-						/*String rememberme = request.getParameter("rememberme");
+						String rememberme = request.getParameter("rememberme");
 						if(!StringUtils.isEmpty(rememberme)){
 							cookieUtil.saveCookie(userName, password, response);
-						}*/
+						}
 						sessionUser.setLoginCount(sessionUser.getLoginCount()+1);
 						etechService.saveOrUpdate(sessionUser);
 						return "/menu.jhtml";
@@ -76,15 +76,15 @@ public class ControllerLogin {
 	
 	@RequestMapping(value="/login")
 	public String loginView(HttpServletRequest request,HttpServletResponse response){
-		String referer = request.getHeader("Referer");
-		if(!StringUtils.isEmpty(referer)&&referer.contains("logout.jhtml")){
-			return "/WEB-INF/login.jsp";
-		}
 		try {
 			String username = cookieUtil.getLoginName(request, response);
 			request.setAttribute("username", username);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		String referer = request.getHeader("Referer");
+		if(!StringUtils.isEmpty(referer)&&referer.contains("logout.jhtml")){
+			return "/WEB-INF/login.jsp";
 		}
 		return "/WEB-INF/login.jsp";
 	}
