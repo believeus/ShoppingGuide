@@ -287,6 +287,14 @@ public class ControllerMenu {
 			}
 		}
 		log.debug("All path:"+appendImg);
+		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));
+		log.debug("tgoods.getGoodsPhotoUrl()--list:"+oldlist);
+		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split(",")));
+		log.debug("deleteList:"+deleteList);
+		oldlist.removeAll(deleteList);
+		for (String string : oldlist) {
+			appendImg+=string+","; 
+		}
 		String moren = request.getParameter("moren");
 		if (!StringUtils.isEmpty(moren)) {
 			String imagePath = "";
@@ -356,14 +364,7 @@ public class ControllerMenu {
 			}
 		}
 		
-		List<String> oldlist = new ArrayList<String>(Arrays.asList(tgoods.getGoodsPhotoUrl().split(",")));
-		log.debug("tgoods.getGoodsPhotoUrl()--list:"+oldlist);
-		List<String> deleteList = new ArrayList<String>(Arrays.asList(deleteImgs.split(",")));
-		log.debug("deleteList:"+deleteList);
-		oldlist.removeAll(deleteList);
-		for (String string : oldlist) {
-			appendImg+=string+","; 
-		}
+		
 		log.debug("tgoods.getGoodsPhotoUrl()--list:"+appendImg);
 		// 设置图片。
 		tgoods.setGoodsPhotoUrl(appendImg);
