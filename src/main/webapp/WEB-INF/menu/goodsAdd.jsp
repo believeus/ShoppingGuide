@@ -130,12 +130,6 @@ function addclass(obj){
 	}else{
 		obj.className = "inputClass";
 	}
-	var featureIds=new Array();
-	$("#special.inputClass").each(function(){
-		featureIds.push($(this).attr("value"));
-	});
-	$("#featureIds").val();
-	$("#featureIds").val(featureIds);
 }
 	$().ready(function(){
 		
@@ -270,20 +264,28 @@ function addclass(obj){
 			var feature = $("#textSpecial").val();
 			if (feature == "") {
 				alert("请输入关键字！");
+				return false;
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature,features:$("#featureIds").val()},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
-					$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					var tag=false;
+					// 遍历显示出来的特色，判断当前添加的特色是否存在
+					$("#main_table2_td_div p").each(function(){
+						var pValue=$(this).attr("value");
+						//如果存在，则直接设置选中。
+						if(pValue==tfeatureId){
+							tag=true;
+							$(this).attr("class","inputClass");
+							return false;
+						}
+					});
+					//如果不存在，则添加特色。
+					if(!tag){
+						$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					}
 					$("#textSpecial").val("");
 				 });
 			}
-			var aaa=new Array();
-			alert("添加成功");
-			$("#special.inputClass").each(function(){
-				aaa.push($(this).attr("value"));
-			});
-			$("#featureIds").val();
-			$("#featureIds").val(aaa);
 		});
 		
 		function imgValidate(){

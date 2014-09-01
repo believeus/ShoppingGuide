@@ -51,30 +51,18 @@ public class ControllerRegistThree {
 		return "/WEB-INF/register3.jsp";
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/insertFeature")
 	public @ResponseBody String insertFeature(String feature,ServletResponse response){
-		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class);
-		List<String> featureName = new ArrayList<String>();
-		Tfeature tfeature=new Tfeature();
-		for (Tfeature tfeature2 : tfeatures) {
-			featureName.add(tfeature2.getFeatureName());
-		}
-		if (featureName.contains(feature)) {
-			for (int i = 0; i < tfeatures.size(); i++) {
-				if(tfeatures.get(i).getFeatureName().equals(feature)){
-					tfeature = tfeatures.get(i);
-				}
-			}
-			return tfeature.getFeatureId()+"";
-		}else {
+		Tfeature tfeature = (Tfeature)etechService.findObject(Tfeature.class, "featureName",feature);
+		if (StringUtils.isEmpty(tfeature)) {
+			tfeature=new Tfeature();
 			tfeature.setFeatureName(feature);
 			tfeature.setFeatureType((short)1);
 			tfeature.setObjectFlag("111");
 			tfeature.setCount(0);
 			etechService.saveOrUpdate(tfeature);
-			return tfeature.getFeatureId()+"";
 		}
+		return tfeature.getFeatureId()+"";
 	}
 	
 	@RequestMapping(value = "/saveFeature")
