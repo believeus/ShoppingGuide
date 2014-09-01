@@ -448,6 +448,15 @@ function addclass(obj){
 						</c:forEach>
 					</td>
 				</tr>
+				<tr>
+					<td style="color:red;"></td>
+					<td>记录查看:</td>
+					<td colspan="2">
+						<a href="/hitPraise.jhtml?goodsId=${tgoods.goodsId }" title="点赞">点赞<span style="color:#69CDCD;">(${size3 })</span></a>
+						<a href="/hitFavorite.jhtml?goodsId=${tgoods.goodsId }" title="收藏">收藏<span style="color:#69CDCD;">(${size })</span></a>
+						<a href="/hitCount.jhtml?goodsId=${tgoods.goodsId }" title="浏览">浏览<span style="color:#69CDCD;">(${size2 })</span></a>
+					</td>
+				</tr>
 			</table>
 		</div>
 	<script type="text/javascript">

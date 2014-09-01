@@ -11,7 +11,7 @@
 <html>
 <head>
 
-<title>浏览记录</title>
+<title>收藏记录</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -58,10 +58,11 @@
 			width:300px;
 			height:auto;
 			float:left;
-			margin-right:47px;
+			margin-right:30px;
 			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;
+			overflow:hidden;
 			margin-top:20px;
 		}
 		.p_top{
@@ -120,7 +121,7 @@
 		}
 		.p_speci{
 			height:auto;
-			width:281px;
+			width:300px;
 			padding:10px;
 			overflow:hidden;
 		}
@@ -151,7 +152,7 @@
 				var phoneUserId=$(this).prev().prev().val();
 				
 				$.post("/changeNote.jhtml",{"nickName":nickName,"phoneUserId":phoneUserId});
-				var url = "/hitCount.jhtml?goodsId="+${goodsId};
+				var url = "/hitPraise.jhtml?goodsId="+${goodsId};
 				location.replace(url);
 			});
 		}); */
@@ -170,7 +171,7 @@
 						{"nickName":nickName,"phoneUserId":phoneUserId},
 						function(data){
 							//$("#changeNick").html(data.user.nickName);
-							var url = "/hitCount.jhtml?goodsId="+${goodsId};
+							var url = "/hitFavorite.jhtml?goodsId="+${goodsId};
 							location.replace(url);
 						},
 						"json");
@@ -191,11 +192,11 @@
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
 	   			<a title="我的店铺" href="/myShop.jhtml?shopId=${shopId }">我的店铺</a> &gt;
 				<a title="商品列表" href="/myProducts.jhtml?shopId=${shopId }">商品列表</a> &gt;
-				<a title="浏览记录" href="/hitCount.jhtml?goodsId=${goodsId }">浏览记录</a>
+				<a title="收藏记录" href="/hitFavorite.jhtml?goodsId=${goodsId }">收藏记录</a>
 			</p>
 			<table class="main_table1">
 				<tr style="">
-					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">浏览记录</p></td>
+					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">收藏记录</p></td>
 					<td style="width:56%;"></td>
 				</tr>
 			</table>			
@@ -238,19 +239,19 @@
 						</div>
 						
 						<div class="p_speci">
-							<c:forEach items="${featurelist1}" var="feature" begin="${state.index }" end="${state.index }" >
+							<c:forEach items="${fancyList}" var="feature" begin="${state.index }" end="${state.index }" >
 									<c:forEach items="${feature}" var="fe" varStatus="status">
 										<c:if test="${status.index %4 ==0 }">
-											<p class="p_speci_p" style="background:#0BB5D9;color:#FFFFFF;">${fe}</p>
+											<p class="p_speci_p" style="background:#0BB5D9;color:#ffffff;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==1 }">
-											<p class="p_speci_p" style="background:#49BF85;color:#FFFFFF;">${fe}</p>
+											<p class="p_speci_p" style="background:#49BF85;color:#ffffff;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==2 }">
-											<p class="p_speci_p" style="background:#E36B77;color:#FFFFFF;">${fe}</p>
+											<p class="p_speci_p" style="background:#E36B77;color:#ffffff;">${fe}</p>
 										</c:if>
 										<c:if test="${status.index %4 ==3 }">
-											<p class="p_speci_p" style="background:#F8B95A;color:#FFFFFF;">${fe}</p>
+											<p class="p_speci_p" style="background:#F8B95A;color:#ffffff;">${fe}</p>
 										</c:if>
 									</c:forEach>
 							</c:forEach>
@@ -344,7 +345,7 @@
 						
 						<div class="p_speci">
 							<c:forEach items="${featurelist3}" var="feature" begin="${state.index }" end="${state.index }" >
-									<c:forEach items="${feature}" var="fe" varStatus="status">
+									<c:forEach items="${feature}" var="fe">
 										<p class="p_speci_p">${fe}</p>
 									</c:forEach>
 							</c:forEach>
@@ -352,7 +353,6 @@
 					</div>
 				</c:forEach>
 			</div>
-			
 			
 		</div>
 

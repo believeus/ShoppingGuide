@@ -271,6 +271,9 @@ function addclass(obj){
 			if (feature == "") {
 				alert("请输入关键字！");
 				return false;
+			}else if(feature.length >5){
+				alert("关键字在五个字以内！");
+				return false;
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature,features:$("#featureIds").val()},function(result){
 					var tfeatureId=result.match(/[0-9]+/);

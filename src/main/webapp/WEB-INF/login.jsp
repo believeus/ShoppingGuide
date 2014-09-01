@@ -173,7 +173,7 @@ function removeCookie(name, options) {
         		<img src="images/Logo_.png"/>
             </div>
         	<div style="float:right; margin-top:40px; font-size:16px; color:#056F6F; line-height:0px;">
-            	<p><a>关于爱乐逛</a></p>
+            	<p><a href="http://www.aileguang.com">关于爱乐逛</a></p>
             </div>
         </div>
 	</div>

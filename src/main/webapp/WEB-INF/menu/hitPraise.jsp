@@ -187,7 +187,13 @@
 		 <!-- 引用尾部页面 -->
    		 <jsp:include page="../include/header.jsp" flush="true" />
 		
-		<div id="main" style="">
+		<div id="main" style="width:1000px;">
+			<p style="margin-bottom: 0px;">所在位置：
+				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
+	   			<a title="我的店铺" href="/myShop.jhtml?shopId=${shopId }">我的店铺</a> &gt;
+				<a title="商品列表" href="/myProducts.jhtml?shopId=${shopId }">商品列表</a> &gt;
+				<a title="点赞记录" href="/hitPraise.jhtml?goodsId=${goodsId }">点赞记录</a>
+			</p>
 			<table class="main_table1">
 				<tr style="">
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">点赞记录</p></td>

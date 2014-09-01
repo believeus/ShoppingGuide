@@ -38,6 +38,7 @@ import com.etech.dao.Pageable;
 import com.etech.entity.Tfavoritegroup;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodsfavorite;
 import com.etech.entity.Tgoodsfeature;
 import com.etech.entity.Tgoodspraisehistory;
 import com.etech.entity.Tgoodstypefeature;
@@ -150,9 +151,40 @@ public class ControllerMenu {
 	 * @param request
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/goodsMsg")
 	public String goodsMsg(Integer goodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		
+		List<Tfavoritegroup> tfavoritegroups = new ArrayList<Tfavoritegroup>();
+		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		List<Tgoodsfavorite> gphs = (List<Tgoodsfavorite>) etechService.findObjectList(Tgoodsfavorite.class, "goodsId",goodsId);
+		for (Tgoodsfavorite tgoodsfavorite : gphs) {
+			tgoodsfavorite.getFavoriteGroupId();
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tgoodsfavorite.getFavoriteGroupId());
+			tfavoritegroups.add(tfavoritegroup);
+		}
+		for (Tfavoritegroup tfavoritegroup : tfavoritegroups) {
+			tfavoritegroup.getPhoneUserId();
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			tphoneusers.add(phoneUser);
+		}
+		List<Tgoodsviewhistory> gphs2 = (List<Tgoodsviewhistory>) etechService.findObjectList(Tgoodsviewhistory.class, "goodsId",goodsId);
+		List<Tphoneuser> tphoneusers2 = new ArrayList<Tphoneuser>();
+		
+		for (Tgoodsviewhistory tgoodsviewhistory : gphs2) {
+			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodsviewhistory.getPhoneUserId());
+			tphoneusers2.add(puser);
+		}
+		
+		List<Tgoodspraisehistory> gphs3 = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
+		List<Tphoneuser> tphoneusers3 = new ArrayList<Tphoneuser>();
+		
+		for (Tgoodspraisehistory tgoodspraisehistory : gphs3) {
+			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
+			tphoneusers3.add(puser);
+		}
+		
 		request.setAttribute("tgoods", tgoods);
 		request.setAttribute("features", tgoods.getFeatures());
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
@@ -160,6 +192,9 @@ public class ControllerMenu {
 		request.setAttribute("paths", paths);
 		request.setAttribute("shopId", tgoods.getShopId());
 		request.setAttribute("flag", tgoods.getPublishFlag());
+		request.setAttribute("size", tphoneusers.size());
+		request.setAttribute("size2", tphoneusers2.size());
+		request.setAttribute("size3", tphoneusers3.size());
 		return "/WEB-INF/menu/goodsMsg.jsp";
 	}
 	
@@ -676,6 +711,7 @@ public class ControllerMenu {
 	@RequestMapping(value="/hitPraise")
 	public String hitPraise(HttpServletRequest request,Integer goodsId){
 		//查找某商品的点赞记录
+		Tgoods goods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", goodsId);
 		List<Tgoodspraisehistory> gphs = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
@@ -705,7 +741,48 @@ public class ControllerMenu {
 		request.setAttribute("featurelist2", featurelist2);
 		request.setAttribute("featurelist3", featurelist3);
 		request.setAttribute("goodsId", goodsId);
+		request.setAttribute("shopId", goods.getShopId());
 		return "/WEB-INF/menu/hitPraise.jsp";
+	}
+	
+	/**
+	 * hit favorite
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/hitFavorite")
+	public String hitFavorite(HttpServletRequest request,Integer goodsId){
+		//查找某商品的收藏记录
+		Tgoods goods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", goodsId);
+		List<Tfavoritegroup> tfavoritegroups = new ArrayList<Tfavoritegroup>();
+		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		List<List<String>> fancyList = new ArrayList<List<String>>();
+		List<Tgoodsfavorite> gphs = (List<Tgoodsfavorite>) etechService.findObjectList(Tgoodsfavorite.class, "goodsId",goodsId);
+		for (Tgoodsfavorite tgoodsfavorite : gphs) {
+			tgoodsfavorite.getFavoriteGroupId();
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tgoodsfavorite.getFavoriteGroupId());
+			tfavoritegroups.add(tfavoritegroup);
+		}
+		for (Tfavoritegroup tfavoritegroup : tfavoritegroups) {
+			tfavoritegroup.getPhoneUserId();
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			tphoneusers.add(phoneUser);
+		}
+		for (Tphoneuser tphoneuser : tphoneusers) {
+			List<String> fancys = new ArrayList<String>();
+			String[] fancy = tphoneuser.getFancy().split(",");
+			for (int i = 0; i < fancy.length; i++) {
+				fancys.add(fancy[i]);
+			}
+			fancyList.add(fancys);
+		}
+		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("size", tphoneusers.size());
+		request.setAttribute("fancyList", fancyList);
+		request.setAttribute("goodsId", goodsId);
+		request.setAttribute("shopId", goods.getShopId());
+		
+		return "/WEB-INF/menu/hitFavorite.jsp";
 	}
 	
 	/**
@@ -716,6 +793,7 @@ public class ControllerMenu {
 	@RequestMapping(value="/hitCount")
 	public String hitCount(HttpServletRequest request,Integer goodsId){
 		//查找某商品的浏览记录
+		Tgoods goods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", goodsId);
 		List<Tgoodsviewhistory> gphs = (List<Tgoodsviewhistory>) etechService.findObjectList(Tgoodsviewhistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
 		List<Tfeature> tfeatures = new ArrayList<Tfeature>();
@@ -745,6 +823,7 @@ public class ControllerMenu {
 		request.setAttribute("featurelist2", featurelist2);
 		request.setAttribute("featurelist3", featurelist3);
 		request.setAttribute("goodsId", goodsId);
+		request.setAttribute("shopId", goods.getShopId());
 		return "/WEB-INF/menu/hitCount.jsp";
 	}
 	
@@ -773,7 +852,6 @@ public class ControllerMenu {
 		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
 		List<List<String>> fancyList = new ArrayList<List<String>>();
 		for (Tshopfavorite tshopfavorite : fans) {
-			tshopfavorite.getFavoriteGroupId();
 			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
 			tfavoritegroups.add(tfavoritegroup);
 		}
