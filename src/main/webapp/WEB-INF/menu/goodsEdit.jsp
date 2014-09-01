@@ -158,7 +158,7 @@ function addclass(obj){
 		</c:forEach>
 		$("#featureIds").val(features);
 		
-		$("#pid").change(function(){
+		/* $("#pid").change(function(){
 			//alert($(this).val());
 			$.ajax({
 				type : "post",
@@ -201,7 +201,7 @@ function addclass(obj){
 					}
 				}
 			});
-		});
+		}); */
 		
 		var a = $(".brandImg").size()+1;
 		var b = $(".brandImg").size();
@@ -289,6 +289,47 @@ function addclass(obj){
 			var feature = $("#textSpecial").val();
 			if (feature == "") {
 				alert("请输入关键字！");
+				return false;
+			} else {
+				$.post("/insertFeature2.jhtml",{feature:feature,features:$("#featureIds").val(),goodsId:${tgoods.goodsId}},function(result){
+					var tfeatureId=result.match(/[0-9]+/);
+					var tag=false;
+					// 遍历显示出来的特色，判断当前添加的特色是否存在
+					$("#main_table2_td_div p").each(function(){
+						var pValue=$(this).attr("value");
+						//如果存在，则直接设置选中。
+						if(pValue==tfeatureId){
+							tag=true;
+							$(this).attr("class","inputClass");
+							var featureIds=new Array();
+							$("#special.inputClass").each(function(){
+								featureIds.push($(this).attr("value"));
+							});
+							$("#featureIds").val();
+							$("#featureIds").val(featureIds);
+							return false;
+						}
+					});
+					//如果不存在，则添加特色。
+					if(!tag){
+						$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+						var featureIds=new Array();
+						$("#special.inputClass").each(function(){
+							featureIds.push($(this).attr("value"));
+						});
+						$("#featureIds").val();
+						$("#featureIds").val(featureIds);
+					}
+					$("#textSpecial").val("");
+				 });
+			}
+		});
+		
+		/* //添加
+		$("#addSpecial").click(function() {
+			var feature = $("#textSpecial").val();
+			if (feature == "") {
+				alert("请输入关键字！");
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
@@ -297,7 +338,7 @@ function addclass(obj){
 				 });
 			}
 			//location.reload();
-		});
+		}); */
 		
 		//判断商品发布的状态
 		//1,标准发布有必填字段，则验证必填项   flag=0

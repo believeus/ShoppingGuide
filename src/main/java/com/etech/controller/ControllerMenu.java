@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.etech.dao.Page;
 import com.etech.dao.Pageable;
+import com.etech.entity.Tfavoritegroup;
 import com.etech.entity.Tfeature;
 import com.etech.entity.Tgoods;
 import com.etech.entity.Tgoodsfeature;
@@ -766,99 +767,34 @@ public class ControllerMenu {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/showFans")
 	public String showFans(HttpServletRequest request,Integer shopId){
-		Integer sid=shopId;
+		
 		List<Tshopfavorite> fans=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class,"shopId",shopId);
-		log.debug("length:"+fans.size());
-		Map<Integer, Date> sortTimeMap=new HashMap<Integer, Date>();
-		int len=fans.size();
-		for(int i=0;i<len;i++){
-			sortTimeMap.put(fans.get(i).getShopFavoriteId(), fans.get(i).getAddTime());
+		List<Tfavoritegroup> tfavoritegroups = new ArrayList<Tfavoritegroup>();
+		List<Tphoneuser> tphoneusers = new ArrayList<Tphoneuser>();
+		List<List<String>> fancyList = new ArrayList<List<String>>();
+		for (Tshopfavorite tshopfavorite : fans) {
+			tshopfavorite.getFavoriteGroupId();
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+			tfavoritegroups.add(tfavoritegroup);
 		}
-		log.debug("sortSize:"+sortTimeMap.size());
-		//sort by addTime
-		List<Map.Entry<Integer, Date>> newest=new ArrayList<Map.Entry<Integer, Date>>(sortTimeMap.entrySet());
-		Collections.sort(newest, new Comparator<Map.Entry<Integer, Date>>(){
-
-			@Override
-			public int compare(Entry<Integer, Date> o1, Entry<Integer, Date> o2) {
-				return o2.getValue().compareTo(o1.getValue());
-			}
-			
-		});
-		//get the list of fans by nickname
-		List<Tphoneuser> phoneFans=new ArrayList<Tphoneuser>();
-		for(int i=0;i<len;i++){
-			int sortId=newest.get(i).getKey();
-			log.debug("sortId:"+sortId);
-			for(int j=0;j<len;j++){
-				int fansid=fans.get(j).getShopFavoriteId();
-				log.debug("fansid:"+fansid);
-				if(fansid == sortId){
-					String nick=fans.get(j).getFansNickName();
-					log.debug("nick:"+nick);
-//					Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nick);
-//					
-//					if(StringUtils.isEmpty(user)){
-//						log.debug("找不到NickName为"+nick+"的用户！");
-//					}else{
-//						phoneFans.add(user);
-//						log.debug("id:"+user.getPhoneUserId());
-//					}
-					List<Tphoneuser> user= (List<Tphoneuser>) etechService.findObjectList(Tphoneuser.class, "nickName", nick);
-					phoneFans.addAll(user);
-					break;
-				}
-			}
+		for (Tfavoritegroup tfavoritegroup : tfavoritegroups) {
+			tfavoritegroup.getPhoneUserId();
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			tphoneusers.add(phoneUser);
 		}
-		//divide into three part
-		log.debug("length:"+phoneFans.size());
-		List<Tphoneuser> phoneuser1=new ArrayList<Tphoneuser>();
-		List<Tphoneuser> phoneuser2=new ArrayList<Tphoneuser>();
-		List<Tphoneuser> phoneuser3=new ArrayList<Tphoneuser>();
-		int size=phoneFans.size();
-		for(int i=0;i<size;i++){
-			Tphoneuser user=phoneFans.get(i);
-			int yu=(i+3)%3;
-			if(yu == 0){
-				phoneuser1.add(user);
-			}else if(yu == 1){
-				phoneuser2.add(user);
-			}else{
-				phoneuser3.add(user);
+		for (Tphoneuser tphoneuser : tphoneusers) {
+			List<String> fancys = new ArrayList<String>();
+			String[] fancy = tphoneuser.getFancy().split(",");
+			for (int i = 0; i < fancy.length; i++) {
+				fancys.add(fancy[i]);
 			}
+			fancyList.add(fancys);
 		}
-		request.setAttribute("phoneuser1", phoneuser1);
-		request.setAttribute("phoneuser2", phoneuser2);
-		request.setAttribute("phoneuser3", phoneuser3);
+		request.setAttribute("tphoneusers", tphoneusers);
+		request.setAttribute("size", tphoneusers.size());
+		request.setAttribute("fancyList", fancyList);
+		request.setAttribute("shopId", shopId);
 		
-		List<List<String>> featurelist1=new ArrayList<List<String>>();
-		List<List<String>> featurelist2=new ArrayList<List<String>>();
-		List<List<String>> featurelist3=new ArrayList<List<String>>();
-		for(int i=0;i<size;i++){
-			int id=phoneFans.get(i).getPhoneUserId();
-			log.debug("phoneUserId:"+id);
-			List<String> feature= etechOthersService.findObject(id);
-			log.debug("length:"+feature.size());
-			
-			int yu=(i+3)%3;
-			if(yu == 0){
-				featurelist1.add(feature);
-			}else if(yu == 1){
-				featurelist2.add(feature);
-			}else{
-				featurelist3.add(feature);
-			}
-			
-			log.debug("fSize:"+featurelist1.size()+";2:"+featurelist1.size()+";3:"+featurelist3.size());
-		}
-		log.debug("shopId:"+sid);
-		request.setAttribute("shopId", sid);
-		request.setAttribute("featurelist1", featurelist1);
-		request.setAttribute("featurelist2", featurelist2);
-		request.setAttribute("featurelist3", featurelist3);
-		
-		System.out.println(phoneFans.size());
-		request.setAttribute("size", phoneFans.size());
 		return "/WEB-INF/menu/myFans.jsp";
 	}
 	/**

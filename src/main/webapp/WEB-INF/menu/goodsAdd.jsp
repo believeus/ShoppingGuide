@@ -130,6 +130,12 @@ function addclass(obj){
 	}else{
 		obj.className = "inputClass";
 	}
+	var featureIds=new Array();
+	$("#special.inputClass").each(function(){
+		featureIds.push($(this).attr("value"));
+	});
+	$("#featureIds").val();
+	$("#featureIds").val(featureIds);
 }
 	$().ready(function(){
 		
@@ -276,12 +282,24 @@ function addclass(obj){
 						if(pValue==tfeatureId){
 							tag=true;
 							$(this).attr("class","inputClass");
+							var featureIds=new Array();
+							$("#special.inputClass").each(function(){
+								featureIds.push($(this).attr("value"));
+							});
+							$("#featureIds").val();
+							$("#featureIds").val(featureIds);
 							return false;
 						}
 					});
 					//如果不存在，则添加特色。
 					if(!tag){
 						$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+						var featureIds=new Array();
+						$("#special.inputClass").each(function(){
+							featureIds.push($(this).attr("value"));
+						});
+						$("#featureIds").val();
+						$("#featureIds").val(featureIds);
 					}
 					$("#textSpecial").val("");
 				 });
@@ -504,7 +522,7 @@ function addclass(obj){
 						<%-- <c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 						</c:forEach> --%>
-						<input style="width:610px;border:0;" type="text" value="" id="featureIds" name="featureIds">
+						<input style="width:0px;border:0;" type="text" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
 				<tr>

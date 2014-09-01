@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etech.entity.Tfeature;
+import com.etech.entity.Tgoods;
+import com.etech.entity.Tgoodstype;
+import com.etech.entity.Tgoodstypefeature;
 import com.etech.entity.Tshop;
 import com.etech.entity.Tshopfeature;
 import com.etech.entity.Tshopuser;
@@ -61,6 +64,34 @@ public class ControllerRegistThree {
 			tfeature.setObjectFlag("111");
 			tfeature.setCount(0);
 			etechService.saveOrUpdate(tfeature);
+		}
+		return tfeature.getFeatureId()+"";
+	}
+	
+	@RequestMapping(value="/insertFeature2")
+	public @ResponseBody String insertFeature(String goodsId,String feature,ServletResponse response){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", Integer.parseInt(goodsId));
+		Integer goodsTypeId = null;
+		if (tgoods.getGoodsTypes().size()!=0) {
+			goodsTypeId = tgoods.getGoodsTypes().get(0).getGoodsTypeId();
+		}else {
+			goodsTypeId = 10;
+		}
+		Tgoodstype tgoodstype = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", goodsTypeId);
+		Tgoodstype tgoodstype2 = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", tgoodstype.getParentId());
+		Tfeature tfeature = (Tfeature)etechService.findObject(Tfeature.class, "featureName",feature);
+		if (StringUtils.isEmpty(tfeature)) {
+			tfeature=new Tfeature();
+			tfeature.setFeatureName(feature);
+			tfeature.setFeatureType((short)1);
+			tfeature.setObjectFlag("111");
+			tfeature.setCount(0);
+			etechService.saveOrUpdate(tfeature);
+			Tgoodstypefeature tgoodstypefeature = new Tgoodstypefeature();
+			tgoodstypefeature.setFeatureId(tfeature.getFeatureId());
+			System.out.println(tgoodstype2.getParentId());
+			tgoodstypefeature.setGoodsTypeId(tgoodstype2.getParentId());
+			etechService.merge(tgoodstypefeature);
 		}
 		return tfeature.getFeatureId()+"";
 	}
