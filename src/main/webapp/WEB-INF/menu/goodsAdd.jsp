@@ -263,7 +263,7 @@ function addclass(obj){
 				$("#featureIds").val();
 				$("#featureIds").val(featureIds);
 			});
-		}); */
+		});  */
 		
 		//添加
 		$("#addSpecial").click(function() {
@@ -271,13 +271,19 @@ function addclass(obj){
 			if (feature == "") {
 				alert("请输入关键字！");
 			} else {
-				$.post("/insertFeature.jhtml",{feature:feature},function(result){
+				$.post("/insertFeature.jhtml",{feature:feature,features:$("#featureIds").val()},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
 					$("#main_table2_td_div").append("<p id='special' class='inputClass' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
 					$("#textSpecial").val("");
 				 });
 			}
-			//location.reload();
+			var aaa=new Array();
+			alert("添加成功");
+			$("#special.inputClass").each(function(){
+				aaa.push($(this).attr("value"));
+			});
+			$("#featureIds").val();
+			$("#featureIds").val(aaa);
 		});
 		
 		function imgValidate(){
@@ -472,7 +478,7 @@ function addclass(obj){
 					<td style="color:red;">*</td>
 					<td>商品类型：</td>
 					<td>
-						 <input id="addGoodsTypes" name="addGoodsTypes" type="text" title="" value=""  onClick="boxAlpha();" style="min-width:340px;height:32px;cursor:pointer;">
+						 <input id="addGoodsTypes" name="addGoodsTypes" type="text" title="" value=""  onClick="boxAlpha();" style="min-width:340px;height:32px;cursor:pointer;" readonly="readonly">
 						 <div id="selectGoodsType" style="display:none;"></div>
 						<%-- <select name="pid" id="pid">
 							<option value="">请选择..</option>
@@ -496,7 +502,7 @@ function addclass(obj){
 						<%-- <c:forEach var="tfeatures" items="${tfeatures }">
 							<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 						</c:forEach> --%>
-						<input style="width:0;border:0;" type="text" value="" id="featureIds" name="featureIds">
+						<input style="width:610px;border:0;" type="text" value="" id="featureIds" name="featureIds">
 					</td>
 				</tr>
 				<tr>
@@ -582,6 +588,14 @@ function addclass(obj){
 				}else{
 					
 				}
+				
+				/* var features=new Array();
+				$("#special.inputClass").each(function(){
+					features.push($(this).attr("value"));
+				});
+				$("#featureIds").val();
+				$("#featureIds").val(featureIds);
+				 */
 	    	});
 	    	
 	    	$(".td1").each(function(){

@@ -968,6 +968,7 @@ public class ControllerMenu {
 	public String shopPreview(Integer shopId,HttpServletRequest request){
 		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
 		@SuppressWarnings("unchecked")
+//		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId,"isOnSale",(short)1);
 		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
 		String[] paths = shop.getShopPhotoUrl().split(",");
 		request.setAttribute("paths", paths);

@@ -295,19 +295,19 @@
 			}
 			if(isChrome){
 			   	//alert("我是谷歌浏览器");
-			   	$(".addPro").css("right","550px");
+				$(".addPro").css("right","550px");
 				$(".reload").css("right","505px");
-				$(".pageshow").css("right","375px");
-				$(".findPro").css("right","175px");
+				$(".pageshow").css("right","403px");
+				$(".findPro").css("right","-338px");
 				$("form").css("top","0");
 			}
 			if(IE){
 				$("form").css("top","0");
 			   	//alert("我是IE浏览器");
-			   /* 	$(".addPro").css("left","180px");
-				$(".reload").css("left","250px");
-				$(".pageshow").css("left","370px");
-				$(".findPro").css("right","175px"); */
+			   	$(".addPro").css("right","545px");
+				$(".reload").css("right","505px");
+				$(".pageshow").css("right","405px");
+				$(".findPro").css("right","-338px");
 			}
 		}else{
 			if(isChrome){
