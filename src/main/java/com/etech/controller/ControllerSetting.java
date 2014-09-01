@@ -87,7 +87,11 @@ public class ControllerSetting {
 				File imgSmall= new File(Variables.findPasswordImgPath+licenseImg);    
 		        // 构造Image对象    
 		        BufferedImage src = ImageIO.read(imgSmall);
-		        ImageUtil.scaleImg(Variables.findPasswordImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
+		        if (src.getWidth() > Variables.imagewidth) {
+		              ImageUtil.scaleImg(Variables.findPasswordImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
+					}else {
+						FileUtils.copyInputStreamToFile(inputStream, new File(licenseSmallImg));
+					}
 		        
 			} catch (IOException e) {
 				e.printStackTrace();

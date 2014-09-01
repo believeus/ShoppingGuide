@@ -229,7 +229,7 @@ public class ControllerGoodsAdd {
 					String extention = originName.substring(originName.lastIndexOf(".") + 1);
 					log.debug("upload file name:"+file.getName());
 					if(file.getName().contains("goodsImg")){
-					  // get the goods save path
+					  // get the goods save path   
 //					  UUID randomUUID = UUID.randomUUID(); 
 					  String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
 					  goodsImg=GUID+"."+extention;
@@ -243,7 +243,11 @@ public class ControllerGoodsAdd {
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall);
-		              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+		              if (src.getWidth() > Variables.imagewidth) {
+			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+						}else {
+							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
+						}
 		              
 					}
 				} catch (IOException e) {
@@ -372,8 +376,12 @@ public class ControllerGoodsAdd {
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall);
-		              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
-					}
+		              if (src.getWidth() > Variables.imagewidth) {
+			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+						}else {
+							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
+						}
+		              }
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -387,6 +387,13 @@
 			});
 		 });
 		 
+		 $(".findPro").click(function(){
+			 var search = $("input[name=key]").val();
+			 if(search == null || search == ""){
+				 alert("请输入关键字！");
+				 return false;
+			 }
+		 });
 	});
 </script>
 

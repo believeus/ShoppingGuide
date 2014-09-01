@@ -115,7 +115,12 @@ public class ControllerRegistTwo {
 				  File imgSmall= new File(path);    
 	              // 构造Image对象    
 	              BufferedImage src = ImageIO.read(imgSmall);
-	              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+	              if (src.getWidth() > Variables.imagewidth) {
+		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+	              }else {
+						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
+					}
+	              
 	              
 			} catch (IOException e) {
 				e.printStackTrace();

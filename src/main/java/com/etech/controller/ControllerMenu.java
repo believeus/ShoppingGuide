@@ -317,7 +317,12 @@ public class ControllerMenu {
               File imgSmall = new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg);    
               // 构造Image对象    
               BufferedImage src = ImageIO.read(imgSmall);
-              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+              if (src.getWidth() > Variables.imagewidth) {
+            	  ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+				}else {
+					FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
+				}
+              
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -565,7 +570,11 @@ public class ControllerMenu {
 				  File imgSmall= new File(path);    
 	              // 构造Image对象    
 	              BufferedImage src = ImageIO.read(imgSmall);
-	              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+	              if (src.getWidth() > Variables.imagewidth) {
+		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+					}else {
+						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
+					}
 	              
 			} catch (IOException e) {
 				e.printStackTrace();
