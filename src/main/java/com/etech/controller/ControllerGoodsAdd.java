@@ -238,7 +238,6 @@ public class ControllerGoodsAdd {
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+",";
-					  System.out.println(inputStream.available());
 		              //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    

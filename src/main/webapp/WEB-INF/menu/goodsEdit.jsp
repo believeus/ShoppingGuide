@@ -574,6 +574,9 @@ function addclass(obj){
 							<c:forEach var="tfeatures" items="${tfeatures }">
 								<p id="special" name="special" value="${tfeatures.featureId }">${tfeatures.featureName }</p>
 							</c:forEach>
+							<c:forEach items="${fs }" var="fs">
+								<p id="special" name="special" value="${fs.featureId }">${fs.featureName }</p>
+							</c:forEach>
 						</div>
 						<input style="width:0;border:0;" type="text" value="" id="featureIds" name="featureIds">
 					</td>

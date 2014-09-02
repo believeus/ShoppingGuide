@@ -105,7 +105,7 @@ public class ControllerSetting {
 		}
 		String telphoneNum=request.getParameter("telphoneNum");
 		String userName = request.getParameter("userName");
-		//etechService.findObject(Tshop.class, "userName", userName);
+		//etechService.findObject(Tshopuser.class, "userName", userName);
 		findpassword.setUserName(userName);
 		findpassword.setPhoneNumber(telphoneNum);
 		findpassword.setLicensePhoto(licenseImg);
