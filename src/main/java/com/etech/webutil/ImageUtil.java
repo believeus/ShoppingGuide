@@ -32,12 +32,12 @@ public class ImageUtil {
 			Image itemp = bi.getScaledInstance(width, height, bi.SCALE_SMOOTH);
 			// 计算比例
 			if ((bi.getHeight() > height) || (bi.getWidth() > width)) {
-				if (bi.getHeight() > bi.getWidth()) {
+				/*if (bi.getHeight() > bi.getWidth()) {
 					ratio = (new Integer(height)).doubleValue()
 							/ bi.getHeight();
-				} else {
+				} else {*/
 					ratio = (new Integer(width)).doubleValue() / bi.getWidth();
-				}
+				/*}*/
 				AffineTransformOp op = new AffineTransformOp(
 						AffineTransform.getScaleInstance(ratio, ratio), null);
 				itemp = op.filter(bi, null);

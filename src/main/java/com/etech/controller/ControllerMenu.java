@@ -187,14 +187,14 @@ public class ControllerMenu {
 		
 		request.setAttribute("tgoods", tgoods);
 		List<Tfeature> features = tgoods.getFeatures();
-		List<Tfeature> fs = new ArrayList<Tfeature>();
+		/*List<Tfeature> fs = new ArrayList<Tfeature>();
 		for (Tfeature tfeature : features) {
 			if (tfeature.getFeatureType() == 1 || tfeature.getFeatureType() ==2) {
 				fs.add(tfeature);
 			}
-		}
+		}*/
 		request.setAttribute("features", features);
-		request.setAttribute("fs", fs);
+//		request.setAttribute("fs", fs);
 		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
 		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
 		request.setAttribute("paths", paths);

@@ -241,7 +241,8 @@ public class ControllerGoodsAdd {
 		              //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
-		              BufferedImage src = ImageIO.read(imgSmall);
+		              BufferedImage src = ImageIO.read(imgSmall); 
+		              System.out.println(src.getWidth());
 		              if (src.getWidth() > Variables.imagewidth) {
 			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 						}else {
