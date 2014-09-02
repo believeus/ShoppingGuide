@@ -220,7 +220,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="color:red;"></td>
+					<td style="color:red;">*</td>
 					<td style="">联系电话：</td>
 					<td id="main_table2_td" class="main_table2_td" style="">
 						${tshop.phoneNumber }

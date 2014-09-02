@@ -156,6 +156,19 @@
 	</style>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2qkpDitMlFIilEPKy62fiWDe"></script>
 <script type="text/javascript">
+function addclass(obj){
+	if(obj.className == "current"){
+		obj.className = "";
+	}else{
+		obj.className = "current";
+	}
+	var featureIds=new Array();
+	$("#special.current").each(function(){
+		featureIds.push($(this).attr("value"));
+	});
+	$("#featureIds").val();
+	$("#featureIds").val(featureIds);
+}
 $(function(){
 	var features = new Array();
 	<c:forEach var="feature" items="${shopfeatures }">
@@ -399,6 +412,54 @@ $(function(){
 			
 		});
 		
+		//添加
+		$("#addSpecial").click(function() {
+			var feature = $("#textSpecial").val();
+			if (feature == "") {
+				alert("请输入关键字！");
+			} else {
+				$.post("/insertFeature.jhtml",{feature:feature},function(result){
+					var tfeatureId=result.match(/[0-9]+/);
+					/* $("#shopSpec").append("<p id='special' name='special' class='current' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+					$("#textSpecial").val(""); */
+					var tag=false;
+					// 遍历显示出来的特色，判断当前添加的特色是否存在
+					$("#shopSpec p").each(function(){
+						var pValue=$(this).attr("value");
+						//如果存在，则直接设置选中。
+						if(pValue==tfeatureId){
+							tag=true;
+							$(this).attr("class","current");
+							var featureIds=new Array();
+							$("#special.current").each(function(){
+								featureIds.push($(this).attr("value"));
+							});
+							$("#featureIds").val();
+							$("#featureIds").val(featureIds);
+							return false;
+						}
+					});
+					//如果不存在，则添加特色。
+					if(!tag){
+						$("#shopSpec").append("<p id='special' name='special' class='current' value="+tfeatureId+" onclick='addclass(this);'>" +feature+ "</p>");
+						var featureIds=new Array();
+						$("#special.current").each(function(){
+							featureIds.push($(this).attr("value"));
+						});
+						$("#featureIds").val();
+						$("#featureIds").val(featureIds);
+					}
+					$("#textSpecial").val("");
+				 });
+			}
+			/* var featureIds=new Array();
+			$("#special.current").each(function(){
+				featureIds.push($(this).attr("value"));
+			});
+			$("#featureIds").val();
+			$("#featureIds").val(featureIds); */
+		});
+		
 		/* $("#businessRange").change(function(){
 			if($("#businessTd select").length < 5){
 				var buss=$("#businessRange").clone(true);
@@ -424,6 +485,9 @@ $(function(){
 				},
 				shopOwnerName:{
 					required : true
+				},
+				phoneNum:{
+					required : true
 				}
 			},
 			messages : {
@@ -441,6 +505,9 @@ $(function(){
 				},
 				shopOwnerName:{
 					required : "店主姓名必填"
+				},
+				phoneNum:{
+					required : "联系电话必填"
 				}
 			}
 			
@@ -588,9 +655,20 @@ $(function(){
 							<c:forEach var="features" items="${features }">
 								<p id="special" name="special" value="${features.featureId}" style="">${features.featureName }</p>
 							</c:forEach>
+							<c:forEach items="${fs }" var="fs">
+								<p id="special" name="special" value="${fs.featureId}" style="">${fs.featureName }</p>
+							</c:forEach>
 							 <input type="hidden" name="featureIds" id="featureIds" value=""/>
 		                </td>
-		               
+		              </tr>
+		              <tr>
+		              	<td></td>
+		              	<td colspan="3">
+		              		<div style="height: auto; overflow: hidden; width: 850px;">
+								<input id="textSpecial" type="text" name="" style="width:300px;height:30px;" />
+								<input id="addSpecial" class="add_tese" type="button" name="" value="添加" />
+							 </div>
+		              	</td>
 		              </tr>
 		              <tr>
 		                 <td><b><span style="color:red;">*&nbsp;&nbsp;</span>所在商场：</b></td>
@@ -670,7 +748,7 @@ $(function(){
 		                </td>
 		              </tr>
 		              <tr>
-		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>联系电话：</b></td>
+		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>联系电话：</b></td>
 		                <td colspan="3">
 		                    <input id="phoneNum" type="text" name="phoneNum" value="${tshop.phoneNumber }">
 		                </td>

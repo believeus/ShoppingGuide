@@ -118,6 +118,7 @@ public class ControllerRegistTwo {
 	              if (src.getWidth() > Variables.imagewidth) {
 		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
 	              }else {
+	            	    inputStream.reset();
 						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
 					}
 	              

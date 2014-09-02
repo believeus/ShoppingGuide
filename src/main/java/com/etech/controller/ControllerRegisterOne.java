@@ -18,6 +18,7 @@ import com.etech.service.EtechService;
 import com.etech.variable.Variables;
 import com.etech.webutil.Brower;
 import com.etech.webutil.WebServiceValidCode;
+import com.etech.webutil.WebServiceValidCodeForFindPassword;
 @Controller
 public class ControllerRegisterOne {
 
@@ -50,6 +51,23 @@ public class ControllerRegisterOne {
 		Brower.outJson(map, response);
 	}
 	/**End Author:wuqiwei Data:2014-07-15 AddReason:获取手机验证码*/
+	
+	/**
+	 * findPassword
+	 * @param phoneNumber
+	 * @param session
+	 * @param response
+	 */
+	@RequestMapping(value="/generateValidCode2")
+	public void generateValidCode2(String phoneNumber,HttpSession session,ServletResponse response){
+		log.debug("current phoneNumber:"+phoneNumber);
+		String validCode = WebServiceValidCodeForFindPassword.getCode(phoneNumber);
+		log.debug("validCode:"+validCode);
+		session.setAttribute(Variables.validCode, validCode);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("returnCode", validCode);
+		Brower.outJson(map, response);
+	}
 	
 	
 	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/

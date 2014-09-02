@@ -46,6 +46,8 @@ public class Variables {
 	public static final String webserviceValidCode=PropertiesUtils.findValue("shopping.properties", "webserviceValidCode");
 	// validate webservice QRCode
 	public static final String webserviceQRCode=PropertiesUtils.findValue("shopping.properties", "webserviceQRCode");
+	// validate webservice FindPassword
+	public static final String webserviceFindPassword=PropertiesUtils.findValue("shopping.properties", "webserviceFindPassword");
 	// the market image save path
 	public static final String marketImgPath=PropertiesUtils.findValue("shopping.properties", "MarketImgPath");
 	// the phone user head phone save path

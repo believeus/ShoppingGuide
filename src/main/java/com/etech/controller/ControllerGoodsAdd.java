@@ -238,7 +238,7 @@ public class ControllerGoodsAdd {
 					  log.debug("upload small path :"+goodsImgSmall);
 					  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg));
 					  appendImg+= goodsImg+",";
-					 
+					  System.out.println(inputStream.available());
 		              //读入文件    
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
@@ -246,6 +246,7 @@ public class ControllerGoodsAdd {
 		              if (src.getWidth() > Variables.imagewidth) {
 			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 						}else {
+							inputStream.reset();
 							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
 						}
 		              
@@ -379,6 +380,7 @@ public class ControllerGoodsAdd {
 		              if (src.getWidth() > Variables.imagewidth) {
 			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 						}else {
+							inputStream.reset();
 							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
 						}
 		              }

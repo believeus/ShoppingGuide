@@ -62,6 +62,11 @@ public class ControllerSetting {
 		return "/WEB-INF/setting/findPsd.jsp";
 	}
 	
+	/**
+	 * 找回密码
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="findPsdLogic")
 	public String findPsdLogic(HttpServletRequest request){
 		Tfindpasswordforshopuser findpassword=new Tfindpasswordforshopuser();
@@ -90,6 +95,7 @@ public class ControllerSetting {
 		        if (src.getWidth() > Variables.imagewidth) {
 		              ImageUtil.scaleImg(Variables.findPasswordImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
 					}else {
+						inputStream.reset();
 						FileUtils.copyInputStreamToFile(inputStream, new File(licenseSmallImg));
 					}
 		        
@@ -98,7 +104,9 @@ public class ControllerSetting {
 			}
 		}
 		String telphoneNum=request.getParameter("telphoneNum");
-		findpassword.setUserName(telphoneNum);
+		String userName = request.getParameter("userName");
+		//etechService.findObject(Tshop.class, "userName", userName);
+		findpassword.setUserName(userName);
 		findpassword.setPhoneNumber(telphoneNum);
 		findpassword.setLicensePhoto(licenseImg);
 		short unprocess=0;

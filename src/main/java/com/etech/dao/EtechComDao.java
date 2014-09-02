@@ -127,6 +127,22 @@ public class EtechComDao extends HibernateDaoSupport {
 				});
 	}
 	
+	public List<?> findObjectListOrderById(Class<?> clazz, final Object property,
+			final Object value) {
+		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value order by id desc";
+		return (List<?>) this.getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
+					
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = session.createQuery(hql);
+						query.setParameter("value", value);
+						return query.list();
+					}
+				});
+	}
+	
 	public List<?> findObjectList(Class<?> clazz, final Object property,
 			final Object value1, final Object property2, final Object value2) {
 		final String hql = "from " + clazz.getName()+ " as entity where entity." + property + " =:value1 and entity." + property2 + " =:value2 order by id desc";

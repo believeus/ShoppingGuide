@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

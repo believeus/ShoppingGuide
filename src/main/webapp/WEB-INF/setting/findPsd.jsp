@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("/generateValidCode2.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{
@@ -182,6 +182,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			},
 	  			shopLicenseImg:{
 	  				required: true
+	  			},
+	  			userName:{
+	  				required: true
 	  			}
   			},
   			messages:{
@@ -196,6 +199,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				shopLicenseImg:{
 					required:"图片必须上传"
 				},
+				userName:{
+					required:"帐号必填"
+				}
   			},
 			errorPlacement: function(error, element) {  //验证消息放置的地方
 	            error.appendTo(element.next().css("color","red"));   
@@ -313,6 +319,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    </div>    
 				    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 				</div>
+				<p style="clear:both;padding-left: 70px;">
+					<font color="red" style="margin-left:150px;">*&nbsp;</font>
+	    			<span style="font-weight:bold;">帐号：</span>
+	    			<input type="text" id="userName" name="userName" placeholder="请输入帐号" style="width:345px;height:35px;line-height:35px;">
+	   				<span></span>
+				</p>
 				<p style="clear:both;">
 					<font color="red" style="margin-left:150px;">*&nbsp;</font>
 	    			<span style="font-weight:bold;">手机号码：</span>

@@ -10,9 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    
     <title>店铺预览</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -102,6 +100,7 @@ hr {
 	display: inline-block;
 	width: 126px;
 	margin-left: 8px;
+	float: left;
 }
 #shop > div > div {
 	padding: 2px;

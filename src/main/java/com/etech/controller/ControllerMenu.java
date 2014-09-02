@@ -320,6 +320,7 @@ public class ControllerMenu {
               if (src.getWidth() > Variables.imagewidth) {
             	  ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 				}else {
+					inputStream.reset();
 					FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
 				}
               
@@ -479,6 +480,14 @@ public class ControllerMenu {
 		
 		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class, "featureType", (short)0,"objectFlag","111");
 		request.setAttribute("features", tfeatures);//shop tfeatures
+		List<Tfeature> fs = new ArrayList<Tfeature>();
+		List<Tfeature> features = tshop.getFeatures();
+		for (Tfeature tfeature : features) {
+			if (tfeature.getFeatureType() == 2 || tfeature.getFeatureType() == 1) {
+				fs.add(tfeature);
+			}
+		}
+		request.setAttribute("fs", fs);
 		
 		List<Tfeature> shopfeatures = tshop.getFeatures();
 		request.setAttribute("shopfeatures", shopfeatures);//shop tfeatures
@@ -573,6 +582,7 @@ public class ControllerMenu {
 	              if (src.getWidth() > Variables.imagewidth) {
 		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
 					}else {
+						inputStream.reset();
 						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
 					}
 	              
@@ -992,7 +1002,7 @@ public class ControllerMenu {
 		Tshop shop =  (Tshop) etechService.findObject(Tshop.class, "shopId", shopId);
 		@SuppressWarnings("unchecked")
 //		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId,"isOnSale",(short)1);
-		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectList(Tgoods.class,"shopId",shopId);
+		List<Tgoods> tgoods = (List<Tgoods>) etechService.findObjectListOrderById(Tgoods.class,"shopId",shopId);
 		String[] paths = shop.getShopPhotoUrl().split(",");
 		request.setAttribute("paths", paths);
 		request.setAttribute("shop", shop);

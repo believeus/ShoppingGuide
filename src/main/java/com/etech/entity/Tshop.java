@@ -174,7 +174,7 @@ public class Tshop implements java.io.Serializable {
 		this.logo = logo;
 	}
 
-	@Column(name = "QRCode", length = 50)
+	@Column(name = "QRCode", length = 500)
 	public String getQrcode() {
 		return this.qrcode;
 	}
