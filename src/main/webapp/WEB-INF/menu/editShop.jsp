@@ -403,9 +403,9 @@ $(function(){
 				featureNames.push($(this).text());
 			});
 			// 在店铺表中插入店铺特色
-			$.post("/insertBussnessScope.jhtml",{featureNames:featureNames.toString()},function(result){
+			/* $.post("/insertBussnessScope.jhtml",{featureNames:featureNames.toString()},function(result){
 				
-			 });
+			 }); */
 			
 			$("#featureIds").val();
 			$("#featureIds").val(featureIds);

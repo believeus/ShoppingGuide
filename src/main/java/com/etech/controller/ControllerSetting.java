@@ -181,6 +181,13 @@ public class ControllerSetting {
 		request.setAttribute("message", "关联"+phoneNumber+"手机号成功！");
 		return "/WEB-INF/menu/success.jsp";
 	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param featureNames
+	 * @return
+	 */
 	@RequestMapping(value="/insertBussnessScope")
 	public @ResponseBody String insertBussnessScope(HttpServletRequest request,String featureNames){
 		log.debug(featureNames);
@@ -188,7 +195,7 @@ public class ControllerSetting {
 		Integer shopuserId = ((Tshopuser)session.getAttribute(Variables.sessionUser)).getShopUserId();
 		Tshopuser sessionUser=(Tshopuser)etechService.findObject(Tshopuser.class, "shopUserId",shopuserId);
 		Tshop tshop = sessionUser.getShops().get(0);
-		tshop.setShopBusinessScope(featureNames);
+		tshop.setShopBusinessScope(featureNames);//setShopBusinessScope 是经营范围  而featureNames是店铺特色。
 		etechService.saveOrUpdate(tshop);
 		return "success";
 		
