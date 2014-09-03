@@ -176,7 +176,7 @@
 			<div class="p_main" style="width:1000px;">
 				<img src="/images/line.png" style="margin-bottom:20px;">
 			</div>
-			<div class="p_main" style="float:left;margin-left: 140px;padding:10px 15px;">
+			<div class="p_main" style="padding:10px 15px;">
 				<c:forEach items="${tphoneusers }" varStatus="state" var="puser">
 					<div class="p_list">
 						<div class="p_top">

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
@@ -242,13 +243,18 @@ public class ControllerGoodsAdd {
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall); 
-		              System.out.println(src.getWidth());
-		              if (src.getWidth() > Variables.imagewidth) {
-			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
-						}else {
-							inputStream.reset();
-							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
-						}
+		              Thumbnails.of(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg)
+				        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+		                .keepAspectRatio(false)
+				        .toFile(goodsImgSmall);
+		              
+//		              System.out.println(src.getWidth());
+//		              if (src.getWidth() > Variables.imagewidth) {
+//			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+//						}else {
+//							inputStream.reset();
+//							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
+//						}
 		              
 					}
 				} catch (IOException e) {
@@ -377,12 +383,16 @@ public class ControllerGoodsAdd {
 		              File imgSmall = new File(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg);    
 		              // 构造Image对象    
 		              BufferedImage src = ImageIO.read(imgSmall);
-		              if (src.getWidth() > Variables.imagewidth) {
+		              Thumbnails.of(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg)
+				        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+		                .keepAspectRatio(false)
+				        .toFile(goodsImgSmall);
+		              /*if (src.getWidth() > Variables.imagewidth) {
 			              ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tGoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
 						}else {
 							inputStream.reset();
 							FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
-						}
+						}*/
 		              }
 				} catch (IOException e) {
 					e.printStackTrace();

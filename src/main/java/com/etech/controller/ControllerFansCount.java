@@ -16,9 +16,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etech.entity.Tcity;
+import com.etech.entity.Tfavoritegroup;
 import com.etech.entity.Tphoneuser;
 import com.etech.entity.Tprovince;
 import com.etech.entity.Tshopfavorite;
+import com.etech.entity.Tshopuser;
 import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
 
@@ -35,19 +37,14 @@ public class ControllerFansCount {
 	public String fansSexCount(HttpServletRequest request,Integer shopId){
 		//通过一个商铺id关联商铺的phoneuser粉丝
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
+		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
+		for (Tshopfavorite tshopfavorite : shopFavorite) {
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			users.add(phoneUser);
+		}
 		Double[] sexCount=new Double[3];
 		if(!CollectionUtils.isEmpty(shopFavorite)){
-			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-			int len=shopFavorite.size();
-			for(int i=0;i<len;i++){
-				String nickName=shopFavorite.get(i).getFansNickName();
-				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-				if(StringUtils.isEmpty(user)){
-					log.debug("找不到NickName为"+nickName+"的用户！");
-				}else{
-					users.add(user);
-				}
-			}
 			
 			sexCount=etechOthersService.findSexCount(users);
 		}
@@ -64,17 +61,11 @@ public class ControllerFansCount {
 	public String fansAgeCount(HttpServletRequest request,Integer shopId){
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
 		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int len=shopFavorite.size();
-		for(int i=0;i<len;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			if(StringUtils.isEmpty(user)){
-				log.debug("找不到NickName为"+nickName+"的用户！");
-			}else{
-				users.add(user);
-			}
+		for (Tshopfavorite tshopfavorite : shopFavorite) {
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			users.add(phoneUser);
 		}
-		
 		Double[] ageCount=etechOthersService.getAge(users);
 		request.setAttribute("ageCount", ageCount);
 		request.setAttribute("shopId", shopId);
@@ -89,15 +80,10 @@ public class ControllerFansCount {
 		Double[] constellat=new Double[13];
 		if(!CollectionUtils.isEmpty(shopFavorite)){
 			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-			int len=shopFavorite.size();
-			for(int i=0;i<len;i++){
-				String nickName=shopFavorite.get(i).getFansNickName();
-				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-				if(StringUtils.isEmpty(user)){
-					log.debug("找不到NickName为"+nickName+"的用户！");
-				}else{
-					users.add(user);
-				}
+			for (Tshopfavorite tshopfavorite : shopFavorite) {
+				Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+				Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+				users.add(phoneUser);
 			}
 			constellat=etechOthersService.getConstellation(users);
 		}
@@ -114,15 +100,10 @@ public class ControllerFansCount {
 		Double[] cZPrecent=new Double[13];
 		if(!CollectionUtils.isEmpty(shopFavorite)){
 			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-			int len=shopFavorite.size();
-			for(int i=0;i<len;i++){
-				String nickName=shopFavorite.get(i).getFansNickName();
-				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-				if(StringUtils.isEmpty(user)){
-					log.debug("找不到NickName为"+nickName+"的用户！");
-				}else{
-					users.add(user);
-				}
+			for (Tshopfavorite tshopfavorite : shopFavorite) {
+				Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+				Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+				users.add(phoneUser);
 			}
 			cZPrecent=etechOthersService.getCZ(users);
 		}
@@ -139,15 +120,10 @@ public class ControllerFansCount {
 		
 		if(!CollectionUtils.isEmpty(shopFavorite)){
 			List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-			int leng=shopFavorite.size();
-			for(int i=0;i<leng;i++){
-				String nickName=shopFavorite.get(i).getFansNickName();
-				Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-				if(StringUtils.isEmpty(user)){
-					log.debug("找不到NickName为"+nickName+"的用户！");
-				}else{
-					users.add(user);
-				}
+			for (Tshopfavorite tshopfavorite : shopFavorite) {
+				Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+				Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+				users.add(phoneUser);
 			}
 			String[] arr=etechOthersService.getJob(users);
 			int len=arr.length/2;
@@ -207,20 +183,10 @@ public class ControllerFansCount {
 		List<Tshopfavorite> shopFavorite=(List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "shopId", shopId);
 		
 		List<Tphoneuser> users=new ArrayList<Tphoneuser>();
-		int leng=shopFavorite.size();
-		for(int i=0;i<leng;i++){
-			String nickName=shopFavorite.get(i).getFansNickName();
-			Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class, "nickName", nickName);
-			if(StringUtils.isEmpty(user)){
-				log.debug("找不到NickName为"+nickName+"的用户！");
-			}else{
-				//System.out.println(users.size());
-				if (users.size() > 10) {
-					continue;
-				}else {
-					users.add(user);
-				}
-			}
+		for (Tshopfavorite tshopfavorite : shopFavorite) {
+			Tfavoritegroup tfavoritegroup = (Tfavoritegroup) etechService.findObject(Tfavoritegroup.class, "favoriteGroupId", tshopfavorite.getFavoriteGroupId());
+			Tphoneuser phoneUser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tfavoritegroup.getPhoneUserId());
+			users.add(phoneUser);
 		}
 		List<List<String>> combine=etechOthersService.getFavourite(users);
 		List<List<String>> result=new ArrayList<List<String>>();

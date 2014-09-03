@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
@@ -88,17 +90,6 @@ public class ControllerSetting {
 				log.debug("upload path:"+Variables.shopLicenseImgPath+licenseImg);
 				log.debug("upload small path:"+licenseSmallImg);
 				FileUtils.copyInputStreamToFile(inputStream, new File(Variables.findPasswordImgPath+licenseImg));
-				//读入文件    
-				File imgSmall= new File(Variables.findPasswordImgPath+licenseImg);    
-		        // 构造Image对象    
-		        BufferedImage src = ImageIO.read(imgSmall);
-		        if (src.getWidth() > Variables.imagewidth) {
-		              ImageUtil.scaleImg(Variables.findPasswordImgPath+licenseImg, licenseSmallImg, src.getHeight(), Variables.imagewidth);
-					}else {
-						inputStream.reset();
-						FileUtils.copyInputStreamToFile(inputStream, new File(licenseSmallImg));
-					}
-		        
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

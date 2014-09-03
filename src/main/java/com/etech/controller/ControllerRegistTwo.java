@@ -17,6 +17,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -115,12 +117,16 @@ public class ControllerRegistTwo {
 				  File imgSmall= new File(path);    
 	              // 构造Image对象    
 	              BufferedImage src = ImageIO.read(imgSmall);
-	              if (src.getWidth() > Variables.imagewidth) {
-		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
-	              }else {
-	            	    inputStream.reset();
-						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
-					}
+	              Thumbnails.of(path)
+			        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+	                .keepAspectRatio(false)
+			        .toFile(smallPath);
+//	              if (src.getWidth() > Variables.imagewidth) {
+//		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
+//	              }else {
+//	            	    inputStream.reset();
+//						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
+//					}
 	              
 	              
 			} catch (IOException e) {

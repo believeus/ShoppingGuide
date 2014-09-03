@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -333,12 +335,16 @@ public class ControllerMenu {
               File imgSmall = new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg);    
               // 构造Image对象    
               BufferedImage src = ImageIO.read(imgSmall);
-              if (src.getWidth() > Variables.imagewidth) {
-            	  ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
-				}else {
-					inputStream.reset();
-					FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
-				}
+              Thumbnails.of(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg)
+		        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+		        .keepAspectRatio(false)
+		        .toFile(goodsImgSmall);
+//              if (src.getWidth() > Variables.imagewidth) {
+//            	  ImageUtil.scaleImg(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg, goodsImgSmall, src.getHeight(), Variables.imagewidth);
+//				}else {
+//					inputStream.reset();
+//					FileUtils.copyInputStreamToFile(inputStream, new File(goodsImgSmall));
+//				}
               
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -575,7 +581,14 @@ public class ControllerMenu {
 				  // 缩略图
 				  smallPath=Variables.shopLicenseImgPath+GUID+"_small."+extention;
 				  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopLicenseImgPath+licenseImg));
-				  
+				  //读入文件    
+				  File imgSmall= new File(path);    
+	              // 构造Image对象    
+	              BufferedImage src = ImageIO.read(imgSmall);
+				  Thumbnails.of(Variables.goodsPhotoImgPath+path)
+			        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+	                .keepAspectRatio(false)
+			        .toFile(smallPath);
 				}else {
 					shopImg=GUID+"."+extention;
 					path=Variables.shopImgPath+shopImg;
@@ -583,6 +596,14 @@ public class ControllerMenu {
 					smallPath=Variables.shopImgPath+GUID+"_small."+extention;
 					FileUtils.copyInputStreamToFile(inputStream, new File(Variables.shopImgPath+shopImg));
 					
+					  //读入文件    
+					  File imgSmall= new File(path);    
+		              // 构造Image对象    
+		              BufferedImage src = ImageIO.read(imgSmall);
+		              Thumbnails.of(path)
+				        .size(Variables.imagewidth, Variables.imagewidth*src.getHeight()/src.getWidth())
+		                .keepAspectRatio(false)
+				        .toFile(smallPath);
 					if(count>1){
 						appendImg+=shopImg+",";
 					}else {
@@ -591,16 +612,8 @@ public class ControllerMenu {
 				}
 				 log.debug("upload path:"+path);
 				 
-	              //读入文件    
-				  File imgSmall= new File(path);    
-	              // 构造Image对象    
-	              BufferedImage src = ImageIO.read(imgSmall);
-	              if (src.getWidth() > Variables.imagewidth) {
-		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
-					}else {
-						inputStream.reset();
-						FileUtils.copyInputStreamToFile(inputStream, new File(smallPath));
-					}
+	            
+//		              ImageUtil.scaleImg(path, smallPath, src.getHeight(), Variables.imagewidth);
 	              
 			} catch (IOException e) {
 				e.printStackTrace();
