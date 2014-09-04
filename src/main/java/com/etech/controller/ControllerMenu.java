@@ -9,13 +9,10 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -56,7 +53,6 @@ import com.etech.entity.Tshopuser;
 import com.etech.service.EtechOthersService;
 import com.etech.service.EtechService;
 import com.etech.variable.Variables;
-import com.etech.webutil.ImageUtil;
 import com.etech.webutil.LatitudeUtils;
 import com.etech.webutil.PaginationUtil;
 /**
@@ -554,6 +550,20 @@ public class ControllerMenu {
 				tfeatures.add(tfeature);
 			} 
 		}
+		String featureName = "";
+		List<String> fn = new ArrayList<String>();
+		for (Tfeature tfeature : tfeatures) {
+			fn.add(tfeature.getFeatureName());
+		}
+		for (int i = 0; i < fn.size(); i++) {
+			if (i==fn.size()-1) {
+				featureName += fn.get(i);
+			}else {
+				featureName += fn.get(i) +",";
+			}
+		}
+		shop.setShopFeature(featureName);
+		shop.setShopFeatureIds(featureIds);
 		HttpSession session = request.getSession();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
@@ -623,20 +633,41 @@ public class ControllerMenu {
 		//店铺默认图片
 		String moren = request.getParameter("moren");
 		if (!StringUtils.isEmpty(moren)) {
-			String[] shopImgPath = appendImg.split(",");
-			for (int i = 0; i < shopImgPath.length; i++) {
-				if(i == Integer.parseInt(moren)){
-					shop.setShopDefaultPhotoURL((shopImgPath[i]));
-					String defaultPhoto = Variables.shopImgPath+shopImgPath[i];
-					//读入文件    
-					File imgSmall= new File(defaultPhoto);    
-					// 构造Image对象    
-					BufferedImage src = ImageIO.read(imgSmall);
-					//获取默认图片宽高
-					Integer width = src.getWidth();
-					Integer height = src.getHeight();
-					shop.setShopDefaultPhotoHeight(height);
-					shop.setShopDefaultPhotoWidth(width);
+			if (appendImg =="") {
+				appendImg = shop.getShopPhotoUrl();
+				String[] shopImgPath = appendImg.split(",");
+				for (int i = 0; i < shopImgPath.length; i++) {
+					if(i == Integer.parseInt(moren)){
+						shop.setShopDefaultPhotoURL((shopImgPath[i]));
+						String defaultPhoto = Variables.shopImgPath+shopImgPath[i];
+						//读入文件    
+						File imgSmall= new File(defaultPhoto);    
+						// 构造Image对象    
+						BufferedImage src = ImageIO.read(imgSmall);
+						//获取默认图片宽高
+						Integer width = src.getWidth();
+						Integer height = src.getHeight();
+						shop.setShopDefaultPhotoHeight(height);
+						shop.setShopDefaultPhotoWidth(width);
+					}
+				}
+				appendImg = "";
+			}else {
+				String[] shopImgPath = appendImg.split(",");
+				for (int i = 0; i < shopImgPath.length; i++) {
+					if(i == Integer.parseInt(moren)){
+						shop.setShopDefaultPhotoURL((shopImgPath[i]));
+						String defaultPhoto = Variables.shopImgPath+shopImgPath[i];
+						//读入文件    
+						File imgSmall= new File(defaultPhoto);    
+						// 构造Image对象    
+						BufferedImage src = ImageIO.read(imgSmall);
+						//获取默认图片宽高
+						Integer width = src.getWidth();
+						Integer height = src.getHeight();
+						shop.setShopDefaultPhotoHeight(height);
+						shop.setShopDefaultPhotoWidth(width);
+					}
 				}
 			}
 		}
@@ -738,11 +769,35 @@ public class ControllerMenu {
 		
 		// shop goodstype many to many goodstype,mapped by goodstype
 		String[] goodsTypeIds = request.getParameterValues("goodsTypeId");
+		String shopBusinessScopeIds = "";
+		for (int i = 0; i < goodsTypeIds.length; i++) {
+			if (i==goodsTypeIds.length-1) {
+				shopBusinessScopeIds += goodsTypeIds[i];
+			}else {
+				shopBusinessScopeIds += goodsTypeIds[i] +",";
+			}
+		}
+		shop.setShopBusinessScopeIds(shopBusinessScopeIds);
 		shop.getGoodsTypes().removeAll(shop.getGoodsTypes());
 		for (String goodsTypeId : goodsTypeIds) {
 			Tgoodstype goodstype=(Tgoodstype)etechService.findObject(Tgoodstype.class, Integer.valueOf(goodsTypeId));
 			shop.getGoodsTypes().add(goodstype);
 		}
+		List<String> bs = new ArrayList<String>();
+		List<Tgoodstype> goodsTypes = shop.getGoodsTypes();
+		for (Tgoodstype tgoodstype : goodsTypes) {
+			String tgoodsTypeName = tgoodstype.getGoodsTypeName();
+			bs.add(tgoodsTypeName);
+		}
+		String shopBusinessScope = "";
+		for (int i = 0; i < bs.size(); i++) {
+			if (i==bs.size()-1) {
+				shopBusinessScope += bs.get(i);
+			}else {
+				shopBusinessScope += bs.get(i) +",";
+			}
+		}
+ 		shop.setShopBusinessScope(shopBusinessScope);
 		shop.setState((short)0);
 		etechService.saveOrUpdate(shop);//更新 
 

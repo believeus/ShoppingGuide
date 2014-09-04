@@ -265,7 +265,7 @@ $(function(){
 			$("#marketName").append("<input type='hidden' name='area' value='"+str+"'>");
 		});
 		
-		var a=100;
+		var a= $(".shopShow .brandImg").size() +1;
 		var b = $(".shopShow .brandImg").size();
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
@@ -488,6 +488,21 @@ $(function(){
 				},
 				phoneNum:{
 					required : true
+				},
+				goodsImg1:{
+					required : true
+				},
+				goodsImg2:{
+					required : true
+				},
+				goodsImg3:{
+					required : true
+				},
+				goodsImg4:{
+					required : true
+				},
+				goodsImg5:{
+					required : true
 				}
 			},
 			messages : {
@@ -508,9 +523,32 @@ $(function(){
 				},
 				phoneNum:{
 					required : "联系电话必填"
+				},
+				goodsImg1:{
+					required : "店铺图片必填"
+				},
+				goodsImg2:{
+					required : "店铺图片必填"
+				},
+				goodsImg3:{
+					required : "店铺图片必填"
+				},
+				goodsImg4:{
+					required : "店铺图片必填"
+				},
+				goodsImg5:{
+					required : "店铺图片必填"
 				}
 			}
 			
+		});
+		
+		//如果图片为空
+		$("#baocun").click(function(){
+			if($(".shopShow .brandImg").size() ==0){
+				alert("请上传店铺图片");
+				return false;
+			}
 		});
 	});	
 		
