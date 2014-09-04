@@ -488,6 +488,21 @@ $(function(){
 				},
 				phoneNum:{
 					required : true
+				},
+				filename1:{
+					required : true
+				},
+				filename2:{
+					required : true
+				},
+				filename3:{
+					required : true
+				},
+				filename4:{
+					required : true
+				},
+				filename5:{
+					required : true
 				}
 			},
 			messages : {
@@ -508,6 +523,21 @@ $(function(){
 				},
 				phoneNum:{
 					required : "联系电话必填"
+				},
+				filename1:{
+					required : "店铺图片必填"
+				},
+				filename2:{
+					required : "店铺图片必填"
+				},
+				filename3:{
+					required : "店铺图片必填"
+				},
+				filename4:{
+					required : "店铺图片必填"
+				},
+				filename5:{
+					required : "店铺图片必填"
 				}
 			}
 			
@@ -517,6 +547,34 @@ $(function(){
 		$("#baocun").click(function(){
 			if($(".shopShow .brandImg").size() ==0){
 				alert("请上传店铺图片");
+				return false;
+			}
+			if($("#filename1").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename2").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename3").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename4").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename5").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename6").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename7").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename8").val()==""){
+				alert("请选择店铺图片");
+				return false;
+			}else if($("#filename9").val()==""){
+				alert("请选择店铺图片");
 				return false;
 			}
 		});
@@ -773,7 +831,12 @@ $(function(){
 						<div class="brandImg">
 							 <div id="preview_wrapper" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 							        <div id="preview_fake" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-							            <img id="preview"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }"/>
+							            <c:if test="${tshop.businessLicensePhotoUrl == '' }">
+							            	
+							            </c:if>
+							            <c:if test="${tshop.businessLicensePhotoUrl != '' }">
+								            <img id="preview"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src="<%=Variables.shopLicenseURL %>${tshop.businessLicensePhotoUrl }"/>
+							            </c:if>
 							        </div>    
 							    </div>    
 							    <div>   
@@ -805,7 +868,7 @@ $(function(){
 							    </div>    
 							    <div>    
 							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
-							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}">
+							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}"  value="${path }">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>

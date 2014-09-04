@@ -161,6 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <%-- <a href="/fansCount.jhtml?url=area&shopId=${shopId }" title="所在地">所在地</a> --%>
 	                <a href="javascript:void(0);" title="所在地" onClick="alert('暂不开放，敬请期待！');">所在地</a>
 	                <a href="/fansCount.jhtml?url=favourite&shopId=${shopId }" title="喜欢">喜欢</a>
+	                <a style="float:right;" href="javascript:void(0);" onClick="javascript:window.history,back();">返回</a>
 	            </div>
 	        </div>
 	        <div id="container" style="width: auto; height: 550px; text-align: center;"></div>

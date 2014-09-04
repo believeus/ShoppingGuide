@@ -147,6 +147,34 @@ function addclass(obj){
 					alert("请上传商品图片");
 					return false;
 				}
+				if($("#filename1").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename2").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename3").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename4").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename5").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename6").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename7").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename8").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}else if($("#filename9").val()==""){
+					alert("请选择商品图片");
+					return false;
+				}
 			}
 			
 		});
@@ -381,7 +409,7 @@ function addclass(obj){
 					},
 					messages : {
 						goodsName : {
-							required : "店铺名称必填",
+							required : "商品名称必填",
 							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
 						},
 						featureIds:{
