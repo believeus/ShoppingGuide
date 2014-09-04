@@ -488,21 +488,6 @@ $(function(){
 				},
 				phoneNum:{
 					required : true
-				},
-				goodsImg1:{
-					required : true
-				},
-				goodsImg2:{
-					required : true
-				},
-				goodsImg3:{
-					required : true
-				},
-				goodsImg4:{
-					required : true
-				},
-				goodsImg5:{
-					required : true
 				}
 			},
 			messages : {
@@ -523,21 +508,6 @@ $(function(){
 				},
 				phoneNum:{
 					required : "联系电话必填"
-				},
-				goodsImg1:{
-					required : "店铺图片必填"
-				},
-				goodsImg2:{
-					required : "店铺图片必填"
-				},
-				goodsImg3:{
-					required : "店铺图片必填"
-				},
-				goodsImg4:{
-					required : "店铺图片必填"
-				},
-				goodsImg5:{
-					required : "店铺图片必填"
 				}
 			}
 			
