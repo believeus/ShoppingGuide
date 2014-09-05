@@ -1,3 +1,4 @@
+<%@page import="com.etech.variable.Variables"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
@@ -15,6 +16,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -138,7 +140,7 @@
 			$input.blur(function(){
 				var nickName=$(this).val();
 				var phoneUserId=$(this).prev().prev().val();
-				$.post(	"toChangeNote.jhtml",
+				$.post(	"/changeNote.jhtml",
 						{"nickName":nickName,"phoneUserId":phoneUserId},
 						function(){
 							location.replace("/showFans.jhtml?shopId=${shopId}");
@@ -181,14 +183,25 @@
 					<div class="p_list">
 						<div class="p_top">
 							<div class="p_top_img">
-								<img src="/images/header.png" width="50" height="50">
+								<c:if test="${puser.profilePhoto ==null && puser.gender =='男'}">
+									<img src="/images/default_men.png" width="50" height="50">
+								</c:if>
+								<c:if test="${puser.profilePhoto ==null && puser.gender ==null}">
+									<img src="/images/default_men.png" width="50" height="50">
+								</c:if>
+								<c:if test="${puser.profilePhoto ==null && puser.gender =='女'}">
+									<img src="/images/default_women.png" width="50" height="50">
+								</c:if>
+								<c:if test="${puser.profilePhoto !=null}">
+									<img src="<%=Variables.phoneUserHeadURL %>${puser.profilePhoto }" width="50" height="50">
+								</c:if>
 							</div>
 							<div class="p_top_word">
 								<div class="p_top_word_name">
 									<span class="nName">
 									<c:if test="${puser.nickName == ''}">
 										<input type="hidden" value="${puser.phoneUserId }" />
-										<span id="nickName">
+										<span id="nickName">shopId
 											<a id="changeNick">${puser.userName }</a>
 										</span>
 										<input id="nickNameInput" maxlength="11" type="text" style="display:none;width:100px;" value='${puser.userName }' />
@@ -206,7 +219,12 @@
 									<span class="nSex">${puser.gender }</span>
 								</div>
 								<div class="p_top_word_time">
-									<span class="nTime">${puser.addTime }</span>
+									<c:forEach items="${fans }" varStatus="status2" var="fan">
+										<c:if test="${status2.index==state.index }">
+											<span class="nTime">${fan.addTime }</span>
+										</c:if>
+									</c:forEach>
+									<%-- <span class="nTime">${puser.addTime }</span> --%>
 									<span class="nRecord"></span>
 								</div>
 							</div>

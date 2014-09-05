@@ -107,30 +107,32 @@ public class ControllerRegistThree {
 		  Tshopuser shopuser=(Tshopuser)etechService.findObject(Tshopuser.class, Integer.parseInt(userId));
 		  List<Tshop> shops = shopuser.getShops();
 		  List<Tfeature> tfeatures = new ArrayList<Tfeature>();
-		 for (String featureId : featureIds.split(",")) {
-			Tfeature feature=(Tfeature)etechService.findObject(Tfeature.class, Integer.valueOf(featureId));
-			tfeatures.add(feature);
-			log.debug("feature.name:"+feature.getFeatureName());
-			for (Iterator<Tshop> iterator = shops.iterator(); iterator.hasNext();) {
-				Tshop tshop = (Tshop) iterator.next();
-				Tshopfeature shopfeature=new Tshopfeature();
-				shopfeature.setFeatureId(feature.getFeatureId());
-				shopfeature.setShopId(tshop.getShopId());
-				shopfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
-				etechService.merge(shopfeature);
-				String shopFeature = "";
-				for (int i = 0; i < tfeatures.size(); i++) {
-					if (i==tfeatures.size()-1) {
-						shopFeature += tfeatures.get(i).getFeatureName();
-					}else {
-						shopFeature += tfeatures.get(i).getFeatureName()+",";
+		  if (featureIds != "") {
+			 for (String featureId : featureIds.split(",")) {
+				Tfeature feature=(Tfeature)etechService.findObject(Tfeature.class, Integer.valueOf(featureId));
+				tfeatures.add(feature);
+				log.debug("feature.name:"+feature.getFeatureName());
+				for (Iterator<Tshop> iterator = shops.iterator(); iterator.hasNext();) {
+					Tshop tshop = (Tshop) iterator.next();
+					Tshopfeature shopfeature=new Tshopfeature();
+					shopfeature.setFeatureId(feature.getFeatureId());
+					shopfeature.setShopId(tshop.getShopId());
+					shopfeature.setAddTime(new Timestamp(System.currentTimeMillis()));
+					etechService.merge(shopfeature);
+					String shopFeature = "";
+					for (int i = 0; i < tfeatures.size(); i++) {
+						if (i==tfeatures.size()-1) {
+							shopFeature += tfeatures.get(i).getFeatureName();
+						}else {
+							shopFeature += tfeatures.get(i).getFeatureName()+",";
+						}
 					}
+					tshop.setShopFeature(shopFeature);
+					tshop.setShopFeatureIds(featureIds);
+					etechService.saveOrUpdate(tshop);
 				}
-				tshop.setShopFeature(shopFeature);
-				tshop.setShopFeatureIds(featureIds);
-				etechService.saveOrUpdate(tshop);
-			}
-		 }
+			 }
+		  }
 		return "success";
 	}
 }

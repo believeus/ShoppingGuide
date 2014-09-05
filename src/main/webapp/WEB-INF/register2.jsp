@@ -223,15 +223,15 @@
 					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
-				+'<div> '   
-					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 227px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+				+'<div style="text-align:left;"> '   
+					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
 					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
 				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
 				+'</div>';
 			//alert($("#Imgs .brandImg").size());
-			if($("#Imgs .brandImg").size() > 8){
+			if($("#Imgs .brandImg").size() > 8){ 
 				alert("最多9张图片");
 			}else{
 				$("#Imgs").append(html);
@@ -507,8 +507,8 @@
 							            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
 							        </div>    
 							    </div>    
-							    <div>    
-							    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+							    <div style="text-align:left;">    
+							    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 70px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
 							    <input type="hidden" id="filename1" name="filename1">
 							    </div>    
 							    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
@@ -534,8 +534,8 @@
 							        	<span class="middle-money" value="0">设为默认</span>
 							        </div>    
 							    </div>    
-							    <div>    
-							    <input id="goodsImg2" type="file" name="goodsImg2" style="width: 227px;" onchange="filename2.value=this.value;onUploadImgChange(this,227,179,'preview2','preview_fake2','preview_size_fake2');"/>  
+							    <div style="text-align:left;">    
+							    <input id="goodsImg2" type="file" name="goodsImg2" style="width: 70px;" onchange="filename2.value=this.value;onUploadImgChange(this,227,179,'preview2','preview_fake2','preview_size_fake2');"/>  
 							    <input type="hidden" id="filename2" name="filename2">
 							    </div>    
 							    <img id="preview_size_fake2" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 

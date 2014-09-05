@@ -170,6 +170,7 @@ function removeCookie(name, options) {
 	<div style="height:135px;width:100%;margin-top:-17px;">
     	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;height:auto;overflow:hidden;">
         	<div style="float:left;">
+        		<img alt="" src="/images/logo_new.png" width="65" height="65" style="position: absolute;">
         		<img src="images/Logo_.png"/>
             </div>
         	<div style="float:right; margin-top:40px; font-size:16px; color:#056F6F; line-height:0px;">

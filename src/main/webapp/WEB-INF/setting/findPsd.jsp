@@ -312,8 +312,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
 				        </div>    
 				    </div>    
-				    <div style="text-align:center;">    
-					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 227px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+				    <div style="text-align:left;">    
+					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 70px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
 					    <input type="hidden" id="filename" name="filename"/>
 						<label class="error" for="shopLicenseImg" style="color:red;"></label>
 				    </div>    

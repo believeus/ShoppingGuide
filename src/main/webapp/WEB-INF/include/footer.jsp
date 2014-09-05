@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <img src="/images/line.png">
     	<div id="botto">
         	<p><a href="http://admin.aileguang.com/download/DownloadShopUser.html">下载APP</a><span>  丨  我的微信：<a href="http://weixin.qq.com/r/u0P95b7EQeM_rfqG9xap">爱乐逛、爱乐逛助手</a>  丨  我们的微博：<a href="http://weibo.cn/qr/userinfo?uid=5102446126">武汉爱乐逛</a>  丨</span><a href="http://www.aileguang.com">关于爱乐逛</a></p>
-            <p><span>客服邮箱：<a href="#">kefu@aileguang.com</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：<a href="#">武汉谦通科技有限公司</a></span></p>
-            <p>鄂CP备12008896号-3</p>
+            <p><span>客服邮箱：<a href="#">kefu@aileguang.com</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>版权所有：<a href="http://www.cityofcar.com">武汉谦通科技有限公司</a></span></p>
+            <p>鄂ICP备12008896号-3</p>
         </div>
         <div style="float:left; margin:40px 0px;">
         	<img src="images/telephone.png" />

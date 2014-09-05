@@ -936,6 +936,15 @@ public class ControllerMenu {
 		Tphoneuser user=(Tphoneuser) etechService.findObject(Tphoneuser.class,"phoneUserId", phoneUserId);
 		user.setNickName(nickName);
 		etechService.saveOrUpdate(user);
+		/*List<Tfavoritegroup> tfavoritegroups = (List<Tfavoritegroup>) etechService.findObjectList(Tfavoritegroup.class, "phoneUserId", phoneUserId);
+		for (Tfavoritegroup tfavoritegroup : tfavoritegroups) {
+			System.out.println(tfavoritegroup.getFavoriteGroupId());
+			List<Tshopfavorite> tshopfavorites = (List<Tshopfavorite>) etechService.findObjectList(Tshopfavorite.class, "favoriteGroupId", tfavoritegroup.getFavoriteGroupId());
+			for (Tshopfavorite tshopfavorite : tshopfavorites) {
+				tshopfavorite.setFansNickName(nickName);
+				etechService.saveOrUpdate(tshopfavorite);
+			}
+		}*/
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("message", "success");
 		data.put("user", user);
@@ -975,6 +984,7 @@ public class ControllerMenu {
 		request.setAttribute("size", tphoneusers.size());
 		request.setAttribute("fancyList", fancyList);
 		request.setAttribute("shopId", shopId);
+		request.setAttribute("fans", fans);
 		
 		return "/WEB-INF/menu/myFans.jsp";
 	}

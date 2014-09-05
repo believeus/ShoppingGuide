@@ -240,8 +240,8 @@ function addclass(obj){
 					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
-				+'<div> '   
-					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 227px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+				+'<div style="text-align:left;"> '   
+					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
 					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
@@ -642,14 +642,14 @@ function addclass(obj){
 							        	<span class="middle-money" value="${status.index}">设为默认</span>
 							        </div>    
 							    </div>    
-							    <div>    
-							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 227px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
-							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}"">
+							    <div style="text-align:left;">    
+							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 70px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
+							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}" value="${path }">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a></div>
 							</div>
-						 </c:if>
+						 </c:if> 
 						</c:forEach>
 					</td>
 				</tr>

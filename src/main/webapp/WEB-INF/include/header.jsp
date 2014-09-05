@@ -76,7 +76,10 @@
 <div style="height:135px;width:100%;background:#69CDCD;">
    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
        	<div style="float:left;">
-       		<a href="/login.jhtml" title="首页"><img src="/images/Logo_b.png"/></a>
+       		<a href="/login.jhtml" title="首页">
+	       		<img alt="" src="/images/logo_new.png" width="65" height="65" style="position: absolute;">
+	       		<img src="/images/Logo_b.png"/>
+       		</a>
         </div>
         <c:if test="${sessionUser != null }">
 	       	<div class="msg" style="">

@@ -166,10 +166,6 @@
 		<p style="margin:10px 0;">
 			<img src="images/r3.jpg" width="1000">
 		</p>
-		<div
-			style="width:600px;height:30px;line-height:30px;margin-left:auto;margin-right:auto;">
-			<span><font color="red">*</font>为必填选项</span>
-		</div>
 		<form id="registerForm" action="/saveFeature.jhtml" method="post"
 			autocomplete="off">
 			<div class="stable">

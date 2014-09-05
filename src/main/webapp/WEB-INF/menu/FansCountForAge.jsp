@@ -140,6 +140,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <jsp:include page="../include/header.jsp" flush="true" />
     <div>
 	    <div style="width:1000px; height:800px; margin:0px auto; background-color:#fff; border:1px solid #ccc;">
+	    	<p style="margin:5px auto;width:980px;">所在位置：
+	   			<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
+	   			<a title="我的粉丝" href="/showFans.jhtml?shopId=${shopId }">我的粉丝</a> &gt;
+	   			粉丝统计
+			</p>
 	    	<div style="padding-top:30px;">
 	        	<div id="titl">
 	                <div id="titl_name1">
