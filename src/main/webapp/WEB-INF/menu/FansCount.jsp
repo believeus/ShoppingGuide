@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -144,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <a href="javascript:void(0);" title="所在地" onClick="alert('暂不开放，敬请期待！');">所在地</a>
 <%-- 	                <a href="/fansCount.jhtml?url=area&shopId=${shopId }" title="所在地">所在地</a> --%>
 	                <a href="/fansCount.jhtml?url=favourite&shopId=${shopId }" title="喜欢">喜欢</a>
-	               	<a style="float:right;" href="javascript:void(0);" onClick="javascript:window.history,back();">返回</a>
+	               	<a style="float:right;" href="/showFans.jhtml?shopId=${shopId }" >返回</a>
 	            </div>
 	        </div>
 	        <div id="container" style="width: 650px; height: 550px; text-align: center;margin:0 auto;"></div>
