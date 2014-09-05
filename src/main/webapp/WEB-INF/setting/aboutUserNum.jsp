@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
-		    			<input type="text" id="oldPassword" name="oldPassword" placeholder="请输入旧密码"
+		    			<input type="password" id="oldPassword" name="oldPassword" placeholder="请输入旧密码"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>
@@ -189,14 +189,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">关联密码：</span>
-		    			<input type="text" id="aboutPsd" name="aboutPsd"
+		    			<input type="password" id="aboutPsd" name="aboutPsd"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>
 					<div class="nav_div">
 						<font color="red" style="margin-left:150px;">*&nbsp;</font>
 		    			<span style="font-weight:bold;">确认密码：</span>
-		    			<input type="text" id="confirmPsd" name="confirmPsd"
+		    			<input type="password" id="confirmPsd" name="confirmPsd"
 		    				   style="width:345px;height:35px;line-height:35px;">
 		   				<span></span>
 					</div>

@@ -689,27 +689,29 @@ public class ControllerMenu {
 			if (latitude == null) {
 				shop.setLatitude(0d);
 				shop.setLongitude(0d);
+				shop.setAddress(address);
 			}else {
 				String lat=latitude.get("lat");
 				String lng=latitude.get("lng");
 				shop.setLatitude(Double.valueOf(lat));
 				shop.setLongitude(Double.valueOf(lng));
-				//shop.setAddress(address);
+				shop.setAddress(address);
 			}
 		}else {
 			Map<String, String> latitude = LatitudeUtils.getLatitude(address);
 			if (latitude == null) {
 				shop.setLatitude(0d);
 				shop.setLongitude(0d);
+				shop.setAddress(address);
 			}else {
 				String lat=latitude.get("lat");
 				String lng=latitude.get("lng");
 				shop.setLatitude(Double.valueOf(lat));
 				shop.setLongitude(Double.valueOf(lng));
-				//shop.setAddress(address);
+				shop.setAddress(address);
 			}
 		} 
-		String addressNew = request.getParameter("area");
+	//	String addressNew = request.getParameter("area");
 		/*if (addressNew != null) {
 			if (addressNew.equals(address)) {
 				shop.setAddress(address);
@@ -719,7 +721,7 @@ public class ControllerMenu {
 		}else {
 			shop.setAddress("其他");
 		}*/
-		if (addressNew !=null) {
+		/*if (addressNew !=null) {
 			String str1 = addressNew.substring(0,addressNew.indexOf("区")+1);
 			String str2 = address.substring(0,address.indexOf("区")+1);
 			String are = "其他";
@@ -731,7 +733,7 @@ public class ControllerMenu {
 			}
 		}else {
 			shop.setAddress(address);
-		}
+		}*/
 		String priceRange = request.getParameter("priceRange");
 		shop.setPriceRange(priceRange);
 		String phoneNum = request.getParameter("phoneNum");
