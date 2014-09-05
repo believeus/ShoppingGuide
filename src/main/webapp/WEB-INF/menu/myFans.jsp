@@ -183,16 +183,16 @@
 					<div class="p_list">
 						<div class="p_top">
 							<div class="p_top_img">
-								<c:if test="${puser.profilePhoto ==null && puser.gender =='男'}">
+								<c:if test="${(puser.profilePhoto ==null || puser.profilePhoto =='') && puser.gender =='男'}">
 									<img src="/images/default_men.png" width="50" height="50">
 								</c:if>
-								<c:if test="${puser.profilePhoto ==null && puser.gender ==null}">
+								<c:if test="${(puser.profilePhoto ==null || puser.profilePhoto =='') && (puser.gender ==null||puser.gender =='')}">
 									<img src="/images/default_men.png" width="50" height="50">
 								</c:if>
-								<c:if test="${puser.profilePhoto ==null && puser.gender =='女'}">
+								<c:if test="${(puser.profilePhoto ==null || puser.profilePhoto =='') && puser.gender =='女'}">
 									<img src="/images/default_women.png" width="50" height="50">
 								</c:if>
-								<c:if test="${puser.profilePhoto !=null}">
+								<c:if test="${puser.profilePhoto !=null && puser.profilePhoto !=''}">
 									<img src="<%=Variables.phoneUserHeadURL %>${puser.profilePhoto }" width="50" height="50">
 								</c:if>
 							</div>
