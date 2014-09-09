@@ -185,7 +185,7 @@ function removeCookie(name, options) {
         	<form id="loginForm" action="/menu.jhtml" method="post">
             	<p class="log">
             		<b>帐号：</b>
-            		<input name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value="${username}"/>
+            		<input style="height:31px;line-height:31px;" name="userName" id="userName" type="text" placeholder="请输入手机号或帐号" value="${username}"/>
            		</p>
             	<p class="log" style="margin-bottom:12px;">
             		<b>密码：</b>
@@ -194,7 +194,7 @@ function removeCookie(name, options) {
             				$("#password").val("");
             			});
             		</script>
-            		<input type="password" name="password" id="password" placeholder="请输入密码" value=""/>
+            		<input style="height:31px;line-height:31px;" type="password" name="password" id="password" placeholder="请输入密码" value=""/>
            		</p>
                 <p id="check" style="display: none; width:auto;">
                 	<img src="/images/chacha.png" />&nbsp;

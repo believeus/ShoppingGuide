@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -114,7 +115,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="s_menu">
     		<div class="s_menu_list" style="background:#2CB8AD;">
     			<div style="background:url(/images/bg.png);background-position:0 -260px;width:20px;height:25px;float:left;margin-left: 20px;margin-top: 28px;"></div>
-   				<span style="margin-left:15px;font-size:20px;color:#FFFFFF;">${shop.shopName}</span>
+   				<span style="margin-left:15px;font-size:20px;color:#FFFFFF;" title="${shop.shopName}">
+   					${fn:substring(shop.shopName, 0, 9)}
+   					<c:if test="${fn:length(shop.shopName) > 9 }">
+	   					...
+   					</c:if>
+				</span>
    			</div>
     		<div class="s_menu_list">
     			<div class="s_menu_list_img">

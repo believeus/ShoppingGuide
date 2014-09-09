@@ -302,6 +302,7 @@
 				$("form").css("top","0");
 			}
 			if(IE){
+				//alert("IE");
 				$("form").css("top","0");
 			   	//alert("我是IE浏览器");
 			   	$(".addPro").css("right","545px");
@@ -428,7 +429,7 @@
 			<form action="/searchProduct.jhtml" method="post" style="float: right; position: relative; margin-bottom: 0px; top: -30px;">
 				<input type="hidden" name="shopId" value="${shopId }"/>
 				<input type="text" name="key" style="float:right;">
-				<input class="findPro" title="点击搜索商品" type="submit" value="" style="border:0;"/>
+				<input class="findPro" title="点击搜索商品" type="submit" value="" style="border:0;line-height:30px;height:30px;font-size:28px;"/>
 			</form>
 		</div>
 		<!-- 商品列表  第一列 -->

@@ -15,6 +15,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -709,7 +710,7 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<td><b><span style="color:red;">&nbsp;&nbsp;</span>店主QQ号：</b></td>
+						<td><b><span style="color:red;">&nbsp;&nbsp;&nbsp;</span>店主QQ号：</b></td>
 						<td colspan="3">
 							<input type="text" name="qq" value="${tshop.qq }" onkeyup="value=this.value.replace(/\D+/g,'')">
 						</td>
@@ -808,7 +809,7 @@ $(function(){
 		                </td>
 		              </tr>
 		              <tr>
-		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>价格区间：</b></td>
+		                <td><b><span style="color:red;">&nbsp;&nbsp;&nbsp;</span>价格区间：</b></td>
 		                <td colspan="3">
 		                    <input id="priceRange" type="text" name="priceRange" value="${tshop.priceRange }"/>
 		                </td>

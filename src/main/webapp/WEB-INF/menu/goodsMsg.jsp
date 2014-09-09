@@ -16,6 +16,7 @@
 <meta http-equiv="pragma" content="no-cache">
 
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -367,7 +368,7 @@ function addclass(obj){
 				<a href="/menu.jhtml" title="菜单">菜单</a> >
    				<a href="/myShop.jhtml?shopId=${shopId }" title="我的店铺">我的店铺</a> >
 				<a href="/myProducts.jhtml?shopId=${shopId }" title="商品列表">商品列表</a> >
-				<a href="/goodsAdd.jhtml?shopId=${tgoods.goodsId }" title="商品信息">商品信息</a>
+				<a href="/goodsMsg.jhtml?goodsId=${tgoods.goodsId }" title="商品信息">商品信息</a>
 			</p>
 			<table class="main_table1" style="">
 				<tr style="">
