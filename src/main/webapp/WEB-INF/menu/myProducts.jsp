@@ -273,6 +273,31 @@
 	background:#5AB5B6;
 	color:#FFFFFF;
 }
+.pageSize{
+	position: absolute;
+	width: 88px;
+	/* left:300px; */
+	background: #ffffff;
+	border:1px solid #b8d3ee;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+	margin-left:156px;
+}
+.pageSize li {
+    list-style: none outside none;
+    line-height:25px;
+}
+.pageSize li:hover {
+	background:#d9f2f2;
+	color:#FFFFFF;
+	line-height: 25px;
+}
+.pageSize a {
+    display: inline-block;
+    width: 88px;
+}
+.pageSize a:hover {
+	color:#FFFFFF;
+}
 
 
 </style>
@@ -309,6 +334,7 @@
 				$(".reload").css("right","505px");
 				$(".pageshow").css("right","405px");
 				$(".findPro").css("right","-338px");
+				$(".pageSize").css("margin-left","137px");
 			}
 		}else{
 			if(isChrome){
@@ -395,6 +421,18 @@
 				 return false;
 			 }
 		 });
+		 $("#showPageSize").mouseover(function(){
+			 $(".pageSize").show();
+		 });
+		 $("#showPageSize").mouseout(function(){
+			 $(".pageSize").hide();
+		 });
+		 $(".pageSize").mouseover(function(){
+			 $(".pageSize").show();
+		 });
+		 $(".pageSize").mouseout(function(){
+			 $(".pageSize").hide();
+		 });
 	});
 </script>
 
@@ -417,7 +455,14 @@
 				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s id="addPro" class="addPro"></s>
 			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
-			<input type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
+			<input id="showPageSize" type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
+			<div class="pageSize" style="display:none;">
+				<ul style="padding:0;margin:0;">
+					<li><a href="/findGoodsByPage.jhtml?shopId=${shopId }&num=10">10</a></li>
+					<li><a href="/findGoodsByPage.jhtml?shopId=${shopId }&num=20">20</a></li>
+					<li><a href="/findGoodsByPage.jhtml?shopId=${shopId }&num=30">30</a></li>
+				</ul>
+			</div>
 			<!-- 商品上下架 -->
 			<div style="height: 30px; width: 230px; float: left;">
 				<div id="up" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?shopId=${shopId }&isOnSale=1'">上架商品</div>

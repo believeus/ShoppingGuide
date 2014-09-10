@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>店铺预览</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -146,7 +147,7 @@ hr {
 </style>
 <style type="text/css">
 	#banner {position:relative; width:278px; height:auto; border:1px solid #666; overflow:hidden;}
-	#banner_list{width:278px;height:auto;}
+	#banner_list{width:278px;height:300px;}
 	#banner_list img {border:0px;}
 	#banner_bg {position:absolute; bottom:0;background-color:#000;height:30px;filter: Alpha(Opacity=30);opacity:0.3;z-index:1000;
 	cursor:pointer; width:278px; }
@@ -175,7 +176,7 @@ hr {
 		$(".promptumenu_window").css("cursor","url(/images/hand.ico),move");
 		$(".promptumenu_window img").css("cursor","url(/images/hand.ico),move");
 		$(".promptumenu_window").css("overflow-x","hidden"); 
-		$(".promptumenu_window").css("overflow-y","scroll"); 
+		$(".promptumenu_window").css("overflow-y","scroll");
 	});
 </script>
 <script type="text/javascript">
@@ -240,7 +241,7 @@ hr {
 					<div id="banner_list">
 						<c:forEach items="${paths }" var="path">
 							<a href="javascript:void(0);" title="">
-								<img src="<%=Variables.shopURL %>${path }" title="" alt="" width="278" />
+								<img src="<%=Variables.shopURL %>${path }" title="" alt="" width="278" height="300"/>
 							</a>
 						</c:forEach>
 					</div>

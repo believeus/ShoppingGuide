@@ -175,6 +175,10 @@ function addclass(obj){
 					alert("请选择商品图片");
 					return false;
 				}
+				if($("#featureIds").val() ==""){
+					alert("商品特色必填");
+					return false;
+				}
 			}
 			
 		});
@@ -377,7 +381,6 @@ function addclass(obj){
 		var flag = ${flag};
 		//alert(flag);
 		if(flag == 0){
-			if($(".brandImg").size() ==0){
 				$("#main_form").validate({
 					rules : {
 						goodsName : {
@@ -391,19 +394,22 @@ function addclass(obj){
 						featureIds:{
 							required : true
 						},
-						goodsImg1:{
+						filename0:{
 							required : true
 						},
-						goodsImg2:{
+						filename1:{
 							required : true
 						},
-						goodsImg3:{
+						filename2:{
 							required : true
 						},
-						goodsImg4:{
+						filename3:{
 							required : true
 						},
-						goodsImg5:{
+						filename4:{
+							required : true
+						},
+						filename5:{
 							required : true
 						}
 					},
@@ -415,19 +421,22 @@ function addclass(obj){
 						featureIds:{
 							required : "商品特色必填"
 						},
-						goodsImg1:{
+						filename0:{
 							required : "商品图片必填"
 						},
-						goodsImg2:{
+						filename1:{
 							required : "商品图片必填"
 						},
-						goodsImg3:{
+						filename2:{
 							required : "商品图片必填"
 						},
-						goodsImg4:{
+						filename3:{
 							required : "商品图片必填"
 						},
-						goodsImg5:{
+						filename4:{
+							required : "商品图片必填"
+						},
+						filename5:{
 							required : "商品图片必填"
 						}
 					}
@@ -442,13 +451,12 @@ function addclass(obj){
 					},
 					messages : {
 						goodsName : {
-							required : "店铺名称必填",
+							required : "商品名称必填",
 							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
 						}
 					}
 				}); 
 			}
-		}
 	});	
 </script>
 
@@ -699,6 +707,34 @@ function addclass(obj){
 		    			alert("请选择商品类型");
 		    			return false;
 		    		}
+		    		if($("#filename1").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename2").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename3").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename4").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename5").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename6").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename7").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename8").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}else if($("#filename9").val()==""){
+						alert("请选择商品图片");
+						return false;
+					}
 	    		}
 	    	});
 	    
@@ -712,6 +748,7 @@ function addclass(obj){
 	    	}
 	    	
 	    	$(this).click(function(){
+	    		$("#featureIds").val("");
 	    		$.ajax({
 		    		type : "post",
 					url : "/findGoodsTypes.jhtml",
@@ -732,6 +769,7 @@ function addclass(obj){
 	    	
 	    	$(this).click(function(e){
 	    		//alert($(this).attr("value"));
+	    		$("#featureIds").val("");
 	    		$.ajax({
 		    		type : "post",
 					url : "/findChildGoodsType.jhtml",
