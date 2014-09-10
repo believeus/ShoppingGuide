@@ -317,6 +317,8 @@
 				$(".reload").css("right","515px");
 				$(".pageshow").css("right","410px");
 				//$(".findPro").css("right","175px");
+				$(".pageSize").css("margin-left","148px");
+				$(".pageSize").css("width","80px");
 			}
 			if(isChrome){
 			   	//alert("我是谷歌浏览器");
@@ -325,6 +327,7 @@
 				$(".pageshow").css("right","403px");
 				$(".findPro").css("right","-338px");
 				$("form").css("top","0");
+				$(".pageSize").css("margin-left","142px");
 			}
 			if(IE){
 				//alert("IE");
@@ -335,6 +338,7 @@
 				$(".pageshow").css("right","405px");
 				$(".findPro").css("right","-338px");
 				$(".pageSize").css("margin-left","137px");
+				$(".pageSize").css("width","75px");
 			}
 		}else{
 			if(isChrome){
@@ -344,6 +348,7 @@
 				$(".pageshow").css("right","403px");
 				$(".findPro").css("right","-338px");
 				$("form").css("top","0");
+				$(".pageSize").css("margin-left","142px");
 			}
 		}
 		$("#allPro").mouseout(function(){
