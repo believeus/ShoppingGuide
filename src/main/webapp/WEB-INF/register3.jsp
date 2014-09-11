@@ -9,10 +9,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
 <title>用户注册</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -128,7 +128,14 @@
 		$("#addSpecial").click(function() {
 			var feature = $("#textSpecial").val();
 			if (feature == "") {
-				alert("请输入关键字！");
+				//alert("请输入关键字！");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '请输入关键字'
+	                },
+	                overlay: false
+	            });
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);

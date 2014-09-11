@@ -112,7 +112,8 @@
 			var html = "<div class='brandImg' style='margin-top:20px;float:left;'><span><a onclick='file"+a+".click()' href='javascript:return false;'>点击上传图片</a></span><img id='shopPhotoURL' style='width:229px;height:179px' src='' name='shopPhotoURL'/></div><input type='file' style='display:none' id='file"+a+"' name='file"+a+"' onchange='filename"+a+".value=this.value;loadImgFast(this,"+a+")'><input type='hidden' id='filename"+a+"' name='filename"+a+"'>";
 			//alert($(".shopShow .brandImg").size());
 			if($(".shopShow .brandImg").size() > 8){
-				alert("最多9张图片");
+				//alert("最多9张图片");
+				easyDialog.open({container: {header: '提示',content: '最多9张图片'},overlay: false});
 			}else{
 				$(".shopShow").append(html);
 			}

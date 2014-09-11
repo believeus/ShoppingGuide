@@ -1053,12 +1053,23 @@ public class ControllerMenu {
 	 * information list
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/infoList")
-	public String infoList(HttpServletRequest request){
-		
-		@SuppressWarnings("unchecked")
+	public String infoList(HttpServletRequest request,Integer num){
+		if (num==null) {
+			num = 20;
+		}
+		String pageNumber = request.getParameter("pageNumber");
+		// 如果为空，则设置为1
+		if (StringUtils.isEmpty(pageNumber)) {
+			pageNumber="1";
+		}
+		Pageable pageable=new Pageable(Integer.valueOf(pageNumber),num);
+		String hql = "from Tnews as entity order by id desc";
+		Page<?> page = etechService.findObjectList(hql, pageable);
 		//select all news from tNews
-		List<Tnews> news = (List<Tnews>) etechService.findObjectList(Tnews.class);
+//		List<Tnews> news = (List<Tnews>) etechService.findObjectList(Tnews.class);
+		List<Tnews> news = (List<Tnews>) page.getContent();;
 		
 		for (Tnews tnews : news) {
 			String content = tnews.getContent();
@@ -1069,7 +1080,9 @@ public class ControllerMenu {
 //			news.add(tnews);
 		}
 		request.setAttribute("news", news);
-		request.setAttribute("size", news.size());
+		request.setAttribute("size",page.getTotal());
+		// 分页
+		PaginationUtil.pagination(request, page.getPageNumber(),page.getTotalPages(), 0);
 		
 		return "/WEB-INF/menu/InfoList.jsp";
 	}

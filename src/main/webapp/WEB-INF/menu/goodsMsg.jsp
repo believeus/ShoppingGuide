@@ -177,7 +177,14 @@ function addclass(obj){
 				
 			//alert($(".main_table2 .brandImg").size());
 			if($(".main_table2 .brandImg").size() > 8){
-				alert("最多9张图片");
+				//alert("最多9张图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '最多9张图片'
+	                },
+	                overlay: false
+	            });
 			}else{
 				$("#Imgs").append(html);
 			}
@@ -189,7 +196,14 @@ function addclass(obj){
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					alert("设置成功");
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
 				});
 			});
 			$(".brandImg").each(function(){
@@ -213,7 +227,14 @@ function addclass(obj){
 			$(this).click(function(){
 				//alert($(this).attr("value")+"=this.val");
 				$("#moren").val($(this).attr("value"));
-				alert("设置成功");
+				//alert("设置成功");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
 			});
 		});
 		
@@ -225,7 +246,14 @@ function addclass(obj){
 					$(this).removeClass("inputClass");
 				}else{
 					if($("#main_table2_td .inputClass").length >= 5){
-						alert("最多选择5个");
+						//alert("最多选择5个");
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '最多选择5个'
+			                },
+			                overlay: false
+			            });
 					}else{
 						$(this).addClass("inputClass");		
 					}
@@ -243,7 +271,14 @@ function addclass(obj){
 		$("#addSpecial").click(function() {
 			var feature = $("#textSpecial").val();
 			if (feature == "") {
-				alert("请输入关键字！");
+				//alert("请输入关键字！");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '请输入关键字！'
+	                },
+	                overlay: false
+	            });
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);
@@ -290,7 +325,14 @@ function addclass(obj){
 <script type="text/javascript">    
 		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
 		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
-		        alert('图片格式无效！');     
+		       // alert('图片格式无效！'); 
+		        easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片格式无效！'
+	                },
+	                overlay: false
+	            });
 		        return false;     
 		    }     
 		         
@@ -477,7 +519,14 @@ function addclass(obj){
 					}
 				}	
 				if(featureIds == null && featureIds == ""){
-					alert("请选择商品类型");
+					//alert("请选择商品类型");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '请选择商品类型'
+		                },
+		                overlay: false
+		            });
 				}else{
 					
 				}

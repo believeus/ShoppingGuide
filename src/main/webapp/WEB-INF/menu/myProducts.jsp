@@ -185,7 +185,7 @@
 	line-height:25px;
 }
 .middle-money {
-    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    background: url(/images/middle-money_bj.png);
     bottom: 0;
     color: #ffffff;
     font-family: "微软雅黑";
@@ -202,7 +202,7 @@
     display:none;
 }
 .middle-money-2{
-    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    background: url(/images/middle-money_bj.png);
     bottom: 0;
     color: #ffffff;
     font-family: "微软雅黑";
@@ -222,7 +222,7 @@
 .tick{
 	width:60px;
 	height:60px;
-	background:url(/images/bg.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+	background:url(/images/bg.png);
 	background-position:-361px -319px;
 	margin-left: 168px;
 	position: absolute;
@@ -422,7 +422,8 @@
 		 $(".findPro").click(function(){
 			 var search = $("input[name=key]").val();
 			 if(search == null || search == ""){
-				 alert("请输入关键字！");
+				 //alert("请输入关键字！");
+				 easyDialog.open({container: {header: '提示',content: '请输入关键字！'},overlay: false});
 				 return false;
 			 }
 		 });
@@ -696,7 +697,7 @@
 		<form action="myProducts.jhtml" id="listForm">
 			<input type="hidden" name="shopId" value="${shopId }">
 			<jsp:include page="../include/pagination.jsp" flush="true" />
-	</form>
+		</form>
 	</div>
 		<!-- 引用尾部页面 -->
 		<jsp:include page="../include/footer.jsp" flush="true" />
@@ -725,7 +726,6 @@ if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !i
 				else return "Linux"; 
 				}
 			if (isWin) {
-				alert("nimei");
 				/* var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1; 
 				if (isWin2K) return "Win2000"; 
 				var isWinXP = sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1; 

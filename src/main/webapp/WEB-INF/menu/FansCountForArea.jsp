@@ -206,10 +206,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <a href="/fansCount.jhtml?url=CZ&shopId=${shopId }" title="生肖">生肖</a>
 	                <a href="/fansCount.jhtml?url=job&shopId=${shopId }" title="职业">职业</a>
 	                <%-- <a style="background-color:#00AAAA;border:1px solid #00AAAA;color:white;font-weight:bold;" href="/fansCount.jhtml?url=area&shopId=${shopId }" title="所在地">所在地</a> --%>
-	                <a href="javascript:void(0);" title="所在地" onClick="alert('暂不开放，敬请期待！');">所在地</a>
+	                <a href="javascript:void(0);" title="所在地" onClick="easyDialog.open({container: {header: '提示',content: '暂不开放，敬请期待！'},overlay: false});">所在地</a>
 	                <a href="/fansCount.jhtml?url=favourite&shopId=${shopId }" title="喜欢">喜欢</a>
 	           		
-	            </div>
+	            </div> 
 	        </div>
 	        <div style="margin-top:5px;margin-left:10px;">
 			    	<select id="province" style="width:150px;">

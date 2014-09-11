@@ -151,14 +151,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    					<div class="img4" style="background-position:-78px -449px"></div>
    				</div>
    				<div class="s_menu_list_name">
-   					<a href="javascript:void(0);" onClick="alert('该功能暂不开放，敬请期待！');" style="color:#555555" title="流行分析">流行分析</a>
+   					<a href="javascript:void(0);" onClick="easyDialog.open({container: {header: '提示',content: '该功能暂不开放，敬请期待！'},overlay: false});" style="color:#555555" title="流行分析">流行分析</a>
    				</div>
     		</div>
     	</div>
     	</c:forEach>
     	<div class="s_menu"
     		style="font-size:50px;color:#e4e4e4;border:2px dotted #E4E4E4;height:386px;line-height:386px;text-align:center;margin-right:0;cursor:pointer;"
-    		onClick="alert('该功能暂不开放，敬请期待！');">+
+    		onClick="easyDialog.open({container: {header: '提示',content: '该功能暂不开放，敬请期待！'},overlay: false});">+
     		<!-- href="/addShop.jhtml" -->
     	</div>
    		</div>

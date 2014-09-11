@@ -170,7 +170,7 @@
 							<input type="button" value="粉丝统计" onClick="javascript:window.location.href='/fansCount.jhtml?url=sex&shopId=${shopId}'" style="float:right;">
 						</c:if>
 						<c:if test="${size ==0 }">
-							<input type="button" value="粉丝统计" onClick="alert('没有粉丝，无法进行统计！');" style="float:right;">
+							<input type="button" value="粉丝统计" onClick="easyDialog.open({container: {header: '提示',content: '没有粉丝，无法进行统计'},overlay: false});" style="float:right;">
 						</c:if>
 					</td>
 				</tr>

@@ -63,7 +63,7 @@
 	}
 	
 	.middle-money {
-	    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+	    background: url(/images/middle-money_bj.png);
 	    bottom: 33px;
 	    color: #ffffff;
 	    font-family: "微软雅黑";
@@ -189,7 +189,7 @@ function addclass(obj){
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
-					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
+					 +'<div id="preview_fake'+a+'" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
 					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 					 		+'</div>'    
 					 	+'</div> '   
@@ -197,13 +197,20 @@ function addclass(obj){
 					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
-					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
+					+'<img id="preview_size_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
 				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
 				+'</div>';
 				
 			//alert($(".main_table2 .brandImg").size());
 			if($(".main_table2 .brandImg").size() > 8){
-				alert("最多9张图片");
+				//alert("最多9张图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '最多9张图片'
+	                },
+	                overlay: false
+	            });
 			}else{
 				$("#Imgs").append(html);
 			}
@@ -215,7 +222,14 @@ function addclass(obj){
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					alert("设置成功");
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
 				});
 			});
 			$(".brandImg").each(function(){
@@ -239,7 +253,14 @@ function addclass(obj){
 			$(this).click(function(){
 				//alert($(this).attr("value")+"=this.val");
 				$("#moren").val($(this).attr("value"));
-				alert("设置成功");
+				//alert("设置成功");
+				 easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
 			});
 		});
 		
@@ -269,10 +290,24 @@ function addclass(obj){
 		$("#addSpecial").click(function() {
 			var feature = $("#textSpecial").val();
 			if (feature == "") {
-				alert("请输入关键字！");
+				//alert("请输入关键字！");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '请输入关键字！'
+	                },
+	                overlay: false
+	            });
 				return false;
 			}else if(feature.length >5){
-				alert("关键字在五个字以内！");
+				//alert("关键字在五个字以内！");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '关键字在五个字以内！'
+	                },
+	                overlay: false
+	            });
 				return false;
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature,features:$("#featureIds").val()},function(result){
@@ -381,7 +416,14 @@ function addclass(obj){
 		//如果图片为空
 		$("input[type=submit]").click(function(){
 			if($(".brandImg").size() ==0){
-				alert("请上传商品图片");
+				//alert("请上传商品图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '请上传商品图片'
+	                },
+	                overlay: false
+	            });
 				return false;
 			}else{
 				imgValidate();
@@ -393,7 +435,14 @@ function addclass(obj){
 <script type="text/javascript">    
 		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
 		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
-		        alert('图片格式无效！');     
+		        //alert('图片格式无效！');   
+		        easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片格式无效！'
+	                },
+	                overlay: false
+	            });
 		        return false;     
 		    }     
 		         
@@ -412,8 +461,12 @@ function addclass(obj){
 		        //（相同环境有时请输入商品简介能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
-		        sender.select();     
-		        var imgSrc = document.selection.createRange().text;     
+		        /* sender.select();     
+		        var imgSrc = document.selection.createRange().text; */ 
+		        sender.select(); 
+		        window.document.body.focus();    
+		        var imgSrc = document.selection.createRange().htmlText;  
+
 		        
 		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
 		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
@@ -552,7 +605,7 @@ function addclass(obj){
 						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
 						<div class="brandImg">
 							<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-						        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+						        <div id="preview_fake1" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
 						        	<span class="middle-money" value="0">设为默认</span>
 						        </div>    
@@ -607,7 +660,14 @@ function addclass(obj){
 				$("#addGoodsTypes").attr("value",goodsType);
 				$("#addGoodsTypes").attr("title",goodsType);
 				if(featureIds == null && featureIds == ""){
-					alert("请选择商品类型");
+					//alert("请选择商品类型");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '请选择商品类型'
+		                },
+		                overlay: false
+		            });
 				}else{
 					
 				}

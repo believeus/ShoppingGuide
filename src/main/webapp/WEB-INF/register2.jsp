@@ -14,6 +14,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -232,7 +233,14 @@
 				+'</div>';
 			//alert($("#Imgs .brandImg").size());
 			if($("#Imgs .brandImg").size() > 8){ 
-				alert("最多9张图片");
+				//alert("最多9张图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '最多9张图片'
+	                },
+	                overlay: false
+	            });
 			}else{
 				$("#Imgs").append(html);
 			}
@@ -244,7 +252,14 @@
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					alert("设置成功");
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
 				});
 			});
 			$(".brandImg").each(function(){
@@ -268,7 +283,14 @@
 			$(this).click(function(){
 				//alert($(this).attr("value")+"=this.val");
 				$("#moren").val($(this).attr("value"));
-				alert("设置成功");
+				//alert("设置成功");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
 			});
 		});
 		
@@ -322,7 +344,14 @@
 <script type="text/javascript">    
 		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
 		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
-		        alert('图片格式无效！');     
+		        //alert('图片格式无效！');  
+		        easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片格式无效'
+	                },
+	                overlay: false
+	            });
 		        return false;     
 		    }     
 		         

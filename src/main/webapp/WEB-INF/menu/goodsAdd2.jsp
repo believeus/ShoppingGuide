@@ -42,7 +42,7 @@
 			cursor:pointer;
 		}
 		.middle-money {
-		    background: url(/images/middle-money_bj.png) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+		    background: url(/images/middle-money_bj.png);
 		    bottom: 33px;
 		    color: #ffffff;
 		    font-family: "微软雅黑";
@@ -86,7 +86,7 @@
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
 			 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
-				 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
+				 +'<div id="preview_fake'+a+'" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
 				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
 				 		+'</div>'    
 				 	+'</div> '   
@@ -100,7 +100,14 @@
 			
 			//alert($(".main_table3 .brandImg").size());
 			if($(".main_table3 .brandImg").size() > 8){
-				alert("最多9张图片");
+				//alert("最多9张图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '最多9张图片'
+	                },
+	                overlay: false
+	            });
 			}else{
 				$("#Imgs").append(html);
 			}
@@ -112,7 +119,14 @@
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					alert("设置成功");
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
 				});
 			});
 			$(".brandImg").each(function(){
@@ -136,7 +150,14 @@
 			$(this).click(function(){
 				//alert($(this).attr("value")+"=this.val");
 				$("#moren").val($(this).attr("value"));
-				alert("设置成功");
+				//alert("设置成功");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
 			});
 		});
 		
@@ -148,7 +169,14 @@
 					$("#main_form").submit();
 					return false;
 				}else{
-					alert("请填写商品介绍或者选择商品图片");
+					//alert("请填写商品介绍或者选择商品图片");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '请填写商品介绍或者选择商品图片'
+		                },
+		                overlay: false
+		            });
 					return  false;
 				}
 			});
@@ -160,7 +188,14 @@
 <script type="text/javascript">    
 		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
 		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
-		        alert('图片格式无效！');     
+		       // alert('图片格式无效！');  
+		        easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片格式无效！'
+	                },
+	                overlay: false
+	            });
 		        return false;     
 		    }     
 		         
@@ -179,8 +214,11 @@
 		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
-		        sender.select();     
-		        var imgSrc = document.selection.createRange().text;     
+		        /* sender.select();     
+		        var imgSrc = document.selection.createRange().text; */
+		        sender.select(); 
+		        window.document.body.focus();    
+		        var imgSrc = document.selection.createRange().htmlText;  
 		        
 		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
 		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
@@ -285,16 +323,16 @@
 						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
 						<div class="brandImg">
 							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-							            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-							        	<span class="middle-money" value="0">设为默认</span>
-							        </div>    
-							    </div>    
-							    <div style="text-align:left;">    
+						        <div id="preview_fake1" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+						        	<span class="middle-money" value="0">设为默认</span>
+						        </div>    
+						    </div>    
+						    <div style="text-align:left;">    
 							    <input id="goodsImg1" type="file" name="goodsImg1" style="width: 70px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
 							    <input type="hidden" id="filename1" name="filename1">
-							    </div>    
-							    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+						    </div>    
+						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
 						</div>
 					</td>

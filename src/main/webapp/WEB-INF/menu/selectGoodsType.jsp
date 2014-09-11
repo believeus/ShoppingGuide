@@ -48,7 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}	
 				if(featureIds == null){
-					alert("请选择商品类型");
+					//alert("请选择商品类型");
+					easyDialog.open({container: {header: '提示',content: '请选择商品类型'},overlay: false});
 				}else{
 					window.location.href="/goodsAdd.jhtml?shopId="+${shopId}+"&featureIds="+featureIds;
 				}

@@ -132,7 +132,7 @@ hr {
 </style>
 <style type="text/css">
 	#banner {position:relative; width:278px; height:auto; border:1px solid #666; overflow:hidden;}
-	#banner_list{width:278px;height:auto;}
+	#banner_list{width:278px;height:500px;}
 	#banner_list img {border:0px;}
 	#banner_bg {position:absolute; bottom:0;background-color:#000;height:30px;filter: Alpha(Opacity=30);opacity:0.3;z-index:1000;
 	cursor:pointer; width:278px; }

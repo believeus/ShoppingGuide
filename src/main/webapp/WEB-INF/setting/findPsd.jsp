@@ -220,10 +220,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript">    
 		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
 		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
-		        alert('图片格式无效！');     
+		        //alert('图片格式无效！'); 
+		        easyDialog.open({container: {header: '提示',content: '图片格式无效！'},overlay: false});
 		        return false;     
 		    }     
-		         
+		          
 		    
 		    var objPreview = document.getElementById( preview );     
 		    var objPreviewFake = document.getElementById( preview_fake );     

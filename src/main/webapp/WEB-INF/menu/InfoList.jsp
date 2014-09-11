@@ -86,8 +86,80 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:30px;
 			height:28px;
 		}
+		.pageSize{
+			position: absolute;
+			width: 76px;
+			/* left:300px; */
+			background: #ffffff;
+			border:1px solid #b8d3ee;
+			box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+			margin-left:53px;
+		}
+		.pageSize li {
+		    list-style: none outside none;
+		    line-height:25px;
+		}
+		.pageSize li:hover {
+			background:#d9f2f2;
+			color:#FFFFFF;
+			line-height: 25px;
+		}
+		.pageSize a {
+		    display: inline-block;
+		}
+		.pageSize a:hover {
+			color:#FFFFFF;
+		}
+		
 	</style>
+	<link rel="stylesheet" type="text/css" href="css/pagination.css">
 	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="js/pagination.js"></script>
+	<script type="text/javascript">
+		$().ready(function(){
+			
+			var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var IE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !userAgent.indexOf("Opera") > -1;
+			var FF = userAgent.indexOf("Firefox") > -1;
+			var isChrome = navigator.userAgent.toLowerCase().match(/chrome/) != null;//判断是否是谷歌浏览器
+			
+			var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");//判断操作系统
+			if(isWin){
+				//alert("你好,windows");
+				if(FF){
+					//alert("我是FF浏览器");
+					$(".pageSize").css("margin-left","47px");
+					$(".pageSize").css("width","68px");
+				}
+				if(isChrome){
+				   	//alert("我是谷歌浏览器");
+				}
+				if(IE){
+				   	//alert("我是IE浏览器");
+					$(".pageSize").css("margin-left","47px");
+					$(".pageSize").css("width","68px");
+				}
+			}else{
+				if(isChrome){
+				   	//alert("我是谷歌浏览器");
+				}
+			}
+			
+			
+			 $("#showPageSize").mouseover(function(){
+				 $(".pageSize").show();
+			 });
+			 $("#showPageSize").mouseout(function(){
+				 $(".pageSize").hide();
+			 });
+			 $(".pageSize").mouseover(function(){
+				 $(".pageSize").show();
+			 });
+			 $(".pageSize").mouseout(function(){
+				 $(".pageSize").hide();
+			 });
+		});
+	</script>
   </head>
   
   <body>
@@ -107,12 +179,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <img src="/images/line.png"/>
 	        </div>
-	        <div style="border-bottom:1px solid #ccc; padding-left:30px;">
-	            <p class="pp">
-		    		<input type="button" value="刷新" onClick="javascript:window.location.reload();" title="点击刷新">
-		    		<input type="button" value="每页显示">
-		    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>
-		    	</p>
+	        <div style="border-bottom:1px solid #ccc; padding:10px 30px;">
+	    		<input type="button" value="刷新" onClick="javascript:window.location.reload();" title="点击刷新">
+	    		<input id="showPageSize" type="button" value="每页显示">
+	    		<div class="pageSize" style="display:none;">
+					<ul style="padding:0;margin:0;">
+						<li><a href="/infoList.jhtml?num=10">10</a></li>
+						<li><a href="/infoList.jhtml?num=20">20</a></li>
+						<li><a href="/infoList.jhtml?num=30">30</a></li>
+					</ul>
+				</div>
+	    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>
 	        </div>
 	        <div>
 	        	<table>
@@ -136,6 +213,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </table>
 	        </div>
 	   </div>
+	</div>
+	<div>
+		<form action="infoList.jhtml" id="listForm">
+			<jsp:include page="../include/pagination.jsp" flush="true" />
+		</form>
 	</div>
     <jsp:include page="../include/footer.jsp"/>
   </body>
