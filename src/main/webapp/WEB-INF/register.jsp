@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>商户注册</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 				password: {
 					required:"密码必填",
-					rangelength:"密码长度在6-11位之间",
+					rangelength:"密码长度在6-11位之间"
 				},
 				comfirmPwd:{
 					required:"确认密码必填",

@@ -58,7 +58,7 @@ public class ControllerRegisterOne {
 	 * @param session
 	 * @param response
 	 */
-	@RequestMapping(value="/generateValidCode2")
+	@RequestMapping(value="/generateValidCodeTwo")
 	public void generateValidCode2(String phoneNumber,HttpSession session,ServletResponse response){
 		log.debug("current phoneNumber:"+phoneNumber);
 		String validCode = WebServiceValidCodeForFindPassword.getCode(phoneNumber);

@@ -14,7 +14,7 @@
 <title>商品编辑</title>
 
 <meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
@@ -717,7 +717,7 @@ function addclass(obj){
 					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
 					<c:if test="${flag == 1 }"><td style="color:red;"></td></c:if>
 					<td>商品名称：</td>
-					<td style="width:85%;"><input style="height:35px;" id="goodsName" name="goodsName" type="text" value="${tgoods.goodsName }"/></td>
+					<td style="width:85%;"><input style="height:30px;" id="goodsName" name="goodsName" type="text" value="${tgoods.goodsName }"/></td>
 				</tr>
 				<tr>
 					<c:if test="${flag == 0 }"><td style="color:red;">*</td></c:if>
@@ -754,7 +754,7 @@ function addclass(obj){
 				<tr>
 					<td></td>
 					<td></td>
-					<td><input id="textSpecial" name="textSpecial" style="height:35px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" type="button" value="添加" /></td>
+					<td><input id="textSpecial" name="textSpecial" style="height:30px;" type="text" />&nbsp;&nbsp;&nbsp;<input id="addSpecial" style="border:none;width:auto;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" type="button" value="添加" /></td>
 				</tr>
 			</c:if>
 				<tr>

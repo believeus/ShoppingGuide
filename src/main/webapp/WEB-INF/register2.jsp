@@ -14,7 +14,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -221,7 +221,7 @@
 			var html='<div class="brandImg">'
 				 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 					 +'<div id="preview_fake'+a+'" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
+					 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><!--<span class="middle-money" value="'+b+'">设为默认</span>-->'
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div style="text-align:left;"> '   
@@ -229,7 +229,7 @@
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
 					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
-				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a class="middle_money" href="javascript:void(0);" value="'+b+'" style="float:left;">设为默认</a><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
 				+'</div>';
 			//alert($("#Imgs .brandImg").size());
 			if($("#Imgs .brandImg").size() > 8){ 
@@ -249,6 +249,20 @@
 			b++;
 			
 			$(".middle-money").each(function(){
+				$(this).click(function(){
+					//alert($(this).attr("value")+"=this.val");
+					$("#moren").val($(this).attr("value"));
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
+				});
+			});
+			$(".middle_money").each(function(){
 				$(this).click(function(){
 					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
@@ -293,7 +307,20 @@
 	            });
 			});
 		});
-		
+		$(".middle_money").each(function(){
+			$(this).click(function(){
+				//alert($(this).attr("value")+"=this.val");
+				$("#moren").val($(this).attr("value"));
+				//alert("设置成功");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
+			});
+		});
 		$("#registerForm").validate({
 			rules : {
 				shopName : {
@@ -317,7 +344,7 @@
 			},
 			messages : {
 				shopName : {
-					required : "店铺名称必填",
+					required : "店铺名称必填"
 				},
 				address:{
 					required : "请输入您的详细地址"
@@ -370,8 +397,11 @@
 		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
-		        sender.select();     
-		        var imgSrc = document.selection.createRange().text;     
+		        /* sender.select();     
+		        var imgSrc = document.selection.createRange().text; */ 
+		        sender.select(); 
+		        window.document.body.focus();    
+		        var imgSrc = document.selection.createRange().htmlText;
 		        
 		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
 		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
@@ -560,7 +590,7 @@
 							 <div id="preview_wrapper2" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 							        <div id="preview_fake2" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 							            <img id="preview2"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-							        	<span class="middle-money" value="0">设为默认</span>
+							        	<!-- <span class="middle-money" value="0">设为默认</span> -->
 							        </div>    
 							    </div>    
 							    <div style="text-align:left;">    
@@ -568,7 +598,10 @@
 							    <input type="hidden" id="filename2" name="filename2">
 							    </div>    
 							    <img id="preview_size_fake2" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
+									<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
+									<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
+								</div>
 						</div>
 					</div>
 				<div class="btn_div" style="margin-top:20px;">

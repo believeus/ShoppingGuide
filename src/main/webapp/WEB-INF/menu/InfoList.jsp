@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -106,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		.pageSize a {
 		    display: inline-block;
+		    width: 88px;
 		}
 		.pageSize a:hover {
 			color:#FFFFFF;
@@ -133,6 +135,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				if(isChrome){
 				   	//alert("我是谷歌浏览器");
+					$(".pageSize").css("margin-left","40px");
+					$(".pageSize").css("width","68px");
 				}
 				if(IE){
 				   	//alert("我是IE浏览器");

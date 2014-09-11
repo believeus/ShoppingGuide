@@ -121,6 +121,7 @@ public class ControllerSetting {
 		HttpSession session = request.getSession();
 		Integer shopUserId  = ((Tshopuser)session.getAttribute(Variables.sessionUser)).getShopUserId();
 		Tshopuser shopuser =(Tshopuser)etechService.findObject(Tshopuser.class,"shopUserId",shopUserId);
+		System.out.println(shopuser.getDefaultShopId());
 		oldPassword=DigestUtils.md5Hex(oldPassword);
 		if(!oldPassword.equals(shopuser.getPassword())){
 			return "false"; 
@@ -147,6 +148,7 @@ public class ControllerSetting {
 		HttpSession session = request.getSession();
 		Integer shopuserId = ((Tshopuser)session.getAttribute(Variables.sessionUser)).getShopUserId();
 		Tshopuser sessionUser=(Tshopuser)etechService.findObject(Tshopuser.class, "shopUserId",shopuserId);
+		System.out.println(sessionUser.getDefaultShopId());
 		String phoneNumber=request.getParameter("phoneNumber");
 		String confirmPsd=request.getParameter("confirmPsd");
 		log.debug("phoneNumber:"+phoneNumber+" confirmPsd:"+confirmPsd);
@@ -163,7 +165,7 @@ public class ControllerSetting {
 		shopuser.setAddTime(new Timestamp(System.currentTimeMillis()));
 		shopuser.setState((short)Variables.reviewing);
 		shopuser.setLoginCount(1);
-		shopuser.setDefaultShopId(Variables.unRegister);
+		shopuser.setDefaultShopId(sessionUser.getDefaultShopId());
 		etechService.saveOrUpdate(shopuser);
 		for (Tshop shop : sessionUser.getShops()) {
 			shop.getShopusers().add(shopuser);

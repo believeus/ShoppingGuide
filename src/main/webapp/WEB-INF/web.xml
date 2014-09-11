@@ -16,7 +16,7 @@
 		 <init-param>
 			<param-name>allowPassURL</param-name>
 			<param-value>
-			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml,/findPsd.jhtml,/validateNumberCode.jhtml,/generateValidCode.jhtml,/dealRegister.jhtml,/findPsdLogic.jhtml,/generateValidCode2.jhtml
+			   /login.jhtml,/ajaxLoginValid.jhtml,/register.jhtml,/validatePhoneNumber.jhtml,/dealRegister.jhtml,/findPsd.jhtml,/validateNumberCode.jhtml,/generateValidCodeTwo.jhtml,/generateValidCode.jhtml,/dealRegister.jhtml,/findPsdLogic.jhtml
 			</param-value>
 		</init-param>
 	</filter>

@@ -13,7 +13,7 @@
 <title>商品添加</title>
 
 <meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
@@ -87,7 +87,7 @@
 			var html='<div class="brandImg">'
 			 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 				 +'<div id="preview_fake'+a+'" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
-				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><span class="middle-money" value="'+b+'">设为默认</span>'
+				 	+'<img id="preview'+a+'"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/><!--<span class="middle-money" value="'+b+'">设为默认</span>-->'
 				 		+'</div>'    
 				 	+'</div> '   
 			+'<div style="text-align:left;"> '   
@@ -95,7 +95,7 @@
 				+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 			+'</div>'    
 				+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
-			+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+			+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a class="middle_money" href="javascript:void(0);" value="'+b+'" style="float:left;">设为默认</a><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
 			+'</div>';
 			
 			//alert($(".main_table3 .brandImg").size());
@@ -129,6 +129,20 @@
 		            });
 				});
 			});
+			$(".middle_money").each(function(){
+				$(this).click(function(){
+					//alert($(this).attr("value")+"=this.val");
+					$("#moren").val($(this).attr("value"));
+					//alert("设置成功");
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '设置成功'
+		                },
+		                overlay: false
+		            });
+				});
+			});
 			$(".brandImg").each(function(){
 				$(this).mouseover(function(){
 					$(this).find(".middle-money").css("display","block");
@@ -147,6 +161,20 @@
 		}); 
 		
 		$(".middle-money").each(function(){
+			$(this).click(function(){
+				//alert($(this).attr("value")+"=this.val");
+				$("#moren").val($(this).attr("value"));
+				//alert("设置成功");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '设置成功'
+	                },
+	                overlay: false
+	            });
+			});
+		});
+		$(".middle_money").each(function(){
 			$(this).click(function(){
 				//alert($(this).attr("value")+"=this.val");
 				$("#moren").val($(this).attr("value"));
@@ -325,7 +353,7 @@
 							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 						        <div id="preview_fake1" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-						        	<span class="middle-money" value="0">设为默认</span>
+						        	<!-- <span class="middle-money" value="0">设为默认</span> -->
 						        </div>    
 						    </div>    
 						    <div style="text-align:left;">    
@@ -333,7 +361,10 @@
 							    <input type="hidden" id="filename1" name="filename1">
 						    </div>    
 						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>
+							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
+								<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
+								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
+							</div>
 						</div>
 					</td>
 				</tr>

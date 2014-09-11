@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("/generateValidCode2.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{
@@ -240,8 +240,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
 		             
 		        // IE7, IE8因安全性问题已无法直接通过 input[file].value 获取完整的文件路径     
-		        sender.select();     
-		        var imgSrc = document.selection.createRange().text;     
+		        /* sender.select();     
+		        var imgSrc = document.selection.createRange().text; */     
+		        sender.select(); 
+		        window.document.body.focus();    
+		        var imgSrc = document.selection.createRange().htmlText;
 		        
 		        objPreviewFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
 		        objPreviewSizeFake.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc;     
@@ -314,7 +317,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        </div>    
 				    </div>    
 				    <div style="text-align:left;">    
-					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 70px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 75px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
 					    <input type="hidden" id="filename" name="filename"/>
 						<label class="error" for="shopLicenseImg" style="color:red;"></label>
 				    </div>    
