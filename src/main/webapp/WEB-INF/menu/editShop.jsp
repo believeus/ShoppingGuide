@@ -886,8 +886,8 @@ $(function(){
 								    $("#marketName > span").text(text);
 								    $("#marketId").val($("#market").find("option:selected").val());
 								 });
+		                  		 
 		                  	});
-		                  	
 		                  </script>
 		                 <td colspan="2" id="marketName"><span>${tshop.market.marketName}</span><a href="javascript:void(0);" id="editMarket"><font color="red">更改</font></a></td>
 		                 <td>
@@ -1012,7 +1012,18 @@ $(function(){
 		            </table>
 	            </form>
 		</div>
-
+<script type="text/javascript">
+	$().ready(function(){
+		$(":input[placeholder]").each(function(){
+			$(this).placeholder();
+		});
+		$("#l-map").click(function(){
+			//alert($("#suggestId").attr("placeholder"));
+			//$("#suggestId").attr("placeholder","");
+			$(".phTips").remove();
+		});
+	});
+</script>
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />

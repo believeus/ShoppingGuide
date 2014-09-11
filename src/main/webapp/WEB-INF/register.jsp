@@ -191,27 +191,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<p style="padding-left: 70px;">
     			<font color="red">*</font>
     			<span style="font-weight:bold;">帐号：</span>
-    			<input type="text" id="phoneNumber" name="phoneNumber" onblur="if(this.value =='') this.value = '请输入手机号'" onfocus="if(this.value == '请输入手机号') this.value = ''" value="请输入手机号"
-    				   style="width:345px;height:35px;line-height:35px;" 
+    			<!--  onblur="if(this.value =='') this.value = '请输入手机号'" onfocus="if(this.value == '请输入手机号') this.value = ''" value="请输入手机号" -->
+    			<input type="text" id="phoneNumber" name="phoneNumber" placeholder="请输入帐号" style="width:345px;height:30px;line-height:30px;" 
     				   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')">
    				<span></span>
    			</p>
     		<p style="padding-left: 70px;">
     			<font color="red">*</font>
     			<span style="font-weight:bold;">密码：</span>
-    			<input type="password" id="password" name="password"  placeholder="请输入密码"  style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="password" name="password"  placeholder="请输入密码"  style="width:345px;height:30px;line-height:30px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">重复密码：</span>
-    			<input type="password" id="comfirmPwd" name="comfirmPwd" placeholder="请输入确认密码" style="width:345px;height:35px;line-height:35px;">
+    			<input type="password" id="comfirmPwd" name="comfirmPwd" placeholder="请输入确认密码" style="width:345px;height:30px;line-height:30px;">
     			<span></span>
    			</p>
     		<p>
     			<font color="red">*</font>
     			<span style="font-weight:bold;">短信验证：</span>
-    			<input type="text" id="numberCode" name="numberCode" placeholder="请输入验证码" style="width:345px;height:35px;line-height:35px;">
+    			<input type="text" id="numberCode" name="numberCode" placeholder="请输入验证码" style="width:345px;height:30px;line-height:30px;">
     			<span></span>
     			<input class="btn" id="validCode" type="button" value="免费获取验证码" style="width:auto;">
    			</p>

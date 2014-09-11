@@ -72,8 +72,47 @@
 		   	//alert("我是IE浏览器");
 			$("img").css("border","0");
 		}
-		
 	});
+</script>
+<script type="text/javascript">
+jQuery.fn.placeholder = function(){
+	var i = document.createElement('input'),
+		placeholdersupport = 'placeholder' in i;
+	if(!placeholdersupport){
+		var inputs = jQuery(this);
+		inputs.each(function(){
+			var input = jQuery(this),
+				text = input.attr('placeholder'),
+				pdl = 0,
+				height = input.outerHeight(),
+				width = input.outerWidth(),
+				placeholder = jQuery('<span class="phTips">'+text+'</span>');
+			try{
+				pdl = input.css('padding-left').match(/\d*/i)[0] * 1;
+			}catch(e){
+				pdl = 5;
+			}
+			placeholder.css({'margin-left': -(width-pdl),'height':height,'line-height':height+"px",'position':'absolute', 'color': "#555555", 'font-size' : "12px"});
+			placeholder.click(function(){
+				input.focus();
+			});
+			if(input.val() != ""){
+				placeholder.css({display:'none'});
+			}else{
+				placeholder.css({display:'inline'});
+			}
+			placeholder.insertAfter(input);
+			input.keyup(function(e){
+				if(jQuery(this).val() != ""){
+					placeholder.css({display:'none'});
+				}else{
+					placeholder.css({display:'inline'});
+				}
+			});
+		});
+	}
+	return this;
+};
 </script>
 <div style="height:135px;width:100%;background:#69CDCD;">
    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
