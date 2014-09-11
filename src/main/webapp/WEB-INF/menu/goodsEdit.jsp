@@ -726,7 +726,7 @@ function addclass(obj){
 					<td>
 						<div id="selectGoodsType" style="float:left;height:auto;line-height:32px;width:710px;">
 							<c:forEach items="${goodsTypes }" var="goodsType">
-								<label><input style="display:inline-block;" type="checkbox" onClick="return false;" checked="checked">${goodsType.goodsTypeName }</label>
+								<label><input style="display:inline-block;" name="goodsTypeId" type="checkbox" checked="checked" value="${goodsType.goodsTypeId }">${goodsType.goodsTypeName }</label>
 							</c:forEach>
 							<label id="psed" class="error" style="display:none;">请选择商品类型</label>
 						</div> 
@@ -814,6 +814,15 @@ function addclass(obj){
 		</div>
 	<script type="text/javascript">
 	    $().ready(function(){
+	    	
+	    	//商品类型的单个修改
+	    	//alert($("#selectGoodsType input").length);
+	    	$("#selectGoodsType input").each(function(){
+	    		$(this).click(function(){
+	    			$(this).attr("name","");
+	    		});
+	    	});
+	    	
 	    	$("#submit").click(function(){
 	    		$("#selectGoodsType").html("");
 	    		boxAlpha();
@@ -825,7 +834,7 @@ function addclass(obj){
 					if(obj[i].checked){					
 						featureIds.push(obj[i].value);
 						count ++;	
-						var html = "<label><input onClick='return false;' type='checkbox' name='goodsTypeId' value='"+obj[i].getAttribute("value")+"' checked='checked'>"+obj[i].getAttribute("desc")+"</label>";
+						var html = "<label><input type='checkbox' name='goodsTypeId' value='"+obj[i].getAttribute("value")+"' checked='checked'>"+obj[i].getAttribute("desc")+"</label>";
 						$("#selectGoodsType").append(html);
 					}
 				}
