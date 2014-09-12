@@ -110,7 +110,7 @@ public class ControllerMenu {
 			pageNumber="1";
 		}
 		Pageable pageable=new Pageable(Integer.valueOf(pageNumber),20);
-		String hql = "from Tgoods as entity where entity.shopId ="+shopId+" and entity.isOnSale=1 order by id desc";
+		String hql = "from Tgoods as entity where entity.shopId ="+shopId+" order by id desc"; // and entity.isOnSale=1
 		Page<?> page = etechService.findObjectList(hql, pageable);
 		
 		List<Tgoods> tgLi = (List<Tgoods>) page.getContent();

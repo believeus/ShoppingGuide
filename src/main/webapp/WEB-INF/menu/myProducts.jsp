@@ -16,7 +16,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -151,7 +151,8 @@
 	height:28px;
 }
 .addPro{
-	background: url(/images/bg.png) repeat scroll 0 -324px rgba(0, 0, 0, 0);
+	background: url(/images/bg.png);
+	background-position:0 -324px;
     height: 25px;
     right: 578px;
     position: relative;
@@ -159,7 +160,8 @@
     display: inline-block;
 }
 .reload{
-	background: url(/images/bg.png) repeat scroll -40px -355px rgba(0, 0, 0, 0);
+	background: url(/images/bg.png);
+	background-position:-40px -355px;
     height: 25px;
     right: 525px;
     position: relative;
@@ -167,7 +169,8 @@
     display: inline-block;
 }
 .pageshow{
-	background: url(/images/bg.png) repeat scroll 0 -355px rgba(0, 0, 0, 0);
+	background: url(/images/bg.png);
+	background-position:0 -355px;
     height: 25px;
     right: 405px;
     position: relative;
@@ -298,7 +301,6 @@
 .pageSize a:hover {
 	color:#FFFFFF;
 }
-
 
 </style>
 <script type="text/javascript">

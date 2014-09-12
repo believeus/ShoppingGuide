@@ -13,7 +13,7 @@
 <title>商品添加</title>
 
 <meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
@@ -63,7 +63,7 @@
 			border: 1px solid;
 			text-align: center;
 			width: 229px;
-			margin-right: 20px;
+			margin-right: 10px;
 			margin-bottom: 20px;
 		}
 		.add_img{
@@ -81,7 +81,7 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
-		var a =2;
+		var a =$(".brandImg").size()+1;
 		var b =1;
 		$("#add_img").click(function(){
 			var html='<div class="brandImg">'
@@ -340,7 +340,7 @@
 		<form id="main_form" method="post" action="/addSimpleGoods.jhtml" encType="multipart/form-data">
 			<input type="hidden" name="shopId" value="${shopId}">
 			<input type="hidden" name="goodsDetail" id="goodsDetail" >
-			<table class="main_table3">
+			<table class="main_table3" style="width:1000px;">
    				<tr>
 					<td style="width:1%;"><div class="main_table3_div1" ></div></td>
 					<td style="width:90%;" colspan="2"><div style="float:left;color:red;"></div>上传图片：<span style="font-size:13px;">(最多可上传9张图片)</span></td>

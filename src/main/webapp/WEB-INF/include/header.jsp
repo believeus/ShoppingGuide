@@ -8,6 +8,9 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <link rel="stylesheet" type="text/css" href="/css/easydialog.css">
 <style type="text/css">
+	h4{
+		margin:0;
+	}
 	.msg{
 		float:right; 
 		margin-top:40px; 

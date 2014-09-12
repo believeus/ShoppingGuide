@@ -182,7 +182,7 @@
 					</c:forEach>
 				</div>
 				<p>
-					<input id="textSpecial" type="text" name="" style="width:300px;height:30px;" />
+					<input id="textSpecial" type="text" name="" style="width:300px;height:30px;line-height:30px;" />
 					<input id="addSpecial" class="add_tese" type="button" name="" value="添加" />
 				</p>
 

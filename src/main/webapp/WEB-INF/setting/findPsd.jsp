@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("http://test.aileguang.net:8080/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{

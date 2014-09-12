@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>商户注册</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=7"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -225,5 +225,135 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- 引用尾部页面 -->
     <jsp:include page="include/footer.jsp" flush="true" />
     
+    <!-- IE8兼容性 -->
+    <!--[if IE 8]>
+		<script type="text/javascript">
+			$().ready(function(){
+				$("input[type='submit']").click(function(){
+					var phoneNumber = $("#phoneNumber").val();
+					if(phoneNumber == ""){
+						//alert("请输入帐号");
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请输入帐号'
+			                },
+			                overlay: false
+			            });
+						return false;
+					}else{
+						var regPartton=/^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/; //验证手机号
+						if(!regPartton.test(phoneNumber)){
+							//alert("手机格式不正确！");
+							easyDialog.open({
+				                container: {
+				                    header: '提示',
+				                    content: '手机格式不正确！'
+				                },
+				                overlay: false
+				            });
+							return false;
+						}
+					}
+					var password = $("#password").val();
+					if(password == ""){
+						//alert("请输入密码");
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请输入密码'
+			                },
+			                overlay: false
+			            });
+						return false;
+					}else{
+						if(password.length <6 || password.length >11){
+							//alert(" 密码长度在6-11位之间");
+							easyDialog.open({
+				                container: {
+				                    header: '提示',
+				                    content: '密码长度在6-11位之间'
+				                },
+				                overlay: false
+				            });
+							return false;
+						}
+					}
+					var comfirmPwd = $("#comfirmPwd").val();
+					if(comfirmPwd == ""){
+						//alert("请输入重复密码");
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请输入重复密码'
+			                },
+			                overlay: false
+			            });
+						return false;
+					}else{
+						if(comfirmPwd != password){
+							//alert("重复密码与密码不匹配");
+							easyDialog.open({
+				                container: {
+				                    header: '提示',
+				                    content: '重复密码与密码不匹配'
+				                },
+				                overlay: false
+				            });
+							return false;
+						}
+					}
+					var numberCode = $("#numberCode").val();
+					if(numberCode == ""){
+						//alert("请输入验证码");
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请点击获取验证码'
+			                },
+			                overlay: false
+			            });
+						return false;
+					}else{
+						$("#validCode").click(function(){
+						  if($("#registerForm").validate().element($("#phoneNumber"))){
+							  timeCountDown(this,60);
+							  var phoneNumber=$("#phoneNumber").val();
+							  $("#numberCode").next().text("");
+							  if(phoneNumber==""){
+								  $("#phoneNumber").next().text("手机号必填!").css("color","red");
+							  }else if(!(/^1[358]\d{9}$/.test(phoneNumber))){
+								  $("#phoneNumber").next().text("手机号格式不正确!").css("color","red");
+							  }else{
+								  $("#validCode").attr('disabled',"false");
+								  //将手机号码发送给webserivce,获取手机验证码
+								  $.post("/generateValidCode.jhtml", {phoneNumber:phoneNumber},function(data){
+									  if(/[0-9]{4}/.test(data.returnCode)){
+										  $("#validCode").attr('disabled',"true");
+									  }else{
+										  $("#validCode").attr('disabled',"false");
+										  $("#numberCode").next().text("获取验证码失败,请重新获取").css("color","red");
+									  }
+									  var nCode = data.returnCode;
+										if(numberCode != nCode){
+											//alert("验证码不匹配");
+											easyDialog.open({
+								                container: {
+								                    header: '提示',
+								                    content: '验证码不匹配'
+								                },
+								                overlay: false
+								            });
+											return false;
+										}
+								  },"json");
+							  }
+						  }
+					  });
+					}
+				});
+			});
+		</script>
+	<![endif]-->
   </body>
 </html>
