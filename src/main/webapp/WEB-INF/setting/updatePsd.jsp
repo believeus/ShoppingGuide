@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   			messages:{
   				oldPassword:{
-  					required:"新密码必填！",
+  					required:"旧密码必填！",
   					remote:"输入旧密码不正确"
   				},
   				newPassword:{

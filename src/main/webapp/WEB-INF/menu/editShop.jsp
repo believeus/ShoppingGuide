@@ -853,7 +853,7 @@ $(function(){
 					</tr>
 		              
 		              <tr>
-		                <td><b><span style="color:red;">&nbsp;&nbsp;</span>店铺特色：</b></td>
+		                <td><b><span style="color:red;">&nbsp;&nbsp;&nbsp;</span>店铺特色：</b></td>
 		                <td colspan="3" id="shopSpec">
 							<c:forEach var="features" items="${features }">
 								<p id="special" name="special" value="${features.featureId}" style="">${features.featureName }</p>
