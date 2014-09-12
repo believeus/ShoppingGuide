@@ -292,6 +292,9 @@
 		function delete_pic(object){		
 			$(object).closest("div").parent().remove();
 		}
+		function changeText(){
+			$("#goodsDetail").val($("#txtarea").val());
+		}
 	</script>
 </head>
 <body>
@@ -328,7 +331,7 @@
 					<td></td>
 					<td>商品简介：</td>
 					<td>
-						<textarea name="goodsDetailTextArea"  onchange="goodsDetail.value=this.value" onfocus="if(this.value == '请输入商品简介') this.value = ''" onblur="if(this.value =='') this.value = '请输入商品简介'">请输入商品简介</textarea>
+						<textarea id="txtarea" name="goodsDetailTextArea"  onchange="changeText();" onfocus="if(this.value == '请输入商品简介') this.value = ''" onblur="if(this.value =='') this.value = '请输入商品简介'">请输入商品简介</textarea>
 					</td>
 				</tr>
 			</table>

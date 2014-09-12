@@ -54,6 +54,10 @@
 	input[type='text']{
 		width:340px;
 	}
+	.easyDialog_wrapper .close_btn{
+		width: 20px;
+		font-size: 25px;
+	}
 </style>
 <script type="text/javascript" src="/js/easydialog.min.js"></script>
 <script type="text/javascript">

@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			messages:{
   				telphoneNum:{
   					required:"手机号必填",
-					rangelength:"手机号码不足11位",
+					rangelength:"电话格式不对，请输入11位手机号",
   				},
 				numberCode:{
 					required:"验证码必填",

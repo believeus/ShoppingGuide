@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				},
   				newPassword:{
   					required:"新密码必填！",
-  					rangelength:"密码长度6-18位，必须含有字母！"
+  					rangelength:"密码长度在6-11位之间！"
   				},
   				confirmPsd:{
   					required:"确认密码必填！",

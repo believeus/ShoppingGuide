@@ -474,6 +474,14 @@ $(function(){
 	                },
 	                overlay: false
 	            });
+			}else if(feature.length >5){
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '关键字在五个字以内！'
+	                },
+	                overlay: false
+	            });
 			} else {
 				$.post("/insertFeature.jhtml",{feature:feature},function(result){
 					var tfeatureId=result.match(/[0-9]+/);

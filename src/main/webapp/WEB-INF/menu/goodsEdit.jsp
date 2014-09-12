@@ -501,7 +501,7 @@ function addclass(obj){
 		
 		//判断商品发布的状态
 		//1,标准发布有必填字段，则验证必填项   flag=0
-		//2,快速发布五必填字段，则不用验证     flag=1
+		//2,快速发布无必填字段，则不用验证     flag=1
 		var flag = ${flag};
 		//alert(flag);
 		if(flag == 0){
@@ -566,20 +566,21 @@ function addclass(obj){
 					}
 				}); 
 			}else{
-				$("#main_form").validate({
-					rules : {
-						goodsName : {
-							required : true,
-							rangelength : [ 1, 20 ]
-						}
-					},
-					messages : {
-						goodsName : {
-							required : "商品名称必填",
-							rangelength : "名称长度为1-20个汉字，不能含有特殊字符"
-						}
+				$("input[type='submit']").click(function(){
+					var dis = $("#goodsDetail").val();
+					var imgs = $("[id^='filename']");
+					if(dis == "" && imgs.length ==0){
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请填写商品介绍或者选择商品图片'
+			                },
+			                overlay: false
+			            });
+						return  false;
 					}
-				}); 
+				});
+				
 			}
 	});	
 </script>
