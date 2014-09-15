@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="X-UA-Compatible" content="IE=7"/>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -105,11 +106,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			rules:{
   				oldPassword:{
   					required: true,
-  					remote:"/ajaxMacthPwd.jhtml"
+  					remote:"http://test.aileguang.net:8080/ajaxMacthPwd.jhtml"
   				},
   				phoneNumber:{
   					required: true,
-  					remote:"/validatePhoneNumber.jhtml"
+  					remote:"http://test.aileguang.net:8080/validatePhoneNumber.jhtml"
   				},
   				aboutPsd:{
   					required: true,

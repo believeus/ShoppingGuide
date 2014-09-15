@@ -326,6 +326,78 @@ public class ControllerMenu {
 	}
 	
 	/**
+	 * 编辑商品2
+	 * @param goodsId
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/editGoods2")
+	public String editGoods2(Integer goodsId,HttpServletRequest request){
+		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
+		request.setAttribute("tgoods", tgoods);
+		request.setAttribute("shopId", tgoods.getShopId());
+		String[] paths = tgoods.getGoodsPhotoUrl().split(",");
+		request.setAttribute("paths", paths);
+		// Tgoodstype
+		List<Tgoodstype> gList = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 10);
+		request.setAttribute("gList", gList);
+		// Tfeature
+		List<Tfeature> tfeatures = (List<Tfeature>) etechService.findObjectList(Tfeature.class,"featureType",(short)0,"objectFlag","111");
+		List<Tfeature> tfeatures2 = new ArrayList<Tfeature>();
+		if (tgoods.getGoodsTypes().size() !=0) {
+			Tgoodstype tgoodstype = (Tgoodstype) etechService.findObject(Tgoodstype.class, "goodsTypeId", tgoods.getGoodsTypes().get(0).getParentId());
+			List<Tgoodstypefeature> tgf = (List<Tgoodstypefeature>) etechService.findObjectList(Tgoodstypefeature.class, "goodsTypeId", tgoodstype.getParentId());
+			for (Tgoodstypefeature tgoodstypefeature : tgf) {
+				Tfeature tfeature = (Tfeature) etechService.findObject(Tfeature.class, "featureId", tgoodstypefeature.getFeatureId());
+				tfeatures2.add(tfeature);
+			}
+			
+		}
+		request.setAttribute("tfeatures", tfeatures2);
+		request.setAttribute("goodsTypes", tgoods.getGoodsTypes());
+		if (tgoods.getGoodsTypes().size() != 0) {
+			request.setAttribute("goodsTypesId", tgoods.getGoodsTypes().get(0).getParentId());
+		}else {
+			request.setAttribute("goodsTypesId", "-3");
+		}
+		List<Tfeature> features = tgoods.getFeatures();
+		/*List<Tfeature> fs = new ArrayList<Tfeature>();
+		for (Tfeature tfeature : features) {
+			if (tfeature.getFeatureType() == 1 || tfeature.getFeatureType() ==2) {
+				fs.add(tfeature);
+			}
+		}
+		request.setAttribute("fs", fs);*/
+		request.setAttribute("tgoodsFeatures", features);
+		request.setAttribute("flag", tgoods.getPublishFlag());
+		
+		//-商品2级分类----------------------------
+		//id等于10的是一级分类
+		//select * from Tgoodstype where parentId=10; 找出parentId等于10的二级分类
+		List<Tgoodstype> gt1 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 31);
+		request.setAttribute("gt1", gt1);
+		List<Tgoodstype> gt2 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 32);
+		request.setAttribute("gt2", gt2);
+		List<Tgoodstype> gt3 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 33);
+		request.setAttribute("gt3", gt3);
+		List<Tgoodstype> gt4 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 34);
+		request.setAttribute("gt4", gt4);
+		List<Tgoodstype> gt5 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 35);
+		request.setAttribute("gt5", gt5);
+		List<Tgoodstype> gt6 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 36);
+		request.setAttribute("gt6", gt6);
+		List<Tgoodstype> gt7 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 37);
+		request.setAttribute("gt7", gt7);
+		List<Tgoodstype> gt8 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 38);
+		request.setAttribute("gt8", gt8);
+		List<Tgoodstype> gt9 = (List<Tgoodstype>) etechService.findObjectList(Tgoodstype.class, "parentId", 39);
+		request.setAttribute("gt9", gt9);
+		
+		return "/WEB-INF/menu/goodsEdit2.jsp";
+	}
+	
+	/**
 	 * 修改商品
 	 * @param goodsId
 	 * @param request

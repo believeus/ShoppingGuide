@@ -417,7 +417,12 @@ function addclass(obj){
 					<td style="width:15%;"><p style="font-size:24px;color:#69CDCD;">商品信息</p></td>
 					<td style="width:65%;"></td>
 					<td style="width:10%;">
-						<input type="button" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="编辑" onClick="javascript:window.location.href='/editGoods.jhtml?goodsId=${tgoods.goodsId}'"/>
+						<c:if test="${flag ==0 }">
+							<input type="button" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="编辑" onClick="javascript:window.location.href='/editGoods.jhtml?goodsId=${tgoods.goodsId}'"/>
+						</c:if>
+						<c:if test="${flag ==1 }">
+							<input type="button" style="border:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;cursor:pointer;" value="编辑" onClick="javascript:window.location.href='/editGoods2.jhtml?goodsId=${tgoods.goodsId}'"/>
+						</c:if>
 					</td>
 					<td style="width:10%;">
 						<input style="border:none;outline:none;width:68px;height:32px;background-color:#69CDCD;border-radius:.2em;color:white;" type="button" value="确认" onClick="javascript:window.location.href='/myProducts.jhtml?shopId=${tgoods.shopId}';" title="确认"/>
