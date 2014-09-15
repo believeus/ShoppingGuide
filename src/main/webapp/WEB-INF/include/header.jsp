@@ -16,7 +16,6 @@
 		margin-top:40px; 
 		font-size:16px; 
 		color:#056F6F; 
-		line-height:0px;
 	}
 	.hello{
 		width:auto;
@@ -33,7 +32,7 @@
 		display:none;
 		position: relative;
 	    text-align: center;
-	    top: 10px;
+	    /* top: 10px; */
 	    right:35px;
 	    z-index:999;
 	    border:1px solid #e4e4e4;
@@ -122,7 +121,7 @@ jQuery.fn.placeholder = function(){
 };
 </script>
 <div style="height:135px;width:100%;background:#69CDCD;">
-   	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;">
+   	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;height:auto;overflow: hidden;">
        	<div style="float:left;">
        		<a href="/login.jhtml" title="首页">
 	       		<img alt="" src="/images/logo_new.png" width="65" height="65" style="position: absolute;">
@@ -151,3 +150,15 @@ jQuery.fn.placeholder = function(){
         </c:if>
        </div>
 </div>
+<!-- IE7兼容性 -->
+<!--[if IE 7]> 
+	<script type="text/javascript">
+		//alert("IE7");
+		$().ready(function(){
+			$(".setting").css("top","0px");
+			$(".pageSize").css({"margin-left":"-74px","margin-top":"30px"});
+		});
+		
+	</script>
+	
+<![endif]-->

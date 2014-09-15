@@ -61,6 +61,7 @@
 		#suib {
 			padding:0px 45px;	
 			margin: 0px auto;
+			width:1000px;
 		}
 		#suib tr {
 			height:65px;
@@ -833,7 +834,7 @@ $(function(){
 			
 			<table id="suib" style="margin:0px auto;" cellspacing="0">
 		              <tr>
-		                <td><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
+		                <td style="width:155px;"><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
 		                <td colspan="3">
 		                    <input id="shopName" type="text" name="shopName" value="${tshop.shopName }">
 		                </td>

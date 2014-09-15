@@ -16,7 +16,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=7"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -461,7 +461,7 @@
 		<div style="margin: 10px 0px; width: 1000px; height: 40px;display: inline-block;">
 			<input type="button" value="添加" title="点击添加商品" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.href='/goodsAdd.jhtml?shopId=${shopId}'"><s id="addPro" class="addPro"></s>
-			<input type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
+			<input id="shuaxin" type="button" value="刷新" title="点击刷新" style="padding:0 5px 0 25px;float:left;"
 				onClick="javascript:window.location.reload();"><s class="reload"></s>
 			<input id="showPageSize" type="button" value="每页显示" style="padding:0 15px 0 5px;float:left;"><s class="pageshow"></s>
 			<div class="pageSize" style="display:none;">
@@ -472,16 +472,16 @@
 				</ul>
 			</div>
 			<!-- 商品上下架 -->
-			<div style="height: 30px; width: 230px; float: left;">
+			<div id="shangxiajia" style="height: 30px; width: 230px; float: left;">
 				<div id="up" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?shopId=${shopId }&isOnSale=1'">上架商品</div>
 				<div id="down" class="specigoods" onClick="javascript:window.location.href='/isOnSale.jhtml?shopId=${shopId }&isOnSale=0'">下架商品</div>
 			</div>
-			<div style="width: 100px; float: left; height: 30px; line-height: 30px;">
+			<div id="tiaoshu" style="width: 100px; float: left; height: 30px; line-height: 30px;">
 				共有<font color="#69CDCD">${size }</font>条数据
 			</div>
-			<form action="/searchProduct.jhtml" method="post" style="float: right; position: relative; margin-bottom: 0px; top: -30px;">
+			<form id="biaodan" action="/searchProduct.jhtml" method="post" style="float: right; position: relative; margin-bottom: 0px; top: -30px;">
 				<input type="hidden" name="shopId" value="${shopId }"/>
-				<input type="text" name="key" style="float:right;">
+				<input type="text" name="key" style="float:right;line-height:30px;">
 				<input class="findPro" title="点击搜索商品" type="submit" value="" style="border:0;line-height:30px;height:30px;font-size:28px;"/>
 			</form>
 		</div>
@@ -704,54 +704,26 @@
 		<!-- 引用尾部页面 -->
 		<jsp:include page="../include/footer.jsp" flush="true" />
 		
-		<!-- <script type="text/javascript">
-			function detectOS() { 
-				var sUserAgent = navigator.userAgent; 
-				
-				var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows"); 
-				var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel"); 
-				if (isMac) return "Mac"; 
-				var isUnix = (navigator.platform == "X11") && !isWin && !isMac; 
-				if (isUnix) return "Unix"; 
-				var isLinux = (String(navigator.platfovar userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-var isOpera = userAgent.indexOf("Opera") > -1;
-
-if (isOpera){return "Opera"}; //判断是否Opera浏览器
-if (userAgent.indexOf("Firefox") > -1){return "FF";} //判断是否Firefox浏览器
-if (userAgent.indexOf("Safari") > -1){return "Safari";} //判断是否Safari浏览器
-if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera){return "IE";} ; //判断是否IE浏览器
-}rm).indexOf("Linux") > -1); 
-				
-				var bIsAndroid = sUserAgent.toLowerCase().match(/android/i) == "android";
-				if (isLinux) {
-					if(bIsAndroid) return "Android";
-				else return "Linux"; 
-				}
-			if (isWin) {
-				/* var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1; 
-				if (isWin2K) return "Win2000"; 
-				var isWinXP = sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1; 
-				if (isWinXP) return "WinXP"; 
-				var isWin2003 = sUserAgent.indexOf("Windows NT 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1; 
-				if (isWin2003) return "Win2003"; 
-				var isWinVista= sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1; 
-				if (isWinVista) return "WinVista"; 
-				var isWin7 = sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1; 
-				if (isWin7) return "Win7";  */
-				
-				//$(".addPro").css("left","180px");
-				alert(document.getElementById("addPro").offsetLeft);
-				document.getElementById("addPro").offsetLeft = document.getElementById("addPro").offsetLeft + "30px" ;
-				alert(document.getElementById("addPro").offsetLeft);
-				$(".reload").css("left","255px");
-				$(".pageshow").css("left","385px");
-				$(".findPro").css("right","175px");
-				
-				}
-				return "other"; 
-			} 
-			//document.writeln("您的操作系统是：" + detectOS()); 
-			alert(detectOS());
-			</script> -->
+<!-- IE7兼容性 -->
+<!--[if IE 7]> 
+	<script type="text/javascript">
+		//alert("IE7");
+		$().ready(function(){
+			//商品列表页
+			$("#shuaxin").css("margin-top","-25px");
+			$("#showPageSize").css("margin-top","-25px");
+			$("#shangxiajia").css("margin-top","-25px");
+			$(".pageSize").css({"margin-top":"25px","margin-left":"20px","width":"104px"});
+			$("#tiaoshu").css("margin-top","-25px");
+			$("#biaodan").css("margin-top","-25px");
+			$("#addPro").css("right","80px");
+			$(".reload").css("right","12px");
+			$(".pageshow").css("right","-125px");
+			$(".findPro").css("margin-top","-51px");
+		});
+		
+	</script>
+	
+<![endif]-->
 </body>
 </html>

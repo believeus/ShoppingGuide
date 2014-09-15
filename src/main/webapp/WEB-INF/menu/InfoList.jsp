@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		table {
 			margin:20px auto;
+			width:900px;
 		}
 		table td {
 			height:15px;
@@ -195,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 	    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>
 	        </div>
-	        <div>
+	        <div style="width:900px;height:auto;overflow: hidden;margin:0 auto;">
 	        	<table>
 		        	<c:forEach var="news" items="${news}">
 		            	<tr>
