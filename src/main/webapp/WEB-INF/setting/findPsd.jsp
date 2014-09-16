@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				},
 	  			numberCode:{
 	  				required: true,
-	  				remote:"/validateNumberCode.jhtml"
+	  				remote:"http://test.aileguang.net:8080/validateNumberCode.jhtml"
 	  			},
 	  			shopLicenseImg:{
 	  				required: true
@@ -306,7 +306,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
    				<a title="找回密码" href="/findPsd.jhtml">找回密码</a>
 			</p>
-	    	<form id="findPsdForm" method="post" action="/findPsdLogic.jhtml" enctype="multipart/form-data">
+	    	<form id="findPsdForm" method="post" action="http://test.aileguang.net/findPsdLogic.jhtml" enctype="multipart/form-data">
 		    	<div>
 		    		<div style="padding-top:30px;">
 			        	<div id="titl">

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
@@ -74,6 +75,7 @@ public class ControllerRegisterOne {
 	@RequestMapping(value="/validateNumberCode")
 	public @ResponseBody String validateNumberCode(String numberCode,HttpSession session){
 		String sessionCode = (String)session.getAttribute(Variables.validCode);
+		//response.addHeader("Access-Control-Allow-Origin","*");
 		log.debug("input valid code:"+numberCode+" session Valid code:"+sessionCode);
 		// 验证码不匹配
 		if (sessionCode != null) {

@@ -146,10 +146,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	<p style="margin-bottom: 0px;">所在位置：
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-	   			<a title="修改密码" href="/updatePsd.jhtml">修改密码</a>
+	   			<a title="修改密码" href="http://test.aileguang.net:8080/updatePsd.jhtml">修改密码</a>
 			</p>
 	    	
-	    	<form id="updatePsdForm" action="/modifyPwd.jhtml" method="post">
+	    	<form id="updatePsdForm" action="http://test.aileguang.net/modifyPwd.jhtml" method="post">
 	    		<input type="hidden" name="shopUserId" value="${sessionUser.shopUserId}">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">

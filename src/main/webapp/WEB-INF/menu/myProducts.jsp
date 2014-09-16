@@ -349,6 +349,8 @@
 				$(".reload").css("right","505px");
 				$(".findPro").css("top","0");
 				$("#biaodan").css("top","0");
+				$(".pageSize").css("width","72px");
+				$(".pageSize").css("margin-left","142px");
 			}
 		}else{
 			if(isChrome){

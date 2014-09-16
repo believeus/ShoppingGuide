@@ -58,7 +58,7 @@
 			width:300px;
 			height:auto;
 			float:left;
-			margin-right:47px;
+			margin-right:30px;
 			margin-bottom:30px;
 			border:1px solid #69CDCD;
 			border-radius:4px;

@@ -154,10 +154,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	<p style="margin-bottom: 0px;">所在位置：
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-	   			<a title="关联帐号" href="/aboutUserNum.jhtml">关联帐号</a>
+	   			<a title="关联帐号" href="http://test.aileguang.net:8080/aboutUserNum.jhtml">关联帐号</a>
 			</p>
 	    	
-	    	<form id="aboutUserNumForm" action="/relationCount.jhtml" method="post">
+	    	<form id="aboutUserNumForm" action="http://test.aileguang.net/relationCount.jhtml" method="post">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">
 		                <div id="titl_name">

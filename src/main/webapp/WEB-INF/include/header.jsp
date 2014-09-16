@@ -141,10 +141,10 @@ jQuery.fn.placeholder = function(){
 		           		<!-- <div style="width:103px;height:33px;line-height:33px;" title="设置">设置</div> -->
 		           		
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-		           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
+		           			<a href="http://test.aileguang.net:8080/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
 		          		</div>
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-		           			<a href="/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
+		           			<a href="http://test.aileguang.net:8080/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
 		       			</div>
 		           	</div>
 	        </div>

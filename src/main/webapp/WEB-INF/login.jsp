@@ -206,7 +206,7 @@ function removeCookie(name, options) {
 						<label><input type="checkbox" name="rememberme" value="rememberme" id="rememberme">记住帐号</label>
 					</span>
                     <span style="margin-left: 90px;">
-                    	<a href="/findPsd.jhtml" title="找回密码">找回密码</a>
+                    	<a href="http://test.aileguang.net:8080/findPsd.jhtml" title="找回密码">找回密码</a>
                    	</span>
                 </p>
                 <p id="check">
