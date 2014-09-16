@@ -16,7 +16,7 @@
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=7"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
@@ -186,6 +186,7 @@
 	text-align: center;
 	color:#FFFFFF;
 	line-height:25px;
+	cursor:pointer;
 }
 .middle-money {
     background: url(/images/middle-money_bj.png);
@@ -309,6 +310,7 @@
 		var IE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !userAgent.indexOf("Opera") > -1;
 		var FF = userAgent.indexOf("Firefox") > -1;
 		var isChrome = navigator.userAgent.toLowerCase().match(/chrome/) != null;//判断是否是谷歌浏览器
+		var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
 		
 		var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");//判断操作系统
 		if(isWin){
@@ -332,15 +334,21 @@
 				$(".pageSize").css("margin-left","142px");
 			}
 			if(IE){
-				//alert("IE");
-				$("form").css("top","0");
 			   	//alert("我是IE浏览器");
+				$("form").css("top","0");
 			   	$(".addPro").css("right","545px");
 				$(".reload").css("right","505px");
 				$(".pageshow").css("right","405px");
 				$(".findPro").css("right","-338px");
 				$(".pageSize").css("margin-left","137px");
 				$(".pageSize").css("width","75px");
+			}
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				$(".addPro").css("right","548px");
+				$(".reload").css("right","505px");
+				$(".findPro").css("top","0");
+				$("#biaodan").css("top","0");
 			}
 		}else{
 			if(isChrome){
@@ -510,26 +518,33 @@
 						</span>
 						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
-					<div class="pro_name">${tgLi1.goodsName}</div>
-					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %4 ==0 }">
-								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==1 }">
-								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==2 }">
-								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==3 }">
-								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}
-		   			</div> 
+					<c:if test="${tgLi1.goodsName !=''}">
+						<div class="pro_name">${tgLi1.goodsName}</div>
+					</c:if>
+					
+					<c:if test="${fn:length(tgLi1.features ) !=0}">
+						<div class="pro_spec">
+							<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+								<c:if test="${status.index %4 ==0 }">
+									<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==1 }">
+									<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==2 }">
+									<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==3 }">
+									<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${tgLi1.introduction !=''}">
+						<div class="pro_dis" title="${tgLi1.introduction }">
+			    			${fn:substring(tgLi1.introduction, 0, 28)}
+			   			</div>
+		   			</c:if> 
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
 						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
@@ -562,26 +577,33 @@
 						</span>
 						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
-					<div class="pro_name">${tgLi1.goodsName}</div>
-					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %4 ==0 }">
-								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==1 }">
-								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==2 }">
-								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==3 }">
-								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}
-		   			</div> 
+					<c:if test="${tgLi1.goodsName !=''}">
+						<div class="pro_name">${tgLi1.goodsName}</div>
+					</c:if>
+					
+					<c:if test="${fn:length(tgLi1.features ) !=0}">
+						<div class="pro_spec">
+							<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+								<c:if test="${status.index %4 ==0 }">
+									<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==1 }">
+									<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==2 }">
+									<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==3 }">
+									<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${tgLi1.introduction !=''}">
+						<div class="pro_dis" title="${tgLi1.introduction }">
+			    			${fn:substring(tgLi1.introduction, 0, 28)}
+			   			</div>
+		   			</c:if>
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
 						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
@@ -614,26 +636,33 @@
 						</span>
 						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
-					<div class="pro_name">${tgLi1.goodsName}</div>
-					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %4 ==0 }">
-								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==1 }">
-								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==2 }">
-								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==3 }">
-								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}
-		   			</div> 
+					<c:if test="${tgLi1.goodsName !=''}">
+						<div class="pro_name">${tgLi1.goodsName}</div>
+					</c:if>
+					
+					<c:if test="${fn:length(tgLi1.features ) !=0}">
+						<div class="pro_spec">
+							<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+								<c:if test="${status.index %4 ==0 }">
+									<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==1 }">
+									<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==2 }">
+									<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==3 }">
+									<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:if>
+					<c:if test="${tgLi1.introduction !=''}">
+						<div class="pro_dis" title="${tgLi1.introduction }">
+			    			${fn:substring(tgLi1.introduction, 0, 28)}
+			   			</div>
+		   			</c:if>
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
 						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
@@ -666,26 +695,33 @@
 						</span>
 						<span class="middle-money-2" title="查看" <c:if test="${tgLi1.goodsPhotoUrl =='' && tgLi1.goodsDefaultPhotoUrl ==''}">style="top:20px;"</c:if> onClick="javascript:window.location.href='/goodsMsg.jhtml?goodsId=${tgLi1.goodsId}'">查看</span>
 					</div>
-					<div class="pro_name">${tgLi1.goodsName}</div>
-					<div class="pro_spec">
-						<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
-							<c:if test="${status.index %4 ==0 }">
-								<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==1 }">
-								<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==2 }">
-								<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-							<c:if test="${status.index %4 ==3 }">
-								<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="pro_dis" title="${tgLi1.introduction }">
-		    			${fn:substring(tgLi1.introduction, 0, 28)}
-		   			</div> 
+					<c:if test="${tgLi1.goodsName !=''}">
+						<div class="pro_name">${tgLi1.goodsName}</div>
+					</c:if>
+					<c:if test="${fn:length(tgLi1.features ) !=0}">
+						<div class="pro_spec">
+							<c:forEach var="feature" items="${tgLi1.features}" varStatus="status">
+								<c:if test="${status.index %4 ==0 }">
+									<span style="background:#0BB5D9;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==1 }">
+									<span style="background:#49BF85;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==2 }">
+									<span style="background:#E36B77;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+								<c:if test="${status.index %4 ==3 }">
+									<span style="background:#F8B95A;color:#ffffff;">${feature.featureName }</span>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:if>
+					
+					<c:if test="${tgLi1.introduction !=''}">
+						<div class="pro_dis" title="${tgLi1.introduction }">
+			    			${fn:substring(tgLi1.introduction, 0, 28)}
+			   			</div>
+		   			</c:if>
 					<div class="pro_hit">
 						<a href="/hitPraise.jhtml?goodsId=${tgLi1.goodsId }" title="点赞"><span class="pro_hit_1">${tgLi1.bePraisedCount}</span></a>
 						<a href="/hitCount.jhtml?goodsId=${tgLi1.goodsId }" title="浏览"><span class="pro_hit_span" style="float:right;">${tgLi1.viewCount}</span></a>
@@ -720,10 +756,37 @@
 			$(".reload").css("right","12px");
 			$(".pageshow").css("right","-125px");
 			$(".findPro").css("margin-top","-51px");
+			
+			$(".middle-money").each(function(){
+				if($(this).css("top") == "20px"){
+					$(this).css("top","30px");
+				}
+			});
+			$(".middle-money-2").each(function(){
+				if($(this).css("top") == "20px"){
+					$(this).css("top","30px");
+				}
+			});
 		});
-		
 	</script>
-	
+<![endif]-->
+
+<!--[if IE 8]> 
+	<script type="text/javascript">
+		$().ready(function(){
+			//alert("IE8");
+			$(".middle-money").each(function(){
+				if($(this).css("top") == "20px"){
+					$(this).css("top","10px");
+				}
+			});
+			$(".middle-money-2").each(function(){
+				if($(this).css("top") == "20px"){
+					$(this).css("top","10px");
+				}
+			});
+		});
+	</script>
 <![endif]-->
 </body>
 </html>

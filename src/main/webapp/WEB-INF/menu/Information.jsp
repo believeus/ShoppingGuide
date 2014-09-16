@@ -27,13 +27,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			font-size:24px;
 		}
 		.butt01 {
-			background-color:#5AB5B6; 
-			height:34px;
-			width:70px; 
-			height:34px; 
-			border-radius:3px; 
-			float:right;
-			margin-right:40px;
+			background: #5ab5b6;
+		    border-radius: 3px;
+		    color: #fff;
+		    float: right;
+		    font-weight: bold;
+		    height: 34px;
+		    line-height: 34px;
+		    margin-right: 40px;
+		    text-align: center;
+		    width: 70px;
+		    cursor:pointer;
 		}
 		.butt01 p {
 			line-height:34px; 
@@ -45,8 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			cursor:pointer;
 		}
 		#netitl {
-			clear:left;	
+			clear: both;	
 			height:50px;
+			display: inline-block;
 		}
 		#netitl p:first-of-type {
 			float:left;
@@ -94,13 +99,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <div>
 	                <h2>${news.title}</h2>
 	            </div>
-	            <div class="butt01" style="margin-right:20px;" onClick="javascript:window.history.back();"><p>返回</p></div>
+	            <div class="butt01" style="margin-right:20px;" onClick="javascript:window.history.back();">
+	            	返回
+            	</div>
 	        </div>
 	        <div id="netitl">
-	            <p>发布时间：<span>${news.addTime}</span></p>
-	            <p>浏览量：<a>${news.viewCount}</a></p>
-	            <p>转至：<span>${news.newsFrom}</span></p>
-	            <p>原文链接：<a>${news.originalUrl}</a></p>
+	            <p style="width:270px;float:left;">发布时间：<span>${news.addTime}</span></p>
+	            <p style="width:125px;float:left;">浏览量：<a>${news.viewCount}</a></p>
+	            <p style="width:155px;float:left;">转至：<span>${news.newsFrom}</span></p>
+	            <p style="width:auto;float:left;">原文链接：<a>${news.originalUrl}</a></p>
 	        </div>
 	       <img src="/images/line.png">
 	        

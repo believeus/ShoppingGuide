@@ -721,7 +721,23 @@ $(function(){
 	                overlay: false
 	            });
 		        return false;     
-		    }     
+		    }
+		    
+		  //---------------
+		    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片可上传，但safari不支持图片预览，建议使用Firefox！'
+	                },
+	                overlay: false
+	            });
+			}
+		    
+		    
 		   // console.info($("#"+preview));
 		    var objPreview = document.getElementById( preview );   
 		    //alert(objPreview+"=objPreview");
@@ -831,10 +847,10 @@ $(function(){
 			<div style="width:1000px;height:auto;margin:0 auto;overflow:hidden;">
 				<img src="/images/line.png">
 			</div>
-			
-			<table id="suib" style="margin:0px auto;" cellspacing="0">
+			<div style="width:1000px;height:auto;overflow:hidden;margin:0 auto;">
+				<table id="suib" style="margin:0px auto;" cellspacing="0">
 		              <tr>
-		                <td style="width:155px;"><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
+		                <td class="aaa" style="width:155px;"><b><span style="color:red;">*&nbsp;&nbsp;</span>店铺名称：</b></td>
 		                <td colspan="3">
 		                    <input id="shopName" type="text" name="shopName" value="${tshop.shopName }">
 		                </td>
@@ -1009,7 +1025,7 @@ $(function(){
 							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}"  value="${path }">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
+								<div class="shanchu_moren" style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
 									<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
 									<a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a>
 								</div>
@@ -1019,7 +1035,9 @@ $(function(){
 		              	</td>
 		              </tr>
 		            </table>
-	            </form>
+			</div>
+			
+        </form>
 		</div>
 <script type="text/javascript">
 	$().ready(function(){
@@ -1036,5 +1054,24 @@ $(function(){
 		
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
+   	 	<!-- IE7兼容性 -->
+<!--[if IE 7]> 
+	<script type="text/javascript">
+		$().ready(function(){
+			//alert("IE7");
+			$(".aaa").css("width","2000px");
+			$(".brandImg").css("height","231px");
+			$(".shanchu_moren").css("margin-top","-15px");
+		});
+	</script>
+<![endif]-->
+<!--[if IE 8]> 
+	<script type="text/javascript">
+		$().ready(function(){
+			//alert("IE8");
+			$(".aaa").css("width","2000px");
+		});
+	</script>
+<![endif]-->
 </body>
 </html>

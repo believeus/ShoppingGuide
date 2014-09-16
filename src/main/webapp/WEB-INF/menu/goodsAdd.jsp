@@ -473,7 +473,21 @@ function addclass(obj){
 	                overlay: false
 	            });
 		        return false;     
-		    }     
+		    }
+		    
+		  //---------------
+		    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片可上传，但safari不支持图片预览，建议使用Firefox！'
+	                },
+	                overlay: false
+	            });
+			}
 		         
 		    
 		    var objPreview = document.getElementById( preview );     
@@ -644,7 +658,7 @@ function addclass(obj){
 							    <input type="hidden" id="filename1" name="filename1">
 						    </div>    
 						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
+							<div class="shanchu_moren" style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
 								<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
 								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
 							</div>
@@ -864,5 +878,14 @@ function addclass(obj){
 		 <!-- 引用尾部页面 -->
    	 	<jsp:include page="../include/footer.jsp" flush="true" />
    	 	<script type="text/javascript" src="/js/drag.js"></script>
+<!--[if IE 7]> 
+	<script type="text/javascript">
+		$().ready(function(){
+			//alert("IE7");
+			$(".brandImg").css("height","225px");
+			$(".shanchu_moren").css("margin-top","-15px");
+		});
+	</script>
+<![endif]-->
 </body>
 </html>

@@ -81,9 +81,31 @@
 	</style>
 <script type="text/javascript">
 	$(function(){
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
+		if(isSafari){
+			//alert("我是Safari浏览器");
+			$("[id^=preview]").each(function(){
+				$(this).attr("src","/images/defaultImg.jpg");
+			});
+			/* $("[id^=filename]").each(function(){
+				$(this).bind('input propertychange', function() {
+					easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '图片上传成功，此浏览器不支持图片预览。'
+		                },
+		                overlay: false
+		            });
+				});
+			}); */
+		}
+		
+		
 		var a =$(".brandImg").size()+1;
 		var b =1;
 		$("#add_img").click(function(){
+			
 			var html='<div class="brandImg">'
 			 +'<div id="preview_wrapper'+a+'" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">'  
 				 +'<div id="preview_fake'+a+'" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">'
@@ -110,6 +132,13 @@
 	            });
 			}else{
 				$("#Imgs").append(html);
+			}
+			
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				$("[id^=preview]").each(function(){
+					$(this).attr("src","/images/defaultImg.jpg");
+				});
 			}
 			
 			a++;
@@ -227,16 +256,29 @@
 		        return false;     
 		    }     
 		         
+		    //---------------
+		    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片可上传，但safari不支持图片预览，建议使用Firefox！'
+	                },
+	                overlay: false
+	            });
+			}
+		    
 		    
 		    var objPreview = document.getElementById( preview );     
 		    var objPreviewFake = document.getElementById( preview_fake );     
 		    var objPreviewSizeFake = document.getElementById( preview_size_fake );    
 		         
-		    if( sender.files &&  sender.files[0] ){  
-		        var reader = new FileReader();
+		    if( sender.files &&  sender.files[0] ){ 
+	    		var reader = new FileReader();
 				reader.onload = function(evt){objPreview.src = evt.target.result;};
-		        reader.readAsDataURL(sender.files[0]);	   
-		        
+		        reader.readAsDataURL(sender.files[0]);	
 		    }else if( objPreviewFake.filters ){    
 		        // IE7,IE8 在设置本地图片地址为 img.src 时出现莫名其妙的后果     
 		        //（相同环境有时能显示，有时不显示），因此只能用滤镜来解决     
@@ -277,13 +319,13 @@
 		            param.height = height / rateWidth;     
 		        }else{     
 		            param.width = width / rateHeight;     
-		            param.height = maxHeight;     
+		            param.height = maxHeight;
 		        }     
 		    }     
 		         
 		    param.left = (maxWidth - param.width) / 2;     
 		    param.top = (maxHeight - param.height) / 2;     
-		         
+		    
 		    return param;     
 		}      
 	</script>  

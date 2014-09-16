@@ -225,6 +225,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        return false;     
 		    }     
 		          
+		  //---------------
+		    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
+			if(isSafari){
+				//alert("我是Safari浏览器");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '图片可上传，但safari不支持图片预览，建议使用Firefox！'
+	                },
+	                overlay: false
+	            });
+			}
 		    
 		    var objPreview = document.getElementById( preview );     
 		    var objPreviewFake = document.getElementById( preview_fake );     

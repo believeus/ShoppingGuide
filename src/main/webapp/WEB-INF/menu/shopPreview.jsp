@@ -227,7 +227,12 @@ hr {
 	<div id="iphone">
 		<div id="div_0">
 	        <div id="div01">
-	            <p>${shop.shopName }</p>
+	            <p title="${shop.shopName }">
+	            	${fn:substring(shop.shopName, 0, 11)}
+	            	<c:if test="${fn:length(shop.shopName) > 11 }">
+	   					...
+   					</c:if>
+            	</p>
 	        </div>
 	        <div>
 	        	<div id="banner">
@@ -265,8 +270,8 @@ hr {
 	        </div>
 	        <div id="sp2_rady">
 	            <ol>
-	                <li>${shop.shopName }</li>
-	                <li>${shop.address }</li>
+	                <li title="${shop.shopName }">${fn:substring(shop.shopName, 0, 15)}<c:if test="${fn:length(shop.shopName) > 15 }">...</c:if></li>
+	                <li title="${shop.address }">${fn:substring(shop.address, 0, 15)}<c:if test="${fn:length(shop.address) > 15 }">...</c:if></li>
 	                <li>${shop.phoneNumber }</li>
 	                <li>${shop.qq }</li>
 	            </ol>
