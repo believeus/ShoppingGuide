@@ -104,8 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#updatePsdForm").validate({
   			rules:{
   				oldPassword:{
-  					required: true,
-  					remote:"/ajaxMacthPwd.jhtml"
+  					required: true
+  					//remote:"/ajaxMacthPwd.jhtml"
   				},
   				newPassword:{
   					required: true,
@@ -118,8 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   			messages:{
   				oldPassword:{
-  					required:"旧密码必填！",
-  					remote:"输入旧密码不正确"
+  					required:"旧密码必填！"
+  					//remote:"输入旧密码不正确"
   				},
   				newPassword:{
   					required:"新密码必填！",
@@ -146,10 +146,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	<p style="margin-bottom: 0px;">所在位置：
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-	   			<a title="修改密码" href="http://test.aileguang.net:8080/updatePsd.jhtml">修改密码</a>
+	   			<a title="修改密码" href="/updatePsd.jhtml">修改密码</a>
 			</p>
 	    	
-	    	<form id="updatePsdForm" action="http://test.aileguang.net/modifyPwd.jhtml" method="post">
+	    	<form id="updatePsdForm" action="/modifyPwd.jhtml" method="post">
 	    		<input type="hidden" name="shopUserId" value="${sessionUser.shopUserId}">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">
@@ -158,7 +158,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <span style="color:#AEAEAE; text-transform:uppercase;">password change</span>
 		                </div>
 		                <div style="width:500px;float:right;" class="btn_div">
-		                	<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
+		                	<input type="hidden" value="" id="returnValue">
+		                	<input id="queding" style="width:70px;height:30px;margin:0px 20px;margin-left:100px;" type="button" value="确定" /> 
+		                	<iframe style="display: none;" name="yz" id="yz" src="" width="200" height="200"></iframe>
+		                	<!-- <input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> --> 
 		                	<input style="width:70px;height:30px;" onClick="javascript:window.history.back();" type="button" value="取消" /></div>
 		            </div>
 		            <img src="/images/line.png" />
@@ -192,5 +195,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   </div>
 	</div>
 	<jsp:include page="../include/footer.jsp"/>
+	<script type="text/javascript">
+		$().ready(function(){
+			$("#queding").click(function(){
+				var returnValue = $("#returnValue").val();
+	  			if(returnValue == "false" || returnValue == ""){
+	  				easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '旧密码不正确'
+		                },
+		                overlay: false
+		            });
+	  			}else{
+	  				$("#updatePsdForm").submit();
+	  			}
+	  		});
+			$("#oldPassword").blur(function(){
+				$("#yz").attr("src","http://192.168.1.102/ajaxMacthPwd.jhtml?oldPassword="+$("#oldPassword").val());
+			});
+		});
+	</script>
   </body>
 </html>

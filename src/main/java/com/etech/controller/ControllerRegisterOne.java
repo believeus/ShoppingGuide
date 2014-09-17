@@ -39,6 +39,18 @@ public class ControllerRegisterOne {
 		// 该手机号未被注册
 		return "true";
 	}
+	@RequestMapping(value="/validatePhoneNumber2")
+	public @ResponseBody String validateMobile2(String phoneNumber){
+		log.debug("current register phoneNumber:"+phoneNumber);
+		// 根据手机号查找该用户是否被注册
+		Tshopuser shopuser = (Tshopuser)etechService.findObject(Tshopuser.class, Variables.username, phoneNumber);
+		// 该手机号被注册
+		if(!StringUtils.isEmpty(shopuser)){
+			return "<script>parent.document.getElementById('returnValue_pn').value=false;</script>";
+		}
+		// 该手机号未被注册
+		return "<script>parent.document.getElementById('returnValue_pn').value=true;</script>";
+	}
 	
 	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:获取手机验证码*/
 	@RequestMapping(value="/generateValidCode")
@@ -80,12 +92,12 @@ public class ControllerRegisterOne {
 		// 验证码不匹配
 		if (sessionCode != null) {
 			if(!sessionCode.equals(numberCode)){
-				return "false";
+				return "<script>parent.document.getElementById('returnValue').value=false;</script>";
 			}
 		}else {
-			return "false";
+			return "<script>parent.document.getElementById('returnValue').value=false;</script>";
 		}
-		return "true";
+		return "<script>parent.document.getElementById('returnValue').value=true;</script>true";
 	}
 	/**End Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
 	

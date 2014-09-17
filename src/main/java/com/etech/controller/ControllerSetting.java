@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -60,7 +61,9 @@ public class ControllerSetting {
 	 * @return
 	 */
 	@RequestMapping(value="/findPsd")
-	public String findPsdJsp(){
+	public String findPsdJsp(HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "http://*");
+		//response.setHeader("Access-Control-Allow-Origin", "*");
 		return "/WEB-INF/setting/findPsd.jsp";
 	}
 	
@@ -124,11 +127,11 @@ public class ControllerSetting {
 		System.out.println(shopuser.getDefaultShopId());
 		oldPassword=DigestUtils.md5Hex(oldPassword);
 		if(!oldPassword.equals(shopuser.getPassword())){
-			return "false"; 
+			return "<script>parent.document.getElementById('returnValue').value=false;</script>"; 
 		}
-		return "true";
+		return "<script>parent.document.getElementById('returnValue').value=true;</script>";
 	}
-	
+	/*easyDialog.open({container: {header: '提示',content: '验证码不匹配'},overlay: false});*/
 	
 	@RequestMapping(value="/modifyPwd")
 	public String modifyPwd(HttpServletRequest request){

@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("http://test.aileguang.net:8080/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{
@@ -177,8 +177,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					rangelength:[11,11]
   				},
 	  			numberCode:{
-	  				required: true,
-	  				remote:"http://test.aileguang.net:8080/validateNumberCode.jhtml"
+	  				required: true
+	  				//remote:"http://test.aileguang.net/validateNumberCode.jhtml"
 	  			},
 	  			shopLicenseImg:{
 	  				required: true
@@ -193,8 +193,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					rangelength:"电话格式不对，请输入11位手机号",
   				},
 				numberCode:{
-					required:"验证码必填",
-					remote:"验证码不匹配"
+					required:"验证码必填"
+					//remote:"验证码不匹配"
 				},
 				shopLicenseImg:{
 					required:"图片必须上传"
@@ -210,6 +210,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            $(element).addClass(errorClass);   
 		    }
 	  		});
+  		
+  		
   	});
   	
 
@@ -302,43 +304,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<jsp:include page="/WEB-INF/include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
-	    	<p style="margin:0 auto;width:1000px;">所在位置：
+	    	<p style="margin:0 auto;width:1000px;padding-left:0;margin-bottom: 0;line-height:47px;">所在位置：
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
    				<a title="找回密码" href="/findPsd.jhtml">找回密码</a>
 			</p>
-	    	<form id="findPsdForm" method="post" action="http://test.aileguang.net/findPsdLogic.jhtml" enctype="multipart/form-data">
+	    	<form id="findPsdForm" method="post" action="/findPsdLogic.jhtml" enctype="multipart/form-data">
 		    	<div>
-		    		<div style="padding-top:30px;">
+		    		<div style="padding-top:15px;">
 			        	<div id="titl">
 						    <div id="titl_name">
 							    <span>找回密码</span>&nbsp;&nbsp;
 							    <span style="color:#AEAEAE; text-transform:uppercase;">find back password</span>
 							</div>
-							<div style="width:500px;float:right;" class="btn_div">
-								<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
+							<div style="width:500px;float:right;" class="btn_div">							    
+								<input type="hidden" value="" id="returnValue">
+								<input id="queding" style="height:30px;width:70px;margin:0px 20px;margin-left:100px;" type="button" value="确定"/>
+								<iframe style="display: none;" name="yz" id="yz" src="" width="200" height="200"></iframe>
+								<!-- <input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" />  -->
 								<input style="width:70px;height:30px;" type="button" value="取消" onClick="javascript:window.history.back();"/>
 							</div>
 						</div>
 			            <img src="/images/line.png" />
 			        </div>
 		    	</div>
-		    	<p><font color="red" style="margin-left:150px;">*</font>营业执照</p>
-		    	<div class="brandImg">
-					<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-				        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-				            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
-				        </div>    
-				    </div>    
-				    <div style="text-align:left;">    
-					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 75px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-					    <input type="hidden" id="filename" name="filename"/>
-						<label class="error" for="shopLicenseImg" style="color:red;"></label>
-				    </div>    
-				    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-				</div>
-				<p style="clear:both;padding-left: 70px;">
+		    	
+				<p style="clear:both;">
 					<font color="red" style="margin-left:150px;">*&nbsp;</font>
-	    			<span style="font-weight:bold;">帐号：</span>
+	    			<span style="font-weight:bold;">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
 	    			<input type="text" id="userName" name="userName" placeholder="请输入帐号" style="width:345px;height:35px;line-height:35px;">
 	   				<span></span>
 				</p>
@@ -357,9 +349,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<input class="btn" id="validCode" type="button" value="免费获取验证码">
 	    			<span></span>
 				</p>
+				<p>
+					<font color="red" style="margin-left:150px;">*&nbsp;</font>
+					<span style="font-weight:bold;">营业执照：</span>
+				</p>
+		    	<div class="brandImg" style="margin-left:285px;margin-bottom: 20px;">
+					<div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+				        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+				            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+				        </div>    
+				    </div>    
+				    <div style="text-align:left;">    
+					    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 72px;" onchange="filename.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
+					    <input type="hidden" id="filename" name="filename"/>
+						<label class="error" for="shopLicenseImg" style="color:red;"></label>
+				    </div>    
+				    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
+				</div>
 	   		</form>
 		</div>
 		
 	<jsp:include page="../include/footer.jsp"/>
+	<script type="text/javascript">
+		$().ready(function(){
+			$("#queding").click(function(){
+				$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
+				
+				var returnValue = $("#returnValue").val();
+	  			if(returnValue == "false" || returnValue == ""){
+	  				easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '验证码不匹配'
+		                },
+		                overlay: false
+		            });
+	  			}else{
+	  				$("#findPsdForm").submit();
+	  			}
+	  		});
+			$("#numberCode").blur(function(){
+				$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
+			});
+			
+			$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
+		});
+	</script>
   </body>
 </html>

@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		input {
 			width:340px; 
 			height:28px; 
-			padding: 0px 4px;;
+			padding: 0px 4px;
 		}
 		</style>
   </head>
@@ -105,12 +105,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#aboutUserNumForm").validate({
   			rules:{
   				oldPassword:{
-  					required: true,
-  					remote:"http://test.aileguang.net:8080/ajaxMacthPwd.jhtml"
+  					required: true
+  					//remote:"/ajaxMacthPwd.jhtml"
   				},
   				phoneNumber:{
   					required: true,
-  					remote:"http://test.aileguang.net:8080/validatePhoneNumber.jhtml"
+  					rangelength:[11,11]
+  					//remote:"/validatePhoneNumber.jhtml"
   				},
   				aboutPsd:{
   					required: true,
@@ -128,7 +129,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				},
   				phoneNumber:{
   					required:"关联帐号必填！",
-  					remote:"该关联帐号已被关联"
+  					rangelength:"电话格式不正确，请输入11位手机号"
+  					//remote:"该关联帐号已被关联"
   				},
   				aboutPsd:{
   					required:"关联密码必填！",
@@ -154,10 +156,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	<p style="margin-bottom: 0px;">所在位置：
 				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-	   			<a title="关联帐号" href="http://test.aileguang.net:8080/aboutUserNum.jhtml">关联帐号</a>
+	   			<a title="关联帐号" href="/aboutUserNum.jhtml">关联帐号</a>
 			</p>
 	    	
-	    	<form id="aboutUserNumForm" action="http://test.aileguang.net/relationCount.jhtml" method="post">
+	    	<form id="aboutUserNumForm" action="/relationCount.jhtml" method="post">
 		    	<div style="padding-top:30px;">
 		        	<div id="titl">
 		                <div id="titl_name">
@@ -165,7 +167,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <span style="color:#AEAEAE; text-transform:uppercase;">user associate</span>
 		                </div>
 		                <div style="width:500px;float:right;" class="btn_div">
-		                	<input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> 
+		                	<input type="hidden" value="" id="returnValue">
+		                	<input type="hidden" value="" id="returnValue_pn">
+		                	<input id="queding" style="width:70px;height:30px;margin:0px 20px;margin-left:100px;" type="button" value="确定" /> 
+		                	<iframe style="display: none;" name="yz" id="yz" src="" width="200" height="200"></iframe>
+		                	<!-- <input style="margin:0px 20px;margin-left:100px;" type="submit" value="确定" /> --> 
 	                		<input style="width:70px;height:30px;" onClick="javascript:window.history.back();" type="button" value="取消" />
                 		</div>
 		            </div>
@@ -207,5 +213,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 		</div>
 	<jsp:include page="../include/footer.jsp"/>
+	<script type="text/javascript">
+		$().ready(function(){
+			$("#queding").click(function(){
+				var returnValue = $("#returnValue").val();
+				var returnValue_pn = $("#returnValue_pn").val();
+	  			if(returnValue == "false" || returnValue == ""){
+	  				easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '旧密码不正确'
+		                },
+		                overlay: false
+		            });
+	  			}else if(returnValue_pn == "false" || returnValue_pn == ""){
+	  				easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '该关联帐号已被关联'
+		                },
+		                overlay: false
+		            });
+	  			}else{
+	  				$("#aboutUserNumForm").submit();
+	  			}
+	  		});
+			$("#oldPassword").blur(function(){
+				$("#yz").attr("src","http://192.168.1.102/ajaxMacthPwd.jhtml?oldPassword="+$("#oldPassword").val());
+			});
+			$("#phoneNumber").blur(function(){
+				$("#yz").attr("src","http://192.168.1.102/validatePhoneNumber2.jhtml?phoneNumber="+$("#phoneNumber").val());
+			});
+		});
+	</script>
   </body>
 </html>
