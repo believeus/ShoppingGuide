@@ -93,6 +93,7 @@ public class Variables {
 	public static final String findPasswordURL=PropertiesUtils.findValue("shopping.properties", "findPasswordURL");
 	// imagewidth
 	public static final int imagewidth=Integer.parseInt(PropertiesUtils.findValue("shopping.properties", "imagewidth"));
-	
+	// the Domain name
+	public static final String domainName=PropertiesUtils.findValue("shopping.properties", "domainName");
 
 }

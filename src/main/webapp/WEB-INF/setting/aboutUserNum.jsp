@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -155,8 +155,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
 	    	
 	    	<p style="margin-bottom: 0px;">所在位置：
-				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-	   			<a title="关联帐号" href="/aboutUserNum.jhtml">关联帐号</a>
+				<a title="菜单" href="http://<%=Variables.domainName %>/menu.jhtml">菜单</a> &gt;
+	   			<a title="关联帐号" href="http://<%=Variables.domainName %>/aboutUserNum.jhtml">关联帐号</a>
 			</p>
 	    	
 	    	<form id="aboutUserNumForm" action="/relationCount.jhtml" method="post">

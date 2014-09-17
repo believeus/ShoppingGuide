@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="X-UA-Compatible" content="IE=8"/>
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
@@ -91,9 +92,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>
 		<div style="width:1000px; margin:auto; padding-top:30px;">
 			<p>所在位置：
-	   			<a href="/menu.jhtml" title="菜单">菜单</a> >
-	   			<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a> >
-	   			<a href="/information.jhtml?newsId=${news.newsId}" title="资讯详情">资讯详情</a>
+	   			<a href="http://<%=Variables.domainName %>/menu.jhtml" title="菜单">菜单</a> >
+	   			<a href="http://<%=Variables.domainName %>/infoList.jhtml" title="潮流资讯">潮流资讯</a> >
+	   			<a href="http://<%=Variables.domainName %>/information.jhtml?newsId=${news.newsId}" title="资讯详情">资讯详情</a>
 			</p>
 	    	<div>
 	            <div>

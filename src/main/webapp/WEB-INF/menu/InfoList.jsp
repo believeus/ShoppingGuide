@@ -5,6 +5,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -172,8 +173,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>
 	    <div style="width:1000px; margin:0px auto; background-color:#fff; border:1px solid #ccc;">
 	    	<p>所在位置：
-	   			<a href="/menu.jhtml" title="菜单">菜单</a> &gt;
-	   			<a href="/infoList.jhtml" title="潮流资讯">潮流资讯</a>
+	   			<a href="http://<%=Variables.domainName %>/menu.jhtml" title="菜单">菜单</a> &gt;
+	   			<a href="http://<%=Variables.domainName %>/infoList.jhtml" title="潮流资讯">潮流资讯</a>
 			</p>
 	    	<div style="padding-top:30px;">
 	        	<div id="titl">
@@ -189,9 +190,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<input id="showPageSize" type="button" value="每页显示">
 	    		<div class="pageSize" style="display:none;">
 					<ul style="padding:0;margin:0;">
-						<li><a href="/infoList.jhtml?num=10">10</a></li>
-						<li><a href="/infoList.jhtml?num=20">20</a></li>
-						<li><a href="/infoList.jhtml?num=30">30</a></li>
+						<li><a href="http://<%=Variables.domainName %>/infoList.jhtml?num=10">10</a></li>
+						<li><a href="http://<%=Variables.domainName %>/infoList.jhtml?num=20">20</a></li>
+						<li><a href="http://<%=Variables.domainName %>/infoList.jhtml?num=30">30</a></li>
 					</ul>
 				</div>
 	    		<span>共有<font color="#69CDCD">${size }</font>条数据</span>

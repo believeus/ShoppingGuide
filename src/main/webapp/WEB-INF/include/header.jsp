@@ -5,6 +5,7 @@
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <link rel="stylesheet" type="text/css" href="/css/easydialog.css">
 <style type="text/css">
@@ -123,7 +124,7 @@ jQuery.fn.placeholder = function(){
 <div style="height:135px;width:100%;background:#69CDCD;">
    	<div style="width:960px; padding-top:28px; margin-left:auto; margin-right:auto;height:auto;overflow: hidden;">
        	<div style="float:left;">
-       		<a href="/login.jhtml" title="首页">
+       		<a href="http://<%=Variables.domainName %>/login.jhtml" title="首页">
 	       		<img alt="" src="/images/logo_new.png" width="65" height="65" style="position: absolute;">
 	       		<img src="/images/Logo_b.png"/>
        		</a>
@@ -135,16 +136,16 @@ jQuery.fn.placeholder = function(){
 	       		</a>&nbsp;
 	           	<!-- <a href="javascript:void(0);" title="查看消息" style="color:#056f6f;" onClick="easyDialog.open({container: {header: '提示',content: '该功能暂不开放，敬请期待！'},overlay: false});">消息(0)</a>&nbsp;|&nbsp; -->
 	           	<a href="javascript:void(0);" title="查看消息" style="color:#056f6f;" >消息(0)</a>&nbsp;|&nbsp;
-	           	<a href="/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>&nbsp;|
-	           	<a href="/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
+	           	<a href="http://<%=Variables.domainName %>/logout.jhtml" title="退出" style="color:#056f6f;">退出</a>&nbsp;|
+	           	<a href="http://<%=Variables.domainName %>/menu.jhtml" style="color:#056f6f;" title="首页">首页</a>
 		           	<div class="setting">
 		           		<!-- <div style="width:103px;height:33px;line-height:33px;" title="设置">设置</div> -->
 		           		
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-		           			<a href="/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
+		           			<a href="http://<%=Variables.domainName %>/updatePsd.jhtml" title="修改密码" style="color:#056f6f;">修改密码</a>
 		          		</div>
 		           		<div style="width:103px;height:33px;line-height:33px;border-top:1px dotted #ccc;">
-		           			<a href="/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
+		           			<a href="http://<%=Variables.domainName %>/aboutUserNum.jhtml" title="关联帐号" style="color:#056f6f;">关联帐号</a>
 		       			</div>
 		           	</div>
 	        </div>

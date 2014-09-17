@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -305,8 +305,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<jsp:include page="/WEB-INF/include/header.jsp"/>
 	    <div class="stable" style="width:1000px; margin:0px auto; background-color:#fff;">
 	    	<p style="margin:0 auto;width:1000px;padding-left:0;margin-bottom: 0;line-height:47px;">所在位置：
-				<a title="菜单" href="/menu.jhtml">菜单</a> &gt;
-   				<a title="找回密码" href="/findPsd.jhtml">找回密码</a>
+				<a title="菜单" href="http://<%=Variables.domainName %>/menu.jhtml">菜单</a> &gt;
+   				<a title="找回密码" href="http://<%=Variables.domainName %>/findPsd.jhtml">找回密码</a>
 			</p>
 	    	<form id="findPsdForm" method="post" action="/findPsdLogic.jhtml" enctype="multipart/form-data">
 		    	<div>
