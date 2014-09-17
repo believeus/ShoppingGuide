@@ -373,8 +373,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		$().ready(function(){
 			$("#queding").click(function(){
-				$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
-				
 				var returnValue = $("#returnValue").val();
 	  			if(returnValue == "false" || returnValue == ""){
 	  				easyDialog.open({
@@ -389,10 +387,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			}
 	  		});
 			$("#numberCode").blur(function(){
-				$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
+				$("#yz").attr("src","http://test.aileguang.net/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
 			});
-			
-			$("#yz").attr("src","http://192.168.1.102/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
 		});
 	</script>
   </body>

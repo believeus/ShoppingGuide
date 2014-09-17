@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			}
 	  		});
 			$("#oldPassword").blur(function(){
-				$("#yz").attr("src","http://192.168.1.102/ajaxMacthPwd.jhtml?oldPassword="+$("#oldPassword").val());
+				$("#yz").attr("src","http://test.aileguang.net/ajaxMacthPwd.jhtml?oldPassword="+$("#oldPassword").val());
 			});
 		});
 	</script>
