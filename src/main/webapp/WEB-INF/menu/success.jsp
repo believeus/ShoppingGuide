@@ -6,7 +6,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
+<%@ page language="java" import="com.etech.variable.Variables" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -19,7 +19,7 @@
 <meta http-equiv="description" content="This is my page">
 <body>
 	<h1>${message}</h1>
-	<a href="/login.jhtml">返回登录页面</a>
+	<a href="http://<%=Variables.domainName %>/login.jhtml">返回登录页面</a>
 
 </body>
 </html>

@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            	<tr>
 		                	<td>
 		                    	<p style="font-weight:bold; font-size:16px;">
-		                    		<a href="/information.jhtml?newsId=${news.newsId}" title="${news.title}">${news.title}</a>
+		                    		<a href="http://<%=Variables.domainName %>/information.jhtml?newsId=${news.newsId}" title="${news.title}">${news.title}</a>
 	                    		</p>
 		                    	<p title="${news.content}">
 		                    		${fn:substring(news.content, 0, 40)}...
