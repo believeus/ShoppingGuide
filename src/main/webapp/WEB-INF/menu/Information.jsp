@@ -4,6 +4,8 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ page language="java" import="com.etech.variable.Variables" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -53,14 +55,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			clear: both;	
 			height:50px;
 			display: inline-block;
+			width：1000px;
 		}
 		#netitl p:first-of-type {
 			float:left;
-			width:270px;
+			width:250px;
 		}
 		#netitl p:nth-child(2) {
 			float:left;
-			width:125px;
+			width:115px;
 		}
 		#netitl p:nth-child(3) {
 			float:left;
@@ -105,10 +108,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	</div>
 	        </div>
 	        <div id="netitl">
-	            <p style="width:270px;float:left;">发布时间：<span>${news.addTime}</span></p>
-	            <p style="width:125px;float:left;">浏览量：<a>${news.viewCount}</a></p>
+	            <p style="width:250px;float:left;">发布时间：<span>${news.addTime}</span></p>
+	            <p style="width:115px;float:left;">浏览量：<a>${news.viewCount}</a></p>
 	            <p style="width:155px;float:left;">转至：<span>${news.newsFrom}</span></p>
-	            <p style="width:auto;float:left;">原文链接：<a>${news.originalUrl}</a></p>
+	            <p style="width:480px;float:left;">原文链接：
+	            	<a title="${news.originalUrl }">
+	            		${fn:substring(news.originalUrl, 0, 50)}
+	            		<c:if test="${fn:length(news.originalUrl) > 50 }">
+	            			...
+	            		</c:if>
+            		</a>
+            	</p>
 	        </div>
 	       <img src="/images/line.png">
 	        

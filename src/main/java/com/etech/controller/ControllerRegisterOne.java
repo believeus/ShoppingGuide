@@ -82,10 +82,28 @@ public class ControllerRegisterOne {
 		Brower.outJson(map, response);
 	}
 	
-	
-	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
+	//注册验证码
 	@RequestMapping(value="/validateNumberCode")
 	public @ResponseBody String validateNumberCode(String numberCode,HttpSession session){
+		String sessionCode = (String)session.getAttribute(Variables.validCode);
+		//response.addHeader("Access-Control-Allow-Origin","*");
+		log.debug("input valid code:"+numberCode+" session Valid code:"+sessionCode);
+		// 验证码不匹配
+		if (sessionCode != null) {
+			if(!sessionCode.equals(numberCode)){
+				return "false";
+			}
+		}else {
+			return "false";
+		}
+		return "true";
+	}
+	/**
+	 * 找回密码验证码
+	 */
+	/**Begin Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
+	@RequestMapping(value="/validateNumberCode2")
+	public @ResponseBody String validateNumberCode2(String numberCode,HttpSession session){
 		String sessionCode = (String)session.getAttribute(Variables.validCode);
 		//response.addHeader("Access-Control-Allow-Origin","*");
 		log.debug("input valid code:"+numberCode+" session Valid code:"+sessionCode);
