@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
+    
     
     <title>找回密码</title>
     
@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("http://test.aileguang.net:8080/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("http://www.aileguang.net:8080/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{
@@ -387,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			}
 	  		});
 			$("#numberCode").blur(function(){
-				$("#yz").attr("src","http://www.aileguang.net/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
+				$("#yz").attr("src","http://localhost:8080/validateNumberCode2.jhtml?numberCode="+$("#numberCode").val());
 			});
 		});
 	</script>

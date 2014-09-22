@@ -115,7 +115,7 @@ public class ControllerRegisterOne {
 		}else {
 			return "<script>parent.document.getElementById('returnValue').value=false;</script>";
 		}
-		return "<script>parent.document.getElementById('returnValue').value=true;</script>true";
+		return "<script>parent.document.getElementById('returnValue').value=true;</script>";
 	}
 	/**End Author:wuqiwei Data:2014-07-15 AddReason:验证电话验证码是否一致*/
 	
