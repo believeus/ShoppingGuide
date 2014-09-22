@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background-color:#5AB5B6; 
 			height:34px;
 			width:70px; 
-			border-radius:3px; 
+			border-radius:3px;  
 			float:right;
 			margin-right:40px;
 		}
