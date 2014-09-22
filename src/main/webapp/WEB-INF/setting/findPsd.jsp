@@ -387,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			}
 	  		});
 			$("#numberCode").blur(function(){
-				$("#yz").attr("src","http://test.aileguang.net/validateNumberCode2.jhtml?numberCode="+$("#numberCode").val());
+				$("#yz").attr("src","http://www.aileguang.net/validateNumberCode.jhtml?numberCode="+$("#numberCode").val());
 			});
 		});
 	</script>
