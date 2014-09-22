@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			  }else{
   				  $("#validCode").attr('disabled',"false");
   				  //将手机号码发送给webserivce,获取手机验证码
-  				  $.post("http://www.aileguang.net:8080/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
+  				  $.post("http://www.aileguang.net/generateValidCodeTwo.jhtml", {phoneNumber:phoneNumber},function(data){
   					 if(/[0-9]{4}/.test(data.returnCode)){
   						  $("#validCode").attr('disabled',"true");
   					  }else{
@@ -387,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			}
 	  		});
 			$("#numberCode").blur(function(){
-				$("#yz").attr("src","http://localhost:8080/validateNumberCode2.jhtml?numberCode="+$("#numberCode").val());
+				$("#yz").attr("src","http://www.aileguang.net/validateNumberCode2.jhtml?numberCode="+$("#numberCode").val());
 			});
 		});
 	</script>
