@@ -27,6 +27,7 @@
 <script language="JavaScript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
 <script language="JavaScript" src="js/dtree.js"></script>
+<script language="JavaScript" src="js/waitamoment.js"></script>
 	<style type="text/css">
 		.inputClass{
 			background:#69CDCD;
@@ -141,6 +142,7 @@ function addclass(obj){
 		
 		//如果图片为空
 		$("input[type=submit]").click(function(){
+			
 			var fg = ${flag};
 			if(fg!=1){
 				if($(".brandImg").size() ==0){
@@ -967,6 +969,18 @@ function addclass(obj){
 						return false;
 					}
 	    		}
+	    		if($("#moren").val()==""){
+	    			easyDialog.open({
+		                container: {
+		                    header: '提示',
+		                    content: '请设置默认图片'
+		                },
+		                overlay: false
+	   				});
+	    			return false;
+	    		}else{
+	    			showdiv();//阻止多次点击提交表单
+	    		}
 	    	});
 	    
 	    
@@ -1027,7 +1041,6 @@ function addclass(obj){
 		    	});
 	    	});
 	    });
-	    
 	    
     });
 	</script>

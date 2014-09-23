@@ -22,6 +22,7 @@
 <script language="JavaScript" src="js/jquery.js"></script>
 <script language="JavaScript" src="js/jquery.validate.js"></script>
 <script language="JavaScript" src="js/messages_cn.js"></script>
+<script language="JavaScript" src="js/waitamoment.js"></script>
 	<style type="text/css">
 		.inputClass{
 			background-color:#69CDCD;
@@ -219,14 +220,32 @@
 		});
 		
 		$("input[type='submit']").click(function(){
+			
 			var dis = $("#goodsDetail").val();
+			if(dis != ""){
+				$("#main_form").submit();
+				showdiv();//阻止多次点击提交表单
+			}
+			
 			var imgs = $("[id^='filename']");
+			if(imgs.length ==0 && dis == ""){
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '请填写商品介绍或者选择商品图片'
+	                },
+	                overlay: false
+	            });
+				return  false;
+			}
 			imgs.each(function(){
-				if($(this).val() != "" || dis != ""){
+				if($(this).val() != ""){
 					$("#main_form").submit();
-					return false;
+					showdiv();//阻止多次点击提交表单
+				}else if(dis != ""){
+					$("#main_form").submit();
+					showdiv();//阻止多次点击提交表单
 				}else{
-					//alert("请填写商品介绍或者选择商品图片");
 					easyDialog.open({
 		                container: {
 		                    header: '提示',

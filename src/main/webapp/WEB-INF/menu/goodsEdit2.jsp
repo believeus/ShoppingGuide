@@ -27,6 +27,7 @@
 <script language="JavaScript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
 <script language="JavaScript" src="js/dtree.js"></script>
+<script language="JavaScript" src="js/waitamoment.js"></script>
 	<style type="text/css">
 		.inputClass{
 			background:#69CDCD;
@@ -141,6 +142,22 @@ function addclass(obj){
 		
 		//如果图片为空
 		$("input[type=submit]").click(function(){
+			
+			/* if($(".brandImg").size() >0){
+				$("[id^='filename']").each(function(){
+					if($(this).val()!="" && $("#moren").val() ==""){
+						easyDialog.open({
+			                container: {
+			                    header: '提示',
+			                    content: '请选择默认图片'
+			                },
+			                overlay: false
+			            });
+						return false;
+					}
+				});
+			} */
+			
 			var fg = ${flag};
 			if(fg!=1){
 				if($(".brandImg").size() ==0){
@@ -582,8 +599,10 @@ function addclass(obj){
 						imgs.each(function(){
 							if($(this).val() != ""){
 								$("#main_form").submit();
+								showdiv();//阻止多次点击提交表单
 							}else if(dis != ""){
 								$("#main_form").submit();
+								showdiv();//阻止多次点击提交表单
 							}else{
 								//alert("请填写商品介绍或者选择商品图片");
 								easyDialog.open({
@@ -598,6 +617,7 @@ function addclass(obj){
 						});
 					}else if(dis != ""){
 						$("#main_form").submit();
+						showdiv();//阻止多次点击提交表单
 					}
 				});
 				

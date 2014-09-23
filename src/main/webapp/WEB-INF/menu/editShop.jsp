@@ -34,7 +34,7 @@
 			margin-right:15px;
 			width:auto;
 			border:1px solid gray;
-			height:20px;toggle
+			height:20px;
 			line-height:20px;
 			float:left;
 			display:block;
@@ -119,7 +119,7 @@
 			border: 1px solid;
 			text-align: center;
 			width: 229px;
-			margin: 10px 10px 10px 0;
+			margin: 10px 10px 12px 0;
 		}
 		.current {
 			background: #69cdcd;

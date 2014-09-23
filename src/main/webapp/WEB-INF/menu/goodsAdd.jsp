@@ -26,7 +26,7 @@
 <script language="JavaScript" src="/js/jquery.validate.js"></script>
 <script language="JavaScript" src="/js/messages_cn.js"></script>
 <script type="text/javascript" src="/js/validate.expand.js"></script>
-
+<script language="JavaScript" src="js/waitamoment.js"></script>
 <script language="JavaScript" src="js/dtree.js"></script>
 	<style type="text/css">
 		.inputClass{
