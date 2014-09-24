@@ -531,6 +531,7 @@ public class ControllerMenu {
 					tgoods.setGoodsDefaultPhotoWidth(width);
 				}*/
 			}else {
+				System.out.println(appendImg);
 				tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
 				String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[0];
 				//读入文件    
@@ -549,6 +550,25 @@ public class ControllerMenu {
 		log.debug("tgoods.getGoodsPhotoUrl()--list:"+appendImg);
 		// 设置图片。
 		tgoods.setGoodsPhotoUrl(appendImg);
+		if (appendImg.split(",").length <2) { 
+			tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
+		}else {
+			for (int i = 0; i < appendImg.split(",").length; i++) {
+				if(i == Integer.parseInt(moren)){
+					tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[i]);
+					String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[i];
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);    
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					tgoods.setGoodsDefaultPhotoHeight(height);
+					tgoods.setGoodsDefaultPhotoWidth(width);
+				}
+			}
+		}
 		tgoods.getFeatures().removeAll(tgoods.getFeatures());
 		etechService.saveOrUpdate(tgoods);
 		if (featureIds != null) {

@@ -15,7 +15,7 @@ public class Variables {
 	public static final int unRegister=-1;
 	public static Short webLogin=1;
 	// the shopuser or shop reviewing
-	public static final int reviewing=1;
+	public static final int reviewing=0;
 	//the shopuser or shop review success
 	public static final int reviewSuccess=1;
 	// the shopuser of shop review unpass
