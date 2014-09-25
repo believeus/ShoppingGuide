@@ -81,6 +81,9 @@
 		}
 	</style>
 <script type="text/javascript">
+function changeDefault(id){
+	$("#"+id).css("display","");
+}
 	$(function(){
 		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
 		var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
@@ -114,11 +117,11 @@
 				 		+'</div>'    
 				 	+'</div> '   
 			+'<div style="text-align:left;"> '   
-				+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+				+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;changeDefault(\'middle_money'+a+'\');onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 				+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 			+'</div>'    
 				+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
-			+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a class="middle_money" href="javascript:void(0);" value="'+b+'" style="float:left;">设为默认</a><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+			+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a id="middle_money'+a+'" class="middle_money" href="javascript:void(0);" value="goodsImg'+a+'" style="float:left;;display: none;">设为默认</a><a onclick="delete_pic(this,\'goodsImg'+a+'\')" href="javascript:void(0);">删除</a></div>'
 			+'</div>';
 			
 			//alert($(".main_table3 .brandImg").size());
@@ -161,9 +164,16 @@
 			});
 			$(".middle_money").each(function(){
 				$(this).click(function(){
-					//alert($(this).attr("value")+"=this.val");
-					$("#moren").val($(this).attr("value"));
-					//alert("设置成功");
+					$(".brandImg").css("border","1px solid #000000");
+					$(this).parent().parent().css("border","1px solid #69cdcd");
+					var vl=$(this).attr("value");
+					if(vl.indexOf("Img") > 0 ){
+						$("#morenIndex").val(vl);
+						$("#moren").val("");
+					}else{
+						$("#morenIndex").val("");
+						$("#moren").val(vl);
+					}
 					easyDialog.open({
 		                container: {
 		                    header: '提示',
@@ -206,9 +216,16 @@
 		});
 		$(".middle_money").each(function(){
 			$(this).click(function(){
-				//alert($(this).attr("value")+"=this.val");
-				$("#moren").val($(this).attr("value"));
-				//alert("设置成功");
+				$(".brandImg").css("border","1px solid #000000");
+				$(this).parent().parent().css("border","1px solid #69cdcd");
+				var vl=$(this).attr("value");
+				if(vl.indexOf("Img") > 0 ){
+					$("#morenIndex").val(vl);
+					$("#moren").val("");
+				}else{
+					$("#morenIndex").val("");
+					$("#moren").val(vl);
+				}
 				easyDialog.open({
 	                container: {
 	                    header: '提示',
@@ -350,9 +367,36 @@
 	</script>  
 	
 	<script type="text/javascript">
-		function delete_pic(object){		
+		function delete_pic(object,path){
+			if(path == $("#moren").val()|| path == $("#morenIndex").val()){
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '已设置默认图片，不能删除'
+	                },
+	                overlay: false
+	            });
+				return false;
+			}
+			if(path!=""){
+				Img(path);
+			}
 			$(object).closest("div").parent().remove();
 		}
+		
+		function Img(path){
+			var deleteImgs = $("#deleteImgs");
+			
+			if (deleteImgs.length > 0) { 
+		     	//对象存在的处理逻辑
+	            $("#deleteImgs").val(deleteImgs.val()+","+path);
+		    } else {
+		      	//对象不存在的处理逻辑
+		      	var html='<input id="deleteImgs" type="hidden" name="deleteImgs" value="'+path+'"/>';
+				$("#main_form").append(html);
+		   }	
+		}
+		
 		function changeText(){
 			$("#goodsDetail").val($("#txtarea").val());
 		}
@@ -412,8 +456,9 @@
    				<tr>
 					<td id="Imgs" colspan="3">
 						<input type="hidden" id="moren" name="moren">
+						<input type="hidden" id="morenIndex" name="morenIndex">
 						<div id="add_img" class="add_img" title="添加店铺图片">+</div>
-						<div class="brandImg">
+						<%-- <div class="brandImg">
 							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
 						        <div id="preview_fake1" style="height:179px;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
 						            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
@@ -427,9 +472,9 @@
 						    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 							<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
 								<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
-								<a onclick="delete_pic(this)" href="javascript:void(0);">删除</a>
+								<a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a>
 							</div>
-						</div>
+						</div> --%>
 					</td>
 				</tr>
 			</table>
