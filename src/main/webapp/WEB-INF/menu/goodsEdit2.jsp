@@ -55,12 +55,13 @@
 <style type="text/css">
 	
 	.brandImg{
-			float:left;
-			border: 1px solid;
-			text-align: center;
-			width: 229px;
-			margin-right: 15px;
-			margin-bottom: 20px;
+		float:left;
+		border: 1px solid;
+		text-align: center;
+		width: 229px;
+		margin-right: 15px;
+		margin-bottom: 20px;
+		height:230px;
 	}
 	
 	.middle-money {
@@ -81,9 +82,9 @@
 	    display:none;
 	}
 	#sid {
-		 width: auto; 
-		 height: auto; 
-		 overflow: hidden; 
+		 width: auto;
+		 height: auto;
+		 overflow: hidden;
 		 /* padding: 10px 0px; */
 	}
 	#sid label {
@@ -138,6 +139,11 @@ function addclass(obj){
 	$("#featureIds").val();
 	$("#featureIds").val(featureIds);
 }
+
+	function changeDefault(id){
+		$("#"+id).css("display","");
+	}
+	
 	$().ready(function(){
 		
 		//如果图片为空
@@ -330,18 +336,23 @@ function addclass(obj){
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div style="text-align:left;"> '   
-					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;changeDefault(\'middle_money'+a+'\');onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
 					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
-				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a class="middle_money" href="javascript:void(0);" value="'+b+'" style="float:left;">设为默认</a><a onclick="delete_pic(this)" href="javascript:void(0);">删除</a></div>'
+				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a id="middle_money'+a+'" class="middle_money" href="javascript:void(0);" value="goodsImg'+a+'" style="float:left;display: none;">设为默认</a><a onclick="delete_pic(this,\'goodsImg'+a+'\')" href="javascript:void(0);">删除</a></div>'
 				+'</div>';
 				
-			//alert($(".main_table2 .brandImg").size());
 			if($(".main_table2 .brandImg").size() > 8){
-				alert("最多9张图片");
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '最多9张图片'
+	                },
+	                overlay: false
+	            });
 			}else{
-				$("#Imgs").append(html);
+				$("#Imgs").append(html); 
 			}
 			
 			a++;
@@ -349,9 +360,7 @@ function addclass(obj){
 			
 			$(".middle-money").each(function(){
 				$(this).click(function(){
-					//alert($(this).attr("value")+"=this.val");
 					$("#moren").val($(this).attr("value"));
-					//alert("设置成功");
 					easyDialog.open({
 		                container: {
 		                    header: '提示',
@@ -363,9 +372,16 @@ function addclass(obj){
 			});
 			$(".middle_money").each(function(){
 				$(this).click(function(){
-					//alert($(this).attr("value")+"=this.val");
-					$("#moren").val($(this).attr("value"));
-					//alert("设置成功");
+					$(".brandImg").css("border","1px solid #000000");
+					$(this).parent().parent().css("border","1px solid #69cdcd");
+					var vl=$(this).attr("value");
+					if(vl.indexOf("Img") > 0 ){
+						$("#morenIndex").val(vl);
+						$("#moren").val("");
+					}else{
+						$("#morenIndex").val("");
+						$("#moren").val(vl);
+					}
 					easyDialog.open({
 		                container: {
 		                    header: '提示',
@@ -408,9 +424,16 @@ function addclass(obj){
 		});
 		$(".middle_money").each(function(){
 			$(this).click(function(){
-				//alert($(this).attr("value")+"=this.val");
-				$("#moren").val($(this).attr("value"));
-				//alert("设置成功");
+				$(".brandImg").css("border","1px solid #000000");
+				$(this).parent().parent().css("border","1px solid #69cdcd");
+				var vl=$(this).attr("value");
+				if(vl.indexOf("Img") > 0 ){
+					$("#morenIndex").val(vl);
+					$("#moren").val("");
+				}else{
+					$("#morenIndex").val("");
+					$("#moren").val(vl);
+				}
 				easyDialog.open({
 	                container: {
 	                    header: '提示',
@@ -714,7 +737,17 @@ function addclass(obj){
 	</script>  
 	
 	<script type="text/javascript">
-		function delete_pic(object,path){		
+		function delete_pic(object,path){	
+			if(path == $("#moren").val()|| path == $("#morenIndex").val()){
+				easyDialog.open({
+	                container: {
+	                    header: '提示',
+	                    content: '已设置默认图片，不能删除'
+	                },
+	                overlay: false
+	            });
+				return false;
+			}
 			if(path!=""){
 				Img(path);
 			}
@@ -839,14 +872,14 @@ function addclass(obj){
 							        	<%-- <span class="middle-money" value="${status.index}">设为默认</span> --%>
 							        </div>    
 							    </div>    
-							    <div style="text-align:left;">    
-							    <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 70px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>  
+							    <div style="text-align:left;">
+							    <%-- <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 70px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/>   --%>
 							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}" value="${path }">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;">
-									<a class="middle_money" href="javascript:void(0);" value="${status.index}" style="float:left;">设为默认</a>
-									<a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a>
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 49px; line-height: 49px; margin-right: 3px;">
+									<a class="middle_money" href="javascript:void(0);" value="${path }" style="float:left;">设为默认</a>
+									<a class="del" onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a>
 								</div>
 							</div>
 						 </c:if> 
@@ -856,6 +889,8 @@ function addclass(obj){
 				<tr>
 					<td colspan="3">
 						<input type="hidden" id="moren" name="moren">
+						<input type="hidden" id="morenIndex" name="morenIndex">
+						
 					</td>
 				</tr>
 			</table>

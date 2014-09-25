@@ -25,6 +25,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tools.ant.types.FileList.FileName;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -226,7 +227,7 @@ public class ControllerMenu {
 		
 		List<Tgoodspraisehistory> gphs3 = (List<Tgoodspraisehistory>) etechService.findObjectList(Tgoodspraisehistory.class, "goodsId",goodsId);
 		List<Tphoneuser> tphoneusers3 = new ArrayList<Tphoneuser>();
-		
+		   
 		for (Tgoodspraisehistory tgoodspraisehistory : gphs3) {
 			Tphoneuser puser = (Tphoneuser) etechService.findObject(Tphoneuser.class, "phoneUserId", tgoodspraisehistory.getPhoneUserId());
 			tphoneusers3.add(puser);
@@ -408,6 +409,8 @@ public class ControllerMenu {
 	public String updateGoods(Integer goodsId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, goodsId);
 		String goodsName = request.getParameter("goodsName");
+		String morenIndex = request.getParameter("morenIndex");
+		System.out.println(morenIndex);
 		if (goodsName == null) {
 			goodsName = "";
 		}
@@ -439,6 +442,7 @@ public class ControllerMenu {
 			 String originName=file.getOriginalFilename();
 			 String extention = originName.substring(originName.lastIndexOf(".") + 1);
 			 log.debug("upload file name:"+file.getName());
+			 
 		     // get the goods save path
 			 // UUID randomUUID = UUID.randomUUID(); 
 			  String GUID = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+(int)(Math.random()*1000000);
@@ -448,6 +452,19 @@ public class ControllerMenu {
 			  log.debug("upload small path :"+goodsImgSmall);
 			  FileUtils.copyInputStreamToFile(inputStream, new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg));
 			  appendImg+= goodsImg+",";
+			  if (!StringUtils.isEmpty(morenIndex)&&file.getName().equals(morenIndex)) {
+					tgoods.setGoodsDefaultPhotoUrl(goodsImg);
+					String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg;
+					//读入文件    
+					File imgSmall= new File(defaultPhoto);    
+					// 构造Image对象    
+					BufferedImage src = ImageIO.read(imgSmall);
+					//获取默认图片宽高
+					Integer width = src.getWidth();
+					Integer height = src.getHeight();
+					tgoods.setGoodsDefaultPhotoHeight(height);
+					tgoods.setGoodsDefaultPhotoWidth(width);
+				}
 	          //读入文件    
               File imgSmall = new File(Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImg);    
               // 构造Image对象    
@@ -478,30 +495,17 @@ public class ControllerMenu {
 		}
 		String moren = request.getParameter("moren");
 		if (!StringUtils.isEmpty(moren)) {
-			String imagePath = "";
-			String[] goodsImgPath = null;
-			if (appendImg == "") { 
-				imagePath = tgoods.getGoodsPhotoUrl();
-				goodsImgPath = imagePath.split(",");
-			}else {    
-				imagePath =  tgoods.getGoodsPhotoUrl() + appendImg;
-				goodsImgPath = imagePath.split(",");
-			}
-			for (int i = 0; i < goodsImgPath.length; i++) {
-				if(i == Integer.parseInt(moren)){
-					tgoods.setGoodsDefaultPhotoUrl(goodsImgPath[i]);
-					String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+goodsImgPath[i];
-					//读入文件    
-					File imgSmall= new File(defaultPhoto);    
-					// 构造Image对象    
-					BufferedImage src = ImageIO.read(imgSmall);
-					//获取默认图片宽高
-					Integer width = src.getWidth();
-					Integer height = src.getHeight();
-					tgoods.setGoodsDefaultPhotoHeight(height);
-					tgoods.setGoodsDefaultPhotoWidth(width);
-				}
-			}
+			tgoods.setGoodsDefaultPhotoUrl(moren);
+			String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+moren;
+			//读入文件    
+			File imgSmall= new File(defaultPhoto);    
+			// 构造Image对象    
+			BufferedImage src = ImageIO.read(imgSmall);
+			//获取默认图片宽高
+			Integer width = src.getWidth();
+			Integer height = src.getHeight();
+			tgoods.setGoodsDefaultPhotoHeight(height);
+			tgoods.setGoodsDefaultPhotoWidth(width);
 		}else { 
 			//String imgPath ="";
 			if (appendImg == "") {
@@ -550,25 +554,6 @@ public class ControllerMenu {
 		log.debug("tgoods.getGoodsPhotoUrl()--list:"+appendImg);
 		// 设置图片。
 		tgoods.setGoodsPhotoUrl(appendImg);
-		if (appendImg.split(",").length <2) { 
-			tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[0]);
-		}else {
-			for (int i = 0; i < appendImg.split(",").length; i++) {
-				if(i == Integer.parseInt(moren)){
-					tgoods.setGoodsDefaultPhotoUrl(appendImg.split(",")[i]);
-					String defaultPhoto = Variables.goodsPhotoImgPath+tgoods.getShopId()+"/"+appendImg.split(",")[i];
-					//读入文件    
-					File imgSmall= new File(defaultPhoto);    
-					// 构造Image对象    
-					BufferedImage src = ImageIO.read(imgSmall);
-					//获取默认图片宽高
-					Integer width = src.getWidth();
-					Integer height = src.getHeight();
-					tgoods.setGoodsDefaultPhotoHeight(height);
-					tgoods.setGoodsDefaultPhotoWidth(width);
-				}
-			}
-		}
 		tgoods.getFeatures().removeAll(tgoods.getFeatures());
 		etechService.saveOrUpdate(tgoods);
 		if (featureIds != null) {
