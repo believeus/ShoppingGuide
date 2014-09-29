@@ -153,9 +153,8 @@ hr {
 	cursor:pointer; width:278px; }
 	#banner_info{position:absolute; bottom:0; left:5px;height:22px;color:#fff;z-index:1001;cursor:pointer}
 	#banner_text {position:absolute;width:120px;z-index:1002; right:3px; bottom:3px;}
-	#banner ul {position:absolute;list-style-type:none;filter: Alpha(Opacity=80);opacity:0.8; border:1px solid #fff;z-index:1002;
-	margin:0; padding:0; bottom:3px; right:5px;}
-	#banner ul li { padding:0px 8px;float:left;display:block;color:#FFF;border:#e5eaff 1px solid;background:#6f4f67;cursor:pointer}
+	#banner ul {position:absolute;list-style-type:none;filter: Alpha(Opacity=80);opacity:0.8;z-index:1002;margin:0; padding:0; bottom:3px; right:120px;}
+	#banner ul li {font-size:0px; float:left;display:block;color:#FFF;background:#6f4f67;cursor:pointer;height: 10px;width: 10px;border-radius: 10px;margin:0 5px;}
 	#banner ul li.on { background:#900}
 	/* #banner_list a{position:absolute;}  */
 </style>
@@ -240,7 +239,7 @@ hr {
 					<div id="banner_info"></div> 
 					<ul>
 						<c:forEach items="${paths }" var="path" varStatus="status">
-							<li <c:if test="${status.index ==0 }"> class="on" </c:if> >${status.index+1}</li>
+							<li <c:if test="${status.index ==0 }"> class="on" </c:if> >${status.index+1 }</li>
 						</c:forEach>
 					</ul>
 					<div id="banner_list">

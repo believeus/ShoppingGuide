@@ -33,6 +33,9 @@ public class ControllerLogin {
 	public @ResponseBody String ajaxLoginValid(Tshopuser shopuser,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession();
 		String userName = request.getParameter("userName");
+		String psd = request.getParameter("password");
+		userName = userName.trim();//去空格
+		psd = psd.trim();//去空格
 		log.debug("current user phoneNumber:"+shopuser.getUserName());
 		log.debug("current user passowrd:"+shopuser.getPassword());
 		Tshopuser sessionUser = (Tshopuser) etechService.findObject(Tshopuser.class, Variables.username, userName);
@@ -40,7 +43,7 @@ public class ControllerLogin {
 			if(!StringUtils.isEmpty(sessionUser)){
 				log.debug("sessionUser phoneNumber:"+sessionUser.getUserName()+" formUser phoneNumber:"+shopuser.getUserName());
 				if(sessionUser.getUserName().equals(userName)){
-					String password =DigestUtils.md5Hex(request.getParameter("password"));
+					String password =DigestUtils.md5Hex(psd);
 					log.debug(password);
 					if(sessionUser.getPassword().equals(password)){
 						sessionUser.setLastLoginTime(new Timestamp(System.currentTimeMillis()));

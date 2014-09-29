@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page language="java" import="com.etech.variable.Variables" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -139,9 +140,8 @@ hr {
 	cursor:pointer; width:278px; }
 	#banner_info{position:absolute; bottom:0; left:5px;height:22px;color:#fff;z-index:1001;cursor:pointer}
 	#banner_text {position:absolute;width:120px;z-index:1002; right:3px; bottom:3px;}
-	#banner ul {position:absolute;list-style-type:none;filter: Alpha(Opacity=80);opacity:0.8; border:1px solid #fff;z-index:1002;
-	margin:0; padding:0; bottom:3px; right:5px;}
-	#banner ul li { padding:0px 8px;float:left;display:block;color:#FFF;border:#e5eaff 1px solid;background:#6f4f67;cursor:pointer}
+	#banner ul {position:absolute;list-style-type:none;filter: Alpha(Opacity=80);opacity:0.8;z-index:1002;margin:0; padding:0; bottom:3px; right:120px;}
+	#banner ul li {font-size:0px; float:left;display:block;color:#FFF;background:#6f4f67;cursor:pointer;height: 10px;width: 10px;border-radius: 10px;margin:0 5px;}
 	#banner ul li.on { background:#900}
 	/* #banner_list a{position:absolute;}  */
 </style>
@@ -220,6 +220,7 @@ hr {
    	  	<div id="div01" style="border-bottom: 1px solid #e4e4e4;">
             <p>${tgoods.goodsName }</p>
         </div>
+        <c:if test="${path!= null || fn:length(path) != 0}">
             <div>
             	<div id="banner">
 					<div id="banner_bg"></div> 
@@ -237,8 +238,8 @@ hr {
 						</c:forEach>
 					</div>
 				</div>
-                <%-- <img src="<%=Variables.goodsPhotoURL %>${tgoods.goodsPhotoUrl }" width="278"> --%>
             </div>
+        </c:if>
             <div id="spn">
             	<c:forEach var="feature" items="${tgoods.features }" varStatus="status">
 			    	<c:if test="${status.index %4 ==0 }">
@@ -255,14 +256,16 @@ hr {
 					</c:if>
 			    </c:forEach>
             </div>
-            <div class="titi_">
-              <div></div>
-              <div>商品介绍</div>
-            </div>
-            <hr />
-            <div id="sp1_font">
-                <p>${tgoods.introduction }</p>
-            </div>
+            <c:if test="${tgoods.introduction !=''}">
+	            <div class="titi_">
+	              <div></div>
+	              <div>商品介绍</div>
+	            </div>
+	            <hr />
+	            <div id="sp1_font">
+	                <p>${tgoods.introduction }</p>
+	            </div>
+            </c:if>
             <div class="titi_">
               <div></div>
                 <div>店铺信息</div>
