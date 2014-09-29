@@ -220,7 +220,7 @@ hr {
    	  	<div id="div01" style="border-bottom: 1px solid #e4e4e4;">
             <p>${tgoods.goodsName }</p>
         </div>
-        <c:if test="${path!= null || fn:length(path) != 0}">
+        <c:if test="${path_1 != ''}">
             <div>
             	<div id="banner">
 					<div id="banner_bg"></div> 
@@ -240,6 +240,7 @@ hr {
 				</div>
             </div>
         </c:if>
+        
             <div id="spn">
             	<c:forEach var="feature" items="${tgoods.features }" varStatus="status">
 			    	<c:if test="${status.index %4 ==0 }">

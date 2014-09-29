@@ -1268,6 +1268,7 @@ public class ControllerMenu {
 		String[] path = tgoods.getGoodsPhotoUrl().split(",");
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, "shopId", tgoods.getShopId());
 		request.setAttribute("path", path);
+		request.setAttribute("path_1", path[0]);
 		request.setAttribute("tgoods", tgoods);
 		request.setAttribute("shop", shop);
 		return "/WEB-INF/menu/goodsPreview.jsp";
