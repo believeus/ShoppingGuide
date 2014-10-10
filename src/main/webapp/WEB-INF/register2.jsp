@@ -661,14 +661,14 @@
 					<div style="width:300px;height:auto;float:left;">
 						<span style="font-weight:normal;">营业执照：</span><br> 
 						<div class="brandImg">
-							 <div id="preview_wrapper1" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
-							        <div id="preview_fake1" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
-							            <img id="preview1"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
+							 <div id="preview_wrapper111" style="display:inline-block;width:227px;height:179px; background-color:#CCC; margin-top: 1px;">    
+							        <div id="preview_fake111" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)">  
+							            <img id="preview111"  style="width:227px;height:179px;" onload="onPreviewLoad(this,227,179)" src=""/>
 							        </div>    
 							    </div>    
 							    <div style="text-align:left;">    
-							    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 70px;" onchange="filename1.value=this.value;onUploadImgChange(this,227,179,'preview1','preview_fake1','preview_size_fake1');"/>  
-							    <input type="hidden" id="filename1" name="filename1">
+							    <input id="shopLicenseImg" type="file" name="shopLicenseImg" style="width: 70px;" onchange="filename111.value=this.value;onUploadImgChange(this,227,179,'preview111','preview_fake111','preview_size_fake111');"/>  
+							    <input type="hidden" id="filename111" name="filename111">
 							    </div>    
 							    <img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
 						</div>

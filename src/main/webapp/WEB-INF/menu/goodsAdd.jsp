@@ -95,8 +95,8 @@
 	    color: #69cdcd;
 	    float: left;
 	    font-size: 65px;
-	    height: 231px;
-	    line-height: 231px;
+	    height: 227px;
+	    line-height: 227px;
 	    margin: 0 15px 10px 0;
 	    text-align: center;
 	    width: 230px;
@@ -122,6 +122,9 @@
 	.td1:hover{
 		background:#69CDCD;
 		color:#FFFFFF;
+	}
+	input[type='text']{
+		line-height:30px;
 	}
 </style>
 <script type="text/javascript">

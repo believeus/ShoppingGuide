@@ -330,7 +330,7 @@ function changeDefault(id){
 					 		+'</div>'    
 					 	+'</div> '   
 				+'<div style="text-align:left;"> '   
-					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;changeDefault(\'middle_money'+a+'\');onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
+					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 65px;" onchange="filename'+a+'.value=this.value;changeDefault(\'middle_money'+a+'\');onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
 					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
@@ -844,11 +844,11 @@ function changeDefault(id){
 							        </div>    
 							    </div>    
 							    <div style="text-align:left;">    
-							    <%-- <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 70px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/> --%>  
+							    <%-- <input id="goodsImg${status.index+1}" type="file" name="goodsImg${status.index+1}" style="width: 65px;" onchange="filename${status.index+1}.value=this.value;Img('${path}');onUploadImgChange(this,227,179,'preview${status.index+1}','preview_fake${status.index+1}','preview_size_fake${status.index+1}');"/> --%>  
 							    <input type="hidden" id="filename${status.index+1}" name="filename${status.index+1}" value="${path }">
 							    </div>    
 							    <img id="preview_size_fake${status.index+1}" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/> 
-								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 49px; line-height: 49px; margin-right: 3px;">
+								<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 49px; line-height: 40px; margin-right: 3px;">
 									<a class="middle_money" href="javascript:void(0);" value="${path }" style="float:left;">设为默认</a>
 									<a onclick="delete_pic(this,'${path}')" href="javascript:void(0);">删除</a>
 								</div>

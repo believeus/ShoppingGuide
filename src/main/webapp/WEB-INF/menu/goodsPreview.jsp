@@ -227,14 +227,19 @@ hr {
 					<div id="banner_info"></div> 
 					<ul>
 						<c:forEach items="${path }" var="path" varStatus="status">
-							<li <c:if test="${status.index ==0 }"> class="on" </c:if> >${status.index+1}</li>
+							<li <c:if test="${status.index+1 == i }"> class="on" </c:if> >${status.index+1}</li>
 						</c:forEach>
 					</ul>
 					<div id="banner_list">
+						<a href="javascript:void(0);" title="">
+							<img src="<%=Variables.goodsPhotoURL %>${tgoods.shopId}/${path_i }" title="" alt="" width="278" />
+						</a>
 						<c:forEach items="${path }" var="path">
-							<a href="javascript:void(0);" title="">
-								<img src="<%=Variables.goodsPhotoURL %>${tgoods.shopId}/${path }" title="" alt="" width="278" />
-							</a>
+							<c:if test="${path_i != path}">
+								<a href="javascript:void(0);" title="">
+									<img src="<%=Variables.goodsPhotoURL %>${tgoods.shopId}/${path }" title="" alt="" width="278" />
+								</a>
+							</c:if>
 						</c:forEach>
 					</div>
 				</div>
@@ -274,10 +279,20 @@ hr {
             <hr />
             <div id="sp2_rady">
                 <ol>
-		        	<li>${shop.shopName }</li>
+		        	<li>
+		        		${fn:substring(shop.shopName, 0, 15)}
+	   					<c:if test="${fn:length(shop.shopName) > 15 }">
+		   					...
+	   					</c:if>
+	        		</li>
 		            <li>${shop.address }</li>
 		            <li>${shop.phoneNumber }</li>
-		            <li>${shop.qq }</li>
+		            <c:if test="${shop.qq !='' || shop.qq != null}">
+			            <li>${shop.qq }</li>
+		            </c:if>
+		            <c:if test="${shop.qq =='' || shop.qq == null}">
+			            <li>暂无QQ</li>
+		            </c:if>
 		        </ol>
                 <div id="sp2_ra">
                     <p>

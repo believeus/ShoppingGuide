@@ -1266,6 +1266,12 @@ public class ControllerMenu {
 	public String goodsPreview(Integer tgoodsId,HttpServletRequest request){
 		Tgoods tgoods = (Tgoods) etechService.findObject(Tgoods.class, "goodsId", tgoodsId);
 		String[] path = tgoods.getGoodsPhotoUrl().split(",");
+		for (int i = 0; i < path.length; i++) {
+			if (path[i].equals(tgoods.getGoodsDefaultPhotoUrl())) {
+				request.setAttribute("i", i+1);
+				request.setAttribute("path_i", path[i]);
+			}
+		}
 		Tshop shop = (Tshop) etechService.findObject(Tshop.class, "shopId", tgoods.getShopId());
 		request.setAttribute("path", path);
 		request.setAttribute("path_1", path[0]);

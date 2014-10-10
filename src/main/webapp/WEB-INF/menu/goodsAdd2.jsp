@@ -279,21 +279,30 @@ function changeDefault(id){
 </script>
 
 <script type="text/javascript">    
-		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){     
-		    if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
+		function onUploadImgChange(sender,offsetWidth,offsetHeight,preview,preview_fake,preview_size_fake){  
+			
+			var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			
+			if( !sender.value.match( /.jpg|.gif|.png|.jpeg|.bmp/i ) ){     
 		       // alert('图片格式无效！');  
 		        easyDialog.open({
 	                container: {
 	                    header: '提示',
-	                    content: '图片格式无效！'
+	                    content: '请重新选择一张图片！'
 	                },
 	                overlay: false
 	            });
+		        
+		        var FF = userAgent.indexOf("Firefox") > -1;
+		        if(!FF){
+		        	//alert("!FF");
+			        document.getElementById( preview ).src="";
+		        }
 		        return false;     
 		    }     
 		         
 		    //---------------
-		    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		    
 			var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") < 1 ; //判断是否Safari
 			if(isSafari){
 				//alert("我是Safari浏览器");
