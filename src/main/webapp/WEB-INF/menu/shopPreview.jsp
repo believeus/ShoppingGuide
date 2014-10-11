@@ -176,6 +176,7 @@ hr {
 		$(".promptumenu_window img").css("cursor","url(/images/hand.ico),move");
 		$(".promptumenu_window").css("overflow-x","hidden"); 
 		$(".promptumenu_window").css("overflow-y","scroll");
+		$(".promptumenu_window").css("margin","0");
 	});
 </script>
 <script type="text/javascript">

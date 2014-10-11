@@ -229,7 +229,7 @@
 					+'<input id="goodsImg'+a+'" type="file" name="goodsImg'+a+'" style="width: 70px;" onchange="filename'+a+'.value=this.value;changeDefault(\'middle_money'+a+'\');onUploadImgChange(this,227,179,\'preview'+a+'\',\'preview_fake'+a+'\',\'preview_size_fake'+a+'\');"/>'  
 					+'<input type="hidden" id="filename'+a+'" name="filename'+a+'">'
 				+'</div>'    
-					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;"/>' 
+					+'<img id="preview_size_fake1" style=" filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);visibility:hidden;width:0;height:0;display:none;"/>' 
 				+'<div style="text-align: right; border-top: 1px dashed #E4E4E4; height: 24px; line-height: 24px; margin-right: 3px;"><a id="middle_money'+a+'" class="middle_money" href="javascript:void(0);" value="goodsImg'+a+'" style="float:left;display: none;">设为默认</a><a onclick="delete_pic(this,\'goodsImg'+a+'\')" href="javascript:void(0);">删除</a></div>'
 				+'</div>';
 				
